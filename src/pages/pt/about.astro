@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurStory from '../../components/OurStory.astro';
+import OurJourney from '../../components/OurJourney.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { ptAbout } from '../../i18n/pt-pages';
+---
+
+<Layout
+	title="Sobre a AlisPro MediTours | Empresa de confiança de turismo médico na Índia"
+	description="Conheça a AlisPro MediTours, uma empresa de confiança de turismo médico que conecta pacientes internacionais a hospitais credenciados e especialistas experientes na Índia, com apoio completo desde a consulta até a recuperação."
+	locale="pt"
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge={ptAbout.pageHeader.badge}
+		title={ptAbout.pageHeader.title}
+		highlight={ptAbout.pageHeader.highlight}
+		subtitle={ptAbout.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'Sobre nós' }]}
+		homeHref="/pt/"
+		homeLabel="Início"
+	/>
+
+	<OurStory
+		badge={ptAbout.story.badge}
+		titleLead={ptAbout.story.titleLead}
+		titleHighlight={ptAbout.story.titleHighlight}
+		paragraphs={ptAbout.story.paragraphs}
+		statsLabels={ptAbout.story.statsLabels}
+		valuesTitle={ptAbout.story.valuesTitle}
+		values={ptAbout.story.values}
+	/>
+	<OurJourney
+		badge={ptAbout.journey.badge}
+		titleLead={ptAbout.journey.titleLead}
+		titleHighlight={ptAbout.journey.titleHighlight}
+		subtitle={ptAbout.journey.subtitle}
+		milestones={ptAbout.journey.milestones}
+	/>
+	<Testimonials
+		badge={ptAbout.testimonials.badge}
+		title={ptAbout.testimonials.title}
+		highlight={ptAbout.testimonials.highlight}
+		subtitle={ptAbout.testimonials.subtitle}
+		testimonials={ptAbout.testimonials.items}
+	/>
+	<FaqAccordion badge={ptAbout.faq.badge} title={ptAbout.faq.title} highlight={ptAbout.faq.highlight} subtitle={ptAbout.faq.subtitle} />
+
+	<CostEstimateCta
+		title="Deseja uma estimativa exata do seu tratamento?"
+		text="Envie seus relatórios médicos e receba um plano de tratamento personalizado com uma estimativa de custos transparente de nossos especialistas, em 24 horas."
+		primaryLabel="Consulta gratuita"
+		primaryHref="/pt/contact"
+		secondaryLabel="Enviar relatório médico"
+		secondaryHref="/pt/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import DestinationsGrid from '../components/Destinations.astro';
+import CostEstimateCta from '../components/CostEstimateCta.astro';
+---
+
+<Layout
+	title="Medical Tourism Destinations in India | AlisPro MediTours"
+	description="Explore top medical tourism destinations in India with AlisPro MediTours. Find leading hospitals, expert doctors, advanced treatments, and personalised healthcare travel support."
+	alternates={[
+		{ locale: 'en', href: '/destinations' },
+		{ locale: 'fr', href: '/fr/destinations' },
+		{ locale: 'ru', href: '/ru/destinations' },
+		{ locale: 'bn', href: '/bn/destinations' },
+		{ locale: 'ro', href: '/ro/destinations' },
+		{ locale: 'es', href: '/es/destinations' },
+		{ locale: 'pt', href: '/pt/destinations' },
+		{ locale: 'vi', href: '/vi/destinations' },
+		{ locale: 'ar', href: '/ar/destinations' },
+	]}
+>
+
+	<!-- <PageHeader
+		badge="8 Medical Hubs in India"
+		title="Find the Right"
+		highlight="City for Your Care"
+		subtitle="Compare accredited hospitals, average savings, and specialties across India's leading medical hubs — then let a coordinator handle the rest."
+		breadcrumbs={[{ label: 'Destinations' }]}
+	/> -->
+	
+	<DestinationsGrid />
+
+	
+	<CostEstimateCta />
+</Layout>

@@ -1,0 +1,465 @@
+---
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'flag-icons/css/flag-icons.min.css';
+import iconQuote from 'bootstrap-icons/icons/quote.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconVerified from 'bootstrap-icons/icons/patch-check-fill.svg?raw';
+
+export interface Testimonial {
+	quote: string;
+	name: string;
+	countryCode: string;
+	country: string;
+	treatment: string;
+	rating: number;
+	theme?: 'blue' | 'teal' | 'green';
+}
+
+export interface Props {
+	badge?: string;
+	title?: string;
+	highlight?: string;
+	subtitle?: string;
+	testimonials?: Testimonial[];
+}
+
+const initials = (name: string) =>
+	name
+		.split(' ')
+		.filter(Boolean)
+		.slice(0, 2)
+		.map((part) => part[0])
+		.join('')
+		.toUpperCase();
+
+const {
+	badge = 'Patient Stories',
+	title = 'What Our',
+	highlight = 'Patients Say',
+	subtitle = 'Real outcomes from real patients who trusted us with their care.',
+	testimonials = [
+		{
+			quote:
+				"From my first message to the day I flew home recovered, every step was handled with care. The cardiac team in Delhi gave me a second life, and I paid a fraction of what I'd have spent at home.",
+			name: 'James Whitfield',
+			countryCode: 'gb',
+			country: 'United Kingdom',
+			treatment: 'Cardiac Bypass Surgery',
+			rating: 5,
+			theme: 'blue',
+		},
+		{
+			quote:
+				'I was nervous about traveling abroad for surgery, but my coordinator answered every question at 2am if she had to. The hospital in Istanbul felt more five-star hotel than clinic.',
+			name: 'Amara Okafor',
+			countryCode: 'ng',
+			country: 'Nigeria',
+			treatment: 'Cosmetic Surgery',
+			rating: 5,
+			theme: 'teal',
+		},
+		{
+			quote:
+				"We saved over $40,000 on my daughter's spinal surgery without compromising on quality. The surgeon in Bangkok trained in the US and it showed in every detail of her care.",
+			name: 'Michael Chen',
+			countryCode: 'ca',
+			country: 'Canada',
+			treatment: 'Pediatric Orthopedics',
+			rating: 5,
+			theme: 'green',
+		},
+		{
+			quote:
+				'Visa support, airport pickup, translator, hotel near the hospital — they thought of everything so I could focus on getting better. I would not have managed this trip alone.',
+			name: 'Sofia Marchetti',
+			countryCode: 'it',
+			country: 'Italy',
+			treatment: 'Fertility Treatment',
+			rating: 5,
+			theme: 'blue',
+		},
+		{
+			quote:
+				"The medical board matched me with a specialist who actually treats my exact condition regularly, not just generally. That expertise made all the difference in my recovery.",
+			name: 'David Okoye',
+			countryCode: 'us',
+			country: 'United States',
+			treatment: 'Oncology',
+			rating: 4,
+			theme: 'teal',
+		},
+		{
+			quote:
+				"Follow-up calls continued for months after I returned home. It never felt like the relationship ended at the airport — they genuinely cared how my recovery was going.",
+			name: 'Hana Yamamoto',
+			countryCode: 'jp',
+			country: 'Japan',
+			treatment: 'Joint Replacement',
+			rating: 5,
+			theme: 'green',
+		},
+	],
+} = Astro.props;
+---
+
+<section class="testimonials">
+	<div class="testimonials__inner">
+		<div class="testimonials__header">
+			<span class="testimonials__badge">{badge}</span>
+			<h2 class="testimonials__title">
+				{title} <span>{highlight}</span>
+			</h2>
+			<p class="testimonials__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="testimonials-swiper swiper">
+			<div class="swiper-wrapper">
+				{
+					testimonials.map((t) => (
+						<div class="swiper-slide">
+							<article class={`testimonial-card testimonial-card--${t.theme ?? 'blue'}`}>
+								<span class="testimonial-card__quote" set:html={iconQuote} aria-hidden="true" />
+
+								<div class="testimonial-card__stars" aria-label={`${t.rating} out of 5 stars`}>
+									{Array.from({ length: 5 }).map((_, i) => (
+										<span
+											class={`testimonial-card__star ${i < t.rating ? 'is-filled' : ''}`}
+											set:html={iconStar}
+										/>
+									))}
+								</div>
+
+								<p class="testimonial-card__text">{t.quote}</p>
+
+								<div class="testimonial-card__footer">
+									<span class="testimonial-card__avatar">{initials(t.name)}</span>
+									<div class="testimonial-card__person">
+										<span class="testimonial-card__name">
+											{t.name}
+											<span class="testimonial-card__verified" set:html={iconVerified} title="Verified patient" />
+										</span>
+										<span class="testimonial-card__meta">
+											<span class={`fi fi-${t.countryCode}`} aria-hidden="true" />
+											{t.country} &middot; {t.treatment}
+										</span>
+									</div>
+								</div>
+							</article>
+						</div>
+					))
+				}
+			</div>
+
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<div class="testimonials__controls">
+			<button class="testimonials__nav testimonials__nav--prev" aria-label="Previous testimonials">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+					<path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</button>
+			<button class="testimonials__nav testimonials__nav--next" aria-label="Next testimonials">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+					<path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</button>
+		</div>
+	</div>
+</section>
+
+<script>
+	import Swiper from 'swiper';
+	import { Navigation, Pagination, Autoplay } from 'swiper/modules';
+
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+	new Swiper('.testimonials-swiper', {
+		modules: [Navigation, Pagination, Autoplay],
+		slidesPerView: 1,
+		spaceBetween: 24,
+		loop: true,
+		speed: 600,
+		autoplay: prefersReducedMotion
+			? false
+			: {
+					delay: 5500,
+					disableOnInteraction: false,
+				},
+		pagination: {
+			el: '.testimonials-swiper .swiper-pagination',
+			clickable: true,
+		},
+		navigation: {
+			nextEl: '.testimonials__nav--next',
+			prevEl: '.testimonials__nav--prev',
+		},
+		breakpoints: {
+			720: { slidesPerView: 2 },
+			1180: { slidesPerView: 3 },
+		},
+	});
+</script>
+
+<style>
+	.testimonials {
+		background: var(--color-bg-alt);
+		padding: 80px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.testimonials__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+	}
+
+	.testimonials__header {
+		text-align: center;
+		max-width: 640px;
+		margin: 0 auto 48px;
+	}
+
+	.testimonials__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.testimonials__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.testimonials__title span {
+		color: var(--color-teal);
+	}
+
+	.testimonials__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.testimonials-swiper {
+		padding-bottom: 44px;
+	}
+
+	.testimonials-swiper .swiper-slide {
+		height: auto;
+		display: flex;
+	}
+
+	.testimonial-card {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		padding: 30px 26px 26px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.testimonial-card__quote {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		margin-bottom: 16px;
+		color: #ffffff;
+	}
+
+	.testimonial-card--blue .testimonial-card__quote {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.testimonial-card--teal .testimonial-card__quote {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.testimonial-card--green .testimonial-card__quote {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.testimonial-card__quote :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	.testimonial-card__stars {
+		display: flex;
+		gap: 3px;
+		margin-bottom: 14px;
+	}
+
+	.testimonial-card__star {
+		display: flex;
+		width: 14px;
+		height: 14px;
+		color: var(--color-border-card);
+	}
+
+	.testimonial-card__star.is-filled {
+		color: var(--color-gold);
+	}
+
+	.testimonial-card__star :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.testimonial-card__text {
+		flex: 1;
+		font-size: 14.5px;
+		line-height: 1.7;
+		color: var(--color-text-secondary);
+		margin: 0 0 22px;
+	}
+
+	.testimonial-card__footer {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding-top: 18px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.testimonial-card__avatar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		font-family: var(--font-heading);
+		font-size: 14px;
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.testimonial-card--blue .testimonial-card__avatar {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.testimonial-card--teal .testimonial-card__avatar {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.testimonial-card--green .testimonial-card__avatar {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.testimonial-card__person {
+		display: flex;
+		flex-direction: column;
+		gap: 3px;
+		min-width: 0;
+	}
+
+	.testimonial-card__name {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		font-size: 14px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+	}
+
+	.testimonial-card__verified {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		color: var(--color-gold);
+		flex-shrink: 0;
+	}
+
+	.testimonial-card__verified :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.testimonial-card__meta {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 12px;
+		color: var(--color-text-muted);
+	}
+
+	.testimonial-card__meta .fi {
+		border-radius: 2px;
+		flex-shrink: 0;
+	}
+
+	/* Swiper pagination theming */
+	.testimonials-swiper :global(.swiper-pagination-bullet) {
+		background: var(--color-border-card);
+		opacity: 1;
+		width: 8px;
+		height: 8px;
+	}
+
+	.testimonials-swiper :global(.swiper-pagination-bullet-active) {
+		background: var(--color-primary);
+		width: 22px;
+		border-radius: 5px;
+	}
+
+	.testimonials__controls {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 14px;
+		margin-top: 8px;
+	}
+
+	.testimonials__nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		cursor: pointer;
+		box-shadow: var(--shadow-soft);
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.testimonials__nav:hover {
+		background: var(--color-bg-soft-blue);
+		transform: translateY(-1px);
+	}
+
+	@media screen and (max-width: 640px) {
+		.testimonials {
+			padding: 56px 16px 64px;
+		}
+
+		.testimonial-card {
+			padding: 26px 20px 22px;
+		}
+	}
+</style>

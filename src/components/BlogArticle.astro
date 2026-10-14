@@ -1,0 +1,94 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from './PageHeader.astro';
+import CostEstimateCta from './CostEstimateCta.astro';
+import { formatBlogDate, type BlogPost } from '../data/blog';
+import { blogCta, blogPostTr, blogUi, type BlogLocale } from '../i18n/blog';
+
+export interface Props {
+	post: BlogPost;
+	locale?: BlogLocale;
+}
+
+const { post: basePost, locale = 'en' } = Astro.props;
+const ui = blogUi[locale];
+const cta = blogCta[locale];
+const prefix = locale === 'en' ? '' : `/${locale}`;
+
+const tr = locale === 'en' ? undefined : blogPostTr[locale][basePost.slug];
+const post = { ...basePost, title: tr?.title ?? basePost.title, excerpt: tr?.excerpt ?? basePost.excerpt, category: tr?.category ?? basePost.category, body: tr?.body ?? basePost.body };
+
+const alternates = (Object.keys(blogUi) as BlogLocale[]).map((l) => ({
+	locale: l,
+	href: l === 'en' ? `/blog/${post.slug}` : `/${l}/blog/${post.slug}`,
+}));
+---
+
+<Layout title={`${post.title} | AlisPro MediTours`} description={post.excerpt} locale={locale} alternates={alternates}>
+	<PageHeader
+		badge={post.category}
+		title={post.title}
+		subtitle={`${formatBlogDate(post.date, ui.dateLocale)} · ${ui.minRead.replace('{n}', String(post.readMinutes))}`}
+		breadcrumbs={[{ label: ui.breadcrumb, href: `${prefix}/blog` }, { label: post.title }]}
+		homeHref={`${prefix}/`}
+		homeLabel={cta.homeLabel}
+	/>
+
+	<article class="post">
+		<Image src={post.image} alt={post.title} width={900} class="post__img" />
+		{
+			post.body.map((block) =>
+				block.startsWith('## ') ? <h2>{block.slice(3)}</h2> : <p>{block}</p>
+			)
+		}
+		<a class="post__back" href={`${prefix}/blog`}>{ui.allArticles}</a>
+	</article>
+
+	<CostEstimateCta
+		title={cta.title}
+		text={cta.text}
+		primaryLabel={cta.primaryLabel}
+		primaryHref={`${prefix}/contact`}
+		secondaryLabel={cta.secondaryLabel}
+		secondaryHref={`${prefix}/contact#enquiry-form`}
+	/>
+</Layout>
+
+<style>
+	.post {
+		max-width: 760px;
+		margin: 0 auto;
+		padding: 48px 24px;
+		font-family: var(--font-body);
+	}
+
+	.post__img {
+		width: 100%;
+		height: auto;
+		border-radius: var(--radius-lg);
+		margin-bottom: 28px;
+	}
+
+	.post h2 {
+		font-family: var(--font-heading);
+		font-size: 1.3rem;
+		color: var(--color-text-primary);
+		margin: 28px 0 8px;
+	}
+
+	.post p {
+		font-size: 16px;
+		line-height: 1.75;
+		color: var(--color-text-secondary);
+		margin: 0 0 14px;
+	}
+
+	.post__back {
+		display: inline-block;
+		margin-top: 20px;
+		color: var(--color-primary);
+		font-weight: 600;
+		text-decoration: none;
+	}
+</style>

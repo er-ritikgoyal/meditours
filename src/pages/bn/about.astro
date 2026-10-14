@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurStory from '../../components/OurStory.astro';
+import OurJourney from '../../components/OurJourney.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { bnAbout } from '../../i18n/bn-pages';
+---
+
+<Layout
+	title="AlisPro MediTours সম্পর্কে | ভারতে বিশ্বস্ত মেডিকেল ট্যুরিজম কোম্পানি"
+	description="AlisPro MediTours সম্পর্কে জানুন, একটি বিশ্বস্ত মেডিকেল ট্যুরিজম কোম্পানি যা আন্তর্জাতিক রোগীদের ভারতে স্বীকৃত হাসপাতাল ও অভিজ্ঞ বিশেষজ্ঞদের সাথে সংযুক্ত করে, পরামর্শ থেকে সুস্থতা পর্যন্ত সম্পূর্ণ সহায়তাসহ।"
+	locale="bn"
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge={bnAbout.pageHeader.badge}
+		title={bnAbout.pageHeader.title}
+		highlight={bnAbout.pageHeader.highlight}
+		subtitle={bnAbout.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'আমাদের সম্পর্কে' }]}
+		homeHref="/bn/"
+		homeLabel="হোম"
+	/>
+
+	<OurStory
+		badge={bnAbout.story.badge}
+		titleLead={bnAbout.story.titleLead}
+		titleHighlight={bnAbout.story.titleHighlight}
+		paragraphs={bnAbout.story.paragraphs}
+		statsLabels={bnAbout.story.statsLabels}
+		valuesTitle={bnAbout.story.valuesTitle}
+		values={bnAbout.story.values}
+	/>
+	<OurJourney
+		badge={bnAbout.journey.badge}
+		titleLead={bnAbout.journey.titleLead}
+		titleHighlight={bnAbout.journey.titleHighlight}
+		subtitle={bnAbout.journey.subtitle}
+		milestones={bnAbout.journey.milestones}
+	/>
+	<Testimonials
+		badge={bnAbout.testimonials.badge}
+		title={bnAbout.testimonials.title}
+		highlight={bnAbout.testimonials.highlight}
+		subtitle={bnAbout.testimonials.subtitle}
+		testimonials={bnAbout.testimonials.items}
+	/>
+	<FaqAccordion badge={bnAbout.faq.badge} title={bnAbout.faq.title} highlight={bnAbout.faq.highlight} subtitle={bnAbout.faq.subtitle} />
+
+	<CostEstimateCta
+		title="আপনার চিকিৎসার সঠিক প্রাক্কলন চান?"
+		text="আপনার মেডিকেল রিপোর্ট আপলোড করুন এবং ২৪ ঘণ্টার মধ্যে আমাদের বিশেষজ্ঞদের কাছ থেকে স্বচ্ছ খরচের প্রাক্কলনসহ একটি ব্যক্তিগতকৃত চিকিৎসা পরিকল্পনা পান।"
+		primaryLabel="বিনামূল্যে পরামর্শ নিন"
+		primaryHref="/bn/contact"
+		secondaryLabel="মেডিকেল রিপোর্ট আপলোড করুন"
+		secondaryHref="/bn/contact#enquiry-form"
+	/>
+</Layout>

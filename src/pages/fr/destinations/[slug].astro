@@ -1,0 +1,213 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import OurPartnerHospitals from '../../../components/OurPartnerHospitals.astro';
+import CostEstimateCta from '../../../components/CostEstimateCta.astro';
+import { destinations, type Destination } from '../../../data/destinations';
+import { frDestinations } from '../../../i18n/fr-destinations';
+import { getHospitalsByCity } from '../../../data/hospitals';
+import { frDestinationsPage } from '../../../i18n/fr-pages';
+import { translateHospitals } from '../../../i18n/fr-hospitals';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+
+export function getStaticPaths() {
+	return destinations.map((destination) => ({
+		params: { slug: destination.slug },
+		props: { destination },
+	}));
+}
+
+const { destination } = Astro.props as { destination: Destination };
+const cityHospitals = translateHospitals(getHospitalsByCity(destination.slug));
+const currentDestinationIndex = destinations.findIndex((d) => d.slug === destination.slug);
+const related = Array.from({ length: 4 }, (_, i) => destinations[(currentDestinationIndex + 1 + i) % destinations.length]);
+const { detail } = frDestinationsPage;
+---
+
+<Layout
+	title={`Hôpitaux à ${destination.city} | Alis Pro Med Tour`}
+	description={frDestinations[destination.slug]?.description ?? destination.description}
+	locale="fr"
+	alternates={[
+		{ locale: 'en', href: `/destinations/${destination.slug}` },
+		{ locale: 'fr', href: `/fr/destinations/${destination.slug}` },
+		{ locale: 'ru', href: `/ru/destinations/${destination.slug}` },
+		{ locale: 'bn', href: `/bn/destinations/${destination.slug}` },
+		{ locale: 'ro', href: `/ro/destinations/${destination.slug}` },
+		{ locale: 'es', href: `/es/destinations/${destination.slug}` },
+		{ locale: 'pt', href: `/pt/destinations/${destination.slug}` },
+		{ locale: 'vi', href: `/vi/destinations/${destination.slug}` },
+		{ locale: 'ar', href: `/ar/destinations/${destination.slug}` },
+	]}
+>
+	<PageHeader
+		title={destination.city}
+		breadcrumbs={[{ label: 'Destinations', href: '/fr/destinations' }, { label: destination.city }]}
+		homeHref="/fr/"
+		homeLabel="Accueil"
+	/>
+
+	{
+		cityHospitals.length > 0 ? (
+			<OurPartnerHospitals
+				badge={detail.verifiedBadge}
+				title={detail.hospitalsInLabel}
+				highlight={destination.city}
+				subtitle={detail.hospitalsInSubtitleTemplate(destination.city)}
+				hospitals={cityHospitals}
+				basePath="/fr"
+			/>
+		) : (
+			<section class="city-detail__soon">
+				<div class="city-detail__soon-inner">
+					<h2>{detail.soonTitleTemplate(destination.city)}</h2>
+					<p>{detail.soonBodyTemplate(destination.city)}</p>
+					<a class="city-detail__soon-btn" href="/fr/contact">
+						{detail.talkToCoordinator}
+						<span set:html={iconArrowRight} aria-hidden="true" />
+					</a>
+				</div>
+			</section>
+		)
+	}
+
+	<section class="city-detail__related">
+		<div class="city-detail__related-inner">
+			<h2>{detail.otherHubsTitle}</h2>
+			<div class="city-detail__related-grid">
+				{
+					related.map((item) => (
+						<a class="city-related-card" href={`/fr/destinations/${item.slug}`}>
+							<span class="city-related-card__city">{item.city}</span>
+							<span class="city-related-card__state">{item.state}</span>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<CostEstimateCta
+		title="Vous voulez une estimation précise de votre traitement ?"
+		text="Téléversez vos rapports médicaux et recevez un plan de traitement personnalisé avec une estimation de coût transparente de nos spécialistes sous 24 heures."
+		primaryLabel="Obtenir un devis gratuit"
+		primaryHref="/fr/contact"
+		secondaryLabel="Téléverser des rapports médicaux"
+		secondaryHref="/fr/contact#enquiry-form"
+	/>
+</Layout>
+
+<style>
+	.city-detail__soon {
+		background: var(--color-bg-alt);
+		padding: 64px 24px;
+		font-family: var(--font-body);
+	}
+
+	.city-detail__soon-inner {
+		max-width: 560px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.city-detail__soon h2 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 12px;
+	}
+
+	.city-detail__soon p {
+		font-size: 14.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.city-detail__soon-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 24px;
+		padding: 13px 26px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform 0.15s ease;
+	}
+
+	.city-detail__soon-btn:hover {
+		transform: translateY(-2px);
+	}
+
+	.city-detail__soon-btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	.city-detail__related {
+		background: var(--color-bg-white);
+		padding: 64px 24px 24px;
+		font-family: var(--font-body);
+	}
+
+	.city-detail__related-inner {
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	.city-detail__related h2 {
+		font-family: var(--font-heading);
+		font-size: 22px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 20px;
+	}
+
+	.city-detail__related-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 16px;
+	}
+
+	.city-related-card {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		padding: 18px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-alt);
+		text-decoration: none;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.city-related-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.city-related-card__city {
+		font-family: var(--font-heading);
+		font-size: 15px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+	}
+
+	.city-related-card__state {
+		font-size: 11.5px;
+		color: var(--color-text-muted);
+	}
+
+	@media screen and (max-width: 860px) {
+		.city-detail__related-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+</style>

@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { frDoctorsPage } from '../../i18n/fr-pages';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { frDoctorsTr } from '../../i18n/fr-doctors';
+import { doctors } from '../../data/doctors';
+
+const { listing, card, detail } = frDoctorsPage;
+const videoEntries = doctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="Nos médecins | Spécialistes certifiés en Inde | AlisPro MediTours"
+	description="Rencontrez les spécialistes certifiés du réseau AlisPro MediTours — cardiologie, orthopédie, oncologie, chirurgie esthétique, neurologie et fertilité, rattachés à des hôpitaux accrédités à travers l'Inde."
+	locale="fr"
+	alternates={[
+		{ locale: 'en', href: '/doctors' },
+		{ locale: 'fr', href: '/fr/doctors' },
+		{ locale: 'ru', href: '/ru/doctors' },
+		{ locale: 'bn', href: '/bn/doctors' },
+		{ locale: 'ro', href: '/ro/doctors' },
+		{ locale: 'es', href: '/es/doctors' },
+		{ locale: 'pt', href: '/pt/doctors' },
+		{ locale: 'vi', href: '/vi/doctors' },
+		{ locale: 'ar', href: '/ar/doctors' },
+	]}
+>
+	<OurDoctors
+		basePath="/fr"
+		doctors={translateDoctors(doctors, frDoctorsTr)}
+		badge={listing.gridBadge}
+		title={listing.gridTitle}
+		highlight={listing.gridHighlight}
+		subtitle={listing.gridSubtitle}
+		yearsExpLabel={card.yearsExpLabel}
+		reviewsLabel={card.reviewsLabel}
+		contactLabel={card.contactLabel}
+		verifiedLabel={card.verifiedLabel}
+	/>
+
+	<DoctorsVideoCarousel entries={videoEntries} />
+
+	<CostEstimateCta
+		title="Vous voulez une estimation précise de votre traitement ?"
+		text="Téléversez vos rapports médicaux et recevez un plan de traitement personnalisé avec une estimation de coût transparente de nos spécialistes sous 24 heures."
+		primaryLabel="Obtenir un devis gratuit"
+		primaryHref="/fr/contact"
+		secondaryLabel="Téléverser des rapports médicaux"
+		secondaryHref="/fr/contact#enquiry-form"
+	/>
+</Layout>

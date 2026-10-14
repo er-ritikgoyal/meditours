@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DestinationsGrid from '../../components/Destinations.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { destinations } from '../../data/destinations';
+import { arDestinations } from '../../i18n/ar-destinations';
+import { arDestinationsPage } from '../../i18n/ar-pages';
+
+const translatedDestinations = destinations.map((destination) => ({
+	...destination,
+	...arDestinations[destination.slug],
+}));
+---
+
+<Layout
+	title="وجهات السياحة العلاجية في الهند | AlisPro MediTours"
+	description="اكتشف أبرز وجهات السياحة العلاجية في الهند مع AlisPro MediTours. تعرّف على أفضل المستشفيات والأطباء الاختصاصيين والعلاجات المتقدمة والدعم الطبي الشخصي."
+	locale="ar"
+	alternates={[
+		{ locale: 'en', href: '/destinations' },
+		{ locale: 'fr', href: '/fr/destinations' },
+		{ locale: 'ru', href: '/ru/destinations' },
+		{ locale: 'bn', href: '/bn/destinations' },
+		{ locale: 'ro', href: '/ro/destinations' },
+		{ locale: 'es', href: '/es/destinations' },
+		{ locale: 'pt', href: '/pt/destinations' },
+		{ locale: 'vi', href: '/vi/destinations' },
+		{ locale: 'ar', href: '/ar/destinations' },
+	]}
+>
+
+	<DestinationsGrid
+		basePath="/ar"
+		badge={arDestinationsPage.grid.badge}
+		title={arDestinationsPage.grid.title}
+		highlight={arDestinationsPage.grid.highlight}
+		subtitle={arDestinationsPage.grid.subtitle}
+		destinations={translatedDestinations}
+		exploreLabel={arDestinationsPage.grid.exploreLabel}
+	/>
+
+	<CostEstimateCta
+		title="هل تريد تقديرًا دقيقًا لتكلفة علاجك؟"
+		text="ارفع تقاريرك الطبية واحصل على خطة علاج شخصية مع تقدير تكلفة شفاف من اختصاصيينا، خلال 24 ساعة."
+		primaryLabel="استشارة مجانية"
+		primaryHref="/ar/contact"
+		secondaryLabel="ارفع تقاريرك الطبية"
+		secondaryHref="/ar/contact#enquiry-form"
+	/>
+</Layout>

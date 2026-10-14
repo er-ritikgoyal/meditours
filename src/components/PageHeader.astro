@@ -1,0 +1,143 @@
+---
+import iconHome from 'bootstrap-icons/icons/house-door-fill.svg?raw';
+import iconChevron from 'bootstrap-icons/icons/chevron-right.svg?raw';
+
+export interface Crumb {
+	label: string;
+	href?: string;
+}
+
+export interface Props {
+	badge?: string;
+	title: string;
+	highlight?: string;
+	subtitle?: string;
+	breadcrumbs?: Crumb[];
+	homeHref?: string;
+	homeLabel?: string;
+}
+
+const { badge, title, highlight, subtitle, breadcrumbs = [], homeHref = '/', homeLabel = 'Home' } = Astro.props;
+---
+
+<section class="page-header">
+	<div class="page-header__inner">
+		{
+			breadcrumbs.length > 0 && (
+				<nav class="page-header__breadcrumbs" aria-label="Breadcrumb">
+					<a href={homeHref}>
+						<span set:html={iconHome} />
+						{homeLabel}
+					</a>
+					{breadcrumbs.map((crumb) => (
+						<>
+							<span class="page-header__crumb-sep" set:html={iconChevron} aria-hidden="true" />
+							{crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+						</>
+					))}
+				</nav>
+			)
+		}
+
+		{badge && <span class="page-header__badge">{badge}</span>}
+
+		<h1 class="page-header__title">
+			{title} {highlight && <span>{highlight}</span>}
+		</h1>
+
+		{subtitle && <p class="page-header__subtitle">{subtitle}</p>}
+	</div>
+</section>
+
+<style>
+	.page-header {
+		background: var(--gradient-hero);
+		font-family: var(--font-body);
+	}
+
+	.page-header__inner {
+		max-width: 900px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.page-header__breadcrumbs {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-bottom: 24px;
+		font-size: 13px;
+	}
+
+	.page-header__breadcrumbs a {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+
+	.page-header__breadcrumbs a:hover {
+		color: var(--color-primary);
+	}
+
+	.page-header__breadcrumbs a :global(svg) {
+		width: 12px;
+		height: 12px;
+	}
+
+	.page-header__breadcrumbs [aria-current='page'] {
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.page-header__crumb-sep {
+		display: inline-flex;
+		width: 12px;
+		height: 12px;
+		color: var(--color-text-light);
+	}
+
+	/* Separator chevron points in reading direction; mirror it for RTL. */
+	:global(html[dir='rtl']) .page-header__crumb-sep {
+		transform: scaleX(-1);
+	}
+
+	.page-header__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.page-header__title {
+		font-family: var(--font-heading);
+		font-size: clamp(2rem, 4vw, 3rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.page-header__title span {
+		color: var(--color-teal);
+	}
+
+	.page-header__subtitle {
+		margin: 16px auto 0;
+		max-width: 620px;
+		font-size: 1.05rem;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+</style>

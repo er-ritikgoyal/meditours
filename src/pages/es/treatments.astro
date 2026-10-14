@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TreatmentsGrid from '../../components/TreatmentsGrid.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { treatments } from '../../data/treatments';
+import { esTreatments } from '../../i18n/es-treatments';
+import { esTreatmentsPage } from '../../i18n/es-pages';
+
+const translatedTreatments = treatments.map((treatment) => {
+	const es = esTreatments[treatment.slug];
+	return es
+		? {
+				...treatment,
+				name: es.name,
+				shortDescription: es.shortDescription,
+				procedures: es.procedures,
+			}
+		: treatment;
+});
+
+const { grid, costComparison } = esTreatmentsPage;
+---
+
+<Layout
+	title="Tratamientos en la India | Atención médica accesible | AlisPro MediTours"
+	description="Descubra tratamientos médicos avanzados en la India junto con AlisPro MediTours. Reciba médicos experimentados, hospitales acreditados y atención personalizada en cardiología, oncología, ortopedia, fertilidad, cirugía estética y mucho más."
+	locale="es"
+	alternates={[
+		{ locale: 'en', href: '/treatments' },
+		{ locale: 'fr', href: '/fr/treatments' },
+		{ locale: 'ru', href: '/ru/treatments' },
+		{ locale: 'bn', href: '/bn/treatments' },
+		{ locale: 'ro', href: '/ro/treatments' },
+		{ locale: 'es', href: '/es/treatments' },
+		{ locale: 'pt', href: '/pt/treatments' },
+		{ locale: 'vi', href: '/vi/treatments' },
+		{ locale: 'ar', href: '/ar/treatments' },
+	]}
+>
+
+	<TreatmentsGrid
+		basePath="/es"
+		badge={grid.badge}
+		title={grid.title}
+		highlight={grid.highlight}
+		subtitle={grid.subtitle}
+		treatments={translatedTreatments}
+		searchPlaceholder={grid.searchPlaceholder}
+		searchAriaLabel={grid.searchAriaLabel}
+		clearAriaLabel={grid.clearAriaLabel}
+		noResultsTitle={grid.noResultsTitle}
+		noResultsBody={grid.noResultsBody}
+		fromPrefix={grid.fromPrefix}
+		learnMoreLabel={grid.learnMore}
+		showingCountTemplate={grid.showingCountTemplate}
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="Ahorre {pct}%"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<CostEstimateCta
+		title="¿Desea una estimación exacta de su tratamiento?"
+		text="Suba sus informes médicos y reciba un plan de tratamiento personalizado con una estimación de costos transparente de nuestros especialistas, en 24 horas."
+		primaryLabel="Consulta gratuita"
+		primaryHref="/es/contact"
+		secondaryLabel="Subir informe médico"
+		secondaryHref="/es/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,260 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TourPackages from '../../components/TourPackages.astro';
+import TourInclusions from '../../components/TourInclusions.astro';
+import NearbyAttractions from '../../components/NearbyAttractions.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import iconMap from 'bootstrap-icons/icons/map-fill.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconCompass from 'bootstrap-icons/icons/compass-fill.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import { ptTourism } from '../../i18n/pt-tourism';
+
+const statIcons = [iconMap, iconStar, iconCompass];
+const stats = ptTourism.stats.map((stat, i) => ({ ...stat, icon: statIcons[i] }));
+---
+
+<Layout
+	title="Tours de turismo médico na Índia | Viagens de bem-estar | AlisPro MediTours"
+	description="Descubra pacotes de turismo médico adequados para o bem-estar na Índia, junto com a AlisPro MediTours. Aproveite tours personalizados em Delhi, Agra, Jaipur, Kerala, Goa e muito mais, planejados em torno do seu tratamento e recuperação."
+	locale="pt"
+	alternates={[
+		{ locale: 'en', href: '/tourism' },
+		{ locale: 'fr', href: '/fr/tourism' },
+		{ locale: 'ru', href: '/ru/tourism' },
+		{ locale: 'bn', href: '/bn/tourism' },
+		{ locale: 'ro', href: '/ro/tourism' },
+		{ locale: 'es', href: '/es/tourism' },
+		{ locale: 'pt', href: '/pt/tourism' },
+		{ locale: 'vi', href: '/vi/tourism' },
+		{ locale: 'ar', href: '/ar/tourism' },
+	]}
+>
+	<PageHeader
+		badge={ptTourism.pageHeader.badge}
+		title={ptTourism.pageHeader.title}
+		highlight={ptTourism.pageHeader.highlight}
+		subtitle={ptTourism.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'Pacote turístico' }]}
+		homeHref="/pt/"
+		homeLabel="Início"
+	/>
+
+	<section class="tour-stats">
+		<div class="tour-stats__inner">
+			{
+				stats.map((stat) => (
+					<div class="tour-stat">
+						<span class="tour-stat__icon" set:html={stat.icon} aria-hidden="true" />
+						<strong data-countup data-value={stat.value} data-suffix={stat.suffix} data-decimals={stat.decimals ?? 0}>
+							0{stat.suffix}
+						</strong>
+						<span class="tour-stat__label">{stat.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<TourPackages
+		badge={ptTourism.packages.badge}
+		titleLead={ptTourism.packages.titleLead}
+		titleHighlight={ptTourism.packages.titleHighlight}
+		subtitle={ptTourism.packages.subtitle}
+		packages={ptTourism.packages.items}
+		ctaLabel={ptTourism.packages.ctaLabel}
+		perPersonLabel={ptTourism.packages.perPersonLabel}
+		fromLabel={ptTourism.packages.fromLabel}
+	/>
+	<TourInclusions
+		badge={ptTourism.inclusions.badge}
+		titleLead={ptTourism.inclusions.titleLead}
+		titleHighlight={ptTourism.inclusions.titleHighlight}
+		subtitle={ptTourism.inclusions.subtitle}
+		labels={ptTourism.inclusions.labels}
+	/>
+	<NearbyAttractions
+		badge={ptTourism.attractions.badge}
+		titleLead={ptTourism.attractions.titleLead}
+		titleHighlight={ptTourism.attractions.titleHighlight}
+		subtitle={ptTourism.attractions.subtitle}
+		attractions={ptTourism.attractions.items}
+		ctaLabel={ptTourism.attractions.ctaLabel}
+	/>
+
+	<section class="tour-cta">
+		<div class="tour-cta__inner">
+			<h2>{ptTourism.ctaHeading}</h2>
+			<p>{ptTourism.ctaBody}</p>
+			<a class="tour-cta__btn" href="/pt/contact">
+				Falar com um coordenador
+				<span set:html={iconArrowRight} aria-hidden="true" />
+			</a>
+		</div>
+	</section>
+	<CostEstimateCta
+		title="Deseja uma estimativa exata do seu tratamento?"
+		text="Envie seus relatórios médicos e receba um plano de tratamento personalizado com uma estimativa de custos transparente de nossos especialistas, em 24 horas."
+		primaryLabel="Consulta gratuita"
+		primaryHref="/pt/contact"
+		secondaryLabel="Enviar relatório médico"
+		secondaryHref="/pt/contact#enquiry-form"
+	/>
+</Layout>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const countEls = document.querySelectorAll<HTMLElement>('[data-countup]');
+
+	const runCountUp = (el: HTMLElement) => {
+		const target = parseFloat(el.dataset.value ?? '0');
+		const suffix = el.dataset.suffix ?? '';
+		const decimals = parseInt(el.dataset.decimals ?? '0', 10);
+
+		if (prefersReducedMotion) {
+			el.textContent = `${target.toFixed(decimals)}${suffix}`;
+			return;
+		}
+
+		const duration = 1200;
+		const start = performance.now();
+
+		const tick = (now: number) => {
+			const progress = Math.min((now - start) / duration, 1);
+			const eased = 1 - (1 - progress) * (1 - progress);
+			const current = target * eased;
+			el.textContent = `${current.toFixed(decimals)}${suffix}`;
+			if (progress < 1) requestAnimationFrame(tick);
+		};
+		requestAnimationFrame(tick);
+	};
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					runCountUp(entry.target as HTMLElement);
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.5 }
+	);
+	countEls.forEach((el) => observer.observe(el));
+</script>
+
+<style>
+	.tour-stats {
+		background: var(--gradient-premium);
+		padding: 40px 24px;
+		font-family: var(--font-body);
+	}
+
+	.tour-stats__inner {
+		max-width: 900px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.tour-stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 6px;
+	}
+
+	.tour-stat__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		color: var(--color-gold);
+		margin-bottom: 4px;
+	}
+
+	.tour-stat__icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.tour-stat strong {
+		font-family: var(--font-heading);
+		font-size: clamp(1.6rem, 3vw, 2.2rem);
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.tour-stat__label {
+		font-size: 12.5px;
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.tour-cta {
+		background: var(--color-bg-alt);
+		padding: 72px 24px;
+		text-align: center;
+		font-family: var(--font-body);
+	}
+
+	.tour-cta__inner {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.tour-cta h2 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.tour-cta p {
+		margin: 14px 0 0;
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.tour-cta__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 28px;
+		padding: 13px 28px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.tour-cta__btn:hover {
+		background: var(--btn-primary-hover);
+		transform: translateY(-2px);
+	}
+
+	.tour-cta__btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	@media screen and (max-width: 640px) {
+		.tour-stats__inner {
+			gap: 16px;
+		}
+
+		.tour-stat strong {
+			font-size: 1.4rem;
+		}
+	}
+</style>

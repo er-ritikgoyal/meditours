@@ -1,0 +1,113 @@
+---
+import HeroSection from '../../components/HeroSection.astro';
+import TravelProcess from '../../components/TravelProcess.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import SupportServices from '../../components/SupportServices.astro';
+import Layout from '../../layouts/Layout.astro';
+import { ro } from '../../i18n/ro';
+import { roAbout, roTreatmentsPage } from '../../i18n/ro-pages';
+import { roDoctors, roPartnerHospitalsHome, roSupportServices, roTravelProcess } from '../../i18n/ro-home';
+import { doctors as defaultDoctors } from '../../data/doctors';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { roDoctorsTr } from '../../i18n/ro-doctors';
+import { getFeaturedHospitals } from '../../data/hospitals';
+import { translateHospitals } from '../../i18n/ro-hospitals';
+
+const romanianHospitals = translateHospitals(getFeaturedHospitals(2));
+
+const romanianDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...roDoctors.doctors[i] }));
+
+const { costComparison } = roTreatmentsPage;
+const videoEntries = defaultDoctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="Turism medical de încredere în India | AlisPro MediTours"
+	description="AlisPro MediTours ajută pacienții internaționali să obțină îngrijire medicală de încredere în India, prin sprijin medical specializat, coordonare cu spitale, planificare a tratamentului, asistență pentru călătorie și îngrijire personalizată."
+	locale="ro"
+	alternates={[
+		{ locale: 'en', href: '/' },
+		{ locale: 'fr', href: '/fr/' },
+		{ locale: 'ru', href: '/ru/' },
+		{ locale: 'bn', href: '/bn/' },
+		{ locale: 'ro', href: '/ro/' },
+		{ locale: 'es', href: '/es/' },
+		{ locale: 'pt', href: '/pt/' },
+		{ locale: 'vi', href: '/vi/' },
+		{ locale: 'ar', href: '/ar/' },
+	]}
+>
+	<HeroSection
+		treatmentOptions={ro.hero.treatmentOptions}
+		trust={ro.hero.trust}
+		enquiry={ro.hero.enquiry}
+	/>
+	<OurDoctors
+		basePath="/ro"
+		badge={roDoctors.badge}
+		title={roDoctors.title}
+		highlight={roDoctors.highlight}
+		subtitle={roDoctors.subtitle}
+		doctors={translateDoctors(romanianDoctors, roDoctorsTr)}
+		yearsExpLabel={roDoctors.yearsExpLabel}
+		reviewsLabel={roDoctors.reviewsLabel}
+		contactLabel={roDoctors.contactLabel}
+		verifiedLabel={roDoctors.verifiedLabel}
+	/>
+	<DoctorsVideoCarousel entries={videoEntries} />
+	<OurPartnerHospitals
+		badge={roPartnerHospitalsHome.badge}
+		title={roPartnerHospitalsHome.title}
+		highlight={roPartnerHospitalsHome.highlight}
+		subtitle={roPartnerHospitalsHome.subtitle}
+		hospitals={romanianHospitals}
+		basePath="/ro"
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="Economisiți {pct}%"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<SupportServices
+		badge={roSupportServices.badge}
+		title={roSupportServices.titleLead}
+		highlight={roSupportServices.titleHighlight}
+		subtitle={roSupportServices.subtitle}
+		services={roSupportServices.services}
+	/>
+	<Testimonials
+		badge={roAbout.testimonials.badge}
+		title={roAbout.testimonials.title}
+		highlight={roAbout.testimonials.highlight}
+		subtitle={roAbout.testimonials.subtitle}
+		testimonials={roAbout.testimonials.items}
+	/>
+	<TravelProcess
+		badge={roTravelProcess.badge}
+		title={roTravelProcess.titleLead}
+		highlight={roTravelProcess.titleHighlight}
+		subtitle={roTravelProcess.subtitle}
+		steps={roTravelProcess.steps}
+	/>
+	<CostEstimateCta
+		title="Doriți o estimare exactă a tratamentului dumneavoastră?"
+		text="Încărcați rapoartele dumneavoastră medicale și primiți un plan de tratament personalizat cu o estimare transparentă a costurilor de la specialiștii noștri, în 24 de ore."
+		primaryLabel="Consultație gratuită"
+		primaryHref="/ro/contact"
+		secondaryLabel="Încărcați raportul medical"
+		secondaryHref="/ro/contact#enquiry-form"
+	/>
+</Layout>

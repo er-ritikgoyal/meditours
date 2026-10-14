@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurStory from '../../components/OurStory.astro';
+import OurJourney from '../../components/OurJourney.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { ruAbout } from '../../i18n/ru-pages';
+---
+
+<Layout
+	title="О компании AlisPro MediTours | Надёжная компания медицинского туризма в Индии"
+	description="Узнайте больше о AlisPro MediTours — надёжной компании медицинского туризма, которая связывает международных пациентов с аккредитованными больницами и опытными специалистами в Индии, с полным сопровождением от консультации до выздоровления."
+	locale="ru"
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge={ruAbout.pageHeader.badge}
+		title={ruAbout.pageHeader.title}
+		highlight={ruAbout.pageHeader.highlight}
+		subtitle={ruAbout.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'О нас' }]}
+		homeHref="/ru/"
+		homeLabel="Главная"
+	/>
+
+	<OurStory
+		badge={ruAbout.story.badge}
+		titleLead={ruAbout.story.titleLead}
+		titleHighlight={ruAbout.story.titleHighlight}
+		paragraphs={ruAbout.story.paragraphs}
+		statsLabels={ruAbout.story.statsLabels}
+		valuesTitle={ruAbout.story.valuesTitle}
+		values={ruAbout.story.values}
+	/>
+	<OurJourney
+		badge={ruAbout.journey.badge}
+		titleLead={ruAbout.journey.titleLead}
+		titleHighlight={ruAbout.journey.titleHighlight}
+		subtitle={ruAbout.journey.subtitle}
+		milestones={ruAbout.journey.milestones}
+	/>
+	<Testimonials
+		badge={ruAbout.testimonials.badge}
+		title={ruAbout.testimonials.title}
+		highlight={ruAbout.testimonials.highlight}
+		subtitle={ruAbout.testimonials.subtitle}
+		testimonials={ruAbout.testimonials.items}
+	/>
+	<FaqAccordion badge={ruAbout.faq.badge} title={ruAbout.faq.title} highlight={ruAbout.faq.highlight} subtitle={ruAbout.faq.subtitle} />
+
+	<CostEstimateCta
+		title="Хотите точную оценку стоимости лечения?"
+		text="Загрузите свои медицинские документы и получите персональный план лечения с прозрачной сметой от наших специалистов в течение 24 часов."
+		primaryLabel="Получить бесплатную консультацию"
+		primaryHref="/ru/contact"
+		secondaryLabel="Загрузить медицинские документы"
+		secondaryHref="/ru/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TreatmentsGrid from '../../components/TreatmentsGrid.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { treatments } from '../../data/treatments';
+import { roTreatments } from '../../i18n/ro-treatments';
+import { roTreatmentsPage } from '../../i18n/ro-pages';
+
+const translatedTreatments = treatments.map((treatment) => {
+	const ro = roTreatments[treatment.slug];
+	return ro
+		? {
+				...treatment,
+				name: ro.name,
+				shortDescription: ro.shortDescription,
+				procedures: ro.procedures,
+			}
+		: treatment;
+});
+
+const { grid, costComparison } = roTreatmentsPage;
+---
+
+<Layout
+	title="Tratamente în India | Îngrijire medicală accesibilă | AlisPro MediTours"
+	description="Descoperiți tratamente medicale avansate în India alături de AlisPro MediTours. Beneficiați de medici experimentați, spitale acreditate și îngrijire personalizată pentru cardiologie, oncologie, ortopedie, fertilitate, chirurgie estetică și multe altele."
+	locale="ro"
+	alternates={[
+		{ locale: 'en', href: '/treatments' },
+		{ locale: 'fr', href: '/fr/treatments' },
+		{ locale: 'ru', href: '/ru/treatments' },
+		{ locale: 'bn', href: '/bn/treatments' },
+		{ locale: 'ro', href: '/ro/treatments' },
+		{ locale: 'es', href: '/es/treatments' },
+		{ locale: 'pt', href: '/pt/treatments' },
+		{ locale: 'vi', href: '/vi/treatments' },
+		{ locale: 'ar', href: '/ar/treatments' },
+	]}
+>
+
+	<TreatmentsGrid
+		basePath="/ro"
+		badge={grid.badge}
+		title={grid.title}
+		highlight={grid.highlight}
+		subtitle={grid.subtitle}
+		treatments={translatedTreatments}
+		searchPlaceholder={grid.searchPlaceholder}
+		searchAriaLabel={grid.searchAriaLabel}
+		clearAriaLabel={grid.clearAriaLabel}
+		noResultsTitle={grid.noResultsTitle}
+		noResultsBody={grid.noResultsBody}
+		fromPrefix={grid.fromPrefix}
+		learnMoreLabel={grid.learnMore}
+		showingCountTemplate={grid.showingCountTemplate}
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="Economisiți {pct}%"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<CostEstimateCta
+		title="Doriți o estimare exactă a tratamentului dumneavoastră?"
+		text="Încărcați rapoartele dumneavoastră medicale și primiți un plan de tratament personalizat cu o estimare transparentă a costurilor de la specialiștii noștri, în 24 de ore."
+		primaryLabel="Consultație gratuită"
+		primaryHref="/ro/contact"
+		secondaryLabel="Încărcați raportul medical"
+		secondaryHref="/ro/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,540 @@
+---
+import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
+import iconCalendar from 'bootstrap-icons/icons/calendar3.svg?raw';
+import iconGender from 'bootstrap-icons/icons/gender-ambiguous.svg?raw';
+import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
+import iconPhone from 'bootstrap-icons/icons/telephone-fill.svg?raw';
+import iconEmail from 'bootstrap-icons/icons/envelope-fill.svg?raw';
+import iconShield from 'bootstrap-icons/icons/shield-fill-check.svg?raw';
+import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
+import iconMessage from 'bootstrap-icons/icons/chat-left-text-fill.svg?raw';
+import iconClose from 'bootstrap-icons/icons/x-lg.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import { countries } from '../data/countries';
+
+export interface Props {
+	closeLabel?: string;
+	modalTitle?: string;
+	modalSubtitle?: string;
+	patientNamePlaceholder?: string;
+	patientAgePlaceholder?: string;
+	genderPlaceholder?: string;
+	genderMale?: string;
+	genderFemale?: string;
+	genderOther?: string;
+	countryPlaceholder?: string;
+	phonePlaceholder?: string;
+	emailPlaceholder?: string;
+	hasInsurancePlaceholder?: string;
+	yes?: string;
+	no?: string;
+	uploadLabel?: string;
+	messagePlaceholder?: string;
+	submitLabel?: string;
+	privacyNote?: string;
+	successMessage?: string;
+}
+
+const {
+	closeLabel = 'Close',
+	modalTitle = 'Check Insurance Eligibility',
+	modalSubtitle = 'Share your details and insurance information — our coordinator will confirm coverage and get back to you.',
+	patientNamePlaceholder = 'Patient Name',
+	patientAgePlaceholder = 'Patient Age',
+	genderPlaceholder = 'Gender',
+	genderMale = 'Male',
+	genderFemale = 'Female',
+	genderOther = 'Other',
+	countryPlaceholder = '---Select Country---',
+	phonePlaceholder = 'Phone Number*',
+	emailPlaceholder = 'Email',
+	hasInsurancePlaceholder = '---I Have Insurance---',
+	yes = 'Yes',
+	no = 'No',
+	uploadLabel = 'Upload Your Insurance Card (optional — PDF/JPG/PNG)',
+	messagePlaceholder = 'Message',
+	submitLabel = 'Check Eligibility',
+	successMessage = 'Thanks! Our team will review your insurance details and get back to you shortly.',
+} = Astro.props;
+---
+
+<div class="insurance-modal" id="insurance-modal" role="dialog" aria-modal="true" aria-labelledby="insurance-modal-title" hidden>
+	<div class="insurance-modal__backdrop" id="insurance-modal-backdrop"></div>
+	<div class="insurance-modal__panel">
+		<button type="button" class="insurance-modal__close" id="insurance-modal-close" aria-label={closeLabel}>
+			<span set:html={iconClose} aria-hidden="true" />
+		</button>
+
+		<h2 class="insurance-modal__title" id="insurance-modal-title">{modalTitle}</h2>
+		<p class="insurance-modal__subtitle">
+			{modalSubtitle}
+		</p>
+
+		<form class="insurance-form" data-enquiry-form enctype="multipart/form-data">
+			<input type="hidden" name="subject" value="Insurance Eligibility Check" />
+			<input type="hidden" name="category" value="Insurance Eligibility" />
+			<input type="hidden" name="message" data-message-field />
+			<input type="text" name="website" class="insurance-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+			<label class="insurance-form__field">
+				<span set:html={iconPerson} aria-hidden="true" />
+				<input type="text" name="name" data-patient-name placeholder={patientNamePlaceholder} autocomplete="name" required />
+			</label>
+
+			<div class="insurance-form__row">
+				<label class="insurance-form__field">
+					<span set:html={iconCalendar} aria-hidden="true" />
+					<input type="number" name="patientAge" placeholder={patientAgePlaceholder} min="0" max="120" required />
+				</label>
+
+				<label class="insurance-form__field">
+					<span set:html={iconGender} aria-hidden="true" />
+					<select name="gender" required>
+						<option value="" selected disabled>{genderPlaceholder}</option>
+						<option value="Male">{genderMale}</option>
+						<option value="Female">{genderFemale}</option>
+						<option value="Other">{genderOther}</option>
+					</select>
+				</label>
+			</div>
+
+			<label class="insurance-form__field">
+				<span set:html={iconGlobe} aria-hidden="true" />
+				<select name="country" id="insurance-country" required>
+					<option value="" selected disabled>{countryPlaceholder}</option>
+					{countries.map((country) => (
+						<option value={country.name} data-dial={country.dial}>{country.name}</option>
+					))}
+				</select>
+			</label>
+
+			<div class="insurance-form__row insurance-form__row--phone">
+				<label class="insurance-form__field insurance-form__field--code">
+					<span set:html={iconPhone} aria-hidden="true" />
+					<input type="text" name="phoneCode" id="insurance-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+				</label>
+
+				<label class="insurance-form__field insurance-form__field--phone">
+					<input type="tel" name="phone" placeholder={phonePlaceholder} autocomplete="tel" required />
+				</label>
+			</div>
+
+			<label class="insurance-form__field">
+				<span set:html={iconEmail} aria-hidden="true" />
+				<input type="email" name="email" placeholder={emailPlaceholder} autocomplete="email" />
+			</label>
+
+			<label class="insurance-form__field">
+				<span set:html={iconShield} aria-hidden="true" />
+				<select name="hasInsurance" id="insurance-has-insurance" required>
+					<option value="" selected disabled>{hasInsurancePlaceholder}</option>
+					<option value="Yes">{yes}</option>
+					<option value="No">{no}</option>
+				</select>
+			</label>
+
+			<label class="insurance-form__file" id="insurance-file-label" data-file-label>
+				<span set:html={iconUpload} aria-hidden="true" />
+				<span data-file-name data-file-fallback={uploadLabel}>{uploadLabel}</span>
+				<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg,.png" data-file-input />
+			</label>
+
+			<label class="insurance-form__field insurance-form__field--textarea">
+				<span set:html={iconMessage} aria-hidden="true" />
+				<textarea name="additionalMessage" data-message-input placeholder={messagePlaceholder} rows="3"></textarea>
+			</label>
+
+			<button type="submit" class="insurance-form__submit">
+				{submitLabel}
+				<span set:html={iconArrow} aria-hidden="true" />
+			</button>
+
+			<p class="insurance-form__success" data-enquiry-success hidden>
+				{successMessage}
+			</p>
+			<p class="insurance-form__error" data-enquiry-error hidden />
+		</form>
+	</div>
+</div>
+
+<script>
+	import { bindEnquiryForm } from '../scripts/enquiryForm';
+
+	const openTriggers = document.querySelectorAll<HTMLElement>('[data-insurance-open]');
+	const closeBtn = document.getElementById('insurance-modal-close');
+	const backdrop = document.getElementById('insurance-modal-backdrop');
+	const modal = document.getElementById('insurance-modal');
+	const form = document.querySelector<HTMLFormElement>('.insurance-form[data-enquiry-form]');
+	const successEl = form?.querySelector('[data-enquiry-success]');
+	const errorEl = form?.querySelector('[data-enquiry-error]');
+	const countrySelect = document.getElementById('insurance-country') as HTMLSelectElement | null;
+	const phoneCodeInput = document.getElementById('insurance-phone-code') as HTMLInputElement | null;
+	const fileInput = form?.querySelector<HTMLInputElement>('[data-file-input]');
+	const fileNameEl = form?.querySelector<HTMLElement>('[data-file-name]');
+	const defaultFileText = fileNameEl?.dataset.fileFallback ?? '';
+
+	const openModal = () => {
+		modal?.removeAttribute('hidden');
+		document.body.classList.add('insurance-modal-open');
+	};
+
+	const closeModal = () => {
+		modal?.setAttribute('hidden', '');
+		document.body.classList.remove('insurance-modal-open');
+	};
+
+	openTriggers.forEach((trigger) => trigger.addEventListener('click', openModal));
+	closeBtn?.addEventListener('click', closeModal);
+	backdrop?.addEventListener('click', closeModal);
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && !modal?.hasAttribute('hidden')) closeModal();
+	});
+
+	countrySelect?.addEventListener('change', () => {
+		const dial = countrySelect.selectedOptions[0]?.dataset.dial ?? '';
+		if (dial && phoneCodeInput) {
+			phoneCodeInput.value = `+${dial}`;
+		}
+	})
+
+	fileInput?.addEventListener('change', () => {
+		if (fileNameEl) {
+			fileNameEl.textContent = fileInput.files?.[0]?.name ?? defaultFileText;
+		}
+	});
+
+	bindEnquiryForm(form ?? null, {
+		successEl,
+		errorEl,
+		beforeSubmit: (formEl) => {
+			const name = formEl.querySelector<HTMLInputElement>('[data-patient-name]')?.value ?? '';
+			const age = formEl.querySelector<HTMLInputElement>('[name="patientAge"]')?.value ?? '';
+			const gender = formEl.querySelector<HTMLSelectElement>('[name="gender"]')?.value ?? '';
+			const country = formEl.querySelector<HTMLSelectElement>('[name="country"]')?.value ?? '';
+			const phoneCode = formEl.querySelector<HTMLSelectElement>('[name="phoneCode"]')?.value ?? '';
+			const phoneInput = formEl.querySelector<HTMLInputElement>('[name="phone"]');
+			const phone = phoneInput?.value ?? '';
+			const hasInsurance = formEl.querySelector<HTMLSelectElement>('[name="hasInsurance"]')?.value ?? '';
+			const userMessage = formEl.querySelector<HTMLTextAreaElement>('[data-message-input]')?.value ?? '';
+			const messageField = formEl.querySelector<HTMLInputElement>('[data-message-field]');
+
+			if (phoneInput && phone && !phone.startsWith('+')) {
+				phoneInput.value = `${phoneCode} ${phone}`;
+			}
+
+			if (messageField) {
+				messageField.value = [
+					`Patient Age: ${age}`,
+					`Gender: ${gender}`,
+					`Country: ${country}`,
+					`Has Insurance: ${hasInsurance}`,
+					userMessage ? `Additional Message: ${userMessage}` : '',
+				]
+					.filter(Boolean)
+					.join('\n');
+			}
+		},
+	});
+</script>
+
+<style>
+	.insurance-modal {
+		position: fixed;
+		inset: 0;
+		z-index: 300;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+		font-family: var(--font-body);
+	}
+
+	.insurance-modal[hidden] {
+		display: none;
+	}
+
+	.insurance-modal__backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(15, 23, 42, 0.55);
+		backdrop-filter: blur(2px);
+	}
+
+	.insurance-modal__panel {
+		position: relative;
+		width: 100%;
+		max-width: 460px;
+		max-height: calc(100vh - 40px);
+		overflow-y: auto;
+		background: var(--color-bg-white);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+		padding: 32px 28px 28px;
+	}	
+
+	.insurance-modal__close {
+		position: absolute;
+		top: 16px;
+		inset-inline-end: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		border: none;
+		border-radius: 50%;
+		background: var(--color-bg-gray);
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.insurance-modal__close:hover {
+		background: var(--color-border-light);
+		color: var(--color-text-primary);
+	}
+
+	.insurance-modal__close :global(svg) {
+		width: 13px;
+		height: 13px;
+	}
+
+	.insurance-modal__title {
+		font-family: var(--font-heading);
+		font-size: 1.35rem;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 8px;
+		padding-inline-end: 20px;
+	}
+
+	.insurance-modal__subtitle {
+		font-size: 13px;
+		line-height: 1.5;
+		color: var(--color-text-secondary);
+		margin: 0 0 22px;
+	}
+
+	.insurance-form {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.insurance-form__row {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		gap: 12px;
+	}
+
+	.insurance-form__row--phone {
+		grid-template-columns: 96px 1fr;
+	}
+
+	.insurance-form__field {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		padding: 0 14px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-white);
+		transition: border-color 0.15s ease;
+	}
+
+	.insurance-form__field:focus-within {
+		border-color: var(--color-teal);
+		box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.14);
+	}
+
+	.insurance-form__field--code input {
+		width: 100%;
+		text-align: center;
+	}
+
+	.insurance-form__field--textarea {
+		align-items: flex-start;
+		padding: 12px 14px;
+	}
+
+	.insurance-form__field--textarea span {
+		margin-top: 2px;
+	}
+
+	.insurance-form__field span {
+		display: flex;
+		flex-shrink: 0;
+		width: 15px;
+		height: 15px;
+		color: var(--color-text-muted);
+	}
+
+	.insurance-form__field span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.insurance-form__field input,
+	.insurance-form__field select,
+	.insurance-form__field textarea {
+		flex: 1;
+		min-width: 0;
+		border: none;
+		outline: none;
+		background: transparent;
+		padding: 12px 0;
+		font-family: inherit;
+		font-size: 13.5px;
+		color: var(--color-text-primary);
+	}
+
+	.insurance-form__field select {
+		appearance: auto;
+	}
+
+	.insurance-form__field textarea {
+		padding: 0;
+		resize: vertical;
+		min-height: 60px;
+	}
+
+	.insurance-form__field input::placeholder,
+	.insurance-form__field textarea::placeholder {
+		color: var(--color-text-light);
+	}
+
+	.insurance-form__honeypot {
+		position: absolute;
+		inset-inline-start: -9999px;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
+	}
+
+	.insurance-form__file {
+		display: flex;
+		align-items: center;
+		gap: 9px;
+		padding: 12px 14px;
+		border: 1px dashed var(--color-border-card);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-alt);
+		font-size: 12.5px;
+		color: var(--color-text-secondary);
+		cursor: pointer;
+	}
+
+	.insurance-form__file [data-file-name] {
+		flex: 1;
+		min-width: 0;
+		overflow-wrap: break-word;
+	}
+
+	.insurance-form__file span:first-child {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		color: var(--color-primary);
+	}
+
+	.insurance-form__file span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.insurance-form__file input[type='file'] {
+		display: none;
+	}
+
+	.insurance-form__submit {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		margin-top: 4px;
+		padding: 13px 20px;
+		border: none;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-family: inherit;
+		font-size: 14.5px;
+		font-weight: 600;
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.insurance-form__submit:hover {
+		background: var(--btn-primary-hover);
+		transform: translateY(-1px);
+	}
+
+	.insurance-form__submit:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+		transform: none;
+	}
+
+	.insurance-form__submit :global(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	.insurance-form__success {
+		margin: 0;
+		padding: 12px 14px;
+		border-radius: var(--radius-md);
+		background: rgba(34, 197, 94, 0.12);
+		color: #15803d;
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.insurance-form__error {
+		margin: 0;
+		padding: 12px 14px;
+		border-radius: var(--radius-md);
+		background: rgba(239, 68, 68, 0.12);
+		color: #b91c1c;
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	@media screen and (max-width: 640px) {
+		.insurance-modal {
+			padding: 0;
+			align-items: flex-end;
+		}
+
+		.insurance-modal__panel {
+			max-width: 100%;
+			max-height: 90vh;
+			border-radius: 20px 20px 0 0;
+			padding: 26px 20px 24px;
+		}
+
+		.insurance-form__row,
+		.insurance-form__row--phone {
+			grid-template-columns: 1fr;
+		}
+
+		.insurance-form__field--code input {
+			text-align: start;
+		}
+
+		.insurance-form__field input,
+		.insurance-form__field select,
+		.insurance-form__field textarea {
+			/* 16px prevents iOS Safari from auto-zooming the page on input focus */
+			font-size: 16px;
+		}
+	}
+</style>

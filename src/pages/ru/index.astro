@@ -1,0 +1,113 @@
+---
+import HeroSection from '../../components/HeroSection.astro';
+import TravelProcess from '../../components/TravelProcess.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import SupportServices from '../../components/SupportServices.astro';
+import Layout from '../../layouts/Layout.astro';
+import { ru } from '../../i18n/ru';
+import { ruAbout, ruTreatmentsPage } from '../../i18n/ru-pages';
+import { ruDoctors, ruPartnerHospitalsHome, ruSupportServices, ruTravelProcess } from '../../i18n/ru-home';
+import { doctors as defaultDoctors } from '../../data/doctors';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { ruDoctorsTr } from '../../i18n/ru-doctors';
+import { getFeaturedHospitals } from '../../data/hospitals';
+import { translateHospitals } from '../../i18n/ru-hospitals';
+
+const russianHospitals = translateHospitals(getFeaturedHospitals(2));
+
+const russianDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...ruDoctors.doctors[i] }));
+
+const { costComparison } = ruTreatmentsPage;
+const videoEntries = defaultDoctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="Надёжный медицинский туризм в Индии | AlisPro MediTours"
+	description="AlisPro MediTours помогает международным пациентам получить доступ к надёжному медицинскому обслуживанию в Индии благодаря экспертной медицинской помощи, координации с больницами, планированию лечения и персональному сопровождению."
+	locale="ru"
+	alternates={[
+		{ locale: 'en', href: '/' },
+		{ locale: 'fr', href: '/fr/' },
+		{ locale: 'ru', href: '/ru/' },
+		{ locale: 'bn', href: '/bn/' },
+		{ locale: 'ro', href: '/ro/' },
+		{ locale: 'es', href: '/es/' },
+		{ locale: 'pt', href: '/pt/' },
+		{ locale: 'vi', href: '/vi/' },
+		{ locale: 'ar', href: '/ar/' },
+	]}
+>
+	<HeroSection
+		treatmentOptions={ru.hero.treatmentOptions}
+		trust={ru.hero.trust}
+		enquiry={ru.hero.enquiry}
+	/>
+	<OurDoctors
+		basePath="/ru"
+		badge={ruDoctors.badge}
+		title={ruDoctors.title}
+		highlight={ruDoctors.highlight}
+		subtitle={ruDoctors.subtitle}
+		doctors={translateDoctors(russianDoctors, ruDoctorsTr)}
+		yearsExpLabel={ruDoctors.yearsExpLabel}
+		reviewsLabel={ruDoctors.reviewsLabel}
+		contactLabel={ruDoctors.contactLabel}
+		verifiedLabel={ruDoctors.verifiedLabel}
+	/>
+	<DoctorsVideoCarousel entries={videoEntries} />
+	<OurPartnerHospitals
+		badge={ruPartnerHospitalsHome.badge}
+		title={ruPartnerHospitalsHome.title}
+		highlight={ruPartnerHospitalsHome.highlight}
+		subtitle={ruPartnerHospitalsHome.subtitle}
+		hospitals={russianHospitals}
+		basePath="/ru"
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="Экономия {pct}%"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<SupportServices
+		badge={ruSupportServices.badge}
+		title={ruSupportServices.titleLead}
+		highlight={ruSupportServices.titleHighlight}
+		subtitle={ruSupportServices.subtitle}
+		services={ruSupportServices.services}
+	/>
+	<Testimonials
+		badge={ruAbout.testimonials.badge}
+		title={ruAbout.testimonials.title}
+		highlight={ruAbout.testimonials.highlight}
+		subtitle={ruAbout.testimonials.subtitle}
+		testimonials={ruAbout.testimonials.items}
+	/>
+	<TravelProcess
+		badge={ruTravelProcess.badge}
+		title={ruTravelProcess.titleLead}
+		highlight={ruTravelProcess.titleHighlight}
+		subtitle={ruTravelProcess.subtitle}
+		steps={ruTravelProcess.steps}
+	/>
+	<CostEstimateCta
+		title="Хотите точную оценку стоимости лечения?"
+		text="Загрузите свои медицинские документы и получите персональный план лечения с прозрачной сметой от наших специалистов в течение 24 часов."
+		primaryLabel="Получить бесплатную консультацию"
+		primaryHref="/ru/contact"
+		secondaryLabel="Загрузить медицинские документы"
+		secondaryHref="/ru/contact#enquiry-form"
+	/>
+</Layout>

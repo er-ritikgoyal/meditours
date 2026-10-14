@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurStory from '../../components/OurStory.astro';
+import OurJourney from '../../components/OurJourney.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { viAbout } from '../../i18n/vi-pages';
+---
+
+<Layout
+	title="Về AlisPro MediTours | Công ty du lịch y tế đáng tin cậy tại Ấn Độ"
+	description="Tìm hiểu về AlisPro MediTours, một công ty du lịch y tế đáng tin cậy kết nối bệnh nhân quốc tế với các bệnh viện được công nhận và chuyên gia giàu kinh nghiệm tại Ấn Độ, với hỗ trợ toàn diện từ tư vấn đến hồi phục."
+	locale="vi"
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge={viAbout.pageHeader.badge}
+		title={viAbout.pageHeader.title}
+		highlight={viAbout.pageHeader.highlight}
+		subtitle={viAbout.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'Về chúng tôi' }]}
+		homeHref="/vi/"
+		homeLabel="Trang chủ"
+	/>
+
+	<OurStory
+		badge={viAbout.story.badge}
+		titleLead={viAbout.story.titleLead}
+		titleHighlight={viAbout.story.titleHighlight}
+		paragraphs={viAbout.story.paragraphs}
+		statsLabels={viAbout.story.statsLabels}
+		valuesTitle={viAbout.story.valuesTitle}
+		values={viAbout.story.values}
+	/>
+	<OurJourney
+		badge={viAbout.journey.badge}
+		titleLead={viAbout.journey.titleLead}
+		titleHighlight={viAbout.journey.titleHighlight}
+		subtitle={viAbout.journey.subtitle}
+		milestones={viAbout.journey.milestones}
+	/>
+	<Testimonials
+		badge={viAbout.testimonials.badge}
+		title={viAbout.testimonials.title}
+		highlight={viAbout.testimonials.highlight}
+		subtitle={viAbout.testimonials.subtitle}
+		testimonials={viAbout.testimonials.items}
+	/>
+	<FaqAccordion badge={viAbout.faq.badge} title={viAbout.faq.title} highlight={viAbout.faq.highlight} subtitle={viAbout.faq.subtitle} />
+
+	<CostEstimateCta
+		title="Bạn muốn có ước tính chính xác về việc điều trị của mình?"
+		text="Tải lên hồ sơ y tế của bạn và nhận kế hoạch điều trị cá nhân hóa với ước tính chi phí minh bạch từ các chuyên gia của chúng tôi, trong 24 giờ."
+		primaryLabel="Tư vấn miễn phí"
+		primaryHref="/vi/contact"
+		secondaryLabel="Tải lên hồ sơ y tế"
+		secondaryHref="/vi/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurStory from '../../components/OurStory.astro';
+import OurJourney from '../../components/OurJourney.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { frAbout } from '../../i18n/fr-pages';
+---
+
+<Layout
+	title="À propos d'AlisPro MediTours | Société de tourisme médical de confiance en Inde"
+	description="Découvrez AlisPro MediTours, une société de tourisme médical de confiance qui met en relation les patients internationaux avec des hôpitaux accrédités et des spécialistes expérimentés en Inde, avec un accompagnement complet de la consultation au rétablissement."
+	locale="fr"
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge={frAbout.pageHeader.badge}
+		title={frAbout.pageHeader.title}
+		highlight={frAbout.pageHeader.highlight}
+		subtitle={frAbout.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'À propos' }]}
+		homeHref="/fr/"
+		homeLabel="Accueil"
+	/>
+
+	<OurStory
+		badge={frAbout.story.badge}
+		titleLead={frAbout.story.titleLead}
+		titleHighlight={frAbout.story.titleHighlight}
+		paragraphs={frAbout.story.paragraphs}
+		statsLabels={frAbout.story.statsLabels}
+		valuesTitle={frAbout.story.valuesTitle}
+		values={frAbout.story.values}
+	/>
+	<OurJourney
+		badge={frAbout.journey.badge}
+		titleLead={frAbout.journey.titleLead}
+		titleHighlight={frAbout.journey.titleHighlight}
+		subtitle={frAbout.journey.subtitle}
+		milestones={frAbout.journey.milestones}
+	/>
+	<Testimonials
+		badge={frAbout.testimonials.badge}
+		title={frAbout.testimonials.title}
+		highlight={frAbout.testimonials.highlight}
+		subtitle={frAbout.testimonials.subtitle}
+		testimonials={frAbout.testimonials.items}
+	/>
+	<FaqAccordion badge={frAbout.faq.badge} title={frAbout.faq.title} highlight={frAbout.faq.highlight} subtitle={frAbout.faq.subtitle} />
+
+	<CostEstimateCta
+		title="Vous voulez une estimation précise de votre traitement ?"
+		text="Téléversez vos rapports médicaux et recevez un plan de traitement personnalisé avec une estimation de coût transparente de nos spécialistes sous 24 heures."
+		primaryLabel="Obtenir un devis gratuit"
+		primaryHref="/fr/contact"
+		secondaryLabel="Téléverser des rapports médicaux"
+		secondaryHref="/fr/contact#enquiry-form"
+	/>
+</Layout>

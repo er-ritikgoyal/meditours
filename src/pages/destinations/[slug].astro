@@ -1,0 +1,316 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { destinations, type Destination } from '../../data/destinations';
+import { getHospitalsByCity } from '../../data/hospitals';
+import iconPiggyBank from 'bootstrap-icons/icons/piggy-bank-fill.svg?raw';
+import iconHospital from 'healthicons/public/icons/svg/outline/places/hospital.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+
+export function getStaticPaths() {
+	return destinations.map((destination) => ({
+		params: { slug: destination.slug },
+		props: { destination },
+	}));
+}
+
+const { destination } = Astro.props as { destination: Destination };
+const cityHospitals = getHospitalsByCity(destination.slug);
+const currentDestinationIndex = destinations.findIndex((d) => d.slug === destination.slug);
+const related = Array.from({ length: 4 }, (_, i) => destinations[(currentDestinationIndex + 1 + i) % destinations.length]);
+---
+
+<Layout
+	title={`Hospitals in ${destination.city} | Alis Pro Med Tour`}
+	description={destination.description}
+	alternates={[
+		{ locale: 'en', href: `/destinations/${destination.slug}` },
+		{ locale: 'fr', href: `/fr/destinations/${destination.slug}` },
+		{ locale: 'ru', href: `/ru/destinations/${destination.slug}` },
+		{ locale: 'bn', href: `/bn/destinations/${destination.slug}` },
+		{ locale: 'ro', href: `/ro/destinations/${destination.slug}` },
+		{ locale: 'es', href: `/es/destinations/${destination.slug}` },
+		{ locale: 'pt', href: `/pt/destinations/${destination.slug}` },
+		{ locale: 'vi', href: `/vi/destinations/${destination.slug}` },
+		{ locale: 'ar', href: `/ar/destinations/${destination.slug}` },
+	]}
+>
+	<PageHeader
+			title={destination.city}
+		
+		breadcrumbs={[{ label: 'Destinations', href: '/destinations' }, { label: destination.city }]}
+	/>
+
+	<!-- <section class="city-detail">
+		<div class="city-detail__inner">
+			<div class="city-detail__stats">
+				<div class="city-detail__stat">
+					<span set:html={iconHospital} aria-hidden="true" />
+					<div>
+						<strong>{destination.hospitalsCount}+</strong>
+						<span>Partner Hospitals</span>
+					</div>
+				</div>
+				<div class="city-detail__stat">
+					<span set:html={iconPiggyBank} aria-hidden="true" />
+					<div>
+						<strong>{destination.avgSavings}%</strong>
+						<span>Avg. Savings</span>
+					</div>
+				</div>
+			</div>
+
+			 <ul class="city-detail__treatments">
+				{destination.popularTreatments.map((treatment) => (
+					<li>{treatment}</li>
+				))}
+			</ul> 
+		</div>
+	</section> -->
+
+	{
+		cityHospitals.length > 0 ? (
+			<OurPartnerHospitals
+				badge="Verified Partner Network"
+				title={`Hospitals in`}
+				highlight={destination.city}
+				subtitle={`Accredited hospitals in ${destination.city}, vetted by our medical board for safety, hygiene, and clinical outcomes.`}
+				hospitals={cityHospitals}
+			/>
+		) : (
+			<section class="city-detail__soon">
+				<div class="city-detail__soon-inner">
+					<h2>Hospital profiles for {destination.city} are coming soon</h2>
+					<p>
+						We're onboarding named partner hospitals for {destination.city}. In the meantime, share your case with a
+						coordinator and we'll match you with an accredited hospital directly.
+					</p>
+					<a class="city-detail__soon-btn" href="/contact">
+						Talk to a Coordinator
+						<span set:html={iconArrowRight} aria-hidden="true" />
+					</a>
+				</div>
+			</section>
+		)
+	}
+
+	<section class="city-detail__related">
+		<div class="city-detail__related-inner">
+			<h2>Other Medical Hubs</h2>
+			<div class="city-detail__related-grid">
+				{
+					related.map((item) => (
+						<a class="city-related-card" href={`/destinations/${item.slug}`}>
+							<span class="city-related-card__city">{item.city}</span>
+							<span class="city-related-card__state">{item.state}</span>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<CostEstimateCta />
+</Layout>
+
+<style>
+	.city-detail {
+		background: var(--color-bg-white);
+		padding: 0 24px;
+		font-family: var(--font-body);
+	}
+
+	.city-detail__inner {
+		max-width: 1000px;
+		margin: 0 auto;
+		padding-top: 40px;
+	}
+
+	.city-detail__stats {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+		max-width: 480px;
+		margin: 0 auto 28px;
+	}
+
+	.city-detail__stat {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		padding: 16px 18px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.city-detail__stat span {
+		display: flex;
+		flex-shrink: 0;
+		width: 22px;
+		height: 22px;
+		color: var(--color-primary);
+	}
+
+	.city-detail__stat span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.city-detail__stat div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.city-detail__stat strong {
+		font-family: var(--font-heading);
+		font-size: 18px;
+		color: var(--color-text-primary);
+	}
+
+	.city-detail__stat span + div span {
+		font-size: 12px;
+		color: var(--color-text-muted);
+	}
+
+	.city-detail__treatments {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.city-detail__treatments li {
+		padding: 9px 16px;
+		border-radius: 999px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 13.5px;
+		font-weight: 600;
+	}
+
+	.city-detail__soon {
+		background: var(--color-bg-alt);
+		padding: 64px 24px;
+		font-family: var(--font-body);
+	}
+
+	.city-detail__soon-inner {
+		max-width: 560px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.city-detail__soon h2 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 12px;
+	}
+
+	.city-detail__soon p {
+		font-size: 14.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.city-detail__soon-btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 24px;
+		padding: 13px 26px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform 0.15s ease;	
+	}
+
+	.city-detail__soon-btn:hover {
+		transform: translateY(-2px);
+	}
+
+	.city-detail__soon-btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	.city-detail__related {
+		background: var(--color-bg-white);
+		padding: 64px 24px 24px;
+		font-family: var(--font-body);
+	}
+
+	.city-detail__related-inner {
+		max-width: 1000px;
+		margin: 0 auto;
+	}
+
+	.city-detail__related h2 {
+		font-family: var(--font-heading);
+		font-size: 22px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 20px;
+	}
+
+	.city-detail__related-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 16px;
+	}
+
+	.city-related-card {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		padding: 18px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-alt);
+		text-decoration: none;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.city-related-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.city-related-card__city {
+		font-family: var(--font-heading);
+		font-size: 15px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+	}
+
+	.city-related-card__state {
+		font-size: 11.5px;
+		color: var(--color-text-muted);
+	}
+
+	@media screen and (max-width: 860px) {
+		.city-detail__related-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.city-detail__stats {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

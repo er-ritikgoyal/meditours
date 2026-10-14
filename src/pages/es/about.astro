@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurStory from '../../components/OurStory.astro';
+import OurJourney from '../../components/OurJourney.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { esAbout } from '../../i18n/es-pages';
+---
+
+<Layout
+	title="Sobre AlisPro MediTours | Empresa de confianza de turismo médico en la India"
+	description="Conozca AlisPro MediTours, una empresa de confianza de turismo médico que conecta a pacientes internacionales con hospitales acreditados y especialistas experimentados en la India, con apoyo integral desde la consulta hasta la recuperación."
+	locale="es"
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge={esAbout.pageHeader.badge}
+		title={esAbout.pageHeader.title}
+		highlight={esAbout.pageHeader.highlight}
+		subtitle={esAbout.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'Sobre nosotros' }]}
+		homeHref="/es/"
+		homeLabel="Inicio"
+	/>
+
+	<OurStory
+		badge={esAbout.story.badge}
+		titleLead={esAbout.story.titleLead}
+		titleHighlight={esAbout.story.titleHighlight}
+		paragraphs={esAbout.story.paragraphs}
+		statsLabels={esAbout.story.statsLabels}
+		valuesTitle={esAbout.story.valuesTitle}
+		values={esAbout.story.values}
+	/>
+	<OurJourney
+		badge={esAbout.journey.badge}
+		titleLead={esAbout.journey.titleLead}
+		titleHighlight={esAbout.journey.titleHighlight}
+		subtitle={esAbout.journey.subtitle}
+		milestones={esAbout.journey.milestones}
+	/>
+	<Testimonials
+		badge={esAbout.testimonials.badge}
+		title={esAbout.testimonials.title}
+		highlight={esAbout.testimonials.highlight}
+		subtitle={esAbout.testimonials.subtitle}
+		testimonials={esAbout.testimonials.items}
+	/>
+	<FaqAccordion badge={esAbout.faq.badge} title={esAbout.faq.title} highlight={esAbout.faq.highlight} subtitle={esAbout.faq.subtitle} />
+
+	<CostEstimateCta
+		title="¿Desea una estimación exacta de su tratamiento?"
+		text="Suba sus informes médicos y reciba un plan de tratamiento personalizado con una estimación de costos transparente de nuestros especialistas, en 24 horas."
+		primaryLabel="Consulta gratuita"
+		primaryHref="/es/contact"
+		secondaryLabel="Subir informe médico"
+		secondaryHref="/es/contact#enquiry-form"
+	/>
+</Layout>

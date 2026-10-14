@@ -1,0 +1,113 @@
+---
+import HeroSection from '../../components/HeroSection.astro';
+import TravelProcess from '../../components/TravelProcess.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import SupportServices from '../../components/SupportServices.astro';
+import Layout from '../../layouts/Layout.astro';
+import { ar } from '../../i18n/ar';
+import { arAbout, arTreatmentsPage } from '../../i18n/ar-pages';
+import { arDoctors, arPartnerHospitalsHome, arSupportServices, arTravelProcess } from '../../i18n/ar-home';
+import { doctors as defaultDoctors } from '../../data/doctors';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { arDoctorsTr } from '../../i18n/ar-doctors';
+import { getFeaturedHospitals } from '../../data/hospitals';
+import { translateHospitals } from '../../i18n/ar-hospitals';
+
+const arabicHospitals = translateHospitals(getFeaturedHospitals(2));
+
+const arabicDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...arDoctors.doctors[i] }));
+
+const { costComparison } = arTreatmentsPage;
+const videoEntries = defaultDoctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="سياحة علاجية موثوقة في الهند | AlisPro MediTours"
+	description="تساعد AlisPro MediTours المرضى الدوليين على الوصول إلى رعاية صحية موثوقة في الهند بدعم طبي متخصص وتنسيق مع المستشفيات وتخطيط العلاج ودعم السفر ورعاية شخصية."
+	locale="ar"
+	alternates={[
+		{ locale: 'en', href: '/' },
+		{ locale: 'fr', href: '/fr/' },
+		{ locale: 'ru', href: '/ru/' },
+		{ locale: 'bn', href: '/bn/' },
+		{ locale: 'ro', href: '/ro/' },
+		{ locale: 'es', href: '/es/' },
+		{ locale: 'pt', href: '/pt/' },
+		{ locale: 'vi', href: '/vi/' },
+		{ locale: 'ar', href: '/ar/' },
+	]}
+>
+	<HeroSection
+		treatmentOptions={ar.hero.treatmentOptions}
+		trust={ar.hero.trust}
+		enquiry={ar.hero.enquiry}
+	/>
+	<OurDoctors
+		basePath="/ar"
+		badge={arDoctors.badge}
+		title={arDoctors.title}
+		highlight={arDoctors.highlight}
+		subtitle={arDoctors.subtitle}
+		doctors={translateDoctors(arabicDoctors, arDoctorsTr)}
+		yearsExpLabel={arDoctors.yearsExpLabel}
+		reviewsLabel={arDoctors.reviewsLabel}
+		contactLabel={arDoctors.contactLabel}
+		verifiedLabel={arDoctors.verifiedLabel}
+	/>
+	<DoctorsVideoCarousel entries={videoEntries} />
+	<OurPartnerHospitals
+		badge={arPartnerHospitalsHome.badge}
+		title={arPartnerHospitalsHome.title}
+		highlight={arPartnerHospitalsHome.highlight}
+		subtitle={arPartnerHospitalsHome.subtitle}
+		hospitals={arabicHospitals}
+		basePath="/ar"
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="وفّر {pct}%"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<SupportServices
+		badge={arSupportServices.badge}
+		title={arSupportServices.titleLead}
+		highlight={arSupportServices.titleHighlight}
+		subtitle={arSupportServices.subtitle}
+		services={arSupportServices.services}
+	/>
+	<Testimonials
+		badge={arAbout.testimonials.badge}
+		title={arAbout.testimonials.title}
+		highlight={arAbout.testimonials.highlight}
+		subtitle={arAbout.testimonials.subtitle}
+		testimonials={arAbout.testimonials.items}
+	/>
+	<TravelProcess
+		badge={arTravelProcess.badge}
+		title={arTravelProcess.titleLead}
+		highlight={arTravelProcess.titleHighlight}
+		subtitle={arTravelProcess.subtitle}
+		steps={arTravelProcess.steps}
+	/>
+	<CostEstimateCta
+		title="هل تريد تقديرًا دقيقًا لتكلفة علاجك؟"
+		text="ارفع تقاريرك الطبية واحصل على خطة علاج شخصية مع تقدير تكلفة شفاف من اختصاصيينا، خلال 24 ساعة."
+		primaryLabel="استشارة مجانية"
+		primaryHref="/ar/contact"
+		secondaryLabel="ارفع تقاريرك الطبية"
+		secondaryHref="/ar/contact#enquiry-form"
+	/>
+</Layout>

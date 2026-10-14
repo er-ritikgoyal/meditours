@@ -1,0 +1,1142 @@
+---
+import { Image } from 'astro:assets';
+import 'flag-icons/css/flag-icons.min.css';
+import Layout from '../../../layouts/Layout.astro';
+import EnquiryCard from '../../../components/EnquiryCard.astro';
+import CostEstimateCta from '../../../components/CostEstimateCta.astro';
+import iconHome from 'bootstrap-icons/icons/house-door-fill.svg?raw';
+import iconChevron from 'bootstrap-icons/icons/chevron-right.svg?raw';
+import iconVerified from 'bootstrap-icons/icons/patch-check-fill.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconQuote from 'bootstrap-icons/icons/quote.svg?raw';
+import iconExperience from 'bootstrap-icons/icons/briefcase-fill.svg?raw';
+import iconHospital from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconLanguage from 'bootstrap-icons/icons/translate.svg?raw';
+import iconCheck from 'bootstrap-icons/icons/check-circle-fill.svg?raw';
+import iconMortarboard from 'bootstrap-icons/icons/mortarboard-fill.svg?raw';
+import iconAward from 'bootstrap-icons/icons/award-fill.svg?raw';
+import iconPeople from 'bootstrap-icons/icons/people-fill.svg?raw';
+import iconWhatsapp from 'bootstrap-icons/icons/whatsapp.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import iconImage from 'bootstrap-icons/icons/image-fill.svg?raw';
+import { doctors, type DoctorData } from '../../../data/doctors';
+import { frDoctorsPage } from '../../../i18n/fr-pages';
+import { translateDoctor, translateDoctors } from '../../../i18n/doctorsTranslate';
+import { frDoctorsTr } from '../../../i18n/fr-doctors';
+
+export function getStaticPaths() {
+	return doctors.map((doctor) => ({
+		params: { slug: doctor.slug },
+		props: { doctor },
+	}));
+}
+
+const { doctor: baseDoctor } = Astro.props as { doctor: DoctorData };
+const doctor = translateDoctor(baseDoctor, frDoctorsTr);
+const d = frDoctorsPage.detail;
+
+const currentIndex = doctors.findIndex((d) => d.slug === doctor.slug);
+const related = translateDoctors(
+	Array.from({ length: 3 }, (_, i) => doctors[(currentIndex + 1 + i) % doctors.length]),
+	frDoctorsTr,
+);
+
+const initials = (name: string) =>
+	name
+		.replace(/^Dr\.?\s*/i, '')
+		.split(' ')
+		.filter(Boolean)
+		.slice(0, 2)
+		.map((part) => part[0])
+		.join('')
+		.toUpperCase();
+
+const tabs = [
+	{ id: 'about', label: d.tabs.about },
+	{ id: 'specializations', label: d.tabs.specializations },
+	{ id: 'qualifications', label: d.tabs.qualifications },
+	{ id: 'experience', label: d.tabs.experience },
+	// Omit tabs with no data instead of showing an empty panel.
+	...(doctor.awards.length > 0 ? [{ id: 'awards', label: d.tabs.awards }] : []),
+	...(doctor.memberships.length > 0 ? [{ id: 'memberships', label: d.tabs.memberships }] : []),
+];
+
+const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.whatsappMessageTemplate(doctor.name))}`;
+---
+
+<Layout
+	title={`${doctor.name} — ${doctor.specialty} en Inde | AlisPro MediTours`}
+	description={`${doctor.name}, ${doctor.title} — ${doctor.hospital}. ${doctor.experienceYears}+ ${d.yearsExperienceSuffix}. ${doctor.about.slice(0, 110)}...`}
+	locale="fr"
+	alternates={[
+		{ locale: 'en', href: `/doctors/${doctor.slug}` },
+		{ locale: 'fr', href: `/fr/doctors/${doctor.slug}` },
+		{ locale: 'ru', href: `/ru/doctors/${doctor.slug}` },
+		{ locale: 'bn', href: `/bn/doctors/${doctor.slug}` },
+		{ locale: 'ro', href: `/ro/doctors/${doctor.slug}` },
+		{ locale: 'es', href: `/es/doctors/${doctor.slug}` },
+		{ locale: 'pt', href: `/pt/doctors/${doctor.slug}` },
+		{ locale: 'vi', href: `/vi/doctors/${doctor.slug}` },
+		{ locale: 'ar', href: `/ar/doctors/${doctor.slug}` },
+	]}
+>
+	<section class="doctor-hero">
+		<div class="doctor-hero__inner">
+			<nav class="doctor-hero__breadcrumbs" aria-label="Breadcrumb">
+				<a href="/fr/">
+					<span set:html={iconHome} />
+					{d.home}
+				</a>
+				<span class="doctor-hero__crumb-sep" set:html={iconChevron} aria-hidden="true" />
+				<a href="/fr/doctors">{d.ourDoctors}</a>
+				<span class="doctor-hero__crumb-sep" set:html={iconChevron} aria-hidden="true" />
+				<span aria-current="page">{doctor.name}</span>
+			</nav>
+
+			<div class="doctor-hero__corner-photo">
+				{
+					doctor.topRightPhoto ? (
+						<>
+							<Image src={doctor.topRightPhoto} alt={`${doctor.name} — clinic`} width={320} height={220} />
+							<div class="doctor-hero__corner-caption">
+								<span set:html={iconHospital} aria-hidden="true" />
+								<span>{doctor.hospital}</span>
+							</div>
+						</>
+					) : (
+						<div class="doctor-hero__corner-photo-placeholder">
+							<span set:html={iconImage} aria-hidden="true" />
+							<span>{d.photoLabel}</span>
+						</div>
+					)
+				}
+			</div>
+
+			<div class="doctor-hero__grid">
+				<div class={`doctor-hero__media doctor-hero__media--${doctor.theme}`}>
+					{
+						doctor.photo ? (
+							<Image src={doctor.photo} alt={doctor.name} width={280} height={280} class="doctor-hero__photo" />
+						) : (
+							<span class="doctor-hero__avatar">{initials(doctor.name)}</span>
+						)
+					}
+					<span class="doctor-hero__verified" set:html={iconVerified} title={d.verifiedSpecialist} />
+				</div>
+
+				<div class="doctor-hero__content">
+					<span class={`doctor-hero__specialty doctor-hero__specialty--${doctor.theme}`}>{doctor.specialty}</span>
+					<h1 class="doctor-hero__name">{doctor.name}</h1>
+					<p class="doctor-hero__title">{doctor.title}</p>
+
+					<div class="doctor-hero__rating">
+						<div class="doctor-hero__stars" aria-label={`${doctor.rating} out of 5 stars`}>
+							{Array.from({ length: 5 }).map((_, i) => (
+								<span class={`doctor-hero__star ${i < Math.round(doctor.rating) ? 'is-filled' : ''}`} set:html={iconStar} />
+							))}
+						</div>
+						<strong>{doctor.rating.toFixed(1)}</strong>
+						<span>({doctor.reviews} {d.reviewsSuffix})</span>
+					</div>
+
+					<div class="doctor-hero__meta">
+						<span class="doctor-hero__meta-row">
+							<span set:html={iconExperience} aria-hidden="true" />
+							{doctor.experienceYears}+ {d.yearsExperienceSuffix}
+						</span>
+						<span class="doctor-hero__meta-row">
+							<span set:html={iconHospital} aria-hidden="true" />
+							{doctor.hospital}, {doctor.city}
+						</span>
+						<span class="doctor-hero__meta-row">
+							<span set:html={iconLanguage} aria-hidden="true" />
+							{doctor.languages.join(', ')}
+						</span>
+					</div>
+
+					<div class="doctor-hero__ctas">
+						<a class="doctor-hero__cta doctor-hero__cta--primary" href="/fr/contact#enquiry-form">
+							{d.bookAppointment}
+							<span set:html={iconArrowRight} aria-hidden="true" />
+						</a>
+						<a class="doctor-hero__cta doctor-hero__cta--secondary" href={whatsappHref} target="_blank" rel="noopener noreferrer">
+							<span set:html={iconWhatsapp} aria-hidden="true" />
+							{d.videoConsultation}
+						</a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<section class="doctor-detail">
+		<div class="doctor-detail__layout">
+			<div class="doctor-detail__main">
+				<div class="doctor-tabs" role="tablist">
+					{
+						tabs.map((tab, i) => (
+							<button
+								class={`doctor-tabs__btn ${i === 0 ? 'is-active' : ''}`}
+								data-tab-trigger
+								data-tab-target={tab.id}
+								role="tab"
+								aria-selected={i === 0 ? 'true' : 'false'}
+							>
+								{tab.label}
+							</button>
+						))
+					}
+				</div>
+
+				<div class="doctor-tabs__panels">
+					<div class="doctor-tab-panel" data-tab-panel="about">
+						<h2>{d.aboutPrefix} {doctor.name}</h2>
+						{doctor.bannerPhoto && (
+							<Image
+								src={doctor.bannerPhoto}
+								alt={`${doctor.name} — ${doctor.specialty}`}
+								width={860}
+								class="doctor-tab-panel__banner"
+							/>
+						)}
+						{doctor.about.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
+					</div>
+
+					<div class="doctor-tab-panel" data-tab-panel="specializations" hidden>
+						<h2>{d.tabs.specializations}</h2>
+						<ul class="doctor-tab-list">
+							{
+								doctor.specializations.map((item) => (
+									<li>
+										<span set:html={iconCheck} aria-hidden="true" />
+										{item}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					<div class="doctor-tab-panel" data-tab-panel="qualifications" hidden>
+						<h2>{d.tabs.qualifications}</h2>
+						<ul class="doctor-timeline">
+							{
+								doctor.education.map((edu) => (
+									<li>
+										<span class="doctor-timeline__icon" set:html={iconMortarboard} aria-hidden="true" />
+										<div>
+											<strong>{edu.degree}</strong>
+											<span>{edu.institution}</span>
+											{edu.year && <span class="doctor-timeline__year">{edu.year}</span>}
+										</div>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					<div class="doctor-tab-panel" data-tab-panel="experience" hidden>
+						<h2>{d.tabs.experience}</h2>
+						<ul class="doctor-timeline">
+							{
+								doctor.experience.map((exp) => (
+									<li>
+										<span class="doctor-timeline__icon" set:html={iconExperience} aria-hidden="true" />
+										<div>
+											<strong>{exp.role}</strong>
+											<span>{exp.place}</span>
+											<span class="doctor-timeline__year">{exp.period}</span>
+										</div>
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					<div class="doctor-tab-panel" data-tab-panel="awards" hidden>
+						<h2>{d.tabs.awards}</h2>
+						<ul class="doctor-tab-list">
+							{
+								doctor.awards.map((award) => (
+									<li>
+										<span set:html={iconAward} aria-hidden="true" />
+										{award.title}
+										{award.year && ` (${award.year})`}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					<div class="doctor-tab-panel" data-tab-panel="memberships" hidden>
+						<h2>{d.tabs.memberships}</h2>
+						<ul class="doctor-tab-list">
+							{
+								doctor.memberships.map((membership) => (
+									<li>
+										<span set:html={iconPeople} aria-hidden="true" />
+										{membership}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+
+				{
+					doctor.testimonials.length > 0 && (
+						<div class="doctor-reviews">
+							<h2>{d.patientReviews}</h2>
+							<div class="doctor-reviews__grid">
+								{doctor.testimonials.map((t) => (
+									<article class="doctor-review-card">
+										<span class="doctor-review-card__quote" set:html={iconQuote} aria-hidden="true" />
+										<div class="doctor-review-card__stars" aria-label={`${t.rating} out of 5 stars`}>
+											{Array.from({ length: 5 }).map((_, i) => (
+												<span class={`doctor-review-card__star ${i < Math.round(t.rating) ? 'is-filled' : ''}`} set:html={iconStar} />
+											))}
+										</div>
+										<p>{t.text}</p>
+										<div class="doctor-review-card__person">
+											<span class={`fi fi-${t.countryCode}`} aria-hidden="true" />
+											<span>
+												<strong>{t.name}</strong>
+												<span>{t.country}</span>
+											</span>
+										</div>
+									</article>
+								))}
+							</div>
+						</div>
+					)
+				}
+
+				<div class="doctor-related">
+					<h2>{d.otherSpecialists}</h2>
+					<div class="doctor-related__grid">
+						{
+							related.map((item) => (
+								<a class="doctor-related-card" href={`/fr/doctors/${item.slug}`}>
+									{item.photo ? (
+										<Image src={item.photo} alt={item.name} width={72} height={72} class="doctor-related-card__photo" />
+									) : (
+										<span class={`doctor-related-card__avatar doctor-related-card__avatar--${item.theme}`}>{initials(item.name)}</span>
+									)}
+									<span class="doctor-related-card__name">{item.name}</span>
+									<span class="doctor-related-card__specialty">{item.specialty}</span>
+								</a>
+							))
+						}
+					</div>
+				</div>
+			</div>
+
+			<aside class="doctor-detail__sidebar">
+				<div class="doctor-detail__sidebar-sticky">
+					<EnquiryCard title={d.bookConsultation} subtitle={d.sendCaseTemplate(doctor.name)} />
+				</div>
+			</aside>
+		</div>
+	</section>
+
+	<CostEstimateCta />
+</Layout>
+
+<script>
+	const triggers = document.querySelectorAll<HTMLButtonElement>('[data-tab-trigger]');
+	const panels = document.querySelectorAll<HTMLElement>('[data-tab-panel]');
+
+	triggers.forEach((trigger) => {
+		trigger.addEventListener('click', () => {
+			const target = trigger.dataset.tabTarget;
+
+			triggers.forEach((t) => {
+				t.classList.toggle('is-active', t === trigger);
+				t.setAttribute('aria-selected', t === trigger ? 'true' : 'false');
+			});
+
+			panels.forEach((panel) => {
+				panel.hidden = panel.dataset.tabPanel !== target;
+			});
+		});
+	});
+</script>
+
+<style>
+	.doctor-hero {
+		background: var(--gradient-hero);
+		padding: 40px 24px 64px;
+		font-family: var(--font-body);
+	}
+
+	.doctor-hero__inner {
+		position: relative;
+		max-width: 1100px;
+		margin: 0 auto;
+		padding-inline-end: 344px;
+	}
+
+	.doctor-hero__corner-photo {
+		position: absolute;
+		top: 0;
+		inset-inline-end: 0;
+		width: 320px;
+	}
+
+	.doctor-hero__corner-photo :global(img) {
+		display: block;
+		width: 100%;
+		height: 220px;
+		object-fit: cover;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.doctor-hero__corner-caption {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		margin-top: 10px;
+		font-size: 12.5px;
+		font-weight: 600;
+		color: var(--color-text-secondary);
+		text-align: center;
+	}
+
+	.doctor-hero__corner-caption span:first-child {
+		display: flex;
+		flex-shrink: 0;
+		width: 13px;
+		height: 13px;
+		color: var(--color-primary);
+	}
+
+	.doctor-hero__corner-caption span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-hero__corner-photo-placeholder {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		width: 100%;
+		height: 220px;
+		border: 1.5px dashed var(--color-border-card);
+		border-radius: var(--radius-lg);
+		background: var(--color-bg-white);
+		color: var(--color-text-light);
+	}
+
+	.doctor-hero__corner-photo-placeholder span:first-child {
+		display: flex;
+		width: 34px;
+		height: 34px;
+	}
+
+	.doctor-hero__corner-photo-placeholder span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-hero__corner-photo-placeholder span:last-child {
+		font-size: 13px;
+		font-weight: 600;
+	}
+
+	@media screen and (max-width: 860px) {
+		.doctor-hero__inner {
+			padding-inline-end: 0;
+		}
+
+		.doctor-hero__corner-photo {
+			position: static;
+			width: 100%;
+			max-width: 100%;
+			margin: 20px 0 0;
+		}
+
+		.doctor-hero__corner-photo :global(img) {
+			height: 200px;
+		}
+
+		/* No real photo yet — collapse the empty placeholder to a slim bar instead of
+		   wasting a tall empty box at the top of the page on small screens. */
+		.doctor-hero__corner-photo-placeholder {
+			flex-direction: row;
+			justify-content: center;
+			gap: 8px;
+			height: auto;
+			padding: 12px;
+			border-radius: 999px;
+		}
+	}
+
+	@media screen and (max-width: 480px) {
+		.doctor-hero__corner-photo :global(img) {
+			height: 160px;
+		}
+
+		.doctor-hero__corner-photo {
+			margin-top: 16px;
+		}
+
+		.doctor-hero__corner-photo-placeholder span:first-child {
+			width: 18px;
+			height: 18px;
+		}
+
+		.doctor-hero__corner-photo-placeholder span:last-child {
+			font-size: 12.5px;
+		}
+	}
+
+	.doctor-hero__breadcrumbs {
+		display: flex;
+		align-items: center;
+		flex-wrap: wrap;
+		gap: 6px;
+		margin-bottom: 32px;
+		font-size: 13px;
+	}
+
+	.doctor-hero__breadcrumbs a {
+		display: inline-flex;
+		align-items: center;
+		gap: 5px;
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		transition: color 0.15s ease;
+	}
+
+	.doctor-hero__breadcrumbs a:hover {
+		color: var(--color-primary);
+	}
+
+	.doctor-hero__breadcrumbs a :global(svg) {
+		width: 12px;
+		height: 12px;
+	}
+
+	.doctor-hero__breadcrumbs [aria-current='page'] {
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.doctor-hero__crumb-sep {
+		display: inline-flex;
+		width: 12px;
+		height: 12px;
+		color: var(--color-text-light);
+	}
+
+	.doctor-hero__grid {
+		display: grid;
+		grid-template-columns: 220px 1fr;
+		gap: 40px;
+		align-items: start;
+	}
+
+	.doctor-hero__content {
+		min-width: 0;
+	}
+
+	.doctor-hero__media {
+		position: relative;
+		width: 220px;
+		height: 220px;
+		border-radius: var(--radius-lg);
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		overflow: hidden;
+		box-shadow: var(--shadow-card);
+	}
+
+	.doctor-hero__media--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.doctor-hero__media--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.doctor-hero__media--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.doctor-hero__media :global(.doctor-hero__photo) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+		object-position: top center;
+	}
+
+	.doctor-hero__avatar {
+		font-family: var(--font-heading);
+		font-size: 56px;
+		font-weight: 700;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.doctor-hero__verified {
+		position: absolute;
+		top: 12px;
+		inset-inline-end: 12px;
+		display: flex;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		background: var(--color-bg-white);
+		color: var(--color-gold);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.doctor-hero__verified :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-hero__specialty {
+		display: inline-block;
+		padding: 5px 14px;
+		border-radius: 999px;
+		font-size: 12px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+		margin-bottom: 14px;
+	}
+
+	.doctor-hero__specialty--blue {
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+	}
+
+	.doctor-hero__specialty--teal {
+		background: rgba(20, 184, 166, 0.12);
+		color: #0f766e;
+	}
+
+	.doctor-hero__specialty--green {
+		background: rgba(34, 197, 94, 0.12);
+		color: #15803d;
+	}
+
+	.doctor-hero__name {
+		font-family: var(--font-heading);
+		font-size: clamp(1.7rem, 3vw, 2.3rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 6px;
+	}
+
+	.doctor-hero__title {
+		font-size: 15px;
+		color: var(--color-text-secondary);
+		margin: 0 0 16px;
+	}
+
+	.doctor-hero__rating {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		margin-bottom: 18px;
+		font-size: 13.5px;
+		color: var(--color-text-secondary);
+	}
+
+	.doctor-hero__stars {
+		display: inline-flex;
+		gap: 2px;
+	}
+
+	.doctor-hero__star {
+		display: flex;
+		width: 15px;
+		height: 15px;
+		color: var(--color-border-card);
+	}
+
+	.doctor-hero__star.is-filled {
+		color: var(--color-gold);
+	}
+
+	.doctor-hero__star :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-hero__rating strong {
+		color: var(--color-text-primary);
+		font-family: var(--font-heading);
+	}
+
+	.doctor-hero__meta {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-bottom: 24px;
+	}
+
+	.doctor-hero__meta-row {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 14px;
+		color: var(--color-text-secondary);
+	}
+
+	.doctor-hero__meta-row span:first-child {
+		display: flex;
+		flex-shrink: 0;
+		width: 15px;
+		height: 15px;
+		color: var(--color-primary);
+	}
+
+	.doctor-hero__meta-row span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-hero__ctas {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+	}
+
+	.doctor-hero__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 4px;
+		padding: 13px 22px;
+		border-radius: var(--radius-md);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.doctor-hero__cta--primary {
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.doctor-hero__cta--primary:hover {
+		transform: translateY(-1px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.doctor-hero__cta--secondary {
+		background: #25d366;
+		color: #ffffff;
+	}
+
+	.doctor-hero__cta--secondary:hover {
+		transform: translateY(-1px);
+	}
+
+	.doctor-hero__cta :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	.doctor-hero__cta--primary :global(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	.doctor-detail {
+		background: var(--color-bg-white);
+		padding: 56px 24px 24px;
+		font-family: var(--font-body);
+	}
+
+	.doctor-detail__layout {
+		max-width: 1100px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: 1fr 340px;
+		gap: 40px;
+		align-items: start;
+	}
+
+	.doctor-detail__main {
+		/* Without this, grid items refuse to shrink below their widest content's
+		   natural size (here, the About-tab banner image) — forces horizontal
+		   overflow on narrow screens instead of letting width:100% do its job. */
+		min-width: 0;
+	}
+
+	.doctor-detail__sidebar {
+		min-width: 0;
+	}
+
+	.doctor-detail__sidebar-sticky {
+		position: sticky;
+		top: 24px;
+	}
+
+	.doctor-tabs {
+		display: flex;
+		flex-wrap: nowrap;
+		gap: 6px;
+		padding-bottom: 4px;
+		margin-bottom: 28px;
+		border-bottom: 1px solid var(--color-border-light);
+		overflow-x: auto;
+		scrollbar-width: thin;
+		-webkit-overflow-scrolling: touch;
+	}
+
+	.doctor-tabs__btn {
+		flex-shrink: 0;
+		padding: 10px 16px;
+		border: none;
+		background: transparent;
+		border-radius: var(--radius-md) var(--radius-md) 0 0;
+		font-family: var(--font-body);
+		font-size: 13.5px;
+		font-weight: 600;
+		color: var(--color-text-secondary);
+		white-space: nowrap;
+		cursor: pointer;
+		border-bottom: 2px solid transparent;
+		transition:
+			color 0.15s ease,
+			border-color 0.15s ease;
+	}
+
+	.doctor-tabs__btn:hover {
+		color: var(--color-primary);
+	}
+
+	.doctor-tabs__btn.is-active {
+		color: var(--color-primary);
+		border-bottom-color: var(--color-teal);
+	}
+
+	.doctor-tab-panel h2 {
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 14px;
+	}
+
+	.doctor-tab-panel p {
+		font-size: 14.5px;
+		line-height: 1.75;
+		color: var(--color-text-secondary);
+		margin: 0 0 16px;
+	}
+
+	.doctor-tab-panel p:last-child {
+		margin-bottom: 0;
+	}
+
+	.doctor-tab-panel :global(.doctor-tab-panel__banner) {
+		display: block;
+		width: 100%;
+		height: auto;
+		border-radius: var(--radius-lg);
+		margin: 0 0 20px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.doctor-tab-list {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.doctor-tab-list li {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		font-size: 14px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.doctor-tab-list li span:first-child {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		margin-top: 2px;
+		color: var(--color-teal);
+	}
+
+	.doctor-tab-list li span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-timeline {
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.doctor-timeline li {
+		display: flex;
+		gap: 14px;
+	}
+
+	.doctor-timeline__icon {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+	}
+
+	.doctor-timeline__icon :global(svg) {
+		width: 16px;
+		height: 16px;
+	}
+
+	.doctor-timeline li > div {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.doctor-timeline li strong {
+		font-size: 14.5px;
+		color: var(--color-text-primary);
+	}
+
+	.doctor-timeline li span {
+		font-size: 13px;
+		color: var(--color-text-secondary);
+	}
+
+	.doctor-timeline__year {
+		color: var(--color-text-muted) !important;
+		font-weight: 600;
+	}
+
+	.doctor-reviews {
+		margin-top: 56px;
+		padding-top: 40px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.doctor-reviews h2,
+	.doctor-related h2 {
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 20px;
+	}
+
+	.doctor-reviews__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 20px;
+	}
+
+	.doctor-review-card {
+		position: relative;
+		background: var(--color-bg-alt);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		padding: 22px;
+	}
+
+	.doctor-review-card__quote {
+		display: flex;
+		width: 22px;
+		height: 22px;
+		color: var(--color-border-card);
+		margin-bottom: 8px;
+	}
+
+	.doctor-review-card__quote :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-review-card__stars {
+		display: inline-flex;
+		gap: 2px;
+		margin-bottom: 10px;
+	}
+
+	.doctor-review-card__star {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		color: var(--color-border-card);
+	}
+
+	.doctor-review-card__star.is-filled {
+		color: var(--color-gold);
+	}
+
+	.doctor-review-card__star :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-review-card p {
+		font-size: 13.5px;
+		line-height: 1.65;
+		color: var(--color-text-secondary);
+		margin: 0 0 18px;
+	}
+
+	.doctor-review-card__person {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+	}
+
+	.doctor-review-card__person .fi {
+		flex-shrink: 0;
+		width: 22px;
+		height: 16px;
+		border-radius: 3px;
+	}
+
+	.doctor-review-card__person > span:last-child {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.doctor-review-card__person strong {
+		font-size: 13px;
+		color: var(--color-text-primary);
+	}
+
+	.doctor-review-card__person span span {
+		font-size: 11.5px;
+		color: var(--color-text-muted);
+	}
+
+	.doctor-related {
+		margin-top: 48px;
+		padding-top: 40px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.doctor-related__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+		gap: 16px;
+	}
+
+	.doctor-related-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 8px;
+		padding: 20px 14px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		background: var(--color-bg-white);
+		text-decoration: none;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.doctor-related-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.doctor-related-card :global(.doctor-related-card__photo) {
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		object-fit: cover;
+		object-position: top center;
+	}
+
+	.doctor-related-card__avatar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 72px;
+		height: 72px;
+		border-radius: 50%;
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.doctor-related-card__avatar--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.doctor-related-card__avatar--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.doctor-related-card__avatar--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.doctor-related-card__name {
+		font-family: var(--font-heading);
+		font-size: 13.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+	}
+
+	.doctor-related-card__specialty {
+		font-size: 11.5px;
+		color: var(--color-text-muted);
+	}
+
+	@media screen and (max-width: 860px) {
+		.doctor-detail__layout {
+			grid-template-columns: 1fr;
+		}
+
+		.doctor-detail__sidebar-sticky {
+			position: static;
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.doctor-hero {
+			padding: 32px 16px 48px;
+		}
+
+		.doctor-hero__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.doctor-hero__media {
+			width: 140px;
+			height: 140px;
+		}
+
+		.doctor-detail {
+			padding: 40px 16px 16px;
+		}
+	}
+</style>

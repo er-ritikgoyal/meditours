@@ -1,0 +1,35 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import TreatmentsGrid from '../components/TreatmentsGrid.astro';
+import TreatmentCostComparison from '../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../components/CostEstimateCta.astro';
+---
+
+<Layout
+	title="Medical Treatments in India | Affordable Healthcare | AlisPro MediTours"
+	description="Explore advanced medical treatments in India with AlisPro MediTours. Access expert doctors, accredited hospitals, and personalised care for cardiac, oncology, orthopaedic, fertility, cosmetic, and other treatments."
+	alternates={[
+		{ locale: 'en', href: '/treatments' },
+		{ locale: 'fr', href: '/fr/treatments' },
+		{ locale: 'ru', href: '/ru/treatments' },
+		{ locale: 'bn', href: '/bn/treatments' },
+		{ locale: 'ro', href: '/ro/treatments' },
+		{ locale: 'es', href: '/es/treatments' },
+		{ locale: 'pt', href: '/pt/treatments' },
+		{ locale: 'vi', href: '/vi/treatments' },
+		{ locale: 'ar', href: '/ar/treatments' },
+	]}
+>
+
+	<!-- <PageHeader
+		badge="8 Specialties"
+		title="World-Class Treatment,"
+		highlight="Half the Cost"
+		subtitle="From cardiac care to cosmetic surgery, every treatment is delivered at JCI & NABH accredited hospitals by internationally trained specialists."
+		breadcrumbs={[{ label: 'Treatments' }]}
+	/> -->
+	<TreatmentsGrid />
+	<TreatmentCostComparison />
+	<CostEstimateCta />
+</Layout>

@@ -1,0 +1,113 @@
+---
+import HeroSection from '../../components/HeroSection.astro';
+import TravelProcess from '../../components/TravelProcess.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import SupportServices from '../../components/SupportServices.astro';
+import Layout from '../../layouts/Layout.astro';
+import { fr } from '../../i18n/fr';
+import { frAbout, frTreatmentsPage } from '../../i18n/fr-pages';
+import { frDoctors, frPartnerHospitalsHome, frSupportServices, frTravelProcess } from '../../i18n/fr-home';
+import { doctors as defaultDoctors } from '../../data/doctors';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { frDoctorsTr } from '../../i18n/fr-doctors';
+import { getFeaturedHospitals } from '../../data/hospitals';
+import { translateHospitals } from '../../i18n/fr-hospitals';
+
+const frenchHospitals = translateHospitals(getFeaturedHospitals(2));
+
+const frenchDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...frDoctors.doctors[i] }));
+
+const { costComparison } = frTreatmentsPage;
+const videoEntries = defaultDoctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="Tourisme médical de confiance en Inde | AlisPro MediTours"
+	description="AlisPro MediTours aide les patients internationaux à accéder à des soins de santé fiables en Inde grâce à une assistance médicale experte, une coordination hospitalière, une planification des traitements et un accompagnement personnalisé."
+	locale="fr"
+	alternates={[
+		{ locale: 'en', href: '/' },
+		{ locale: 'fr', href: '/fr/' },
+		{ locale: 'ru', href: '/ru/' },
+		{ locale: 'bn', href: '/bn/' },
+		{ locale: 'ro', href: '/ro/' },
+		{ locale: 'es', href: '/es/' },
+		{ locale: 'pt', href: '/pt/' },
+		{ locale: 'vi', href: '/vi/' },
+		{ locale: 'ar', href: '/ar/' },
+	]}
+>
+	<HeroSection
+		treatmentOptions={fr.hero.treatmentOptions}
+		trust={fr.hero.trust}
+		enquiry={fr.hero.enquiry}
+	/>
+	<OurDoctors
+		basePath="/fr"
+		badge={frDoctors.badge}
+		title={frDoctors.title}
+		highlight={frDoctors.highlight}
+		subtitle={frDoctors.subtitle}
+		doctors={translateDoctors(frenchDoctors, frDoctorsTr)}
+		yearsExpLabel={frDoctors.yearsExpLabel}
+		reviewsLabel={frDoctors.reviewsLabel}
+		contactLabel={frDoctors.contactLabel}
+		verifiedLabel={frDoctors.verifiedLabel}
+	/>
+	<DoctorsVideoCarousel entries={videoEntries} />
+	<OurPartnerHospitals
+		badge={frPartnerHospitalsHome.badge}
+		title={frPartnerHospitalsHome.title}
+		highlight={frPartnerHospitalsHome.highlight}
+		subtitle={frPartnerHospitalsHome.subtitle}
+		hospitals={frenchHospitals}
+		basePath="/fr"
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="Économisez {pct} %"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<SupportServices
+		badge={frSupportServices.badge}
+		title={frSupportServices.titleLead}
+		highlight={frSupportServices.titleHighlight}
+		subtitle={frSupportServices.subtitle}
+		services={frSupportServices.services}
+	/>
+	<Testimonials
+		badge={frAbout.testimonials.badge}
+		title={frAbout.testimonials.title}
+		highlight={frAbout.testimonials.highlight}
+		subtitle={frAbout.testimonials.subtitle}
+		testimonials={frAbout.testimonials.items}
+	/>
+	<TravelProcess
+		badge={frTravelProcess.badge}
+		title={frTravelProcess.titleLead}
+		highlight={frTravelProcess.titleHighlight}
+		subtitle={frTravelProcess.subtitle}
+		steps={frTravelProcess.steps}
+	/>
+	<CostEstimateCta
+		title="Vous voulez une estimation précise de votre traitement ?"
+		text="Téléversez vos rapports médicaux et recevez un plan de traitement personnalisé avec une estimation de coût transparente de nos spécialistes sous 24 heures."
+		primaryLabel="Obtenir un devis gratuit"
+		primaryHref="/fr/contact"
+		secondaryLabel="Téléverser des rapports médicaux"
+		secondaryHref="/fr/contact#enquiry-form"
+	/>
+</Layout>

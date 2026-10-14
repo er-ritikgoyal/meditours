@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DestinationsGrid from '../../components/Destinations.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { destinations } from '../../data/destinations';
+import { esDestinations } from '../../i18n/es-destinations';
+import { esDestinationsPage } from '../../i18n/es-pages';
+
+const translatedDestinations = destinations.map((destination) => ({
+	...destination,
+	...esDestinations[destination.slug],
+}));
+---
+
+<Layout
+	title="Destinos de turismo médico en la India | AlisPro MediTours"
+	description="Descubra los principales destinos de turismo médico de la India junto con AlisPro MediTours. Encuentre hospitales de primer nivel, médicos especialistas, tratamientos avanzados y apoyo médico personalizado."
+	locale="es"
+	alternates={[
+		{ locale: 'en', href: '/destinations' },
+		{ locale: 'fr', href: '/fr/destinations' },
+		{ locale: 'ru', href: '/ru/destinations' },
+		{ locale: 'bn', href: '/bn/destinations' },
+		{ locale: 'ro', href: '/ro/destinations' },
+		{ locale: 'es', href: '/es/destinations' },
+		{ locale: 'pt', href: '/pt/destinations' },
+		{ locale: 'vi', href: '/vi/destinations' },
+		{ locale: 'ar', href: '/ar/destinations' },
+	]}
+>
+
+	<DestinationsGrid
+		basePath="/es"
+		badge={esDestinationsPage.grid.badge}
+		title={esDestinationsPage.grid.title}
+		highlight={esDestinationsPage.grid.highlight}
+		subtitle={esDestinationsPage.grid.subtitle}
+		destinations={translatedDestinations}
+		exploreLabel={esDestinationsPage.grid.exploreLabel}
+	/>
+
+	<CostEstimateCta
+		title="¿Desea una estimación exacta de su tratamiento?"
+		text="Suba sus informes médicos y reciba un plan de tratamiento personalizado con una estimación de costos transparente de nuestros especialistas, en 24 horas."
+		primaryLabel="Consulta gratuita"
+		primaryHref="/es/contact"
+		secondaryLabel="Subir informe médico"
+		secondaryHref="/es/contact#enquiry-form"
+	/>
+</Layout>

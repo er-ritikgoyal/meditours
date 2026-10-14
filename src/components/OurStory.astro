@@ -1,0 +1,328 @@
+---
+import iconHeart from 'bootstrap-icons/icons/heart-fill.svg?raw';
+import iconShield from 'bootstrap-icons/icons/shield-check.svg?raw';
+import iconAward from 'bootstrap-icons/icons/award-fill.svg?raw';
+import iconAccountable from 'bootstrap-icons/icons/person-check-fill.svg?raw';
+
+export interface StoryValue {
+	title: string;
+	description: string;
+}
+
+export interface Props {
+	badge?: string;
+	titleLead?: string;
+	titleHighlight?: string;
+	paragraphs?: string[];
+	statsLabels?: string[];
+	valuesTitle?: string;
+	values?: StoryValue[];
+}
+
+const valueIcons = [iconHeart, iconShield, iconAward, iconAccountable];
+const valueThemes = ['blue', 'teal', 'green', 'blue'] as const;
+const statValues = ['500+', '45', '24/7', '12,000+'];
+
+const {
+	badge = 'Our Story',
+	titleLead = 'Built to make world-class care',
+	titleHighlight = 'accessible to everyone',
+	paragraphs = [
+		"Alis Pro Med Tour was founded to close the gap between world-class medical care and its cost. We believe that where you're born shouldn't determine whether you can afford the surgery you need. Since our founding, we've guided thousands of patients — from first medical opinion to full recovery — through India's most accredited hospitals, saving families life-changing amounts of money without ever compromising on quality.",
+		"What started as a small team of patient coordinators has grown into a full concierge network spanning 45 countries, with in-house medical review boards, dedicated visa specialists, and 24/7 multilingual support — because navigating healthcare in a foreign country should never feel like doing it alone.",
+	],
+	statsLabels = ['Partner Hospitals', 'Countries Served', 'Patient Support', 'Patients Helped'],
+	valuesTitle = 'Our Values',
+	values: valuesProp = [
+		{
+			title: 'Compassion First',
+			description:
+				"Every decision starts with what's best for the patient in front of us — not what's fastest or most profitable.",
+		},
+		{
+			title: 'Radical Transparency',
+			description: 'Upfront pricing, honest timelines, and no hidden fees. What we quote is what you pay.',
+		},
+		{
+			title: 'Clinical Excellence',
+			description: 'We only work with JCI and NABH-accredited hospitals and specialists with a verified track record.',
+		},
+		{
+			title: 'Always Accountable',
+			description: "From your first message to your final follow-up call, one coordinator owns your case start to finish.",
+		},
+	],
+} = Astro.props;
+
+const stats = statValues.map((value, i) => ({ value, label: statsLabels[i] }));
+const values = valuesProp.map((value, i) => ({ ...value, icon: valueIcons[i], theme: valueThemes[i] }));
+---
+
+<section class="story">
+	<div class="story__inner">
+		<div class="story__grid">
+			<div class="story__text" data-animate>
+				<span class="story__badge">{badge}</span>
+				<h2 class="story__title">
+					{titleLead} <span>{titleHighlight}</span>
+				</h2>
+				{paragraphs.map((paragraph) => <p>{paragraph}</p>)}
+			</div>
+
+			<div class="story__stats" data-animate>
+				{
+					stats.map((stat) => (
+						<div class="story__stat">
+							<strong>{stat.value}</strong>
+							<span>{stat.label}</span>
+						</div>
+					))
+				}
+			</div>
+		</div>
+
+		<div class="story__values">
+			<h2 class="story__values-title" data-animate>{valuesTitle}</h2>
+			<div class="story__values-grid">
+				{
+					values.map((value, i) => (
+						<div class="value-card" data-animate style={`transition-delay: ${(i % 4) * 80}ms`}>
+							<span class={`value-card__icon value-card__icon--${value.theme}`} set:html={value.icon} />
+							<h3>{value.title}</h3>
+							<p>{value.description}</p>
+						</div>
+					))
+				}
+			</div>
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.story [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.story {
+		background: var(--color-bg-white);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.story__inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(20px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.story__grid {
+		display: grid;
+		grid-template-columns: 1.5fr 1fr;
+		gap: 56px;
+		align-items: center;
+	}
+
+	.story__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.story__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.7rem, 3vw, 2.3rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		line-height: 1.25;
+		color: var(--color-text-primary);
+		margin: 0 0 20px;
+	}
+
+	.story__title span {
+		color: var(--color-teal);
+	}
+
+	.story__text p {
+		font-size: 14.5px;
+		line-height: 1.75;
+		color: var(--color-text-secondary);
+		margin: 0 0 18px;
+	}
+
+	.story__stats {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 16px;
+	}
+
+	.story__stat {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+		padding: 24px 20px;
+		background: var(--color-bg-alt);
+		border-radius: var(--radius-lg);
+		text-align: center;
+	}
+
+	.story__stat strong {
+		font-family: var(--font-heading);
+		font-size: 28px;
+		font-weight: 700;
+		color: var(--color-primary);
+	}
+
+	.story__stat span {
+		font-size: 12.5px;
+		font-weight: 600;
+		color: var(--color-text-muted);
+	}
+
+	.story__values {
+		margin-top: 88px;
+		text-align: center;
+	}
+
+	.story__values-title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.6rem, 2.8vw, 2.1rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 40px;
+	}
+
+	.story__values-grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 24px;
+	}
+
+	.value-card {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding: 30px 22px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.value-card:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.value-card__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		margin-bottom: 18px;
+		color: #ffffff;
+	}
+
+	.value-card__icon :global(svg) {
+		width: 24px;
+		height: 24px;
+	}
+
+	.value-card__icon--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.value-card__icon--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.value-card__icon--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.value-card h3 {
+		font-family: var(--font-heading);
+		font-size: 17px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 10px;
+	}
+
+	.value-card p {
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	@media screen and (max-width: 980px) {
+		.story__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.story__values-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.story {
+			padding: 56px 16px;
+		}
+
+		.story__stats {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.story__values {
+			margin-top: 56px;
+		}
+
+		.story__values-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

@@ -1,0 +1,106 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import OurStory from '../components/OurStory.astro';
+import OurJourney from '../components/OurJourney.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import Testimonials from '../components/Testimonials.astro';
+import FaqAccordion from '../components/FaqAccordion.astro';
+import CostEstimateCta from '../components/CostEstimateCta.astro';
+---
+
+<Layout
+	title="About AlisPro MediTours | Trusted Medical Tourism Company in India"
+	description="Learn about AlisPro MediTours, a trusted medical tourism company connecting international patients with accredited hospitals and experienced specialists in India, with end-to-end support from consultation to recovery."
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge="Since Day One"
+		title="Who We Are,"
+		highlight="and Why It Matters"
+		subtitle="We're a team of patient coordinators, medical reviewers, and logistics specialists who believe world-class care shouldn't depend on where you live."
+		breadcrumbs={[{ label: 'About' }]}
+	/>
+
+	<OurStory />
+	<OurJourney />
+	<!-- <WhyChooseUs
+		badge="What Sets Us Apart"
+		title="How We Support"
+		highlight="Every Patient"
+		subtitle="The same standards we hold ourselves to on every single case, for every single patient."
+	/> -->
+	<Testimonials />
+	<FaqAccordion
+		badge="Have Questions?"
+		title="About Us,"
+		highlight="Answered"
+		subtitle="The questions we hear most often from patients considering treatment abroad."
+	/>
+
+	<CostEstimateCta />
+	
+</Layout>
+
+<style>
+	.about-cta {
+		background: var(--gradient-premium);
+		padding: 72px 24px;
+		text-align: center;
+		font-family: var(--font-body);
+	}
+
+	.about-cta__inner {
+		max-width: 620px;
+		margin: 0 auto;
+	}
+
+	.about-cta h2 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		font-weight: 700;
+		color: #ffffff;
+		margin: 0;
+	}
+
+	.about-cta p {
+		margin: 14px 0 0;
+		font-size: 15px;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.8);
+	}
+
+	.about-cta__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 28px;
+		padding: 13px 28px;
+		border-radius: var(--radius-md);
+		background: #ffffff;
+		color: var(--color-primary);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform 0.15s ease;
+	}
+
+	.about-cta__btn:hover {
+		transform: translateY(-2px);
+	}
+
+	.about-cta__btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+</style>

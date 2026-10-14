@@ -1,0 +1,259 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import FlightServices from '../../components/FlightServices.astro';
+import FlightPerks from '../../components/FlightPerks.astro';
+import PopularRoutes from '../../components/PopularRoutes.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import iconAirline from 'bootstrap-icons/icons/airplane-fill.svg?raw';
+import iconPeople from 'bootstrap-icons/icons/people-fill.svg?raw';
+import iconHeadset from 'bootstrap-icons/icons/headset.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import { esFlights } from '../../i18n/es-tourism';
+
+const statIcons = [iconAirline, iconPeople, iconHeadset];
+const stats = esFlights.stats.map((stat, i) => ({ ...stat, icon: statIcons[i] }));
+---
+
+<Layout
+	title="Reserva de vuelos médicos y asistencia de viaje en la India | AlisPro MediTours"
+	description="Reserve vuelos para su tratamiento médico en la India junto con AlisPro MediTours. Reciba asistencia para la reserva de vuelos, escolta médica, vuelos en camilla, boletos para acompañante, asistencia de visado y traslados aeropuerto-hospital."
+	locale="es"
+	alternates={[
+		{ locale: 'en', href: '/flights' },
+		{ locale: 'fr', href: '/fr/flights' },
+		{ locale: 'ru', href: '/ru/flights' },
+		{ locale: 'bn', href: '/bn/flights' },
+		{ locale: 'ro', href: '/ro/flights' },
+		{ locale: 'es', href: '/es/flights' },
+		{ locale: 'pt', href: '/pt/flights' },
+		{ locale: 'vi', href: '/vi/flights' },
+		{ locale: 'ar', href: '/ar/flights' },
+	]}
+>
+	<PageHeader
+		badge={esFlights.pageHeader.badge}
+		title={esFlights.pageHeader.title}
+		highlight={esFlights.pageHeader.highlight}
+		subtitle={esFlights.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'Vuelos' }]}
+		homeHref="/es/"
+		homeLabel="Inicio"
+	/>
+
+	<section class="flight-stats">
+		<div class="flight-stats__inner">
+			{
+				stats.map((stat) => (
+					<div class="flight-stat">
+						<span class="flight-stat__icon" set:html={stat.icon} aria-hidden="true" />
+						<strong data-countup data-value={stat.value} data-suffix={stat.suffix} data-decimals={stat.decimals ?? 0}>
+							0{stat.suffix}
+						</strong>
+						<span class="flight-stat__label">{stat.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<FlightServices
+		badge={esFlights.services.badge}
+		titleLead={esFlights.services.titleLead}
+		titleHighlight={esFlights.services.titleHighlight}
+		subtitle={esFlights.services.subtitle}
+		services={esFlights.services.items}
+		ctaLabel={esFlights.services.ctaLabel}
+	/>
+	<FlightPerks
+		badge={esFlights.perks.badge}
+		titleLead={esFlights.perks.titleLead}
+		titleHighlight={esFlights.perks.titleHighlight}
+		subtitle={esFlights.perks.subtitle}
+		labels={esFlights.perks.labels}
+	/>
+	<PopularRoutes
+		badge={esFlights.routes.badge}
+		titleLead={esFlights.routes.titleLead}
+		titleHighlight={esFlights.routes.titleHighlight}
+		subtitle={esFlights.routes.subtitle}
+		routes={esFlights.routes.items}
+		fromLabel={esFlights.routes.fromLabel}
+		ctaLabel={esFlights.routes.ctaLabel}
+	/>
+
+	<section class="flight-cta">
+		<div class="flight-cta__inner">
+			<h2>{esFlights.ctaHeading}</h2>
+			<p>{esFlights.ctaBody}</p>
+			<a class="flight-cta__btn" href="/es/contact">
+				Hablar con un coordinador
+				<span set:html={iconArrowRight} aria-hidden="true" />
+			</a>
+		</div>
+	</section>
+	<CostEstimateCta
+		title="¿Desea una estimación exacta de su tratamiento?"
+		text="Suba sus informes médicos y reciba un plan de tratamiento personalizado con una estimación de costos transparente de nuestros especialistas, en 24 horas."
+		primaryLabel="Consulta gratuita"
+		primaryHref="/es/contact"
+		secondaryLabel="Subir informe médico"
+		secondaryHref="/es/contact#enquiry-form"
+	/>
+</Layout>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const countEls = document.querySelectorAll<HTMLElement>('[data-countup]');
+
+	const runCountUp = (el: HTMLElement) => {
+		const target = parseFloat(el.dataset.value ?? '0');
+		const suffix = el.dataset.suffix ?? '';
+		const decimals = parseInt(el.dataset.decimals ?? '0', 10);
+
+		if (prefersReducedMotion) {
+			el.textContent = `${target.toFixed(decimals)}${suffix}`;
+			return;
+		}
+
+		const duration = 1200;
+		const start = performance.now();
+
+		const tick = (now: number) => {
+			const progress = Math.min((now - start) / duration, 1);
+			const eased = 1 - (1 - progress) * (1 - progress);
+			const current = target * eased;
+			el.textContent = `${current.toFixed(decimals)}${suffix}`;
+			if (progress < 1) requestAnimationFrame(tick);
+		};
+		requestAnimationFrame(tick);
+	};
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					runCountUp(entry.target as HTMLElement);
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.5 }
+	);
+	countEls.forEach((el) => observer.observe(el));
+</script>
+
+<style>
+	.flight-stats {
+		background: var(--gradient-premium);
+		padding: 40px 24px;
+		font-family: var(--font-body);
+	}
+
+	.flight-stats__inner {
+		max-width: 900px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.flight-stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 6px;
+	}
+
+	.flight-stat__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		color: var(--color-gold);
+		margin-bottom: 4px;
+	}
+
+	.flight-stat__icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.flight-stat strong {
+		font-family: var(--font-heading);
+		font-size: clamp(1.6rem, 3vw, 2.2rem);
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.flight-stat__label {
+		font-size: 12.5px;
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.flight-cta {
+		background: var(--color-bg-alt);
+		padding: 72px 24px;
+		text-align: center;
+		font-family: var(--font-body);
+	}
+
+	.flight-cta__inner {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.flight-cta h2 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.flight-cta p {
+		margin: 14px 0 0;
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.flight-cta__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 28px;
+		padding: 13px 28px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.flight-cta__btn:hover {
+		background: var(--btn-primary-hover);
+		transform: translateY(-2px);
+	}
+
+	.flight-cta__btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	@media screen and (max-width: 640px) {
+		.flight-stats__inner {
+			gap: 16px;
+		}
+
+		.flight-stat strong {
+			font-size: 1.4rem;
+		}
+	}
+</style>

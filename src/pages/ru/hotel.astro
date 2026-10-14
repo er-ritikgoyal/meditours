@@ -1,0 +1,259 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import AccommodationTiers from '../../components/AccommodationTiers.astro';
+import HotelAmenities from '../../components/HotelAmenities.astro';
+import FeaturedStays from '../../components/FeaturedStays.astro';
+import iconBuilding from 'bootstrap-icons/icons/building-fill-check.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconGeo from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { ruHotel } from '../../i18n/ru-tourism';
+
+const statIcons = [iconBuilding, iconStar, iconGeo];
+const stats = ruHotel.stats.map((stat, i) => ({ ...stat, icon: statIcons[i] }));
+---
+
+<Layout
+	title="Отели для медицинского туризма в Индии | Проживание для пациентов | AlisPro MediTours"
+	description="Найдите комфортные отели, подходящие для восстановления, рядом с ведущими больницами Индии вместе с AlisPro MediTours. Проверенные варианты проживания, трансфер до больницы и персональное сопровождение для спокойной медицинской поездки."
+	locale="ru"
+	alternates={[
+		{ locale: 'en', href: '/hotel' },
+		{ locale: 'fr', href: '/fr/hotel' },
+		{ locale: 'ru', href: '/ru/hotel' },
+		{ locale: 'bn', href: '/bn/hotel' },
+		{ locale: 'ro', href: '/ro/hotel' },
+		{ locale: 'es', href: '/es/hotel' },
+		{ locale: 'pt', href: '/pt/hotel' },
+		{ locale: 'vi', href: '/vi/hotel' },
+		{ locale: 'ar', href: '/ar/hotel' },
+	]}
+>
+	<PageHeader
+		badge={ruHotel.pageHeader.badge}
+		title={ruHotel.pageHeader.title}
+		highlight={ruHotel.pageHeader.highlight}
+		subtitle={ruHotel.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'Отели' }]}
+		homeHref="/ru/"
+		homeLabel="Главная"
+	/>
+
+	<section class="hotel-stats">
+		<div class="hotel-stats__inner">
+			{
+				stats.map((stat) => (
+					<div class="hotel-stat">
+						<span class="hotel-stat__icon" set:html={stat.icon} aria-hidden="true" />
+						<strong data-countup data-value={stat.value} data-suffix={stat.suffix} data-decimals={stat.decimals ?? 0}>
+							0{stat.suffix}
+						</strong>
+						<span class="hotel-stat__label">{stat.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<AccommodationTiers
+		badge={ruHotel.tiers.badge}
+		tiers={ruHotel.tiers.items}
+		mostPopularLabel={ruHotel.tiers.mostPopularLabel}
+		perNightLabel={ruHotel.tiers.perNightLabel}
+		ctaLabel={ruHotel.tiers.ctaLabel}
+	/>
+	<HotelAmenities
+		badge={ruHotel.amenities.badge}
+		titleLead={ruHotel.amenities.titleLead}
+		titleHighlight={ruHotel.amenities.titleHighlight}
+		subtitle={ruHotel.amenities.subtitle}
+		labels={ruHotel.amenities.labels}
+	/>
+	<FeaturedStays
+		badge={ruHotel.featuredStays.badge}
+		titleLead={ruHotel.featuredStays.titleLead}
+		titleHighlight={ruHotel.featuredStays.titleHighlight}
+		subtitle={ruHotel.featuredStays.subtitle}
+		stays={ruHotel.featuredStays.stays}
+		fromLabel={ruHotel.featuredStays.fromLabel}
+		perNightLabel={ruHotel.featuredStays.perNightLabel}
+		viewDetailsLabel={ruHotel.featuredStays.viewDetailsLabel}
+	/>
+
+	<section class="hotel-cta">
+		<div class="hotel-cta__inner">
+			<h2>{ruHotel.ctaHeading}</h2>
+			<p>{ruHotel.ctaBody}</p>
+			<a class="hotel-cta__btn" href="/ru/contact">
+				Поговорить с координатором
+				<span set:html={iconArrowRight} aria-hidden="true" />
+			</a>
+		</div>
+	</section>
+	<CostEstimateCta
+		title="Хотите точную оценку стоимости лечения?"
+		text="Загрузите свои медицинские документы и получите персональный план лечения с прозрачной сметой от наших специалистов в течение 24 часов."
+		primaryLabel="Получить бесплатную консультацию"
+		primaryHref="/ru/contact"
+		secondaryLabel="Загрузить медицинские документы"
+		secondaryHref="/ru/contact#enquiry-form"
+	/>
+</Layout>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const countEls = document.querySelectorAll<HTMLElement>('[data-countup]');
+
+	const runCountUp = (el: HTMLElement) => {
+		const target = parseFloat(el.dataset.value ?? '0');
+		const suffix = el.dataset.suffix ?? '';
+		const decimals = parseInt(el.dataset.decimals ?? '0', 10);
+
+		if (prefersReducedMotion) {
+			el.textContent = `${target.toFixed(decimals)}${suffix}`;
+			return;
+		}
+
+		const duration = 1200;
+		const start = performance.now();
+
+		const tick = (now: number) => {
+			const progress = Math.min((now - start) / duration, 1);
+			const eased = 1 - (1 - progress) * (1 - progress);
+			const current = target * eased;
+			el.textContent = `${current.toFixed(decimals)}${suffix}`;
+			if (progress < 1) requestAnimationFrame(tick);
+		};
+		requestAnimationFrame(tick);
+	};
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					runCountUp(entry.target as HTMLElement);
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.5 }
+	);
+	countEls.forEach((el) => observer.observe(el));
+</script>
+
+<style>
+	.hotel-stats {
+		background: var(--gradient-premium);
+		padding: 40px 24px;
+		font-family: var(--font-body);
+	}
+
+	.hotel-stats__inner {
+		max-width: 900px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.hotel-stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 6px;
+	}
+
+	.hotel-stat__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		color: var(--color-gold);
+		margin-bottom: 4px;
+	}
+
+	.hotel-stat__icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hotel-stat strong {
+		font-family: var(--font-heading);
+		font-size: clamp(1.6rem, 3vw, 2.2rem);
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.hotel-stat__label {
+		font-size: 12.5px;
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.hotel-cta {
+		background: var(--color-bg-alt);
+		padding: 72px 24px;
+		text-align: center;
+		font-family: var(--font-body);
+	}
+
+	.hotel-cta__inner {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.hotel-cta h2 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.hotel-cta p {
+		margin: 14px 0 0;
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.hotel-cta__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 28px;
+		padding: 13px 28px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.hotel-cta__btn:hover {
+		background: var(--btn-primary-hover);
+		transform: translateY(-2px);
+	}
+
+	.hotel-cta__btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	@media screen and (max-width: 640px) {
+		.hotel-stats__inner {
+			gap: 16px;
+		}
+
+		.hotel-stat strong {
+			font-size: 1.4rem;
+		}
+	}
+</style>

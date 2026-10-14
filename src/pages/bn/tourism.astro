@@ -1,0 +1,260 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import TourPackages from '../../components/TourPackages.astro';
+import TourInclusions from '../../components/TourInclusions.astro';
+import NearbyAttractions from '../../components/NearbyAttractions.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import iconMap from 'bootstrap-icons/icons/map-fill.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconCompass from 'bootstrap-icons/icons/compass-fill.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import { bnTourism } from '../../i18n/bn-tourism';
+
+const statIcons = [iconMap, iconStar, iconCompass];
+const stats = bnTourism.stats.map((stat, i) => ({ ...stat, icon: statIcons[i] }));
+---
+
+<Layout
+	title="ভারতে মেডিকেল ট্যুরিজম ট্যুর | সুস্থতার ভ্রমণ | AlisPro MediTours"
+	description="AlisPro MediTours-এর সাথে ভারতে সুস্থতা-বান্ধব মেডিকেল ট্যুরিজম প্যাকেজ আবিষ্কার করুন। দিল্লি, আগ্রা, জয়পুর, কেরালা, গোয়া এবং আরও অনেক জায়গায় কিউরেটেড ট্যুর উপভোগ করুন, আপনার চিকিৎসা ও সুস্থতার চারপাশে পরিকল্পিত।"
+	locale="bn"
+	alternates={[
+		{ locale: 'en', href: '/tourism' },
+		{ locale: 'fr', href: '/fr/tourism' },
+		{ locale: 'ru', href: '/ru/tourism' },
+		{ locale: 'bn', href: '/bn/tourism' },
+		{ locale: 'ro', href: '/ro/tourism' },
+		{ locale: 'es', href: '/es/tourism' },
+		{ locale: 'pt', href: '/pt/tourism' },
+		{ locale: 'vi', href: '/vi/tourism' },
+		{ locale: 'ar', href: '/ar/tourism' },
+	]}
+>
+	<PageHeader
+		badge={bnTourism.pageHeader.badge}
+		title={bnTourism.pageHeader.title}
+		highlight={bnTourism.pageHeader.highlight}
+		subtitle={bnTourism.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'ট্যুরিজম প্যাকেজ' }]}
+		homeHref="/bn/"
+		homeLabel="হোম"
+	/>
+
+	<section class="tour-stats">
+		<div class="tour-stats__inner">
+			{
+				stats.map((stat) => (
+					<div class="tour-stat">
+						<span class="tour-stat__icon" set:html={stat.icon} aria-hidden="true" />
+						<strong data-countup data-value={stat.value} data-suffix={stat.suffix} data-decimals={stat.decimals ?? 0}>
+							0{stat.suffix}
+						</strong>
+						<span class="tour-stat__label">{stat.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<TourPackages
+		badge={bnTourism.packages.badge}
+		titleLead={bnTourism.packages.titleLead}
+		titleHighlight={bnTourism.packages.titleHighlight}
+		subtitle={bnTourism.packages.subtitle}
+		packages={bnTourism.packages.items}
+		ctaLabel={bnTourism.packages.ctaLabel}
+		perPersonLabel={bnTourism.packages.perPersonLabel}
+		fromLabel={bnTourism.packages.fromLabel}
+	/>
+	<TourInclusions
+		badge={bnTourism.inclusions.badge}
+		titleLead={bnTourism.inclusions.titleLead}
+		titleHighlight={bnTourism.inclusions.titleHighlight}
+		subtitle={bnTourism.inclusions.subtitle}
+		labels={bnTourism.inclusions.labels}
+	/>
+	<NearbyAttractions
+		badge={bnTourism.attractions.badge}
+		titleLead={bnTourism.attractions.titleLead}
+		titleHighlight={bnTourism.attractions.titleHighlight}
+		subtitle={bnTourism.attractions.subtitle}
+		attractions={bnTourism.attractions.items}
+		ctaLabel={bnTourism.attractions.ctaLabel}
+	/>
+
+	<section class="tour-cta">
+		<div class="tour-cta__inner">
+			<h2>{bnTourism.ctaHeading}</h2>
+			<p>{bnTourism.ctaBody}</p>
+			<a class="tour-cta__btn" href="/bn/contact">
+				সমন্বয়কারীর সাথে কথা বলুন
+				<span set:html={iconArrowRight} aria-hidden="true" />
+			</a>
+		</div>
+	</section>
+	<CostEstimateCta
+		title="আপনার চিকিৎসার সঠিক প্রাক্কলন চান?"
+		text="আপনার মেডিকেল রিপোর্ট আপলোড করুন এবং ২৪ ঘণ্টার মধ্যে আমাদের বিশেষজ্ঞদের কাছ থেকে স্বচ্ছ খরচের প্রাক্কলনসহ একটি ব্যক্তিগতকৃত চিকিৎসা পরিকল্পনা পান।"
+		primaryLabel="বিনামূল্যে পরামর্শ নিন"
+		primaryHref="/bn/contact"
+		secondaryLabel="মেডিকেল রিপোর্ট আপলোড করুন"
+		secondaryHref="/bn/contact#enquiry-form"
+	/>
+</Layout>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const countEls = document.querySelectorAll<HTMLElement>('[data-countup]');
+
+	const runCountUp = (el: HTMLElement) => {
+		const target = parseFloat(el.dataset.value ?? '0');
+		const suffix = el.dataset.suffix ?? '';
+		const decimals = parseInt(el.dataset.decimals ?? '0', 10);
+
+		if (prefersReducedMotion) {
+			el.textContent = `${target.toFixed(decimals)}${suffix}`;
+			return;
+		}
+
+		const duration = 1200;
+		const start = performance.now();
+
+		const tick = (now: number) => {
+			const progress = Math.min((now - start) / duration, 1);
+			const eased = 1 - (1 - progress) * (1 - progress);
+			const current = target * eased;
+			el.textContent = `${current.toFixed(decimals)}${suffix}`;
+			if (progress < 1) requestAnimationFrame(tick);
+		};
+		requestAnimationFrame(tick);
+	};
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					runCountUp(entry.target as HTMLElement);
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.5 }
+	);
+	countEls.forEach((el) => observer.observe(el));
+</script>
+
+<style>
+	.tour-stats {
+		background: var(--gradient-premium);
+		padding: 40px 24px;
+		font-family: var(--font-body);
+	}
+
+	.tour-stats__inner {
+		max-width: 900px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.tour-stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 6px;
+	}
+
+	.tour-stat__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		color: var(--color-gold);
+		margin-bottom: 4px;
+	}
+
+	.tour-stat__icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.tour-stat strong {
+		font-family: var(--font-heading);
+		font-size: clamp(1.6rem, 3vw, 2.2rem);
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.tour-stat__label {
+		font-size: 12.5px;
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.tour-cta {
+		background: var(--color-bg-alt);
+		padding: 72px 24px;
+		text-align: center;
+		font-family: var(--font-body);
+	}
+
+	.tour-cta__inner {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.tour-cta h2 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.tour-cta p {
+		margin: 14px 0 0;
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.tour-cta__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 28px;
+		padding: 13px 28px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.tour-cta__btn:hover {
+		background: var(--btn-primary-hover);
+		transform: translateY(-2px);
+	}
+
+	.tour-cta__btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	@media screen and (max-width: 640px) {
+		.tour-stats__inner {
+			gap: 16px;
+		}
+
+		.tour-stat strong {
+			font-size: 1.4rem;
+		}
+	}
+</style>

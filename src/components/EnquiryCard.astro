@@ -1,0 +1,418 @@
+---
+import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
+import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
+import iconEmail from 'bootstrap-icons/icons/envelope-fill.svg?raw';
+import iconPhone from 'bootstrap-icons/icons/whatsapp.svg?raw';
+import iconShield from 'bootstrap-icons/icons/shield-check.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
+import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
+import { countries } from '../data/countries';
+
+export interface Props {
+	title?: string;
+	subtitle?: string;
+	defaultTreatment?: string;
+	treatmentOptions?: string[];
+	treatmentPlaceholder?: string;
+	namePlaceholder?: string;
+	emailPlaceholder?: string;
+	countryPlaceholder?: string;
+	phonePlaceholder?: string;
+	uploadLabel?: string;
+	submitLabel?: string;
+	privacyNote?: string;
+	successMessage?: string;
+}
+
+const {
+	title = 'Get a Free Consultation',
+	subtitle = 'Our medical team replies within 24 hours',
+	defaultTreatment,
+	treatmentOptions = [
+		'Cardiac Care',
+		'Orthopedics',
+		'Oncology',
+		'Cosmetic & Plastic Surgery',
+		'Fertility Treatment',
+		'Organ Transplant',
+		'Dental Care',
+		'Eye Care',
+		'Other',
+	],
+	treatmentPlaceholder = "I'm looking for...",
+	namePlaceholder = 'Full name',
+	emailPlaceholder = 'Email address',
+	countryPlaceholder = '---Select Country---',
+	phonePlaceholder = 'WhatsApp / phone number',
+	uploadLabel = 'Upload Medical Reports (PDF/JPG, optional)',
+	submitLabel = 'Get Free Quote',
+	privacyNote = 'Your information is confidential',
+	successMessage = 'Thanks! A patient coordinator will reach out shortly.',
+} = Astro.props;
+---
+
+<div class="enquiry-card">
+	<div class="enquiry-card__header">
+		<h3>{title}</h3>
+		<p>{subtitle}</p>
+	</div>
+
+	<form class="enquiry-card__form" data-enquiry-form enctype="multipart/form-data">
+		<input type="hidden" name="subject" value={defaultTreatment ? `${defaultTreatment} Enquiry` : 'Quick Quote Request'} />
+		<input type="hidden" name="message" data-message-field />
+		<input
+			type="text"
+			name="website"
+			class="enquiry-card__honeypot"
+			tabindex="-1"
+			autocomplete="off"
+			aria-hidden="true"
+		/>
+
+		<label class="enquiry-card__field">
+			<span set:html={iconTreatment} aria-hidden="true" />
+			<select name="category" data-treatment-field required>
+				<option value="" disabled selected={!defaultTreatment}>
+					{treatmentPlaceholder}
+				</option>
+				{treatmentOptions.map((option) => (
+					<option value={option} selected={option === defaultTreatment}>{option}</option>
+				))}
+			</select>
+		</label>
+
+		<label class="enquiry-card__field">
+			<span set:html={iconPerson} aria-hidden="true" />
+			<input type="text" name="name" placeholder={namePlaceholder} autocomplete="name" required />
+		</label>
+
+		<label class="enquiry-card__field">
+			<span set:html={iconEmail} aria-hidden="true" />
+			<input type="email" name="email" placeholder={emailPlaceholder} autocomplete="email" required />
+		</label>
+
+		<label class="enquiry-card__field">
+			<span set:html={iconGlobe} aria-hidden="true" />
+			<select name="country" data-country-field>
+				<option value="" selected disabled>{countryPlaceholder}</option>
+				{countries.map((country) => (
+					<option value={country.name} data-dial={country.dial}>{country.name}</option>
+				))}
+			</select>
+		</label>
+
+		<div class="enquiry-card__row">
+			<label class="enquiry-card__field enquiry-card__field--code">
+				<span set:html={iconPhone} aria-hidden="true" />
+				<input type="text" name="phoneCode" value="+91" placeholder="+91" inputmode="tel" data-phone-code-field />
+			</label>
+
+			<label class="enquiry-card__field enquiry-card__field--phone">
+				<input type="tel" name="phone" placeholder="WhatsApp / phone number" autocomplete="tel" required data-phone-field />
+			</label>
+		</div>
+
+		<label class="enquiry-card__file" data-file-label>
+			<span set:html={iconUpload} aria-hidden="true" />
+			<span data-file-name data-file-fallback={uploadLabel}>{uploadLabel}</span>
+			<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg" data-file-input />
+		</label>
+
+		<button type="submit" class="enquiry-card__submit">
+			{submitLabel}
+			<span set:html={iconArrow} aria-hidden="true" />
+		</button>
+
+		<p class="enquiry-card__privacy">
+			<span set:html={iconShield} aria-hidden="true" />
+			{privacyNote}
+		</p>
+
+		<p class="enquiry-card__success" data-enquiry-success hidden>
+			{successMessage}
+		</p>
+		<p class="enquiry-card__error" data-enquiry-error hidden />
+	</form>
+</div>
+
+<script>
+	import { bindEnquiryForm } from '../scripts/enquiryForm';
+
+	document.querySelectorAll<HTMLFormElement>('.enquiry-card__form[data-enquiry-form]').forEach((form) => {
+		const successEl = form.querySelector('[data-enquiry-success]');
+		const errorEl = form.querySelector('[data-enquiry-error]');
+		const fileInput = form.querySelector<HTMLInputElement>('[data-file-input]');
+		const fileName = form.querySelector('[data-file-name]');
+		const countrySelect = form.querySelector<HTMLSelectElement>('[data-country-field]');
+		const phoneCodeInput = form.querySelector<HTMLInputElement>('[data-phone-code-field]');
+
+		countrySelect?.addEventListener('change', () => {
+			const dial = countrySelect.selectedOptions[0]?.dataset.dial ?? '';
+			if (dial && phoneCodeInput) {
+				phoneCodeInput.value = `+${dial}`;
+			}
+		});
+
+		bindEnquiryForm(form, {
+			successEl,
+			errorEl,
+			beforeSubmit: (formEl) => {
+				const treatment = formEl.querySelector<HTMLSelectElement>('[data-treatment-field]')?.value ?? '';
+				const country = formEl.querySelector<HTMLSelectElement>('[data-country-field]')?.value ?? '';
+				const phoneCode = formEl.querySelector<HTMLInputElement>('[data-phone-code-field]')?.value ?? '';
+				const phoneInput = formEl.querySelector<HTMLInputElement>('[data-phone-field]');
+				const phone = phoneInput?.value ?? '';
+				const messageField = formEl.querySelector<HTMLInputElement>('[data-message-field]');
+
+				if (phoneInput && phone && !phone.startsWith('+')) {
+					phoneInput.value = `${phoneCode} ${phone}`;
+				}
+
+				if (messageField) {
+					messageField.value = [
+						'Quote request from treatment page.',
+						`Treatment: ${treatment}`,
+						country ? `Country: ${country}` : '',
+					]
+						.filter(Boolean)
+						.join('\n');
+				}
+			},
+		});
+
+		fileInput?.addEventListener('change', () => {
+			if (fileName) {
+				fileName.textContent = fileInput.files?.[0]?.name ?? fileName.dataset.fileFallback ?? '';
+			}
+		});
+	});
+</script>
+
+<style>
+	.enquiry-card {
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		padding: 24px 22px 22px;
+		box-shadow: var(--shadow-soft);
+		font-family: var(--font-body);
+	}
+
+	.enquiry-card__header h3 {
+		font-family: var(--font-heading);
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 4px;
+	}
+
+	.enquiry-card__header p {
+		font-size: 12.5px;
+		color: var(--color-text-secondary);
+		margin: 0 0 18px;
+	}
+
+	.enquiry-card__form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.enquiry-card__field {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 0 12px;
+		border-radius: 10px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		transition: border-color 0.15s ease;
+	}
+
+	.enquiry-card__field:focus-within {
+		border-color: var(--color-teal);
+		box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.14);
+	}
+
+	.enquiry-card__field span {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		color: var(--color-primary);
+	}
+
+	.enquiry-card__field span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.enquiry-card__field select,
+	.enquiry-card__field input {
+		flex: 1;
+		min-width: 0;
+		border: none;
+		outline: none;
+		background: transparent;
+		padding: 12px 4px;
+		font-size: 13.5px;
+		font-family: var(--font-body);
+		color: var(--color-text-primary);
+	}
+
+	.enquiry-card__field select:invalid {
+		color: var(--color-text-light);
+	}
+
+	.enquiry-card__field select {
+		appearance: auto;
+	}
+
+	.enquiry-card__row {
+		display: grid;
+		grid-template-columns: 88px 1fr;
+		gap: 10px;
+	}
+
+	.enquiry-card__field--code input {
+		width: 100%;
+		text-align: center;
+	}
+
+	.enquiry-card__field input::placeholder {
+		color: var(--color-text-light);
+	}
+
+	.enquiry-card__file {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 11px 12px;
+		border-radius: 10px;
+		border: 1px dashed var(--color-border-card);
+		background: var(--color-bg-alt);
+		cursor: pointer;
+		transition: border-color 0.15s ease;
+	}
+
+	.enquiry-card__file:hover {
+		border-color: var(--color-teal);
+	}
+
+	.enquiry-card__file span:first-child {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		color: var(--color-primary);
+	}
+
+	.enquiry-card__file span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.enquiry-card__file span:nth-child(2) {
+		flex: 1;
+		min-width: 0;
+		font-size: 12px;
+		color: var(--color-text-secondary);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.enquiry-card__file input[data-file-input] {
+		display: none;
+	}
+
+	.enquiry-card__submit {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 4px;
+		padding: 13px 20px;
+		border: none;
+		border-radius: 10px;
+		background: var(--gradient-cta);
+		color: #ffffff;
+		font-size: 14.5px;
+		font-weight: 600;
+		cursor: pointer;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.enquiry-card__submit:hover {
+		transform: translateY(-1px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.enquiry-card__submit:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+		transform: none;
+	}
+
+	.enquiry-card__submit :global(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	.enquiry-card__privacy {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		margin: 12px 0 0;
+		font-size: 11px;
+		color: var(--color-text-muted);
+	}
+
+	.enquiry-card__privacy span {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		color: var(--color-green);
+		flex-shrink: 0;
+	}
+
+	.enquiry-card__privacy span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.enquiry-card__success {
+		margin: 12px 0 0;
+		padding: 10px 12px;
+		border-radius: 10px;
+		background: rgba(34, 197, 94, 0.12);
+		color: #15803d;
+		font-size: 12.5px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.enquiry-card__error {
+		margin: 12px 0 0;
+		padding: 10px 12px;
+		border-radius: 10px;
+		background: rgba(239, 68, 68, 0.1);
+		color: var(--color-danger);
+		font-size: 12.5px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.enquiry-card__honeypot {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		opacity: 0;
+		pointer-events: none;
+	}
+</style>

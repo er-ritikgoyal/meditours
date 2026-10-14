@@ -1,0 +1,376 @@
+---
+import 'flag-icons/css/flag-icons.min.css';
+import iconPlane from 'bootstrap-icons/icons/airplane-fill.svg?raw';
+import iconClock from 'bootstrap-icons/icons/clock-fill.svg?raw';
+import iconTicket from 'bootstrap-icons/icons/ticket-perforated-fill.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+
+export interface RouteContent {
+	originCity: string;
+	destinationCity: string;
+}
+
+export interface Props {
+	badge?: string;
+	titleLead?: string;
+	titleHighlight?: string;
+	subtitle?: string;
+	routes?: RouteContent[];
+	fromLabel?: string;
+	ctaLabel?: string;
+}
+
+const routeMeta = [
+	{ originCode: 'ng', airline: 'Air India · United', duration: '15h 30m', price: 650, theme: 'blue' as const },
+	{ originCode: 'lb', airline: 'British Airways · Air India', duration: '9h 15m', price: 520, theme: 'teal' as const },
+	{ originCode: 'ae', airline: 'Emirates · IndiGo', duration: '4h 10m', price: 280, theme: 'green' as const },
+	{ originCode: 'sd', airline: 'Ethiopian Airlines', duration: '10h 45m', price: 610, theme: 'blue' as const },
+];
+
+const {
+	badge = 'Popular Routes',
+	titleLead = 'Frequently Booked',
+	titleHighlight = 'Patient Routes',
+	subtitle = 'A sample of the international routes our travel desk books most often.',
+	routes: routesProp = [
+		{ originCity: 'Nigeria', destinationCity: 'Delhi NCR' },
+		{ originCity: 'Libya', destinationCity: 'Mumbai' },
+		{ originCity: 'Dubai', destinationCity: 'Chennai' },
+		{ originCity: 'Sudan', destinationCity: 'Bangalore' },
+	],
+	fromLabel = 'From',
+	ctaLabel = 'Ask Availability',
+} = Astro.props;
+
+const routes = routesProp.map((route, i) => ({ ...route, ...routeMeta[i] }));
+---
+
+<section class="routes">
+	<div class="routes__inner">
+		<div class="routes__header" data-animate>
+			<span class="routes__badge">{badge}</span>
+			<h2 class="routes__title">
+				{titleLead} <span>{titleHighlight}</span>
+			</h2>
+			<p class="routes__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="routes__grid">
+			{
+				routes.map((route, i) => (
+					<article class="route-card" data-animate style={`transition-delay: ${i * 100}ms`}>
+						<div class={`route-card__media route-card__media--${route.theme}`}>
+							<span class="route-card__icon" set:html={iconPlane} aria-hidden="true" />
+						</div>
+						<div class="route-card__body">
+							<p class="route-card__path">
+								<span class={`fi fi-${route.originCode}`} aria-hidden="true" />
+								{route.originCity}
+								<span class="route-card__path-arrow" set:html={iconArrow} aria-hidden="true" />
+								{route.destinationCity}
+							</p>
+							<p class="route-card__airline">{route.airline}</p>
+
+							<div class="route-card__meta">
+								<span class="route-card__duration">
+									<span set:html={iconClock} aria-hidden="true" />
+									{route.duration}
+								</span>
+								<span class="route-card__price">
+									<span set:html={iconTicket} aria-hidden="true" />
+									{fromLabel} <strong>${route.price}</strong>
+								</span>
+							</div>
+
+							<a class="route-card__cta" href="/contact">
+								{ctaLabel}
+								<span set:html={iconArrow} aria-hidden="true" />
+							</a>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.routes [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.routes {
+		background: var(--color-bg-white);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.routes__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.routes__header {
+		text-align: center;
+		max-width: 620px;
+		margin: 0 auto 48px;
+	}
+
+	.routes__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.routes__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.routes__title span {
+		color: var(--color-teal);
+	}
+
+	.routes__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		color: var(--color-text-secondary);
+	}
+
+	.routes__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 24px;
+	}
+
+	.route-card {
+		display: flex;
+		flex-direction: column;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.route-card:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.route-card:hover .route-card__icon {
+		animation: route-fly 1.4s ease-in-out infinite;
+	}
+
+	.route-card__media {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 110px;
+	}
+
+	.route-card__media--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.route-card__media--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.route-card__media--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.route-card__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.16);
+		border: 1px solid rgba(255, 255, 255, 0.4);
+		color: #ffffff;
+	}
+
+	.route-card__icon :global(svg) {
+		width: 26px;
+		height: 26px;
+		transform: rotate(45deg);
+	}
+
+	@keyframes route-fly {
+		0%,
+		100% {
+			transform: translate(0, 0);
+		}
+		50% {
+			transform: translate(4px, -4px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.route-card:hover .route-card__icon {
+			animation: none;
+		}
+	}
+
+	.route-card__body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 20px 20px 22px;
+	}
+
+	.route-card__path {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--font-heading);
+		font-size: 15.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 4px;
+	}
+
+	.route-card__path .fi {
+		border-radius: 2px;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+		flex-shrink: 0;
+	}
+
+	.route-card__path-arrow {
+		display: flex;
+		width: 16px;
+		height: 16px;
+		flex-shrink: 0;
+		color: var(--color-teal);
+	}
+
+	.route-card__path-arrow :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	/* Origin → destination arrow points in reading direction; mirror it for RTL. */
+	:global(html[dir='rtl']) .route-card__path-arrow {
+		transform: scaleX(-1);
+	}
+
+	.route-card__airline {
+		font-size: 12.5px;
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.route-card__meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin: 14px 0 18px;
+		padding-top: 14px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.route-card__duration,
+	.route-card__price {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		font-size: 12.5px;
+		color: var(--color-text-muted);
+	}
+
+	.route-card__duration span:first-child,
+	.route-card__price span:first-child {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		color: var(--color-primary);
+		flex-shrink: 0;
+	}
+
+	.route-card__duration span:first-child :global(svg),
+	.route-card__price span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.route-card__price strong {
+		color: var(--color-text-primary);
+		font-size: 14px;
+	}
+
+	.route-card__cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2px;
+		margin-top: auto;
+		padding: 11px 18px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 13.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.15s ease;
+	}
+
+	.route-card__cta:hover {
+		background: var(--btn-primary-hover);
+	}
+
+	@media screen and (max-width: 640px) {
+		.routes {
+			padding: 56px 16px;
+		}
+	}
+</style>

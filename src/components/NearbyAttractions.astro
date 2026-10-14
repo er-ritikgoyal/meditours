@@ -1,0 +1,357 @@
+---
+import iconImage from 'bootstrap-icons/icons/image-fill.svg?raw';
+import iconGeo from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+
+export interface AttractionContent {
+	name: string;
+	city: string;
+	description: string;
+}
+
+export interface Props {
+	badge?: string;
+	titleLead?: string;
+	titleHighlight?: string;
+	subtitle?: string;
+	attractions?: AttractionContent[];
+	ctaLabel?: string;
+}
+
+const attractionMeta = [
+	{ rating: 4.9, theme: 'blue' as const },
+	{ rating: 4.7, theme: 'teal' as const },
+	{ rating: 4.8, theme: 'green' as const },
+	{ rating: 4.8, theme: 'blue' as const },
+];
+
+const {
+	badge = 'Nearby Attractions',
+	titleLead = 'Sights Worth Adding',
+	titleHighlight = 'To Your Itinerary',
+	subtitle = 'Handpicked, low-exertion attractions close to our partner hospitals.',
+	attractions: attractionsProp = [
+		{
+			name: 'Taj Mahal',
+			city: 'Agra · near Delhi NCR',
+			description: 'A short, wheelchair-friendly visit to one of the world’s most iconic monuments.',
+		},
+		{
+			name: 'Marine Drive',
+			city: 'Mumbai',
+			description: 'An easy, flat sunset promenade — a favorite low-exertion outing for recovering patients.',
+		},
+		{
+			name: 'Alleppey Backwaters',
+			city: 'near Kochi',
+			description: 'A calm private houseboat cruise through Kerala’s tranquil backwater canals.',
+		},
+		{
+			name: 'Mysore Palace',
+			city: 'near Bangalore',
+			description: 'A grand heritage palace tour with accessible pathways and golf-cart transfers.',
+		},
+	],
+	ctaLabel = 'Add to Itinerary',
+} = Astro.props;
+
+const attractions = attractionsProp.map((attraction, i) => ({ ...attraction, ...attractionMeta[i] }));
+---
+
+<section class="attractions">
+	<div class="attractions__inner">
+		<div class="attractions__header" data-animate>
+			<span class="attractions__badge">{badge}</span>
+			<h2 class="attractions__title">
+				{titleLead} <span>{titleHighlight}</span>
+			</h2>
+			<p class="attractions__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="attractions__grid">
+			{
+				attractions.map((attraction, i) => (
+					<article class="attraction-card" data-animate style={`transition-delay: ${i * 100}ms`}>
+						<div class={`attraction-card__media attraction-card__media--${attraction.theme}`}>
+							<span class="attraction-card__icon" set:html={iconImage} aria-hidden="true" />
+						</div>
+						<div class="attraction-card__body">
+							<h3 class="attraction-card__name">{attraction.name}</h3>
+							<p class="attraction-card__location">
+								<span set:html={iconGeo} aria-hidden="true" />
+								{attraction.city}
+							</p>
+							<p class="attraction-card__desc">{attraction.description}</p>
+
+							<div class="attraction-card__meta">
+								<span class="attraction-card__rating">
+									<span set:html={iconStar} aria-hidden="true" />
+									{attraction.rating.toFixed(1)}
+								</span>
+								<a class="attraction-card__cta" href="/contact">
+									{ctaLabel}
+									<span set:html={iconArrow} aria-hidden="true" />
+								</a>
+							</div>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.attractions [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.attractions {
+		background: var(--color-bg-white);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.attractions__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.attractions__header {
+		text-align: center;
+		max-width: 620px;
+		margin: 0 auto 48px;
+	}
+
+	.attractions__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.attractions__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.attractions__title span {
+		color: var(--color-teal);
+	}
+
+	.attractions__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		color: var(--color-text-secondary);
+	}
+
+	.attractions__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 24px;
+	}
+
+	.attraction-card {
+		display: flex;
+		flex-direction: column;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.attraction-card:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.attraction-card__media {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 110px;
+	}
+
+	.attraction-card__media--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.attraction-card__media--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.attraction-card__media--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.attraction-card__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.16);
+		border: 1px solid rgba(255, 255, 255, 0.4);
+		color: #ffffff;
+	}
+
+	.attraction-card__icon :global(svg) {
+		width: 28px;
+		height: 28px;
+	}
+
+	.attraction-card__body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 20px 20px 22px;
+	}
+
+	.attraction-card__name {
+		font-family: var(--font-heading);
+		font-size: 16.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 8px;
+	}
+
+	.attraction-card__location {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 12.5px;
+		color: var(--color-text-muted);
+		margin: 0 0 10px;
+	}
+
+	.attraction-card__location span {
+		display: flex;
+		flex-shrink: 0;
+		width: 12px;
+		height: 12px;
+		color: var(--color-primary);
+	}
+
+	.attraction-card__location span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.attraction-card__desc {
+		font-size: 13px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0 0 18px;
+		flex: 1;
+	}
+
+	.attraction-card__meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin-top: auto;
+		padding-top: 14px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.attraction-card__rating {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--color-text-primary);
+	}
+
+	.attraction-card__rating span {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		color: var(--color-gold);
+	}
+
+	.attraction-card__rating span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.attraction-card__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 2px;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--color-teal);
+		text-decoration: none;
+	}
+
+	.attraction-card__cta:hover {
+		color: var(--btn-primary-hover);
+	}
+
+	.attraction-card__cta :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	@media screen and (max-width: 640px) {
+		.attractions {
+			padding: 56px 16px;
+		}
+
+		.attraction-card__meta {
+			flex-direction: column;
+			align-items: flex-start;
+			gap: 10px;
+		}
+	}
+</style>

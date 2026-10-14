@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurStory from '../../components/OurStory.astro';
+import OurJourney from '../../components/OurJourney.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { roAbout } from '../../i18n/ro-pages';
+---
+
+<Layout
+	title="Despre AlisPro MediTours | Companie de încredere de turism medical în India"
+	description="Aflați despre AlisPro MediTours, o companie de încredere de turism medical care conectează pacienții internaționali cu spitale acreditate și specialiști experimentați din India, cu sprijin complet de la consultație până la recuperare."
+	locale="ro"
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge={roAbout.pageHeader.badge}
+		title={roAbout.pageHeader.title}
+		highlight={roAbout.pageHeader.highlight}
+		subtitle={roAbout.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'Despre noi' }]}
+		homeHref="/ro/"
+		homeLabel="Acasă"
+	/>
+
+	<OurStory
+		badge={roAbout.story.badge}
+		titleLead={roAbout.story.titleLead}
+		titleHighlight={roAbout.story.titleHighlight}
+		paragraphs={roAbout.story.paragraphs}
+		statsLabels={roAbout.story.statsLabels}
+		valuesTitle={roAbout.story.valuesTitle}
+		values={roAbout.story.values}
+	/>
+	<OurJourney
+		badge={roAbout.journey.badge}
+		titleLead={roAbout.journey.titleLead}
+		titleHighlight={roAbout.journey.titleHighlight}
+		subtitle={roAbout.journey.subtitle}
+		milestones={roAbout.journey.milestones}
+	/>
+	<Testimonials
+		badge={roAbout.testimonials.badge}
+		title={roAbout.testimonials.title}
+		highlight={roAbout.testimonials.highlight}
+		subtitle={roAbout.testimonials.subtitle}
+		testimonials={roAbout.testimonials.items}
+	/>
+	<FaqAccordion badge={roAbout.faq.badge} title={roAbout.faq.title} highlight={roAbout.faq.highlight} subtitle={roAbout.faq.subtitle} />
+
+	<CostEstimateCta
+		title="Doriți o estimare exactă a tratamentului dumneavoastră?"
+		text="Încărcați rapoartele dumneavoastră medicale și primiți un plan de tratament personalizat cu o estimare transparentă a costurilor de la specialiștii noștri, în 24 de ore."
+		primaryLabel="Consultație gratuită"
+		primaryHref="/ro/contact"
+		secondaryLabel="Încărcați raportul medical"
+		secondaryHref="/ro/contact#enquiry-form"
+	/>
+</Layout>

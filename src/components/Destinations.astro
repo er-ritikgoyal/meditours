@@ -1,0 +1,275 @@
+---
+import { destinations as defaultDestinations, type Destination } from '../data/destinations';
+
+export interface Props {
+	badge?: string;
+	title?: string;
+	highlight?: string;
+	subtitle?: string;
+	/** Locale URL prefix, e.g. '/fr' — prepended to every card link. Empty for English. */
+	basePath?: string;
+	destinations?: Destination[];
+	exploreLabel?: string;
+}
+
+const {
+	badge = 'Medical Hubs Across India',
+	title = 'Explore Top',
+	highlight = 'Indian Medical Hubs',
+	subtitle = 'Every city below is home to JCI or NABH-accredited hospitals, vetted by our medical board.',
+	basePath = '',
+	destinations = defaultDestinations,
+	exploreLabel = 'Explore Destination',
+} = Astro.props;
+---
+
+<section class="destinations">
+	<div class="destinations__inner">
+		<div class="destinations__header">
+			<span class="destinations__badge">{badge}</span>
+			<h2 class="destinations__title">
+				{title} <span>{highlight}</span>
+			</h2>
+			<p class="destinations__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="destinations__grid">
+			{
+				destinations.map((destination) => (
+					<article class={`destination-card destination-card--${destination.theme ?? 'blue'}`}>
+						<div class="destination-card__header">
+							<div class="destination-card__place">
+								<h3 class="destination-card__city">{destination.city}</h3>
+								<span class="destination-card__state">{destination.state}</span>
+							</div>
+							<div class="destination-card__savings">
+								<span class="destination-card__savings-value">{destination.avgSavings}%</span>
+								<span class="destination-card__savings-label">avg. savings</span>
+							</div>
+						</div>
+
+						<p class="destination-card__desc">{destination.description}</p>
+
+						<div class="destination-card__hospitals">{destination.hospitalsCount}+ Partner Hospitals</div>
+
+						<ul class="destination-card__tags">
+							{destination.popularTreatments.map((treatment) => (
+								<li>{treatment}</li>
+							))}
+						</ul>
+
+						<a class="destination-card__cta" href={`${basePath}/destinations/${destination.slug}`}>
+							{exploreLabel}
+						</a>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.destinations {
+		background: var(--color-bg-alt);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.destinations__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+	}
+
+	.destinations__header {
+		text-align: center;
+		max-width: 640px;
+		margin: 0 auto 48px;
+	}
+
+	.destinations__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.destinations__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.destinations__title span {
+		color: var(--color-teal);
+	}
+
+	.destinations__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.destinations__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 28px;
+	}
+
+	.destination-card {
+		display: flex;
+		flex-direction: column;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-top: 4px solid var(--color-primary);
+		border-radius: var(--radius-lg);
+		padding: 24px 22px 22px;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.destination-card--teal {
+		border-top-color: var(--color-teal);
+	}
+
+	.destination-card--green {
+		border-top-color: var(--color-green);
+	}
+
+	.destination-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.destination-card__header {
+		display: flex;
+		align-items: flex-start;
+		justify-content: space-between;
+		gap: 12px;
+		padding-bottom: 18px;
+		margin-bottom: 16px;
+		border-bottom: 1px solid var(--color-border-light);
+	}
+
+	.destination-card__city {
+		font-family: var(--font-heading);
+		font-size: 19px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 4px;
+	}
+
+	.destination-card__state {
+		display: block;
+		font-size: 11px;
+		font-weight: 700;
+		color: var(--color-text-light);
+		text-transform: uppercase;
+		letter-spacing: 0.06em;
+	}
+
+	.destination-card__savings {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		flex-shrink: 0;
+		text-align: end;
+	}
+
+	.destination-card__savings-value {
+		font-family: var(--font-heading);
+		font-size: 26px;
+		font-weight: 700;
+		line-height: 1.1;
+		color: var(--color-primary);
+	}
+
+	.destination-card--teal .destination-card__savings-value {
+		color: var(--color-teal);
+	}
+
+	.destination-card--green .destination-card__savings-value {
+		color: var(--color-green);
+	}
+
+	.destination-card__savings-label {
+		font-size: 10.5px;
+		font-weight: 600;
+		color: var(--color-text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.destination-card__desc {
+		font-size: 13px;
+		line-height: 1.6;
+		color: var(--color-text-muted);
+		margin: 0 0 16px;
+	}
+
+	.destination-card__hospitals {
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--color-text-primary);
+		margin-bottom: 16px;
+	}
+
+	.destination-card__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		list-style: none;
+		margin: 0 0 20px;
+		padding: 0;
+	}
+
+	.destination-card__tags li {
+		padding: 4px 10px;
+		border-radius: 999px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 11px;
+		font-weight: 600;
+	}
+
+	.destination-card__cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: auto;
+		padding: 11px 20px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.15s ease;
+	}
+
+	.destination-card__cta:hover {
+		background: var(--btn-primary-hover);
+	}
+
+	@media screen and (max-width: 640px) {
+		.destinations {
+			padding: 56px 16px;
+		}
+
+		.destinations__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

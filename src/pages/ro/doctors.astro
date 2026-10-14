@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { roDoctorsPage } from '../../i18n/ro-pages';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { roDoctorsTr } from '../../i18n/ro-doctors';
+import { doctors } from '../../data/doctors';
+
+const { listing, card, detail } = roDoctorsPage;
+const videoEntries = doctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="Medicii noștri | Specialiști atestați în India | AlisPro MediTours"
+	description="Descoperiți specialiștii atestați din rețeaua AlisPro MediTours — cardiologie, ortopedie, oncologie, chirurgie estetică, neurologie și fertilitate, afiliați unor spitale acreditate din toată India."
+	locale="ro"
+	alternates={[
+		{ locale: 'en', href: '/doctors' },
+		{ locale: 'fr', href: '/fr/doctors' },
+		{ locale: 'ru', href: '/ru/doctors' },
+		{ locale: 'bn', href: '/bn/doctors' },
+		{ locale: 'ro', href: '/ro/doctors' },
+		{ locale: 'es', href: '/es/doctors' },
+		{ locale: 'pt', href: '/pt/doctors' },
+		{ locale: 'vi', href: '/vi/doctors' },
+		{ locale: 'ar', href: '/ar/doctors' },
+	]}
+>
+	<OurDoctors
+		basePath="/ro"
+		doctors={translateDoctors(doctors, roDoctorsTr)}
+		badge={listing.gridBadge}
+		title={listing.gridTitle}
+		highlight={listing.gridHighlight}
+		subtitle={listing.gridSubtitle}
+		yearsExpLabel={card.yearsExpLabel}
+		reviewsLabel={card.reviewsLabel}
+		contactLabel={card.contactLabel}
+		verifiedLabel={card.verifiedLabel}
+	/>
+
+	<DoctorsVideoCarousel entries={videoEntries} />
+
+	<CostEstimateCta
+		title="Doriți o estimare exactă a tratamentului dumneavoastră?"
+		text="Încărcați rapoartele medicale și primiți un plan de tratament personalizat cu o estimare de cost transparentă de la specialiștii noștri în 24 de ore."
+		primaryLabel="Obțineți o ofertă gratuită"
+		primaryHref="/ro/contact"
+		secondaryLabel="Încărcați rapoarte medicale"
+		secondaryHref="/ro/contact#enquiry-form"
+	/>
+</Layout>

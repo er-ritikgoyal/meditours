@@ -1,0 +1,432 @@
+---
+/**
+ * Cookie consent banner + the site's only analytics/tracking entry point.
+ *
+ * - Shows a banner (Accept All / Reject Non-Essential / Customize) until the
+ *   visitor decides, then remembers the choice in a `cc_consent` cookie.
+ * - Google Analytics (GA4) is only loaded if the visitor opts into
+ *   "Analytics". Nothing is ever loaded before a decision is made.
+ * - Locale preference (the language the visitor picked in the navbar) is
+ *   treated as strictly necessary — it's not tracking, just remembering an
+ *   explicit choice — so it's stored in `site_locale` regardless of the
+ *   Analytics decision. Set from Navbar.astro.
+ * - Dispatches/listens for a couple of small custom DOM events so other
+ *   parts of the site can integrate without importing this component:
+ *     - "cc:open"            -> (document) reopens the banner/preferences.
+ *     - "enquiry:success"    -> (document, fired by src/scripts/enquiryForm.ts)
+ *                               logged as a GA4 "generate_lead" conversion
+ *                               event when Analytics consent is granted.
+ *
+ * TODO before this does anything useful: replace GA_MEASUREMENT_ID below with
+ * your real GA4 Measurement ID (GA4 Admin -> Data Streams -> your stream).
+ * Until then analytics loading is skipped (with a console warning) so nothing
+ * breaks, but no data is collected.
+ */
+const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+
+export interface Props {
+	locale?: string;
+	cookiePolicyHref?: string;
+	title?: string;
+	description?: string;
+	necessaryLabel?: string;
+	necessaryDescription?: string;
+	analyticsLabel?: string;
+	analyticsDescription?: string;
+	acceptAllLabel?: string;
+	rejectLabel?: string;
+	customizeLabel?: string;
+	savePreferencesLabel?: string;
+	policyLinkLabel?: string;
+	closeLabel?: string;
+}
+
+const {
+	locale = 'en',
+	cookiePolicyHref = '/cookie-policy',
+	title = 'We value your privacy',
+	description = 'We use cookies to remember your language preference and to understand how visitors use our site, so we can improve it. You can accept all cookies, reject non-essential ones, or customize your choice.',
+	necessaryLabel = 'Necessary',
+	necessaryDescription = 'Required for the site to work, such as remembering your selected language. Always on.',
+	analyticsLabel = 'Analytics',
+	analyticsDescription = 'Helps us understand how visitors use the site so we can improve it. Optional.',
+	acceptAllLabel = 'Accept All',
+	rejectLabel = 'Reject Non-Essential',
+	customizeLabel = 'Customize',
+	savePreferencesLabel = 'Save Preferences',
+	policyLinkLabel = 'Cookie Policy',
+	closeLabel = 'Close',
+} = Astro.props;
+---
+
+<div class="cc-banner" id="cc-banner" role="dialog" aria-modal="false" aria-labelledby="cc-title" hidden>
+	<div class="cc-banner__inner">
+		<div class="cc-banner__main">
+			<h2 id="cc-title" class="cc-banner__title">{title}</h2>
+			<p class="cc-banner__desc">
+				{description}
+				{' '}
+				<a href={cookiePolicyHref} class="cc-banner__link">{policyLinkLabel}</a>
+			</p>
+
+			<div class="cc-banner__categories" id="cc-categories" hidden>
+				<div class="cc-category">
+					<div class="cc-category__row">
+						<span class="cc-category__label">{necessaryLabel}</span>
+						<label class="cc-switch cc-switch--disabled">
+							<input type="checkbox" checked disabled />
+							<span class="cc-switch__track"><span class="cc-switch__thumb"></span></span>
+						</label>
+					</div>
+					<p class="cc-category__desc">{necessaryDescription}</p>
+				</div>
+				<div class="cc-category">
+					<div class="cc-category__row">
+						<span class="cc-category__label">{analyticsLabel}</span>
+						<label class="cc-switch">
+							<input type="checkbox" id="cc-analytics-toggle" />
+							<span class="cc-switch__track"><span class="cc-switch__thumb"></span></span>
+						</label>
+					</div>
+					<p class="cc-category__desc">{analyticsDescription}</p>
+				</div>
+			</div>
+		</div>
+
+		<div class="cc-banner__actions">
+			<button type="button" class="cc-btn cc-btn--text" id="cc-customize">{customizeLabel}</button>
+			<button type="button" class="cc-btn cc-btn--secondary" id="cc-reject">{rejectLabel}</button>
+			<button type="button" class="cc-btn cc-btn--secondary cc-btn--save" id="cc-save" hidden>
+				{savePreferencesLabel}
+			</button>
+			<button type="button" class="cc-btn cc-btn--primary" id="cc-accept">{acceptAllLabel}</button>
+		</div>
+
+		<button type="button" class="cc-banner__close" id="cc-close" aria-label={closeLabel}>&times;</button>
+	</div>
+</div>
+
+<script define:vars={{ GA_MEASUREMENT_ID, locale }}>
+	const COOKIE_NAME = 'cc_consent';
+	const COOKIE_DAYS = 365;
+
+	function setCookie(name, value, days) {
+		const d = new Date();
+		d.setTime(d.getTime() + days * 24 * 60 * 60 * 1000);
+		document.cookie = `${name}=${encodeURIComponent(value)};expires=${d.toUTCString()};path=/;SameSite=Lax`;
+	}
+
+	function getCookie(name) {
+		const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+		return match ? decodeURIComponent(match[1]) : null;
+	}
+
+	function readConsent() {
+		const raw = getCookie(COOKIE_NAME);
+		if (!raw) return null;
+		try {
+			return JSON.parse(raw);
+		} catch {
+			return null;
+		}
+	}
+
+	function saveConsent(analytics) {
+		setCookie(COOKIE_NAME, JSON.stringify({ analytics, decidedAt: new Date().toISOString() }), COOKIE_DAYS);
+	}
+
+	window.__gaLoaded = window.__gaLoaded || false;
+
+	function loadGA4() {
+		if (window.__gaLoaded) return;
+		if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') {
+			console.warn('[analytics] No real GA4 Measurement ID configured in CookieConsent.astro — skipping analytics load.');
+			return;
+		}
+		window.__gaLoaded = true;
+		const script = document.createElement('script');
+		script.async = true;
+		script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+		document.head.appendChild(script);
+
+		window.dataLayer = window.dataLayer || [];
+		window.gtag = function gtag() {
+			window.dataLayer.push(arguments);
+		};
+		window.gtag('js', new Date());
+		window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+	}
+
+	function applyConsent(consent) {
+		if (consent?.analytics) loadGA4();
+	}
+
+	const banner = document.getElementById('cc-banner');
+	const categories = document.getElementById('cc-categories');
+	const analyticsToggle = document.getElementById('cc-analytics-toggle');
+	const saveBtn = document.getElementById('cc-save');
+	const rejectBtn = document.getElementById('cc-reject');
+	const acceptBtn = document.getElementById('cc-accept');
+	const customizeBtn = document.getElementById('cc-customize');
+	const closeBtn = document.getElementById('cc-close');
+
+	function showBanner(prefill) {
+		if (!banner) return;
+		if (analyticsToggle instanceof HTMLInputElement) {
+			analyticsToggle.checked = !!prefill?.analytics;
+		}
+		banner.hidden = false;
+	}
+
+	function hideBanner() {
+		if (banner) banner.hidden = true;
+	}
+
+	function decide(analytics) {
+		saveConsent(analytics);
+		applyConsent({ analytics });
+		hideBanner();
+	}
+
+	acceptBtn?.addEventListener('click', () => decide(true));
+	rejectBtn?.addEventListener('click', () => decide(false));
+	closeBtn?.addEventListener('click', () => decide(false));
+	customizeBtn?.addEventListener('click', () => {
+		categories?.removeAttribute('hidden');
+		saveBtn?.removeAttribute('hidden');
+		customizeBtn.setAttribute('hidden', '');
+	});
+	saveBtn?.addEventListener('click', () => {
+		const wantsAnalytics = analyticsToggle instanceof HTMLInputElement && analyticsToggle.checked;
+		decide(wantsAnalytics);
+	});
+
+	// Reopen the banner on request (e.g. a "Manage Cookie Preferences" footer link).
+	document.addEventListener('cc:open', () => {
+		categories?.removeAttribute('hidden');
+		saveBtn?.removeAttribute('hidden');
+		customizeBtn?.setAttribute('hidden', '');
+		showBanner(readConsent());
+	});
+
+	// Conversion tracking: fired by src/scripts/enquiryForm.ts on a successful submit.
+	document.addEventListener('enquiry:success', () => {
+		if (typeof window.gtag === 'function') {
+			window.gtag('event', 'generate_lead', { event_category: 'enquiry' });
+		}
+	});
+
+	const existing = readConsent();
+	if (existing) {
+		applyConsent(existing);
+	} else {
+		showBanner(null);
+	}
+
+	// Locale preference redirect: only on the bare English homepage, and only
+	// if the visitor previously chose a different language via the navbar.
+	if (location.pathname === '/') {
+		const localeRoutes = { en: '/', fr: '/fr/', ru: '/ru/', bn: '/bn/', ro: '/ro/', es: '/es/', pt: '/pt/', vi: '/vi/', ar: '/ar/' };
+		const preferred = getCookie('site_locale');
+		if (preferred && preferred !== locale && localeRoutes[preferred]) {
+			location.replace(localeRoutes[preferred]);
+		}
+	}
+</script>
+
+<style>
+	.cc-banner {
+		position: fixed;
+		z-index: 9999;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 16px;
+		background: var(--color-bg-white);
+		border-top: 1px solid var(--color-border-card);
+		box-shadow: var(--shadow-card);
+	}
+
+	.cc-banner__inner {
+		position: relative;
+		max-width: 1120px;
+		margin: 0 auto;
+		display: flex;
+		align-items: flex-end;
+		gap: 24px;
+		flex-wrap: wrap;
+	}
+
+	.cc-banner__main {
+		flex: 1;
+		min-width: 260px;
+	}
+
+	.cc-banner__title {
+		font-family: var(--font-heading);
+		font-size: 17px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 6px;
+	}
+
+	.cc-banner__desc {
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.cc-banner__link {
+		color: var(--color-primary);
+		font-weight: 600;
+		text-decoration: underline;
+	}
+
+	.cc-banner__categories {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		margin-top: 16px;
+		padding-top: 16px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.cc-category__row {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 16px;
+	}
+
+	.cc-category__label {
+		font-size: 13.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+	}
+
+	.cc-category__desc {
+		font-size: 12.5px;
+		color: var(--color-text-muted);
+		margin: 2px 0 0;
+	}
+
+	.cc-switch {
+		position: relative;
+		display: inline-flex;
+		cursor: pointer;
+	}
+
+	.cc-switch--disabled {
+		cursor: not-allowed;
+		opacity: 0.6;
+	}
+
+	.cc-switch input {
+		position: absolute;
+		opacity: 0;
+		width: 0;
+		height: 0;
+	}
+
+	.cc-switch__track {
+		width: 38px;
+		height: 22px;
+		border-radius: 999px;
+		background: var(--color-border-light);
+		display: inline-flex;
+		align-items: center;
+		padding: 2px;
+		transition: background 0.2s ease;
+		flex-shrink: 0;
+	}
+
+	.cc-switch__thumb {
+		width: 18px;
+		height: 18px;
+		border-radius: 50%;
+		background: #fff;
+		box-shadow: 0 1px 2px rgba(0, 0, 0, 0.25);
+		transition: transform 0.2s ease;
+	}
+
+	.cc-switch input:checked + .cc-switch__track {
+		background: var(--color-teal);
+	}
+
+	.cc-switch input:checked + .cc-switch__track .cc-switch__thumb {
+		transform: translateX(16px);
+	}
+
+	.cc-banner__actions {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		flex-wrap: wrap;
+	}
+
+	.cc-btn {
+		font-family: var(--font-body);
+		font-size: 13px;
+		font-weight: 700;
+		padding: 10px 18px;
+		border-radius: 999px;
+		border: none;
+		cursor: pointer;
+		white-space: nowrap;
+		transition: transform 0.15s ease, opacity 0.15s ease;
+	}
+
+	.cc-btn:hover {
+		transform: translateY(-1px);
+	}
+
+	.cc-btn--primary {
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+	}
+
+	.cc-btn--secondary {
+		background: var(--btn-secondary-bg);
+		color: var(--btn-secondary-text);
+		border: 1px solid var(--btn-secondary-border);
+	}
+
+	.cc-btn--text {
+		background: transparent;
+		color: var(--color-text-secondary);
+		text-decoration: underline;
+		padding: 10px 6px;
+	}
+
+	.cc-banner__close {
+		position: absolute;
+		top: -6px;
+		right: -6px;
+		width: 26px;
+		height: 26px;
+		border-radius: 50%;
+		border: 1px solid var(--color-border-light);
+		background: var(--color-bg-white);
+		color: var(--color-text-muted);
+		font-size: 16px;
+		line-height: 1;
+		cursor: pointer;
+	}
+
+	@media screen and (max-width: 640px) {
+		.cc-banner__inner {
+			flex-direction: column;
+			align-items: stretch;
+		}
+
+		.cc-banner__actions {
+			justify-content: flex-start;
+		}
+
+		.cc-btn {
+			flex: 1;
+			text-align: center;
+		}
+	}
+</style>

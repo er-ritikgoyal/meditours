@@ -1,0 +1,242 @@
+---
+import iconCar from 'bootstrap-icons/icons/car-front-fill.svg?raw';
+import iconGuide from 'bootstrap-icons/icons/binoculars-fill.svg?raw';
+import iconWheelchair from 'bootstrap-icons/icons/person-wheelchair.svg?raw';
+import iconClock from 'bootstrap-icons/icons/clock-fill.svg?raw';
+import iconTransfer from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconCuisine from 'bootstrap-icons/icons/cup-hot-fill.svg?raw';
+import iconCamera from 'bootstrap-icons/icons/camera-fill.svg?raw';
+import iconDesk from 'bootstrap-icons/icons/headset.svg?raw';
+
+export interface Props {
+	badge?: string;
+	titleLead?: string;
+	titleHighlight?: string;
+	subtitle?: string;
+	labels?: string[];
+}
+
+const inclusionIcons = [iconCar, iconGuide, iconWheelchair, iconClock, iconTransfer, iconCuisine, iconCamera, iconDesk];
+const inclusionThemes = ['blue', 'teal', 'green', 'blue', 'teal', 'green', 'blue', 'teal'] as const;
+
+const {
+	badge = "What's Included",
+	titleLead = 'Every Package Comes',
+	titleHighlight = 'Fully Arranged',
+	subtitle = 'Standard across every itinerary, so you can focus on recovery, not logistics.',
+	labels = [
+		'Private AC Vehicle',
+		'English-Speaking Guide',
+		'Wheelchair-Accessible Stops',
+		'Recovery-Paced Itinerary',
+		'Hotel Pickup & Drop',
+		'Local Cuisine Experiences',
+		'Photography Stops',
+		'24/7 Concierge',
+	],
+} = Astro.props;
+
+const inclusions = labels.map((label, i) => ({ label, icon: inclusionIcons[i], theme: inclusionThemes[i] }));
+---
+
+<section class="inclusions">
+	<div class="inclusions__inner">
+		<div class="inclusions__header" data-animate>
+			<span class="inclusions__badge">{badge}</span>
+			<h2 class="inclusions__title">
+				{titleLead} <span>{titleHighlight}</span>
+			</h2>
+			<p class="inclusions__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="inclusions__grid">
+			{
+				inclusions.map((inclusion, i) => (
+					<div class="inclusion" data-animate style={`transition-delay: ${(i % 4) * 80}ms`}>
+						<span class={`inclusion__icon inclusion__icon--${inclusion.theme}`} set:html={inclusion.icon} aria-hidden="true" />
+						<span class="inclusion__label">{inclusion.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.inclusions [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.inclusions {
+		background: var(--color-bg-alt);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.inclusions__inner {
+		max-width: 1100px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(20px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.inclusions__header {
+		text-align: center;
+		max-width: 560px;
+		margin: 0 auto 48px;
+	}
+
+	.inclusions__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.inclusions__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.7rem, 3vw, 2.3rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.inclusions__title span {
+		color: var(--color-teal);
+	}
+
+	.inclusions__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		color: var(--color-text-secondary);
+	}
+
+	.inclusions__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 20px;
+	}
+
+	.inclusion {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 14px;
+		padding: 26px 16px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.inclusion:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.inclusion:hover .inclusion__icon {
+		animation: inclusion-float 1.6s ease-in-out infinite;
+	}
+
+	.inclusion__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		color: #ffffff;
+	}
+
+	.inclusion__icon :global(svg) {
+		width: 22px;
+		height: 22px;
+	}
+
+	.inclusion__icon--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.inclusion__icon--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.inclusion__icon--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.inclusion__label {
+		font-size: 13.5px;
+		font-weight: 600;
+		color: var(--color-text-primary);
+	}
+
+	@keyframes inclusion-float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-6px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.inclusion:hover .inclusion__icon {
+			animation: none;
+		}
+	}
+
+	@media screen and (max-width: 860px) {
+		.inclusions__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.inclusions {
+			padding: 56px 16px;
+		}
+	}
+</style>

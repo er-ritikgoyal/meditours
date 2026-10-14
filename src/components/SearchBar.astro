@@ -1,0 +1,457 @@
+---
+// Inline search bar — dropped at the top of the Doctors, Destinations/Hospitals
+// and Treatments pages. Not a modal: results appear as a panel attached
+// directly under the input while the visitor types, from a single
+// locale-aware index covering doctors, hospitals and treatments.
+import iconSearchGlass from 'bootstrap-icons/icons/search.svg?raw';
+import iconDoctor from 'bootstrap-icons/icons/person-badge-fill.svg?raw';
+import iconHospitalType from 'bootstrap-icons/icons/hospital-fill.svg?raw';
+import iconTreatment from 'bootstrap-icons/icons/heart-pulse-fill.svg?raw';
+import iconClose from 'bootstrap-icons/icons/x-lg.svg?raw';
+import { buildSearchIndex } from '../utils/searchIndex';
+
+export interface Props {
+	locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const index = buildSearchIndex(locale);
+// Guard against "</script>" appearing inside any title/subtitle breaking out
+// of the inline JSON payload below.
+const indexJson = JSON.stringify(index).replace(/</g, '\\u003c');
+
+const STRINGS: Record<
+	string,
+	{
+		placeholder: string;
+		noResults: string;
+		clear: string;
+		doctors: string;
+		hospitals: string;
+		treatments: string;
+	}
+> = {
+	en: {
+		placeholder: 'Search doctors, hospitals, treatments…',
+		noResults: 'No results found.',
+		clear: 'Clear search',
+		doctors: 'Doctors',
+		hospitals: 'Hospitals',
+		treatments: 'Treatments',
+	},
+	fr: {
+		placeholder: 'Rechercher médecins, hôpitaux, traitements…',
+		noResults: 'Aucun résultat trouvé.',
+		clear: 'Effacer la recherche',
+		doctors: 'Médecins',
+		hospitals: 'Hôpitaux',
+		treatments: 'Traitements',
+	},
+	es: {
+		placeholder: 'Buscar médicos, hospitales, tratamientos…',
+		noResults: 'No se encontraron resultados.',
+		clear: 'Borrar búsqueda',
+		doctors: 'Médicos',
+		hospitals: 'Hospitales',
+		treatments: 'Tratamientos',
+	},
+	pt: {
+		placeholder: 'Pesquisar médicos, hospitais, tratamentos…',
+		noResults: 'Nenhum resultado encontrado.',
+		clear: 'Limpar pesquisa',
+		doctors: 'Médicos',
+		hospitals: 'Hospitais',
+		treatments: 'Tratamentos',
+	},
+	ru: {
+		placeholder: 'Поиск врачей, больниц, процедур…',
+		noResults: 'Ничего не найдено.',
+		clear: 'Очистить поиск',
+		doctors: 'Врачи',
+		hospitals: 'Больницы',
+		treatments: 'Процедуры',
+	},
+	bn: {
+		placeholder: 'ডাক্তার, হাসপাতাল, চিকিৎসা খুঁজুন…',
+		noResults: 'কোনো ফলাফল পাওয়া যায়নি।',
+		clear: 'অনুসন্ধান মুছুন',
+		doctors: 'ডাক্তার',
+		hospitals: 'হাসপাতাল',
+		treatments: 'চিকিৎসা',
+	},
+	ro: {
+		placeholder: 'Caută medici, spitale, tratamente…',
+		noResults: 'Niciun rezultat găsit.',
+		clear: 'Șterge căutarea',
+		doctors: 'Medici',
+		hospitals: 'Spitale',
+		treatments: 'Tratamente',
+	},
+	vi: {
+		placeholder: 'Tìm bác sĩ, bệnh viện, phương pháp điều trị…',
+		noResults: 'Không tìm thấy kết quả.',
+		clear: 'Xóa tìm kiếm',
+		doctors: 'Bác sĩ',
+		hospitals: 'Bệnh viện',
+		treatments: 'Phương pháp điều trị',
+	},
+	ar: {
+		placeholder: 'ابحث عن أطباء، مستشفيات، علاجات…',
+		noResults: 'لم يتم العثور على نتائج.',
+		clear: 'مسح البحث',
+		doctors: 'الأطباء',
+		hospitals: 'المستشفيات',
+		treatments: 'العلاجات',
+	},
+};
+
+const s = STRINGS[locale] ?? STRINGS.en;
+---
+
+<div class="search-inline" id="search-inline">
+	<div class="search-inline__bar">
+		<span class="search-inline__bar-icon" set:html={iconSearchGlass} aria-hidden="true" />
+		<input
+			type="text"
+			id="search-inline-input"
+			class="search-inline__input"
+			placeholder={s.placeholder}
+			autocomplete="off"
+			spellcheck="false"
+		/>
+		<button type="button" class="search-inline__clear" id="search-inline-clear" aria-label={s.clear} hidden>
+			<span set:html={iconClose} aria-hidden="true" />
+		</button>
+	</div>
+	<div class="search-inline__panel" id="search-inline-panel" hidden></div>
+</div>
+
+<script type="application/json" id="search-inline-data" set:html={indexJson} />
+
+<script
+	define:vars={{
+		labels: { doctors: s.doctors, hospitals: s.hospitals, treatments: s.treatments },
+		noResultsText: s.noResults,
+		typeIcons: { doctor: iconDoctor, hospital: iconHospitalType, treatment: iconTreatment },
+	}}
+>
+	const root = document.getElementById('search-inline');
+	const input = document.getElementById('search-inline-input');
+	const clearBtn = document.getElementById('search-inline-clear');
+	const panel = document.getElementById('search-inline-panel');
+	const dataEl = document.getElementById('search-inline-data');
+
+	let items = [];
+	try {
+		items = dataEl ? JSON.parse(dataEl.textContent || '[]') : [];
+	} catch {
+		items = [];
+	}
+
+	const normalize = (value) =>
+		value
+			.toLowerCase()
+			.normalize('NFD')
+			.replace(/[̀-ͯ]/g, '');
+
+	const escapeHtml = (value) =>
+		value.replace(/[&<>"']/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[ch]);
+
+	const groupOrder = [
+		['doctor', labels.doctors],
+		['hospital', labels.hospitals],
+		['treatment', labels.treatments],
+	];
+
+	const hidePanel = () => {
+		panel.hidden = true;
+		panel.innerHTML = '';
+	};
+
+	const render = (query) => {
+		const q = normalize(query.trim());
+		clearBtn.hidden = q.length === 0;
+
+		if (!q) {
+			hidePanel();
+			return;
+		}
+
+		const matches = items.filter((item) => item.haystack.includes(q));
+
+		if (matches.length === 0) {
+			panel.innerHTML = `<p class="search-inline__empty">${noResultsText}</p>`;
+			panel.hidden = false;
+			return;
+		}
+
+		let html = '';
+		for (const [type, label] of groupOrder) {
+			const group = matches.filter((item) => item.type === type).slice(0, 6);
+			if (group.length === 0) continue;
+			html += `<div class="search-inline__group"><p class="search-inline__group-label">${escapeHtml(label)}</p><ul class="search-inline__list">`;
+			for (const item of group) {
+				const media = item.image
+					? `<img class="search-inline__result-photo" src="${escapeHtml(item.image)}" alt="" loading="lazy" width="34" height="34" />`
+					: `<span class="search-inline__result-icon">${typeIcons[item.type]}</span>`;
+				html += `<li><a href="${escapeHtml(item.href)}" class="search-inline__result">
+					${media}
+					<span class="search-inline__result-text">
+						<span class="search-inline__result-title">${escapeHtml(item.title)}</span>
+						<span class="search-inline__result-subtitle">${escapeHtml(item.subtitle)}</span>
+					</span>
+				</a></li>`;
+			}
+			html += `</ul></div>`;
+		}
+		panel.innerHTML = html;
+		panel.hidden = false;
+	};
+
+	input?.addEventListener('input', () => render(input.value));
+	input?.addEventListener('focus', () => {
+		if (input.value.trim()) render(input.value);
+	});
+
+	clearBtn?.addEventListener('click', () => {
+		input.value = '';
+		hidePanel();
+		input.focus();
+	});
+
+	document.addEventListener('click', (e) => {
+		if (!(e.target instanceof Node)) return;
+		if (root && !root.contains(e.target)) hidePanel();
+	});
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && document.activeElement === input) {
+			input.value = '';
+			hidePanel();
+			input.blur();
+		}
+	});
+
+	panel?.addEventListener('click', (e) => {
+		if (e.target instanceof Element && e.target.closest('a')) hidePanel();
+	});
+</script>
+
+<style>
+	.search-inline {
+		position: relative;
+		max-width: 420px;
+		margin: 0 auto 8px;
+		padding: 0 24px;
+		font-family: var(--font-body);
+	}
+
+	.search-inline__bar {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 13px 16px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: 999px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.search-inline__bar-icon {
+		display: flex;
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
+		color: var(--color-text-muted);
+	}
+
+	.search-inline__bar-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.search-inline__input {
+		flex: 1;
+		min-width: 0;
+		border: none;
+		outline: none;
+		background: transparent;
+		font-family: inherit;
+		font-size: 15px;
+		color: var(--color-text-primary);
+	}
+
+	.search-inline__input::placeholder {
+		color: var(--color-text-muted);
+	}
+
+	.search-inline__clear {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 26px;
+		height: 26px;
+		flex-shrink: 0;
+		border: none;
+		border-radius: 50%;
+		background: var(--color-bg-gray);
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.search-inline__clear[hidden] {
+		display: none;
+	}
+
+	.search-inline__clear:hover {
+		background: var(--color-border-light);
+		color: var(--color-text-primary);
+	}
+
+	.search-inline__clear :global(svg) {
+		width: 11px;
+		height: 11px;
+	}
+
+	.search-inline__panel {
+		position: absolute;
+		top: calc(100% + 8px);
+		left: 24px;
+		right: 24px;
+		z-index: 40;
+		max-height: 420px;
+		overflow-y: auto;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+		padding: 8px;
+	}
+
+	.search-inline__panel[hidden] {
+		display: none;
+	}
+
+	/*
+	 * Everything below is injected client-side via `innerHTML` (see the
+	 * render() function in the script above), so none of it is ever part of
+	 * this component's compiled template — Astro can't attach its scoping
+	 * attribute to elements that don't exist at build time. Every rule for
+	 * injected markup must therefore be :global(), or it silently never
+	 * matches (e.g. an unsized <img> rendering at its native pixel size).
+	 */
+	:global(.search-inline__empty) {
+		margin: 0;
+		padding: 20px 12px;
+		text-align: center;
+		font-size: 13.5px;
+		color: var(--color-text-muted);
+	}
+
+	:global(.search-inline__group) {
+		padding: 6px 4px;
+	}
+
+	:global(.search-inline__group) + :global(.search-inline__group) {
+		border-top: 1px solid var(--color-border-light);
+		margin-top: 2px;
+	}
+
+	:global(.search-inline__group-label) {
+		margin: 4px 8px 6px;
+		font-size: 11px;
+		font-weight: 700;
+		letter-spacing: 0.06em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+	}
+
+	:global(.search-inline__list) {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	:global(.search-inline__result) {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		padding: 9px 10px;
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		transition: background 0.15s ease;
+	}
+
+	:global(.search-inline__result):hover,
+	:global(.search-inline__result):focus-visible {
+		background: var(--color-bg-soft-blue);
+	}
+
+	:global(.search-inline__result-icon) {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 30px;
+		height: 30px;
+		flex-shrink: 0;
+		border-radius: 50%;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-teal);
+	}
+
+	:global(.search-inline__result-icon svg) {
+		width: 14px;
+		height: 14px;
+	}
+
+	:global(.search-inline__result-photo) {
+		width: 34px;
+		height: 34px;
+		max-width: 34px;
+		max-height: 34px;
+		flex-shrink: 0;
+		border-radius: 50%;
+		object-fit: cover;
+		background: var(--color-bg-gray);
+	}
+
+	:global(.search-inline__result-text) {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		min-width: 0;
+	}
+
+	:global(.search-inline__result-title) {
+		font-size: 14px;
+		font-weight: 600;
+		color: #000;
+	}
+
+	:global(.search-inline__result-subtitle) {
+		font-size: 12.5px;
+		color: #000;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	@media screen and (max-width: 640px) {
+		.search-inline {
+			padding: 0 16px;
+			margin-bottom: 4px;
+		}
+
+		.search-inline__panel {
+			left: 16px;
+			right: 16px;
+		}
+	}
+</style>

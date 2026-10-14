@@ -1,0 +1,569 @@
+---
+import { Image } from 'astro:assets';
+import iconVerified from 'bootstrap-icons/icons/patch-check-fill.svg?raw';
+import iconQualification from 'bootstrap-icons/icons/mortarboard-fill.svg?raw';
+import iconHospital from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconExperience from 'bootstrap-icons/icons/briefcase-fill.svg?raw';
+import iconRating from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconLanguage from 'bootstrap-icons/icons/translate.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import { doctors as defaultDoctors, type DoctorData } from '../data/doctors';
+import { hospitals } from '../data/hospitals';
+
+// Best-effort match from a doctor's free-text `hospital` field to a hospital
+// card's image — a doctor's `hospital` field is not a foreign key, so this
+// matches on name + city substring, same heuristic used on the hospital
+// detail page's "Doctors at this hospital" section.
+function findHospitalImage(doctorHospital: string) {
+	const match = hospitals.find((h) => {
+		const cityToken = h.city.split(/[,/]/)[0].trim();
+		return doctorHospital.includes(h.name) && doctorHospital.includes(cityToken);
+	});
+	return match?.image;
+}
+
+export interface Props {
+	badge?: string;
+	title?: string;
+	highlight?: string;
+	subtitle?: string;
+	doctors?: DoctorData[];
+	yearsExpLabel?: string;
+	reviewsLabel?: string;
+	contactLabel?: string;
+	verifiedLabel?: string;
+	/** Locale URL prefix, e.g. '/fr' — prepended to every card link. Empty for English. */
+	basePath?: string;
+}
+
+const initials = (name: string) =>
+	name
+		.replace(/^Dr\.?\s*/i, '')
+		.split(' ')
+		.filter(Boolean)
+		.slice(0, 2)
+		.map((part) => part[0])
+		.join('')
+		.toUpperCase();
+
+const {
+	badge = 'Our Medical Team',
+	title = 'Doctors Who',
+	highlight = 'Care for You',
+	subtitle = 'Board-certified specialists, empanelled at accredited hospitals, vetted for every case we take on.',
+	doctors = defaultDoctors,
+	yearsExpLabel = 'Years Exp.',
+	reviewsLabel = 'Reviews',
+	contactLabel = 'View Profile',
+	verifiedLabel = 'Verified specialist',
+	basePath = '',
+} = Astro.props;
+---
+
+<section class="doctors">
+	<div class="doctors__inner">
+		<div class="doctors__header">
+			<span class="doctors__badge">{badge}</span>
+			<h2 class="doctors__title">
+				{title} <span>{highlight}</span>
+			</h2>
+			<p class="doctors__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="doctors__grid">
+			{
+				doctors.map((doctor) => (
+					<a class={`doctor-card doctor-card--${doctor.theme ?? 'blue'}`} href={`${basePath}/doctors/${doctor.slug}`}>
+						<div class="doctor-card__banner">
+							<div class={`doctor-card__banner-media doctor-card__banner-media--${doctor.theme ?? 'blue'}`}>
+								{(() => {
+									const hospitalImage = findHospitalImage(doctor.hospital);
+									return hospitalImage ? (
+										<>
+											<Image src={hospitalImage} alt={doctor.hospital} width={400} height={110} class="doctor-card__banner-img" />
+											<span class="doctor-card__banner-overlay" aria-hidden="true" />
+										</>
+									) : null;
+								})()}
+							</div>
+							{doctor.photo ? (
+								<Image
+									src={doctor.photo}
+									alt={doctor.name}
+									width={152}
+									height={152}
+									class="doctor-card__avatar doctor-card__avatar--photo"
+								/>
+							) : (
+								<span class="doctor-card__avatar">{initials(doctor.name)}</span>
+							)}
+							<span class="doctor-card__verified" set:html={iconVerified} title={verifiedLabel} />
+						</div>
+
+						<div class="doctor-card__body">
+							<h3 class="doctor-card__name">{doctor.name}</h3>
+							<span class="doctor-card__specialty">{doctor.specialty}</span>
+
+							<div class="doctor-card__stats">
+								<div class="doctor-card__stat">
+									<span class="doctor-card__stat-icon" set:html={iconExperience} />
+									<strong>{doctor.experienceYears}+</strong>
+									<span>{yearsExpLabel}</span>
+								</div>
+								<span class="doctor-card__stat-divider" aria-hidden="true" />
+								<div class="doctor-card__stat">
+									<span class="doctor-card__stat-icon doctor-card__stat-icon--rating" set:html={iconRating} />
+									<strong>{doctor.rating.toFixed(1)}</strong>
+									<span>{doctor.reviews} {reviewsLabel}</span>
+								</div>
+							</div>
+
+							<div class="doctor-card__info">
+								<p class="doctor-card__info-row">
+									<span set:html={iconQualification} aria-hidden="true" />
+									{doctor.qualification}
+								</p>
+								<p class="doctor-card__info-row">
+									<span set:html={iconHospital} aria-hidden="true" />
+									{doctor.hospital}
+								</p>
+							</div>
+
+							<div class="doctor-card__languages">
+								<span class="doctor-card__languages-icon" set:html={iconLanguage} aria-hidden="true" />
+								<ul class="doctor-card__languages-list">
+									{doctor.languages.map((language) => (
+										<li class="doctor-card__lang-pill">{language}</li>
+									))}
+								</ul>
+							</div>
+
+							<span class="doctor-card__cta">
+								{contactLabel}
+								<span set:html={iconArrow} aria-hidden="true" />
+							</span>
+						</div>
+					</a>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<style>
+	.doctors {
+		background: var(--color-bg-white);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.doctors__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+	}
+
+	.doctors__header {
+		text-align: center;
+		max-width: 640px;
+		margin: 0 auto 48px;
+	}
+
+	.doctors__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+	
+
+
+	.doctors__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.doctors__title span {
+		color: var(--color-teal);
+	}
+
+	.doctors__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.doctors__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+		gap: 32px 28px;
+	}
+
+	.doctor-card__name,
+	.doctor-card__info-row,
+	.doctor-card__stat span {
+		overflow-wrap: anywhere;
+	}
+
+	.doctor-card {
+		display: flex;
+		flex-direction: column;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		overflow: visible;
+		box-shadow: var(--shadow-soft);
+		text-decoration: none;
+		color: inherit;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.doctor-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.doctor-card__banner {
+		position: relative;
+		height: 96px;
+		flex-shrink: 0;
+	}
+
+	.doctor-card__banner-media {
+		position: absolute;
+		inset: 0;
+		border-radius: var(--radius-lg) var(--radius-lg) 0 0;
+		overflow: hidden;
+	}
+
+	.doctor-card__banner-media--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.doctor-card__banner-media--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.doctor-card__banner-media--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.doctor-card__banner-img {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.doctor-card__banner-overlay {
+		position: absolute;
+		inset: 0;
+		background: linear-gradient(180deg, rgba(15, 23, 42, 0.15) 0%, rgba(15, 23, 42, 0.55) 100%);
+	}
+
+	.doctor-card__avatar {
+		position: absolute;
+		inset-inline-start: 24px;
+		bottom: -32px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 76px;
+		height: 76px;
+		border-radius: 50%;
+		border: 4px solid var(--color-bg-white);
+		background: var(--color-bg-alt);
+		font-family: var(--font-heading);
+		font-size: 22px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.doctor-card__avatar--photo {
+		object-fit: cover;
+		object-position: top center;
+	}
+
+	.doctor-card__verified {
+		position: absolute;
+		inset-inline-start: 82px;
+		bottom: -32px;
+		display: flex;
+		width: 22px;
+		height: 22px;
+		border-radius: 50%;
+		background: var(--color-bg-white);
+		color: var(--color-gold);
+		border: 2px solid var(--color-bg-white);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.doctor-card__verified :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-card__body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 44px 24px 24px;
+	}
+
+	.doctor-card__name {
+		font-family: var(--font-heading);
+		font-size: 17px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 8px;
+	}
+
+	.doctor-card__specialty {
+		display: inline-block;
+		align-self: flex-start;
+		padding: 4px 12px;
+		border-radius: 999px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 11.5px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+		margin-bottom: 18px;
+	}
+
+	.doctor-card__stats {
+		display: flex;
+		align-items: center;
+		gap: 16px;
+		padding: 14px 0;
+		margin-bottom: 16px;
+		border-top: 1px solid var(--color-border-light);
+		border-bottom: 1px solid var(--color-border-light);
+	}
+
+	.doctor-card__stat {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 2px;
+		flex: 1;
+	}
+
+	.doctor-card__stat strong {
+		font-family: var(--font-heading);
+		font-size: 15px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+	}
+
+	.doctor-card__stat span {
+		font-size: 11px;
+		color: var(--color-text-muted);
+	}
+
+	.doctor-card__stat-icon {
+		display: flex;
+		width: 15px;
+		height: 15px;
+		color: var(--color-primary);
+		margin-bottom: 2px;
+	}
+
+	.doctor-card__stat-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-card__stat-icon--rating {
+		color: var(--color-gold);
+	}
+
+	.doctor-card__stat-divider {
+		width: 1px;
+		align-self: stretch;
+		background: var(--color-border-light);
+	}
+
+	.doctor-card__info {
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+		margin-bottom: 16px;
+	}
+
+	.doctor-card__info-row {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		font-size: 13px;
+		line-height: 1.5;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.doctor-card__info-row span {
+		display: flex;
+		flex-shrink: 0;
+		width: 14px;
+		height: 14px;
+		margin-top: 2px;
+		color: var(--color-primary);
+	}
+
+	.doctor-card__info-row span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-card__languages {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		margin-bottom: 20px;
+	}
+
+	.doctor-card__languages-icon {
+		display: flex;
+		flex-shrink: 0;
+		width: 14px;
+		height: 14px;
+		margin-top: 4px;
+		color: var(--color-primary);
+	}
+
+	.doctor-card__languages-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-card__languages-list {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.doctor-card__lang-pill {
+		padding: 3px 10px;
+		border-radius: 999px;
+		background: var(--color-bg-alt);
+		color: var(--color-text-secondary);
+		font-size: 11.5px;
+		font-weight: 600;
+	}
+
+	.doctor-card__cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2px;
+		width: 100%;
+		margin-top: auto;
+		padding: 11px 20px;
+		border-radius: var(--radius-md);
+		background: var(--btn-secondary-bg);
+		border: 1px solid var(--btn-secondary-border);
+		color: var(--btn-secondary-text);
+		font-size: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.15s ease;
+	}
+
+	.doctor-card:hover .doctor-card__cta {
+		background: var(--btn-secondary-hover-bg);
+	}
+
+	.doctor-card__cta :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	/* Laptop / small desktop */
+	@media screen and (max-width: 1180px) {
+		.doctors__inner {
+			max-width: 980px;
+		}
+	}
+
+	/* Tablet (portrait & landscape) */
+	@media screen and (max-width: 1023px) {
+		.doctors {
+			padding: 64px 20px;
+		}
+
+		.doctors__grid {
+			grid-template-columns: repeat(2, minmax(0, 1fr));
+			gap: 28px 20px;
+		}
+	}
+
+	/* Large phones */
+	@media screen and (max-width: 640px) {
+		.doctors {
+			padding: 56px 16px;
+		}
+
+		.doctors__header {
+			margin-bottom: 36px;
+		}
+
+		.doctors__grid {
+			grid-template-columns: 1fr;
+			gap: 28px;
+		}
+	}
+
+	/* Small phones */
+	@media screen and (max-width: 380px) {
+		.doctor-card__banner {
+			height: 64px;
+		}
+
+		.doctor-card__avatar {
+			width: 64px;
+			height: 64px;
+			font-size: 19px;
+			inset-inline-start: 18px;
+			bottom: -26px;
+		}
+
+		.doctor-card__verified {
+			inset-inline-start: 68px;
+			bottom: -26px;
+			width: 20px;
+			height: 20px;
+		}
+
+		.doctor-card__body {
+			padding: 38px 18px 18px;
+		}
+
+		.doctor-card__stats {
+			gap: 10px;
+		}
+
+		.doctor-card__cta {
+			padding: 10px 14px;
+			font-size: 13.5px;
+		}
+	}
+</style>

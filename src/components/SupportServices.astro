@@ -1,0 +1,267 @@
+---
+import iconPassport from 'bootstrap-icons/icons/passport-fill.svg?raw';
+import iconVideo from 'bootstrap-icons/icons/camera-video-fill.svg?raw';
+import iconTranslate from 'bootstrap-icons/icons/translate.svg?raw';
+import iconOpinion from 'bootstrap-icons/icons/chat-square-quote-fill.svg?raw';
+import iconCare from 'bootstrap-icons/icons/heart-pulse-fill.svg?raw';
+
+const ICONS = {
+	passport: iconPassport,
+	video: iconVideo,
+	translate: iconTranslate,
+	opinion: iconOpinion,
+	care: iconCare,
+} as const;
+
+export interface Service {
+	icon: keyof typeof ICONS;
+	title: string;
+	description: string;
+	theme?: 'blue' | 'teal' | 'green';
+}
+
+export interface Props {
+	badge?: string;
+	title?: string;
+	highlight?: string;
+	subtitle?: string;
+	services?: Service[];
+}
+
+const {
+	badge = 'Patient Support',
+	title = 'Support That Travels With',
+	highlight = 'You',
+	subtitle = 'From your visa to your recovery at home, our coordinators are with you at every step of the journey.',
+	services = [
+		{
+			icon: 'passport',
+			title: 'Medical Visa Assistance',
+			description: 'Our specialists prepare invitation letters and documentation, so your medical visa is approved without delay.',
+			theme: 'blue',
+		},
+		{
+			icon: 'video',
+			title: 'Tele-video Consultation',
+			description: 'Speak face-to-face with your specialist online to confirm your diagnosis and treatment plan before you travel.',
+			theme: 'teal',
+		},
+		{
+			icon: 'translate',
+			title: 'Language Interpretation Services',
+			description: 'A certified medical interpreter joins every consultation and procedure, in the language you are most comfortable with.',
+			theme: 'green',
+		},
+		{
+			icon: 'opinion',
+			title: 'Second Medical Opinion',
+			description: 'Get an independent review of your diagnosis and treatment options from a board-certified specialist abroad.',
+			theme: 'blue',
+		},
+		{
+			icon: 'care',
+			title: 'Post-Treatment Care Coordination',
+			description: 'Your coordinator schedules follow-up check-ins and shares reports with your home doctor after you return.',
+			theme: 'teal',
+		},
+	],
+} = Astro.props;
+---
+
+<section class="support">
+	<div class="support__inner">
+		<div class="support__header" data-animate>
+			<span class="support__badge">{badge}</span>
+			<h2 class="support__title">
+				{title} <span>{highlight}</span>
+			</h2>
+			<p class="support__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="support__grid">
+			{
+				services.map((service, i) => (
+					<div class="support-card" data-animate style={`transition-delay: ${(i % 5) * 80}ms`}>
+						<span class={`support-card__icon support-card__icon--${service.theme ?? 'blue'}`} set:html={ICONS[service.icon]} />
+						<h3 class="support-card__title">{service.title}</h3>
+						<p class="support-card__desc">{service.description}</p>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.support [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.support {
+		background: var(--color-bg-white);
+		padding: 80px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.support__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.support__header {
+		text-align: center;
+		max-width: 640px;
+		margin: 0 auto 48px;
+	}
+
+	.support__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.support__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.support__title span {
+		color: var(--color-teal);
+	}
+
+	.support__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.support__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 24px;
+	}
+
+	.support-card {
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		padding: 30px 24px;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease,
+			opacity 0.6s ease;
+		    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+	}
+
+	.support-card:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.support-card__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 52px;
+		height: 52px;
+		border-radius: 14px;
+		margin-bottom: 18px;
+		color: #ffffff;
+	}
+
+	.support-card__icon :global(svg) {
+		width: 24px;
+		height: 24px;
+	}
+
+	.support-card__icon--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.support-card__icon--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.support-card__icon--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.support-card__title {
+		font-family: var(--font-heading);
+		font-size: 16.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 10px;
+	}
+
+	.support-card__desc {
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	@media screen and (max-width: 980px) {
+		.support__grid {
+			grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.support {
+			padding: 56px 16px 64px;
+		}
+
+		.support__grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

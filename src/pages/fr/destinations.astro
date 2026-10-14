@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DestinationsGrid from '../../components/Destinations.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { destinations } from '../../data/destinations';
+import { frDestinations } from '../../i18n/fr-destinations';
+import { frDestinationsPage } from '../../i18n/fr-pages';
+
+const translatedDestinations = destinations.map((destination) => ({
+	...destination,
+	...frDestinations[destination.slug],
+}));
+---
+
+<Layout
+	title="Destinations de tourisme médical en Inde | AlisPro MediTours"
+	description="Découvrez les meilleures destinations de tourisme médical en Inde avec AlisPro MediTours. Trouvez des hôpitaux de premier plan, des médecins experts, des traitements avancés et un accompagnement personnalisé."
+	locale="fr"
+	alternates={[
+		{ locale: 'en', href: '/destinations' },
+		{ locale: 'fr', href: '/fr/destinations' },
+		{ locale: 'ru', href: '/ru/destinations' },
+		{ locale: 'bn', href: '/bn/destinations' },
+		{ locale: 'ro', href: '/ro/destinations' },
+		{ locale: 'es', href: '/es/destinations' },
+		{ locale: 'pt', href: '/pt/destinations' },
+		{ locale: 'vi', href: '/vi/destinations' },
+		{ locale: 'ar', href: '/ar/destinations' },
+	]}
+>
+
+	<DestinationsGrid
+		basePath="/fr"
+		badge={frDestinationsPage.grid.badge}
+		title={frDestinationsPage.grid.title}
+		highlight={frDestinationsPage.grid.highlight}
+		subtitle={frDestinationsPage.grid.subtitle}
+		destinations={translatedDestinations}
+		exploreLabel={frDestinationsPage.grid.exploreLabel}
+	/>
+
+	<CostEstimateCta
+		title="Vous voulez une estimation précise de votre traitement ?"
+		text="Téléversez vos rapports médicaux et recevez un plan de traitement personnalisé avec une estimation de coût transparente de nos spécialistes sous 24 heures."
+		primaryLabel="Obtenir un devis gratuit"
+		primaryHref="/fr/contact"
+		secondaryLabel="Téléverser des rapports médicaux"
+		secondaryHref="/fr/contact#enquiry-form"
+	/>
+</Layout>

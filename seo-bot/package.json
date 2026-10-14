@@ -1,0 +1,16 @@
+{
+  "name": "seo-bot",
+  "type": "module",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Standalone SEO crawler/audit tool for the medicaltravel Astro site. Operates on the site from the outside — never a dependency of the Astro app itself.",
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "scripts": {
+    "crawl": "node crawler/crawl.mjs"
+  },
+  "dependencies": {
+    "node-html-parser": "^6.1.13"
+  }
+}

@@ -1,0 +1,242 @@
+---
+import iconWheelchair from 'bootstrap-icons/icons/person-wheelchair.svg?raw';
+import iconPriority from 'bootstrap-icons/icons/airplane-fill.svg?raw';
+import iconOxygen from 'bootstrap-icons/icons/life-preserver.svg?raw';
+import iconLuggage from 'bootstrap-icons/icons/luggage-fill.svg?raw';
+import iconTransfer from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconRebooking from 'bootstrap-icons/icons/arrow-repeat.svg?raw';
+import iconDesk from 'bootstrap-icons/icons/headset.svg?raw';
+import iconLanguage from 'bootstrap-icons/icons/translate.svg?raw';
+
+export interface Props {
+	badge?: string;
+	titleLead?: string;
+	titleHighlight?: string;
+	subtitle?: string;
+	labels?: string[];
+}
+
+const perkIcons = [iconWheelchair, iconPriority, iconOxygen, iconLuggage, iconTransfer, iconRebooking, iconDesk, iconLanguage];
+const perkThemes = ['blue', 'teal', 'green', 'blue', 'teal', 'green', 'blue', 'teal'] as const;
+
+const {
+	badge = 'Travel, Simplified',
+	titleLead = 'Every Flight Comes',
+	titleHighlight = 'Fully Supported',
+	subtitle = 'Standard across every booking, so travel is one less thing to worry about.',
+	labels = [
+		'Wheelchair Assistance',
+		'Priority Boarding',
+		'Oxygen & Equipment Support',
+		'Baggage Assistance',
+		'Airport-to-Hospital Transfer',
+		'Flexible Rebooking',
+		'24/7 Travel Desk',
+		'Multilingual Support',
+	],
+} = Astro.props;
+
+const perks = labels.map((label, i) => ({ label, icon: perkIcons[i], theme: perkThemes[i] }));
+---
+
+<section class="flight-perks">
+	<div class="flight-perks__inner">
+		<div class="flight-perks__header" data-animate>
+			<span class="flight-perks__badge">{badge}</span>
+			<h2 class="flight-perks__title">
+				{titleLead} <span>{titleHighlight}</span>
+			</h2>
+			<p class="flight-perks__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="flight-perks__grid">
+			{
+				perks.map((perk, i) => (
+					<div class="perk" data-animate style={`transition-delay: ${(i % 4) * 80}ms`}>
+						<span class={`perk__icon perk__icon--${perk.theme}`} set:html={perk.icon} aria-hidden="true" />
+						<span class="perk__label">{perk.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.flight-perks [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.flight-perks {
+		background: var(--color-bg-alt);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.flight-perks__inner {
+		max-width: 1100px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(20px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.flight-perks__header {
+		text-align: center;
+		max-width: 560px;
+		margin: 0 auto 48px;
+	}
+
+	.flight-perks__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.flight-perks__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.7rem, 3vw, 2.3rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.flight-perks__title span {
+		color: var(--color-teal);
+	}
+
+	.flight-perks__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		color: var(--color-text-secondary);
+	}
+
+	.flight-perks__grid {
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 20px;
+	}
+
+	.perk {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 14px;
+		padding: 26px 16px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.perk:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.perk:hover .perk__icon {
+		animation: perk-float 1.6s ease-in-out infinite;
+	}
+
+	.perk__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 52px;
+		height: 52px;
+		border-radius: 50%;
+		color: #ffffff;
+	}
+
+	.perk__icon :global(svg) {
+		width: 22px;
+		height: 22px;
+	}
+
+	.perk__icon--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.perk__icon--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.perk__icon--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.perk__label {
+		font-size: 13.5px;
+		font-weight: 600;
+		color: var(--color-text-primary);
+	}
+
+	@keyframes perk-float {
+		0%,
+		100% {
+			transform: translateY(0);
+		}
+		50% {
+			transform: translateY(-6px);
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.perk:hover .perk__icon {
+			animation: none;
+		}
+	}
+
+	@media screen and (max-width: 860px) {
+		.flight-perks__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.flight-perks {
+			padding: 56px 16px;
+		}
+	}
+</style>

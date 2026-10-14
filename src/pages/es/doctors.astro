@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { esDoctorsPage } from '../../i18n/es-pages';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { esDoctorsTr } from '../../i18n/es-doctors';
+import { doctors } from '../../data/doctors';
+
+const { listing, card, detail } = esDoctorsPage;
+const videoEntries = doctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="Nuestros médicos | Especialistas certificados en la India | AlisPro MediTours"
+	description="Conozca a los especialistas certificados de la red AlisPro MediTours — cardiología, ortopedia, oncología, cirugía estética, neurología y fertilidad, afiliados a hospitales acreditados en toda la India."
+	locale="es"
+	alternates={[
+		{ locale: 'en', href: '/doctors' },
+		{ locale: 'fr', href: '/fr/doctors' },
+		{ locale: 'ru', href: '/ru/doctors' },
+		{ locale: 'bn', href: '/bn/doctors' },
+		{ locale: 'ro', href: '/ro/doctors' },
+		{ locale: 'es', href: '/es/doctors' },
+		{ locale: 'pt', href: '/pt/doctors' },
+		{ locale: 'vi', href: '/vi/doctors' },
+		{ locale: 'ar', href: '/ar/doctors' },
+	]}
+>
+	<OurDoctors
+		basePath="/es"
+		doctors={translateDoctors(doctors, esDoctorsTr)}
+		badge={listing.gridBadge}
+		title={listing.gridTitle}
+		highlight={listing.gridHighlight}
+		subtitle={listing.gridSubtitle}
+		yearsExpLabel={card.yearsExpLabel}
+		reviewsLabel={card.reviewsLabel}
+		contactLabel={card.contactLabel}
+		verifiedLabel={card.verifiedLabel}
+	/>
+
+	<DoctorsVideoCarousel entries={videoEntries} />
+
+	<CostEstimateCta
+		title="¿Quiere una estimación precisa de su tratamiento?"
+		text="Suba sus informes médicos y reciba un plan de tratamiento personalizado con una estimación de costo transparente de nuestros especialistas en 24 horas."
+		primaryLabel="Obtener presupuesto gratuito"
+		primaryHref="/es/contact"
+		secondaryLabel="Subir informes médicos"
+		secondaryHref="/es/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,627 @@
+---
+import iconFacebook from 'bootstrap-icons/icons/facebook.svg?raw';
+import iconTwitter from 'bootstrap-icons/icons/twitter-x.svg?raw';
+import iconInstagram from 'bootstrap-icons/icons/instagram.svg?raw';
+import iconYoutube from 'bootstrap-icons/icons/youtube.svg?raw';
+import iconWhatsapp from 'bootstrap-icons/icons/whatsapp.svg?raw';
+import iconGeo from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconPhone from 'bootstrap-icons/icons/telephone-fill.svg?raw';
+import iconEnvelope from 'bootstrap-icons/icons/envelope-fill.svg?raw';
+import iconClock from 'bootstrap-icons/icons/clock-fill.svg?raw';
+import iconArrowUp from 'bootstrap-icons/icons/arrow-up-short.svg?raw';
+
+export interface FooterLink {
+	label: string;
+	href: string;
+}
+
+export interface Props {
+	brand?: string;
+	description?: string;
+	quickLinks?: FooterLink[];
+	treatments?: FooterLink[];
+	quickLinksHeading?: string;
+	treatmentsHeading?: string;
+	getInTouchHeading?: string;
+	officeAddress?: string;
+	supportHours?: string;
+	privacyPolicyLabel?: string;
+	termsOfServiceLabel?: string;
+	sitemapLabel?: string;
+	allRightsReservedLabel?: string;
+	cookiePolicyLabel?: string;
+	manageCookiesLabel?: string;
+	/** Legal pages (privacy/terms/cookies) are English-only sitewide for now, so every locale points here by default. */
+	privacyPolicyHref?: string;
+	termsOfServiceHref?: string;
+	cookiePolicyHref?: string;
+}
+
+const {
+	brand = 'Alis Pro Med Tour',
+	description = 'Connecting patients with accredited hospitals and vetted specialists across 20+ countries — end-to-end support, from first opinion to recovery.',
+	quickLinks = [
+		{ label: 'Home', href: '/' },
+		{ label: 'About Us', href: '/about' },
+		{ label: 'Destinations', href: '/destinations' },
+		{ label: 'Treatments', href: '/treatments' },
+		{ label: 'Our Doctors', href: '/doctors' },
+		{ label: 'Contact', href: '/contact' },
+	],
+	treatments = [
+		{ label: 'Cardiac Care', href: '/treatments/cardiac-care' },
+		{ label: 'Orthopedics', href: '/treatments/orthopedics' },
+		{ label: 'Oncology', href: '/treatments/oncology' },
+		{ label: 'Cosmetic Surgery', href: '/treatments/cosmetic-surgery' },
+		{ label: 'Fertility Treatment', href: '/treatments/fertility' },
+		{ label: 'Organ Transplant', href: '/treatments/organ-transplant' },
+		{ label: 'Dental Care', href: '/treatments/dental-care' },
+		{ label: 'Eye Care', href: '/treatments/eye-care' },
+	],
+	quickLinksHeading = 'Quick Links',
+	treatmentsHeading = 'Popular Treatments',
+	getInTouchHeading = 'Get in Touch',
+	officeAddress = '238 westend Mall, janakpuri, New Delhi, India',
+	supportHours = '24/7 Patient Support',
+	privacyPolicyLabel = 'Privacy Policy',
+	termsOfServiceLabel = 'Terms of Service',
+	sitemapLabel = 'Sitemap',
+	allRightsReservedLabel = 'All rights reserved.',
+	cookiePolicyLabel = 'Cookie Policy',
+	manageCookiesLabel = 'Manage Cookie Preferences',
+	privacyPolicyHref = '/privacy-policy',
+	termsOfServiceHref = '/terms-of-service',
+	cookiePolicyHref = '/cookie-policy',
+} = Astro.props;
+
+const year = new Date().getFullYear();
+
+const socials = [
+	{
+		label: 'Instagram',
+		href: 'https://www.instagram.com/alisprofessional?igshid=OGQ5ZDc2ODk2ZA%3D%3D',
+		icon: iconInstagram,
+		theme: 'instagram',
+	},
+	{
+		label: 'Facebook',
+		href: 'https://www.facebook.com/alisprofessional?mibextid=LQQJ4d',
+		icon: iconFacebook,
+		theme: 'facebook',
+	},
+	{
+		label: 'YouTube',
+		href: 'https://www.youtube.com/@Alisprofessional',
+		icon: iconYoutube,
+		theme: 'youtube',
+	},
+	{
+		label: 'X (Twitter)',
+		href: 'https://x.com/alisprofession2?s=21&t=6Xlb9mVwLkE1jzhrXWypLA',
+		icon: iconTwitter,
+		theme: 'x',
+	},
+	{
+		label: 'WhatsApp',
+		href: 'https://wa.me/919821701155?text=Hello%2C%20I%20am%20interested%20in%20the%20services%20listed%20on%20your%20website',
+		icon: iconWhatsapp,
+		theme: 'whatsapp',
+	},
+];
+---
+
+<footer class="footer">
+	<div class="footer__top">
+		<div class="footer__inner footer__grid">
+			<div class="footer__brand">
+				<a href="/" class="footer__logo">
+					<img src="/images/Alis_Logo.png" alt={brand} class="footer__logo-image" />
+				</a>
+				<p class="footer__description">{description}</p>
+				<ul class="footer__socials">
+					{
+						socials.map((social) => (
+							<li>
+								<a
+									href={social.href}
+									class={`footer__social footer__social--${social.theme}`}
+									aria-label={social.label}
+									target="_blank"
+									rel="noopener noreferrer"
+								>
+									<span set:html={social.icon} />
+								</a>
+							</li>
+						))
+					}
+				</ul>
+			</div>
+
+			<nav class="footer__col" aria-label={quickLinksHeading}>
+				<h3>{quickLinksHeading}</h3>
+				<ul>
+					{
+						quickLinks.map((link) => (
+							<li>
+								<a href={link.href}>{link.label}</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<nav class="footer__col" aria-label={treatmentsHeading}>
+				<h3>{treatmentsHeading}</h3>
+				<ul>
+					{
+						treatments.map((link) => (
+							<li>
+								<a href={link.href}>{link.label}</a>
+							</li>
+						))
+					}
+				</ul>
+			</nav>
+
+			<div class="footer__col">
+				<h3>{getInTouchHeading}</h3>
+				<ul class="footer__contact">
+					<li>
+						<span class="footer__contact-icon" set:html={iconGeo} />
+						<span>{officeAddress}</span>
+					</li>
+					<li>
+						<span class="footer__contact-icon" set:html={iconPhone} />
+						<a href="tel:+919821701155">+91 98217 01155</a>
+					</li>
+					<li>
+						<span class="footer__contact-icon" set:html={iconEnvelope} />
+						<a href="mailto:care@alispromeditours.com">care@alispromeditours.com</a>
+					</li>
+					<li>
+						<span class="footer__contact-icon" set:html={iconClock} />
+						<span>{supportHours}</span>
+					</li>
+				</ul>
+			</div>
+
+			<!-- <div class="footer__col footer__newsletter">
+				<h3>Stay Updated</h3>
+				<p>Treatment guides &amp; destination updates, straight to your inbox.</p>
+				<form class="footer__newsletter-form" data-newsletter-form>
+					<input type="hidden" name="name" value="Newsletter Subscriber" />
+					<input type="hidden" name="subject" value="Newsletter Signup" />
+					<input type="hidden" name="message" value="Please add me to the newsletter mailing list." />
+					<input
+						type="text"
+						name="website"
+						class="footer__newsletter-honeypot"
+						tabindex="-1"
+						autocomplete="off"
+						aria-hidden="true"
+					/>
+					<input type="email" name="email" placeholder="Your email address" aria-label="Email address" required />
+					<button type="submit" aria-label="Subscribe">
+						<span set:html={iconSend} />
+					</button>
+				</form>
+				<p class="footer__newsletter-note" data-newsletter-note hidden>Thanks — you're on the list.</p>
+				<p class="footer__newsletter-error" data-newsletter-error hidden></p>
+			</div> -->
+		</div>
+	</div>
+
+	<div class="footer__bottom">
+		<div class="footer__inner footer__bottom-inner">
+			<p class="footer__copyright">&copy; {year} {brand}. {allRightsReservedLabel}</p>
+			<ul class="footer__legal">
+				<li><a href={privacyPolicyHref}>{privacyPolicyLabel}</a></li>
+				<li><a href={termsOfServiceHref}>{termsOfServiceLabel}</a></li>
+				<li><a href={cookiePolicyHref}>{cookiePolicyLabel}</a></li>
+				<li>
+					<button type="button" class="footer__cookie-settings" id="footer-cookie-settings">{manageCookiesLabel}</button>
+				</li>
+				<li><a href="/">{sitemapLabel}</a></li>
+			</ul>
+			<button class="footer__back-to-top" data-back-to-top aria-label="Back to top">
+				<span set:html={iconArrowUp} />
+			</button>
+		</div>
+	</div>
+</footer>
+
+<script>
+	import { bindEnquiryForm } from '../scripts/enquiryForm';
+
+	const form = document.querySelector<HTMLFormElement>('[data-newsletter-form]');
+	const note = document.querySelector('[data-newsletter-note]');
+	const error = document.querySelector('[data-newsletter-error]');
+
+	bindEnquiryForm(form, { successEl: note, errorEl: error });
+
+	document.querySelector('[data-back-to-top]')?.addEventListener('click', () => {
+		window.scrollTo({ top: 0, behavior: 'smooth' });
+	});
+
+	document.getElementById('footer-cookie-settings')?.addEventListener('click', () => {
+		document.dispatchEvent(new CustomEvent('cc:open'));
+	});
+</script>
+
+<style>
+	.footer {
+		background: var(--gradient-premium);
+		color: rgba(255, 255, 255, 0.75);
+		font-family: var(--font-body);
+	}
+
+	.footer__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+		padding: 0 24px;
+	}
+
+	.footer__top {
+		padding: 72px 0 48px;
+	}
+
+	.footer__grid {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr 1fr 1.2fr 1.2fr;
+		gap: 40px;
+	}
+
+	.footer__logo {
+		display: inline-flex;
+		align-items: center;
+		text-decoration: none;
+	}
+
+	.footer__logo-image {
+		display: block;
+		height: 40px;
+		width: auto;
+		padding: 8px 14px;
+		background: #ffffff;
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.footer__description {
+		margin: 16px 0 24px;
+		font-size: 14px;
+		line-height: 1.7;
+		max-width: 320px;
+		color: rgba(255, 255, 255, 0.6);
+	}
+
+	.footer__socials {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 12px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.footer__social {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.08);
+		border: 1px solid rgba(255, 255, 255, 0.18);
+		color: rgba(255, 255, 255, 0.85);
+		transition:
+			background 0.2s ease,
+			border-color 0.2s ease,
+			color 0.2s ease,
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.footer__social:hover {
+		color: #ffffff;
+		border-color: transparent;
+		transform: translateY(-3px) scale(1.06);
+		box-shadow: 0 8px 18px -6px rgba(0, 0, 0, 0.5);
+	}
+
+	.footer__social--instagram:hover {
+		background: linear-gradient(45deg, #feda75, #fa7e1e, #d62976, #962fbf, #4f5bd5);
+	}
+
+	.footer__social--facebook:hover {
+		background: #1877f2;
+	}
+
+	.footer__social--youtube:hover {
+		background: #ff0000;
+	}
+
+	.footer__social--x:hover {
+		background: #000000;
+	}
+
+	.footer__social--whatsapp:hover {
+		background: #25d366;
+	}
+
+	.footer__socials :global(svg) {
+		width: 15px;
+		height: 15px;
+	}
+
+	.footer__col h3 {
+		font-family: var(--font-heading);
+		font-size: 13px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.08em;
+		color: var(--color-gold);
+		margin: 0 0 20px;
+	}
+
+	.footer__col ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.footer__col a {
+		color: rgba(255, 255, 255, 0.68);
+		text-decoration: none;
+		font-size: 14px;
+		transition: color 0.15s ease;
+	}
+
+	.footer__col a:hover {
+		color: #ffffff;
+	}
+
+	.footer__contact li {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		font-size: 14px;
+		line-height: 1.5;
+		color: rgba(255, 255, 255, 0.68);
+	}
+
+	.footer__contact-icon {
+		display: flex;
+		flex-shrink: 0;
+		width: 15px;
+		height: 15px;
+		margin-top: 2px;
+		color: var(--color-teal);
+	}
+
+	.footer__contact-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.footer__contact a {
+		color: rgba(255, 255, 255, 0.68);
+		text-decoration: none;
+	}
+
+	.footer__contact a:hover {
+		color: #ffffff;
+	}
+
+	.footer__newsletter p {
+		font-size: 14px;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.6);
+		margin: 0 0 16px;
+	}
+
+	.footer__newsletter-form {
+		display: flex;
+		gap: 8px;
+	}
+
+	.footer__newsletter-form input {
+		flex: 1;
+		min-width: 0;
+		padding: 11px 14px;
+		border-radius: var(--radius-md);
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		background: rgba(255, 255, 255, 0.06);
+		color: #ffffff;
+		font-size: 13px;
+	}
+
+	.footer__newsletter-form input::placeholder {
+		color: rgba(255, 255, 255, 0.4);
+	}
+
+	.footer__newsletter-form input:focus {
+		outline: none;
+		border-color: var(--color-teal);
+	}
+
+	.footer__newsletter-form button {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 42px;
+		border-radius: var(--radius-md);
+		border: none;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		cursor: pointer;
+		transition: background 0.15s ease;
+	}
+
+	.footer__newsletter-form button:hover {
+		background: var(--btn-primary-hover);
+	}
+
+	.footer__newsletter-form button :global(svg) {
+		width: 16px;
+		height: 16px;
+	}
+
+	.footer__newsletter-note {
+		margin-top: 10px !important;
+		font-size: 13px;
+		color: var(--color-teal);
+	}
+
+	.footer__newsletter-error {
+		margin-top: 10px !important;
+		font-size: 13px;
+		color: #fca5a5;
+	}
+
+	.footer__newsletter-honeypot {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.footer__bottom {
+		border-top: 1px solid rgba(255, 255, 255, 0.1);
+	}
+
+	.footer__bottom-inner {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 20px;
+		padding: 22px 24px;
+		flex-wrap: wrap;
+	}
+
+	.footer__copyright {
+		font-size: 13px;
+		color: rgba(255, 255, 255, 0.5);
+		margin: 0;
+	}
+
+	.footer__legal {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 20px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.footer__legal a {
+		font-size: 13px;
+		color: rgba(255, 255, 255, 0.5);
+		text-decoration: none;
+	}
+
+	.footer__legal a:hover {
+		color: #ffffff;
+	}
+
+	.footer__cookie-settings {
+		font-family: var(--font-body);
+		font-size: 13px;
+		color: rgba(255, 255, 255, 0.5);
+		background: none;
+		border: none;
+		padding: 0;
+		cursor: pointer;
+	}
+
+	.footer__cookie-settings:hover {
+		color: #ffffff;
+	}
+
+	.footer__back-to-top {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 36px;
+		height: 36px;
+		border-radius: 50%;
+		border: 1px solid rgba(255, 255, 255, 0.2);
+		background: transparent;
+		color: #ffffff;
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.footer__back-to-top:hover {
+		background: var(--color-teal);
+		color: #ffffff;
+		transform: translateY(-2px);
+	}
+
+	.footer__back-to-top :global(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	@media screen and (max-width: 1080px) {
+		.footer__grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.footer__brand {
+			grid-column: 1 / -1;
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.footer__top {
+			padding: 56px 0 32px;
+		}
+
+		.footer__grid {
+			grid-template-columns: 1fr;
+			gap: 32px;
+			text-align: center;
+		}
+
+		.footer__logo {
+			justify-content: center;
+		}
+
+		.footer__description {
+			margin-left: auto;
+			margin-right: auto;
+		}
+
+		.footer__socials {
+			justify-content: center;
+		}
+
+		.footer__col ul {
+			align-items: center;
+		}
+
+		.footer__contact li {
+			justify-content: center;
+		}
+
+		.footer__newsletter-form {
+			max-width: 320px;
+			margin: 0 auto;
+		}
+
+		.footer__bottom-inner {
+			justify-content: center;
+			text-align: center;
+		}
+	}
+</style>
+	

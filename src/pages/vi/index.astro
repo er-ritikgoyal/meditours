@@ -1,0 +1,113 @@
+---
+import HeroSection from '../../components/HeroSection.astro';
+import TravelProcess from '../../components/TravelProcess.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import SupportServices from '../../components/SupportServices.astro';
+import Layout from '../../layouts/Layout.astro';
+import { vi } from '../../i18n/vi';
+import { viAbout, viTreatmentsPage } from '../../i18n/vi-pages';
+import { viDoctors, viPartnerHospitalsHome, viSupportServices, viTravelProcess } from '../../i18n/vi-home';
+import { doctors as defaultDoctors } from '../../data/doctors';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { viDoctorsTr } from '../../i18n/vi-doctors';
+import { getFeaturedHospitals } from '../../data/hospitals';
+import { translateHospitals } from '../../i18n/vi-hospitals';
+
+const vietnameseHospitals = translateHospitals(getFeaturedHospitals(2));
+
+const vietnameseDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...viDoctors.doctors[i] }));
+
+const { costComparison } = viTreatmentsPage;
+const videoEntries = defaultDoctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="Du lịch y tế đáng tin cậy tại Ấn Độ | AlisPro MediTours"
+	description="AlisPro MediTours giúp bệnh nhân quốc tế tiếp cận chăm sóc y tế đáng tin cậy tại Ấn Độ với hỗ trợ y tế chuyên môn, điều phối bệnh viện, lập kế hoạch điều trị, hỗ trợ du lịch và chăm sóc cá nhân hóa."
+	locale="vi"
+	alternates={[
+		{ locale: 'en', href: '/' },
+		{ locale: 'fr', href: '/fr/' },
+		{ locale: 'ru', href: '/ru/' },
+		{ locale: 'bn', href: '/bn/' },
+		{ locale: 'ro', href: '/ro/' },
+		{ locale: 'es', href: '/es/' },
+		{ locale: 'pt', href: '/pt/' },
+		{ locale: 'vi', href: '/vi/' },
+		{ locale: 'ar', href: '/ar/' },
+	]}
+>
+	<HeroSection
+		treatmentOptions={vi.hero.treatmentOptions}
+		trust={vi.hero.trust}
+		enquiry={vi.hero.enquiry}
+	/>
+	<OurDoctors
+		basePath="/vi"
+		badge={viDoctors.badge}
+		title={viDoctors.title}
+		highlight={viDoctors.highlight}
+		subtitle={viDoctors.subtitle}
+		doctors={translateDoctors(vietnameseDoctors, viDoctorsTr)}
+		yearsExpLabel={viDoctors.yearsExpLabel}
+		reviewsLabel={viDoctors.reviewsLabel}
+		contactLabel={viDoctors.contactLabel}
+		verifiedLabel={viDoctors.verifiedLabel}
+	/>
+	<DoctorsVideoCarousel entries={videoEntries} />
+	<OurPartnerHospitals
+		badge={viPartnerHospitalsHome.badge}
+		title={viPartnerHospitalsHome.title}
+		highlight={viPartnerHospitalsHome.highlight}
+		subtitle={viPartnerHospitalsHome.subtitle}
+		hospitals={vietnameseHospitals}
+		basePath="/vi"
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="Tiết kiệm {pct}%"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<SupportServices
+		badge={viSupportServices.badge}
+		title={viSupportServices.titleLead}
+		highlight={viSupportServices.titleHighlight}
+		subtitle={viSupportServices.subtitle}
+		services={viSupportServices.services}
+	/>
+	<Testimonials
+		badge={viAbout.testimonials.badge}
+		title={viAbout.testimonials.title}
+		highlight={viAbout.testimonials.highlight}
+		subtitle={viAbout.testimonials.subtitle}
+		testimonials={viAbout.testimonials.items}
+	/>
+	<TravelProcess
+		badge={viTravelProcess.badge}
+		title={viTravelProcess.titleLead}
+		highlight={viTravelProcess.titleHighlight}
+		subtitle={viTravelProcess.subtitle}
+		steps={viTravelProcess.steps}
+	/>
+	<CostEstimateCta
+		title="Bạn muốn có ước tính chính xác về việc điều trị của mình?"
+		text="Tải lên hồ sơ y tế của bạn và nhận kế hoạch điều trị cá nhân hóa với ước tính chi phí minh bạch từ các chuyên gia của chúng tôi, trong 24 giờ."
+		primaryLabel="Tư vấn miễn phí"
+		primaryHref="/vi/contact"
+		secondaryLabel="Tải lên hồ sơ y tế"
+		secondaryHref="/vi/contact#enquiry-form"
+	/>
+</Layout>

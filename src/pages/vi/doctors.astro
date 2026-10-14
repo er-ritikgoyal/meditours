@@ -1,0 +1,56 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { viDoctorsPage } from '../../i18n/vi-pages';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { viDoctorsTr } from '../../i18n/vi-doctors';
+import { doctors } from '../../data/doctors';
+
+const { listing, card, detail } = viDoctorsPage;
+const videoEntries = doctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="Đội ngũ bác sĩ | Chuyên gia được cấp chứng chỉ tại Ấn Độ | AlisPro MediTours"
+	description="Gặp gỡ các chuyên gia được cấp chứng chỉ trong mạng lưới AlisPro MediTours — tim mạch, chỉnh hình, ung bướu, thẩm mỹ, thần kinh và hiếm muộn, làm việc tại các bệnh viện đạt chuẩn trên khắp Ấn Độ."
+	locale="vi"
+	alternates={[
+		{ locale: 'en', href: '/doctors' },
+		{ locale: 'fr', href: '/fr/doctors' },
+		{ locale: 'ru', href: '/ru/doctors' },
+		{ locale: 'bn', href: '/bn/doctors' },
+		{ locale: 'ro', href: '/ro/doctors' },
+		{ locale: 'es', href: '/es/doctors' },
+		{ locale: 'pt', href: '/pt/doctors' },
+		{ locale: 'vi', href: '/vi/doctors' },
+		{ locale: 'ar', href: '/ar/doctors' },
+	]}
+>
+	<OurDoctors
+		basePath="/vi"
+		doctors={translateDoctors(doctors, viDoctorsTr)}
+		badge={listing.gridBadge}
+		title={listing.gridTitle}
+		highlight={listing.gridHighlight}
+		subtitle={listing.gridSubtitle}
+		yearsExpLabel={card.yearsExpLabel}
+		reviewsLabel={card.reviewsLabel}
+		contactLabel={card.contactLabel}
+		verifiedLabel={card.verifiedLabel}
+	/>
+
+	<DoctorsVideoCarousel entries={videoEntries} />
+
+	<CostEstimateCta
+		title="Bạn muốn có ước tính chính xác cho phương pháp điều trị của mình?"
+		text="Tải lên hồ sơ y tế của bạn và nhận kế hoạch điều trị cá nhân hóa với ước tính chi phí minh bạch từ các chuyên gia của chúng tôi trong vòng 24 giờ."
+		primaryLabel="Nhận báo giá miễn phí"
+		primaryHref="/vi/contact"
+		secondaryLabel="Tải lên hồ sơ y tế"
+		secondaryHref="/vi/contact#enquiry-form"
+	/>
+</Layout>

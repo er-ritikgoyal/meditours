@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DestinationsGrid from '../../components/Destinations.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { destinations } from '../../data/destinations';
+import { ruDestinations } from '../../i18n/ru-destinations';
+import { ruDestinationsPage } from '../../i18n/ru-pages';
+
+const translatedDestinations = destinations.map((destination) => ({
+	...destination,
+	...ruDestinations[destination.slug],
+}));
+---
+
+<Layout
+	title="Направления медицинского туризма в Индии | AlisPro MediTours"
+	description="Изучите лучшие направления медицинского туризма в Индии с AlisPro MediTours. Найдите ведущие больницы, опытных врачей, передовое лечение и персональное сопровождение."
+	locale="ru"
+	alternates={[
+		{ locale: 'en', href: '/destinations' },
+		{ locale: 'fr', href: '/fr/destinations' },
+		{ locale: 'ru', href: '/ru/destinations' },
+		{ locale: 'bn', href: '/bn/destinations' },
+		{ locale: 'ro', href: '/ro/destinations' },
+		{ locale: 'es', href: '/es/destinations' },
+		{ locale: 'pt', href: '/pt/destinations' },
+		{ locale: 'vi', href: '/vi/destinations' },
+		{ locale: 'ar', href: '/ar/destinations' },
+	]}
+>
+
+	<DestinationsGrid
+		basePath="/ru"
+		badge={ruDestinationsPage.grid.badge}
+		title={ruDestinationsPage.grid.title}
+		highlight={ruDestinationsPage.grid.highlight}
+		subtitle={ruDestinationsPage.grid.subtitle}
+		destinations={translatedDestinations}
+		exploreLabel={ruDestinationsPage.grid.exploreLabel}
+	/>
+
+	<CostEstimateCta
+		title="Хотите точную оценку стоимости лечения?"
+		text="Загрузите свои медицинские документы и получите персональный план лечения с прозрачной сметой от наших специалистов в течение 24 часов."
+		primaryLabel="Получить бесплатную консультацию"
+		primaryHref="/ru/contact"
+		secondaryLabel="Загрузить медицинские документы"
+		secondaryHref="/ru/contact#enquiry-form"
+	/>
+</Layout>

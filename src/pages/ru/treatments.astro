@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TreatmentsGrid from '../../components/TreatmentsGrid.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { treatments } from '../../data/treatments';
+import { ruTreatments } from '../../i18n/ru-treatments';
+import { ruTreatmentsPage } from '../../i18n/ru-pages';
+
+const translatedTreatments = treatments.map((treatment) => {
+	const ru = ruTreatments[treatment.slug];
+	return ru
+		? {
+				...treatment,
+				name: ru.name,
+				shortDescription: ru.shortDescription,
+				procedures: ru.procedures,
+			}
+		: treatment;
+});
+
+const { grid, costComparison } = ruTreatmentsPage;
+---
+
+<Layout
+	title="Медицинское лечение в Индии | Доступное здравоохранение | AlisPro MediTours"
+	description="Изучите передовое медицинское лечение в Индии с AlisPro MediTours. Доступ к опытным врачам, аккредитованным больницам и персональному уходу в кардиологии, онкологии, ортопедии, лечении бесплодия, пластической хирургии и других направлениях."
+	locale="ru"
+	alternates={[
+		{ locale: 'en', href: '/treatments' },
+		{ locale: 'fr', href: '/fr/treatments' },
+		{ locale: 'ru', href: '/ru/treatments' },
+		{ locale: 'bn', href: '/bn/treatments' },
+		{ locale: 'ro', href: '/ro/treatments' },
+		{ locale: 'es', href: '/es/treatments' },
+		{ locale: 'pt', href: '/pt/treatments' },
+		{ locale: 'vi', href: '/vi/treatments' },
+		{ locale: 'ar', href: '/ar/treatments' },
+	]}
+>
+
+	<TreatmentsGrid
+		basePath="/ru"
+		badge={grid.badge}
+		title={grid.title}
+		highlight={grid.highlight}
+		subtitle={grid.subtitle}
+		treatments={translatedTreatments}
+		searchPlaceholder={grid.searchPlaceholder}
+		searchAriaLabel={grid.searchAriaLabel}
+		clearAriaLabel={grid.clearAriaLabel}
+		noResultsTitle={grid.noResultsTitle}
+		noResultsBody={grid.noResultsBody}
+		fromPrefix={grid.fromPrefix}
+		learnMoreLabel={grid.learnMore}
+		showingCountTemplate={grid.showingCountTemplate}
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="Экономия {pct}%"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<CostEstimateCta
+		title="Хотите точную оценку стоимости лечения?"
+		text="Загрузите свои медицинские документы и получите персональный план лечения с прозрачной сметой от наших специалистов в течение 24 часов."
+		primaryLabel="Получить бесплатную консультацию"
+		primaryHref="/ru/contact"
+		secondaryLabel="Загрузить медицинские документы"
+		secondaryHref="/ru/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,259 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import AccommodationTiers from '../../components/AccommodationTiers.astro';
+import HotelAmenities from '../../components/HotelAmenities.astro';
+import FeaturedStays from '../../components/FeaturedStays.astro';
+import iconBuilding from 'bootstrap-icons/icons/building-fill-check.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconGeo from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { viHotel } from '../../i18n/vi-tourism';
+
+const statIcons = [iconBuilding, iconStar, iconGeo];
+const stats = viHotel.stats.map((stat, i) => ({ ...stat, icon: statIcons[i] }));
+---
+
+<Layout
+	title="Khách sạn du lịch y tế tại Ấn Độ | Chỗ ở cho bệnh nhân | AlisPro MediTours"
+	description="Tìm khách sạn và chỗ ở thoải mái, phù hợp cho sức khỏe, gần các bệnh viện quan trọng nhất Ấn Độ cùng AlisPro MediTours. Nhận chỗ ở được kiểm tra trước, đưa đón bệnh viện và hỗ trợ cá nhân hóa cho chuyến đi y tế không căng thẳng."
+	locale="vi"
+	alternates={[
+		{ locale: 'en', href: '/hotel' },
+		{ locale: 'fr', href: '/fr/hotel' },
+		{ locale: 'ru', href: '/ru/hotel' },
+		{ locale: 'bn', href: '/bn/hotel' },
+		{ locale: 'ro', href: '/ro/hotel' },
+		{ locale: 'es', href: '/es/hotel' },
+		{ locale: 'pt', href: '/pt/hotel' },
+		{ locale: 'vi', href: '/vi/hotel' },
+		{ locale: 'ar', href: '/ar/hotel' },
+	]}
+>
+	<PageHeader
+		badge={viHotel.pageHeader.badge}
+		title={viHotel.pageHeader.title}
+		highlight={viHotel.pageHeader.highlight}
+		subtitle={viHotel.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'Khách sạn' }]}
+		homeHref="/vi/"
+		homeLabel="Trang chủ"
+	/>
+
+	<section class="hotel-stats">
+		<div class="hotel-stats__inner">
+			{
+				stats.map((stat) => (
+					<div class="hotel-stat">
+						<span class="hotel-stat__icon" set:html={stat.icon} aria-hidden="true" />
+						<strong data-countup data-value={stat.value} data-suffix={stat.suffix} data-decimals={stat.decimals ?? 0}>
+							0{stat.suffix}
+						</strong>
+						<span class="hotel-stat__label">{stat.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<AccommodationTiers
+		badge={viHotel.tiers.badge}
+		tiers={viHotel.tiers.items}
+		mostPopularLabel={viHotel.tiers.mostPopularLabel}
+		perNightLabel={viHotel.tiers.perNightLabel}
+		ctaLabel={viHotel.tiers.ctaLabel}
+	/>
+	<HotelAmenities
+		badge={viHotel.amenities.badge}
+		titleLead={viHotel.amenities.titleLead}
+		titleHighlight={viHotel.amenities.titleHighlight}
+		subtitle={viHotel.amenities.subtitle}
+		labels={viHotel.amenities.labels}
+	/>
+	<FeaturedStays
+		badge={viHotel.featuredStays.badge}
+		titleLead={viHotel.featuredStays.titleLead}
+		titleHighlight={viHotel.featuredStays.titleHighlight}
+		subtitle={viHotel.featuredStays.subtitle}
+		stays={viHotel.featuredStays.stays}
+		fromLabel={viHotel.featuredStays.fromLabel}
+		perNightLabel={viHotel.featuredStays.perNightLabel}
+		viewDetailsLabel={viHotel.featuredStays.viewDetailsLabel}
+	/>
+
+	<section class="hotel-cta">
+		<div class="hotel-cta__inner">
+			<h2>{viHotel.ctaHeading}</h2>
+			<p>{viHotel.ctaBody}</p>
+			<a class="hotel-cta__btn" href="/vi/contact">
+				Trao đổi với điều phối viên
+				<span set:html={iconArrowRight} aria-hidden="true" />
+			</a>
+		</div>
+	</section>
+	<CostEstimateCta
+		title="Bạn muốn có ước tính chính xác về việc điều trị của mình?"
+		text="Tải lên hồ sơ y tế của bạn và nhận kế hoạch điều trị cá nhân hóa với ước tính chi phí minh bạch từ các chuyên gia của chúng tôi, trong 24 giờ."
+		primaryLabel="Tư vấn miễn phí"
+		primaryHref="/vi/contact"
+		secondaryLabel="Tải lên hồ sơ y tế"
+		secondaryHref="/vi/contact#enquiry-form"
+	/>
+</Layout>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const countEls = document.querySelectorAll<HTMLElement>('[data-countup]');
+
+	const runCountUp = (el: HTMLElement) => {
+		const target = parseFloat(el.dataset.value ?? '0');
+		const suffix = el.dataset.suffix ?? '';
+		const decimals = parseInt(el.dataset.decimals ?? '0', 10);
+
+		if (prefersReducedMotion) {
+			el.textContent = `${target.toFixed(decimals)}${suffix}`;
+			return;
+		}
+
+		const duration = 1200;
+		const start = performance.now();
+
+		const tick = (now: number) => {
+			const progress = Math.min((now - start) / duration, 1);
+			const eased = 1 - (1 - progress) * (1 - progress);
+			const current = target * eased;
+			el.textContent = `${current.toFixed(decimals)}${suffix}`;
+			if (progress < 1) requestAnimationFrame(tick);
+		};
+		requestAnimationFrame(tick);
+	};
+
+	const observer = new IntersectionObserver(
+		(entries) => {
+			entries.forEach((entry) => {
+				if (entry.isIntersecting) {
+					runCountUp(entry.target as HTMLElement);
+					observer.unobserve(entry.target);
+				}
+			});
+		},
+		{ threshold: 0.5 }
+	);
+	countEls.forEach((el) => observer.observe(el));
+</script>
+
+<style>
+	.hotel-stats {
+		background: var(--gradient-premium);
+		padding: 40px 24px;
+		font-family: var(--font-body);
+	}
+
+	.hotel-stats__inner {
+		max-width: 900px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.hotel-stat {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		gap: 6px;
+	}
+
+	.hotel-stat__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 20px;
+		height: 20px;
+		color: var(--color-gold);
+		margin-bottom: 4px;
+	}
+
+	.hotel-stat__icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hotel-stat strong {
+		font-family: var(--font-heading);
+		font-size: clamp(1.6rem, 3vw, 2.2rem);
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.hotel-stat__label {
+		font-size: 12.5px;
+		color: rgba(255, 255, 255, 0.75);
+	}
+
+	.hotel-cta {
+		background: var(--color-bg-alt);
+		padding: 72px 24px;
+		text-align: center;
+		font-family: var(--font-body);
+	}
+
+	.hotel-cta__inner {
+		max-width: 600px;
+		margin: 0 auto;
+	}
+
+	.hotel-cta h2 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.5rem, 2.6vw, 2rem);
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.hotel-cta p {
+		margin: 14px 0 0;
+		font-size: 15px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.hotel-cta__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		margin-top: 28px;
+		padding: 13px 28px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.hotel-cta__btn:hover {
+		background: var(--btn-primary-hover);
+		transform: translateY(-2px);
+	}
+
+	.hotel-cta__btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	@media screen and (max-width: 640px) {
+		.hotel-stats__inner {
+			gap: 16px;
+		}
+
+		.hotel-stat strong {
+			font-size: 1.4rem;
+		}
+	}
+</style>

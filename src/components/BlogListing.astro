@@ -1,0 +1,133 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../layouts/Layout.astro';
+import PageHeader from './PageHeader.astro';
+import CostEstimateCta from './CostEstimateCta.astro';
+import { blogPosts, formatBlogDate } from '../data/blog';
+import { blogCta, blogPostTr, blogUi, type BlogLocale } from '../i18n/blog';
+
+export interface Props {
+	locale?: BlogLocale;
+}
+
+const { locale = 'en' } = Astro.props;
+const ui = blogUi[locale];
+const cta = blogCta[locale];
+const prefix = locale === 'en' ? '' : `/${locale}`;
+
+const posts = [...blogPosts]
+	.sort((a, b) => b.date.localeCompare(a.date))
+	.map((post) => {
+		const tr = locale === 'en' ? undefined : blogPostTr[locale][post.slug];
+		return { ...post, title: tr?.title ?? post.title, excerpt: tr?.excerpt ?? post.excerpt, category: tr?.category ?? post.category };
+	});
+
+const alternates = (Object.keys(blogUi) as BlogLocale[]).map((l) => ({ locale: l, href: l === 'en' ? '/blog' : `/${l}/blog` }));
+---
+
+<Layout title={ui.metaTitle} description={ui.metaDescription} locale={locale} alternates={alternates}>
+	<PageHeader
+		badge={ui.badge}
+		title={ui.title}
+		highlight={ui.highlight}
+		subtitle={ui.subtitle}
+		breadcrumbs={[{ label: ui.breadcrumb }]}
+		homeHref={`${prefix}/`}
+		homeLabel={cta.homeLabel}
+	/>
+
+	<section class="blog">
+		<div class="blog__grid">
+			{
+				posts.map((post) => (
+					<a class="blog-card" href={`${prefix}/blog/${post.slug}`}>
+						<Image src={post.image} alt={post.title} width={480} height={260} class="blog-card__img" />
+						<div class="blog-card__body">
+							<span class="blog-card__meta">
+								{post.category} · {formatBlogDate(post.date, ui.dateLocale)} · {ui.minRead.replace('{n}', String(post.readMinutes))}
+							</span>
+							<h2>{post.title}</h2>
+							<p>{post.excerpt}</p>
+						</div>
+					</a>
+				))
+			}
+		</div>
+	</section>
+
+	<CostEstimateCta
+		title={cta.title}
+		text={cta.text}
+		primaryLabel={cta.primaryLabel}
+		primaryHref={`${prefix}/contact`}
+		secondaryLabel={cta.secondaryLabel}
+		secondaryHref={`${prefix}/contact#enquiry-form`}
+	/>
+</Layout>
+
+<style>
+	.blog {
+		padding: 56px 24px;
+		font-family: var(--font-body);
+	}
+
+	.blog__grid {
+		max-width: 1100px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 28px;
+	}
+
+	.blog-card {
+		display: flex;
+		flex-direction: column;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background: var(--color-bg-white);
+		box-shadow: var(--shadow-soft);
+		text-decoration: none;
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.blog-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.blog-card__img {
+		width: 100%;
+		height: 180px;
+		object-fit: cover;
+	}
+
+	.blog-card__body {
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.blog-card__meta {
+		font-size: 12px;
+		color: var(--color-text-muted);
+	}
+
+	.blog-card h2 {
+		font-family: var(--font-heading);
+		font-size: 1.1rem;
+		line-height: 1.35;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.blog-card p {
+		font-size: 14px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+</style>

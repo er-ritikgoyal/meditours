@@ -1,0 +1,24 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { doctors } from '../../data/doctors';
+
+// Sourced from each doctor's own `videoUrl` (src/data/doctors.ts) — add a
+// videoUrl to a doctor there and their card appears here automatically.
+const videoEntries = doctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl as string }));
+---
+
+<Layout
+	title="Our Doctors | Board-Certified Specialists in India | AlisPro MediTours"
+	description="Meet the board-certified specialists in AlisPro MediTours' network — cardiac, orthopedic, oncology, cosmetic, neurology, and fertility experts empanelled at accredited hospitals across India."
+>
+	<OurDoctors badge="Our Medical Team" title="Meet Our" highlight="Specialists" />
+
+	<DoctorsVideoCarousel entries={videoEntries} />
+
+	<CostEstimateCta />
+</Layout>

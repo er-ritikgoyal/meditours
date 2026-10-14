@@ -1,0 +1,51 @@
+import type { AboutShared } from './types';
+
+export const ptShared: AboutShared = {
+	headings: {
+		history: 'História e apresentação',
+		specialities: 'Especialidades e centros de excelência',
+		technology: 'Tecnologia e instalações',
+		international: 'Pacientes internacionais',
+		howWeHelp: 'Como a AlisPro MediTours o acompanha',
+		prepare: 'Antes de viajar',
+		cityGuide: 'Guia de viagem:',
+	},
+	howWeHelp: [
+		'A AlisPro MediTours é um serviço de coordenação de viagens médicas, não um hospital. Não prestamos tratamento médico e as decisões clínicas cabem sempre aos seus médicos assistentes. O que fazemos é tornar a viagem até este hospital mais fácil de planear e menos stressante de gerir.',
+		'Depois de enviar os seus relatórios médicos através do nosso formulário de contacto, os nossos coordenadores partilham-nos com a equipa de pacientes internacionais do hospital e ajudam a obter um parecer por escrito e uma estimativa de custos. Se decidir avançar, podemos ajudar com a carta de convite para o visto médico, o planeamento de voos, a receção no aeroporto, o alojamento perto do hospital, o transporte local, o apoio de intérprete e o agendamento de consultas. Durante a sua estadia mantemo-nos em contacto consigo e com a sua família e, quando regressar a casa, ajudamos a organizar as consultas de seguimento e o acesso ao seu processo clínico.',
+		'Os custos, o que os pacotes incluem e os tempos de espera variam consoante o hospital, o médico e o tratamento, por isso recomendamos pedir um orçamento por escrito que indique claramente o que está e o que não está incluído.',
+	],
+	prepare: [
+		'Uma boa preparação faz muita diferença numa viagem médica. Reúna os seus relatórios médicos recentes, exames de imagem (com os discos ou ficheiros digitais), uma lista dos medicamentos atuais e resumos de operações anteriores, e envie-os com antecedência para que o hospital possa dar um parecer realista antes de viajar.',
+		'Pergunte ao hospital ou ao seu coordenador qual a duração prevista da estadia, o custo total provável e o que inclui, se um familiar pode acompanhá-lo e que seguimento será necessário quando regressar a casa. Confirme o nome do médico assistente, a acreditação do departamento que vai usar e como são geridas as emergências.',
+		'A maioria dos pacientes internacionais entra na Índia com um visto médico, que normalmente exige uma carta de convite do hospital. Verifique a validade do seu passaporte, contrate se possível um seguro de viagem que cubra deslocações médicas e preveja alguns dias extra caso o tratamento ou a recuperação demorem mais do que o esperado. Guarde cópias de todos os documentos no telemóvel e na bagagem.',
+	],
+	cityNames: {
+		delhi: 'Deli',
+		gurugram: 'Gurugram',
+		noida: 'Noida',
+		faridabad: 'Faridabad',
+		ghaziabad: 'Ghaziabad',
+		mumbai: 'Mumbai',
+		chennai: 'Chennai',
+		bangalore: 'Bengaluru',
+		hyderabad: 'Hyderabad',
+		kochi: 'Kochi',
+		kolkata: 'Calcutá (Kolkata)',
+		ahmedabad: 'Ahmedabad',
+	},
+	cities: {
+		delhi: 'Deli é servida pelo Aeroporto Internacional Indira Gandhi, e os hospitais da capital ficam normalmente entre 30 e 60 minutos do aeroporto, consoante o trânsito e a hora do dia. O metro de Deli chega à maioria dos bairros e é uma forma rápida de circular pela cidade, e táxis e aplicações de transporte estão amplamente disponíveis. Quem fica hospedado para tratamento costuma escolher hotéis ou apartamentos com serviços perto do hospital, em zonas como South Delhi, Saket, Vasant Kunj ou o centro de Deli. O calor é mais intenso de abril a junho, chove de julho a setembro e o clima é mais agradável de outubro a março. Fala-se muito hindi e inglês.',
+		gurugram: 'Gurugram fica a sudoeste de Deli, a cerca de 20 a 40 minutos de carro do Aeroporto Internacional Indira Gandhi, consoante o trânsito. É um polo empresarial com muitos hotéis e apartamentos com serviços em torno de Golf Course Road, Cyber City e o eixo de Sohna Road, ligado a Deli pelo metro, incluindo a linha de HUDA City Centre. Táxis e aplicações de transporte são fáceis de encontrar. O clima é quente no verão, húmido durante a monção e agradável no inverno. Fala-se muito inglês e hindi, o que facilita a comunicação do dia a dia.',
+		noida: 'Noida é uma cidade planeada a leste de Deli, a cerca de uma hora do Aeroporto Internacional Indira Gandhi em trânsito normal, ligada a Deli pelo metro e por autoestradas. Tem hotéis e apartamentos com serviços nos seus principais setores, e novos bairros como Noida Extension e o corredor da Yamuna Expressway crescem rapidamente. Táxis e aplicações de transporte estão amplamente disponíveis. O clima segue o padrão de Deli, com verões quentes, monção de julho a setembro e invernos frescos. Fala-se muito hindi e inglês.',
+		faridabad: 'Faridabad é uma cidade industrial a sudeste de Deli, a cerca de 45 a 75 minutos do Aeroporto Internacional Indira Gandhi consoante o trânsito, e está ligada a Deli pelo metro e pela estrada Deli–Mathura. A oferta de hotéis é mais limitada do que no centro de Deli, por isso muitos pacientes internacionais reservam alojamento perto do hospital ou em South Delhi. Há táxis e aplicações de transporte. O clima segue o padrão de Deli, com verões quentes, monção de julho a setembro e invernos mais frescos. O hindi e o inglês são muito usados nos hospitais.',
+		ghaziabad: 'Ghaziabad situa-se na margem oriental da região de Deli e está ligada ao centro de Deli pelo metro, com estações como Kaushambi e Vaishali. Fica geralmente a 60 a 90 minutos do Aeroporto Internacional Indira Gandhi consoante o trânsito. O alojamento vai de hotéis económicos a apartamentos com serviços, e alguns visitantes preferem ficar em bairros vizinhos de Deli, como Anand Vihar ou Preet Vihar. O clima segue o padrão de Deli, com verões quentes, monção de julho a setembro e invernos frescos. Fala-se muito hindi e inglês.',
+		mumbai: 'Mumbai é servida pelo Aeroporto Internacional Chhatrapati Shivaji Maharaj, e os hospitais ficam normalmente entre 30 e 90 minutos do aeroporto consoante o bairro e o trânsito, que pode ser intenso, por isso vale a pena reservar tempo extra para as consultas. A cidade tem comboios suburbanos, linhas de metro, táxis e aplicações de transporte. Há hotéis e apartamentos com serviços nos subúrbios e no sul de Mumbai. A monção, de junho a setembro, traz chuvas fortes, e os meses mais agradáveis vão de novembro a fevereiro. Fala-se muito hindi, marata e inglês.',
+		chennai: 'Chennai é servida pelo Aeroporto Internacional de Chennai, e a maioria dos hospitais fica a 30 a 60 minutos de carro consoante o trânsito. A cidade tem metro, comboios suburbanos, táxis e aplicações de transporte, além de uma grande oferta de hotéis e apartamentos com serviços; Adyar, Alwarpet e o corredor tecnológico são populares entre os visitantes médicos. O clima é quente e húmido durante grande parte do ano, com a monção do nordeste de outubro a dezembro, e os meses mais agradáveis vão de dezembro a fevereiro. Fala-se muito tâmil e inglês, e muitos funcionários dos hospitais também falam hindi.',
+		bangalore: 'Bengaluru (Bangalore) é servida pelo Aeroporto Internacional Kempegowda, que fica longe do centro da cidade, muitas vezes a uma a duas horas de carro no trânsito, por isso convém planear bem as transferências. A cidade tem o Metro Namma, táxis e aplicações de transporte, e muitos hotéis e apartamentos com serviços perto dos principais corredores hospitalares. O clima é ameno durante a maior parte do ano, com chuva sobretudo entre junho e outubro. Fala-se muito inglês, além do canarês, e os pacientes internacionais em geral comunicam com facilidade.',
+		hyderabad: 'Hyderabad é servida pelo Aeroporto Internacional Rajiv Gandhi, a cerca de 30 a 60 minutos da maioria dos hospitais consoante o trânsito. A cidade tem metro, táxis e aplicações de transporte, e uma oferta de hotéis e apartamentos com serviços perto das principais zonas hospitalares, como Jubilee Hills, Banjara Hills, Somajiguda e o Financial District. Os verões são quentes, a monção vai de junho a setembro e os invernos são agradáveis. Fala-se muito telugu, hindi, urdu e inglês, e Hyderabad é conhecida pela sua gastronomia, com muitas opções vegetarianas e não vegetarianas.',
+		kochi: 'Kochi é servida pelo Aeroporto Internacional de Cochin, a cerca de 25 a 40 minutos da cidade, e dispõe de metro, táxis, aplicações de transporte e ferries pelos remansos. Há hotéis e apartamentos com serviços perto dos principais hospitais, e Kochi é um local popular para combinar a recuperação com uma estadia tranquila na região dos remansos de Kerala. O clima é tropical, com a monção de junho a setembro, e os meses mais agradáveis vão de novembro a fevereiro. Fala-se muito malaiala e inglês.',
+		kolkata: 'Calcutá (Kolkata) é servida pelo Aeroporto Internacional Netaji Subhas Chandra Bose, que fica normalmente a 30 a 60 minutos das principais zonas hospitalares consoante o trânsito. A cidade tem metro, táxis e aplicações de transporte, e uma grande oferta de hotéis e apartamentos com serviços; muitos pacientes internacionais, sobretudo do vizinho Bangladeche, viajam até aqui para tratamento. O clima é quente e húmido no verão, chuvoso de junho a setembro e muito agradável de outubro a março. Fala-se muito bengali, hindi e inglês, e há intérpretes nos grandes hospitais.',
+		ahmedabad: 'Ahmedabad é servida pelo Aeroporto Internacional Sardar Vallabhbhai Patel, próximo da cidade, pelo que a maioria das transferências para os hospitais demora 20 a 45 minutos consoante o trânsito. A cidade tem metro e um sistema de autocarros de trânsito rápido, táxis e aplicações de transporte, e uma boa oferta de hotéis e apartamentos com serviços em torno da S. G. Highway e do lado oeste da cidade. Os verões são muito quentes e secos, a monção vai de junho a setembro e os meses mais agradáveis são de novembro a fevereiro. Fala-se muito guzerate, hindi e inglês, e a comida vegetariana é fácil de encontrar.',
+	},
+};

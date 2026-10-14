@@ -1,0 +1,169 @@
+---
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
+
+export interface Props {
+	title?: string;
+	text?: string;
+	primaryLabel?: string;
+	primaryHref?: string;
+	secondaryLabel?: string;
+	secondaryHref?: string;
+}
+
+const {
+	title = 'Want an Exact Treatment Estimate?',
+	text = 'Upload your medical reports and receive a personalized treatment plan with a transparent cost estimate from our specialists within 24 hours.',
+	primaryLabel = 'Get Free Cost Estimate',
+	primaryHref = '/contact',
+	secondaryLabel = 'Upload Medical Reports',
+	secondaryHref = '/contact#enquiry-form',
+} = Astro.props;
+---
+
+<div class="cost-cta" data-animate>
+	<h3 class="cost-cta__title">{title}</h3>
+	<p class="cost-cta__text">{text}</p>
+	<div class="cost-cta__actions">
+		<a class="cost-cta__btn cost-cta__btn--primary" href={primaryHref}>
+			{primaryLabel}
+			<span set:html={iconArrowRight} aria-hidden="true" />
+		</a>
+		<a class="cost-cta__btn cost-cta__btn--secondary" href={secondaryHref}>
+			<span set:html={iconUpload} aria-hidden="true" />
+			{secondaryLabel}
+		</a>
+	</div>
+</div>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.cost-cta[data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.cost-cta {
+		margin-top: 56px;
+		padding: 48px 32px;
+		/* border-radius: var(--radius-lg); */
+		background: var(--gradient-cta);
+		text-align: center;
+		font-family: var(--font-body);
+	}
+
+	.cost-cta__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.4rem, 2.4vw, 1.9rem);
+		font-weight: 700;
+		color: #ffffff;
+		margin: 0;
+	}
+
+	.cost-cta__text {
+		max-width: 620px;
+		margin: 14px auto 0;
+		font-size: 14.5px;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.8);
+	}
+
+	.cost-cta__actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 14px;
+		margin-top: 28px;
+	}
+
+	.cost-cta__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 13px 26px;
+		border-radius: var(--radius-md);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease,
+			background 0.15s ease;
+	}
+
+	.cost-cta__btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	/* The primary button's trailing arrow points in reading direction; mirror it for RTL. */
+	:global(html[dir='rtl']) .cost-cta__btn--primary :global(svg) {
+		transform: scaleX(-1);
+	}
+
+	.cost-cta__btn--primary {
+		background: #ffffff;
+		color: var(--color-primary);
+		box-shadow: var(--shadow-card);
+	}
+
+	.cost-cta__btn--primary:hover {
+		transform: translateY(-2px);
+	}
+
+	.cost-cta__btn--secondary {
+		background: rgba(255, 255, 255, 0.1);
+		color: #ffffff;
+		border: 1px solid rgba(255, 255, 255, 0.4);
+	}
+
+	.cost-cta__btn--secondary:hover {
+		background: rgba(255, 255, 255, 0.18);
+	}
+
+	@media screen and (max-width: 640px) {
+		.cost-cta {
+			padding: 36px 22px;
+		}
+
+		.cost-cta__btn {
+			width: 100%;
+			justify-content: center;
+		}
+
+		.cost-cta__actions {
+			flex-direction: column;
+			align-items: stretch;
+		}
+	}
+</style>

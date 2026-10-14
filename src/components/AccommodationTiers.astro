@@ -1,0 +1,391 @@
+---
+import iconBed from 'bootstrap-icons/icons/door-open-fill.svg?raw';
+import iconBuilding from 'bootstrap-icons/icons/building-fill.svg?raw';
+import iconVilla from 'bootstrap-icons/icons/moon-stars-fill.svg?raw';
+import iconCheck from 'bootstrap-icons/icons/check-circle-fill.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+
+export interface TierContent {
+	name: string;
+	description: string;
+	features: string[];
+}
+
+export interface Props {
+	badge?: string;
+	tiers?: TierContent[];
+	mostPopularLabel?: string;
+	perNightLabel?: string;
+	ctaLabel?: string;
+}
+
+const tierIcons = [iconBed, iconBuilding, iconVilla];
+const tierPrices = [40, 85, 180];
+const tierThemes = ['blue', 'teal', 'green'] as const;
+const tierFeatured = [false, true, false];
+
+const {
+	badge = 'Accommodation Options',
+	tiers: tiersProp = [
+		{
+			name: 'Comfort Stay',
+			description: 'Budget-friendly guest houses and serviced apartments within a short drive of your hospital.',
+			features: ['AC room with kitchenette', 'Free Wi-Fi', 'Daily housekeeping', 'Hospital shuttle service'],
+		},
+		{
+			name: 'Premium Suite',
+			description: 'Recovery-friendly 3–4 star hotels, walking distance to major partner hospitals.',
+			features: [
+				'Everything in Comfort Stay',
+				'Nurse call assistance',
+				'Dietary meal plans',
+				'Wheelchair-accessible rooms',
+				'Airport transfer included',
+			],
+		},
+		{
+			name: 'Luxury Recovery Villa',
+			description: '5-star hotels and private residences with in-room nursing support for total privacy.',
+			features: [
+				'Everything in Premium Suite',
+				'Private in-room nursing support',
+				'Personal chef & meal customization',
+				'Chauffeur-driven car service',
+				'24/7 dedicated concierge',
+			],
+		},
+	],
+	mostPopularLabel = 'Most Popular',
+	perNightLabel = '/ night',
+	ctaLabel = 'Enquire About This Stay',
+} = Astro.props;
+
+const tiers = tiersProp.map((tier, i) => ({
+	...tier,
+	icon: tierIcons[i],
+	price: tierPrices[i],
+	theme: tierThemes[i],
+	featured: tierFeatured[i],
+}));
+---
+
+<section class="tiers">
+	<div class="tiers__inner">
+		<div class="tiers__header" data-animate>
+			<span class="tiers__badge">{badge}</span>
+			<!-- <h2 class="tiers__title">
+				A Stay That Matches <span>Your Recovery</span>
+			</h2>
+			<p class="tiers__subtitle">
+				Every option is pre-vetted for cleanliness, safety, and proximity to your treating hospital.
+			</p> -->
+		</div>
+
+		<div class="tiers__grid">
+			{
+				tiers.map((tier, i) => (
+					<div class={`tier-card tier-card--${tier.theme} ${tier.featured ? 'tier-card--featured' : ''}`} data-animate style={`transition-delay: ${i * 100}ms`}>
+						{tier.featured && <span class="tier-card__ribbon">{mostPopularLabel}</span>}
+						<span class="tier-card__icon" set:html={tier.icon} aria-hidden="true" />
+						<h3 class="tier-card__name">{tier.name}</h3>
+						<p class="tier-card__desc">{tier.description}</p>
+						<div class="tier-card__price">
+							<strong>${tier.price}</strong>
+							<span>{perNightLabel}</span>
+						</div>
+						<ul class="tier-card__features">
+							{tier.features.map((feature) => (
+								<li>
+									<span set:html={iconCheck} aria-hidden="true" />
+									{feature}
+								</li>
+							))}
+						</ul>
+						<a class="tier-card__cta" href="/contact">
+							{ctaLabel}
+							<span set:html={iconArrow} aria-hidden="true" />
+						</a>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.tiers [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.tiers {
+		background: var(--color-bg-white);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.tiers__inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.tiers__header {
+		text-align: center;
+		max-width: 620px;
+		margin: 0 auto 48px;
+	}
+
+	.tiers__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.tiers__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.tiers__title span {
+		color: var(--color-teal);
+	}
+
+	.tiers__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.tiers__grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 28px;
+		align-items: start;
+	}
+
+	.tier-card {
+		position: relative;
+		display: flex;
+		flex-direction: column;
+		padding: 32px 28px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.tier-card:hover {
+		transform: translateY(-8px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.tier-card--featured {
+		border-color: var(--color-teal);
+		box-shadow: 0 12px 32px -16px rgba(15, 118, 110, 0.35);
+	}
+
+	.tier-card__ribbon {
+		position: absolute;
+		top: -1px;
+		inset-inline-end: 24px;
+		padding: 5px 14px;
+		border-radius: 0 0 8px 8px;
+		background: var(--color-teal);
+		color: #ffffff;
+		font-size: 11px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.05em;
+	}
+
+	.tier-card__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		height: 56px;
+		border-radius: 16px;
+		margin-bottom: 20px;
+		color: #ffffff;
+	}
+
+	.tier-card__icon :global(svg) {
+		width: 26px;
+		height: 26px;
+	}
+
+	.tier-card--blue .tier-card__icon {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.tier-card--teal .tier-card__icon {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.tier-card--green .tier-card__icon {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.tier-card__name {
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 8px;
+	}
+
+	.tier-card__desc {
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0 0 20px;
+		min-height: 62px;
+	}
+
+	.tier-card__price {
+		display: flex;
+		align-items: baseline;
+		gap: 6px;
+		padding-bottom: 20px;
+		margin-bottom: 20px;
+		border-bottom: 1px solid var(--color-border-light);
+	}
+
+	.tier-card__price strong {
+		font-family: var(--font-heading);
+		font-size: 32px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+	}
+
+	.tier-card__price span {
+		font-size: 13px;
+		color: var(--color-text-muted);
+	}
+
+	.tier-card__features {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		list-style: none;
+		margin: 0 0 26px;
+		padding: 0;
+		flex: 1;
+	}
+
+	.tier-card__features li {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		font-size: 13.5px;
+		line-height: 1.5;
+		color: var(--color-text-secondary);
+	}
+
+	.tier-card__features li span {
+		display: flex;
+		flex-shrink: 0;
+		width: 15px;
+		height: 15px;
+		margin-top: 2px;
+		color: var(--color-green);
+	}
+
+	.tier-card__features li span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.tier-card__cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2px;
+		margin-top: auto;
+		padding: 12px 20px;
+		border-radius: var(--radius-md);
+		background: var(--btn-secondary-bg);
+		border: 1px solid var(--btn-secondary-border);
+		color: var(--btn-secondary-text);
+		font-size: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.tier-card--featured .tier-card__cta {
+		background: var(--btn-primary-bg);
+		border-color: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+	}
+
+	.tier-card__cta:hover {
+		background: var(--btn-secondary-hover-bg);
+	}
+
+	.tier-card--featured .tier-card__cta:hover {
+		background: var(--btn-primary-hover);
+	}
+
+	@media screen and (max-width: 980px) {
+		.tiers__grid {
+			grid-template-columns: 1fr;
+			max-width: 420px;
+			margin: 0 auto;
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.tiers {
+			padding: 56px 16px;
+		}
+	}
+</style>

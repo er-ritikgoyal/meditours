@@ -1,0 +1,651 @@
+---
+/**
+ * A Swiper carousel of doctor cards, each built around a YouTube video
+ * introduction: a real YouTube thumbnail (no API key needed — img.youtube.com)
+ * with a play button overlay, which opens a lightbox playing the actual
+ * YouTube embed on click. Doctor details (photo/initials, name, specialty,
+ * hospital, rating) sit below the thumbnail with a link to their full profile.
+ *
+ * Pass `entries` explicitly — this component doesn't guess which doctor goes
+ * with which video.
+ */
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import { Image } from 'astro:assets';
+import iconPlay from 'bootstrap-icons/icons/play-fill.svg?raw';
+import iconClose from 'bootstrap-icons/icons/x-lg.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconExperience from 'bootstrap-icons/icons/briefcase-fill.svg?raw';
+import iconLanguage from 'bootstrap-icons/icons/translate.svg?raw';
+import type { DoctorData } from '../data/doctors';
+
+export interface DoctorVideoEntry {
+	doctor: DoctorData;
+	/** A YouTube (youtu.be/… or youtube.com/watch?v=…) or Vimeo URL. */
+	videoUrl: string;
+}
+
+export interface Props {
+	badge?: string;
+	title?: string;
+	highlight?: string;
+	subtitle?: string;
+	entries: DoctorVideoEntry[];
+}
+
+const {
+	badge = 'Meet Our Specialists',
+	title = 'Hear From Our',
+	highlight = 'Doctors',
+	subtitle = 'Short video introductions from the specialists coordinating your care.',
+	entries,
+} = Astro.props;
+
+const initials = (name: string) =>
+	name
+		.replace(/^Dr\.?\s*/i, '')
+		.split(' ')
+		.filter(Boolean)
+		.slice(0, 2)
+		.map((part) => part[0])
+		.join('')
+		.toUpperCase();
+
+function getYouTubeId(url: string): string | null {
+	const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+	return match ? match[1] : null;
+}
+
+function thumbnailFor(url: string): string {
+	const id = getYouTubeId(url);
+	// hqdefault always exists for a valid video; maxresdefault doesn't for every upload.
+	return id ? `https://img.youtube.com/vi/${id}/hqdefault.jpg` : '';
+}
+---
+
+<section class="doctor-video-carousel">
+	<div class="doctor-video-carousel__inner">
+		<div class="doctor-video-carousel__header">
+			<span class="doctor-video-carousel__badge">{badge}</span>
+			<h2 class="doctor-video-carousel__title">
+				{title} <span>{highlight}</span>
+			</h2>
+			<p class="doctor-video-carousel__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="doctor-video-swiper swiper">
+			<div class="swiper-wrapper">
+				{
+					entries.map(({ doctor, videoUrl }) => (
+						<div class="swiper-slide">
+							<article class={`doctor-video-card doctor-video-card--${doctor.theme}`}>
+								<button
+									type="button"
+									class="doctor-video-card__thumb-btn"
+									data-video-trigger
+									data-video-url={videoUrl}
+									aria-label={`Play video introduction — ${doctor.name}`}
+								>
+									<img
+										src={thumbnailFor(videoUrl)}
+										alt={`${doctor.name} video introduction`}
+										class="doctor-video-card__thumb"
+										loading="lazy"
+									/>
+									<span class="doctor-video-card__play" set:html={iconPlay} aria-hidden="true" />
+								</button>
+
+								<div class="doctor-video-card__body">
+									<div class="doctor-video-card__person">
+										{doctor.photo ? (
+											<Image src={doctor.photo} alt={doctor.name} width={56} height={56} class="doctor-video-card__photo" />
+										) : (
+											<span class={`doctor-video-card__avatar doctor-video-card__avatar--${doctor.theme}`}>
+												{initials(doctor.name)}
+											</span>
+										)}
+										<div class="doctor-video-card__person-text">
+											<h3 class="doctor-video-card__name">{doctor.name}</h3>
+											<p class="doctor-video-card__specialty">{doctor.specialty}</p>
+										</div>
+									</div>
+
+									<p class="doctor-video-card__qualification">{doctor.qualification}</p>
+
+									<div class="doctor-video-card__meta">
+										<span class="doctor-video-card__meta-item">
+											<span set:html={iconExperience} aria-hidden="true" />
+											{doctor.experienceYears}+ Yrs Experience
+										</span>
+										<span class="doctor-video-card__meta-item">
+											<span set:html={iconLanguage} aria-hidden="true" />
+											{doctor.languages.join(', ')}
+										</span>
+									</div>
+
+									<p class="doctor-video-card__hospital">{doctor.hospital}</p>
+
+									<div class="doctor-video-card__stars" aria-label={`${doctor.rating} out of 5 stars`}>
+										{Array.from({ length: 5 }).map((_, i) => (
+											<span
+												class={`doctor-video-card__star ${i < Math.round(doctor.rating) ? 'is-filled' : ''}`}
+												set:html={iconStar}
+											/>
+										))}
+										<span class="doctor-video-card__rating-text">
+											{doctor.rating.toFixed(1)} ({doctor.reviews})
+										</span>
+									</div>
+
+									<a href={`/doctors/${doctor.slug}`} class="doctor-video-card__link">View Profile</a>
+								</div>
+							</article>
+						</div>
+					))
+				}
+			</div>
+
+			<div class="swiper-pagination"></div>
+		</div>
+
+		<div class="doctor-video-carousel__controls">
+			<button class="doctor-video-carousel__nav doctor-video-carousel__nav--prev" aria-label="Previous doctors">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+					<path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</button>
+			<button class="doctor-video-carousel__nav doctor-video-carousel__nav--next" aria-label="Next doctors">
+				<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
+					<path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+				</svg>
+			</button>
+		</div>
+	</div>
+
+	<div class="doctor-video-modal" data-video-modal hidden>
+		<div class="doctor-video-modal__backdrop" data-video-modal-close />
+		<div class="doctor-video-modal__panel">
+			<button type="button" class="doctor-video-modal__close" data-video-modal-close aria-label="Close video">
+				<span set:html={iconClose} aria-hidden="true" />
+			</button>
+			<div class="doctor-video-modal__content" data-video-modal-content />
+		</div>
+	</div>
+</section>
+
+<script>
+	import Swiper from 'swiper';
+	import { Navigation, Pagination } from 'swiper/modules';
+
+	new Swiper('.doctor-video-swiper', {
+		modules: [Navigation, Pagination],
+		slidesPerView: 1,
+		spaceBetween: 24,
+		speed: 500,
+		pagination: {
+			el: '.doctor-video-swiper .swiper-pagination',
+			clickable: true,
+		},
+		navigation: {
+			nextEl: '.doctor-video-carousel__nav--next',
+			prevEl: '.doctor-video-carousel__nav--prev',
+		},
+		breakpoints: {
+			720: { slidesPerView: 2 },
+			1180: { slidesPerView: 3 },
+		},
+	});
+
+	function toEmbedUrl(url: string): { type: 'iframe' | 'video'; src: string } {
+		const youtubeMatch = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+		if (youtubeMatch) {
+			return { type: 'iframe', src: `https://www.youtube.com/embed/${youtubeMatch[1]}?autoplay=1&rel=0` };
+		}
+		const vimeoMatch = url.match(/vimeo\.com\/(?:video\/)?(\d+)/);
+		if (vimeoMatch) {
+			return { type: 'iframe', src: `https://player.vimeo.com/video/${vimeoMatch[1]}?autoplay=1` };
+		}
+		return { type: 'video', src: url };
+	}
+
+	const videoModal = document.querySelector<HTMLElement>('.doctor-video-carousel [data-video-modal]');
+	const videoModalContent = document.querySelector<HTMLElement>('.doctor-video-carousel [data-video-modal-content]');
+
+	function closeVideoModal() {
+		if (!videoModal || !videoModalContent) return;
+		videoModal.hidden = true;
+		videoModalContent.innerHTML = ''; // stop playback
+		document.body.style.overflow = '';
+	}
+
+	if (videoModal && videoModalContent) {
+		document.querySelectorAll<HTMLButtonElement>('.doctor-video-carousel [data-video-trigger]').forEach((trigger) => {
+			trigger.addEventListener('click', () => {
+				const url = trigger.dataset.videoUrl;
+				if (!url) return;
+
+				const embed = toEmbedUrl(url);
+				videoModalContent.innerHTML =
+					embed.type === 'iframe'
+						? `<iframe src="${embed.src}" title="Video" frameborder="0" allow="autoplay; encrypted-media; picture-in-picture" allowfullscreen></iframe>`
+						: `<video src="${embed.src}" controls autoplay playsinline></video>`;
+
+				videoModal.hidden = false;
+				document.body.style.overflow = 'hidden';
+			});
+		});
+
+		videoModal.querySelectorAll('[data-video-modal-close]').forEach((el) => {
+			el.addEventListener('click', closeVideoModal);
+		});
+
+		document.addEventListener('keydown', (event) => {
+			if (event.key === 'Escape' && !videoModal.hidden) closeVideoModal();
+		});
+	}
+</script>
+
+<style>
+	.doctor-video-carousel {
+		background: var(--color-bg-white);
+		padding: 72px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.doctor-video-carousel__inner {
+		max-width: 1180px;
+		margin: 0 auto;
+	}
+
+	.doctor-video-carousel__header {
+		text-align: center;
+		max-width: 640px;
+		margin: 0 auto 40px;
+	}
+
+	.doctor-video-carousel__badge {
+		display: inline-block;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--color-teal);
+		background: var(--color-bg-soft-blue);
+		padding: 6px 16px;
+		border-radius: 999px;
+		margin-bottom: 14px;
+	}
+
+	.doctor-video-carousel__title {
+		font-family: var(--font-heading);
+		font-size: 32px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 12px;
+	}
+
+	.doctor-video-carousel__title span {
+		color: var(--color-primary);
+	}
+
+	.doctor-video-carousel__subtitle {
+		font-size: 15px;
+		line-height: 1.7;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.doctor-video-swiper {
+		padding-bottom: 48px;
+		overflow: hidden;
+	}
+
+	.doctor-video-card {
+		display: flex;
+		flex-direction: column;
+		height: 100%;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--shadow-soft);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.doctor-video-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.doctor-video-card__thumb-btn {
+		position: relative;
+		display: block;
+		width: 100%;
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+
+	.doctor-video-card__thumb {
+		display: block;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		object-fit: cover;
+		background: #000;
+	}
+
+	.doctor-video-card__play {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: auto;
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		background: rgba(15, 76, 129, 0.85);
+		color: #ffffff;
+		box-shadow: var(--shadow-card);
+		transition: transform 0.15s ease, background 0.15s ease;
+	}
+
+	.doctor-video-card__thumb-btn:hover .doctor-video-card__play {
+		background: var(--color-primary);
+		transform: scale(1.08);
+	}
+
+	.doctor-video-card__play :global(svg) {
+		width: 22px;
+		height: 22px;
+		margin-inline-start: 3px;
+	}
+
+	.doctor-video-card__body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		gap: 10px;
+		padding: 18px 20px 20px;
+	}
+
+	.doctor-video-card__person {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+	}
+
+	.doctor-video-card__photo {
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		object-fit: cover;
+		flex-shrink: 0;
+	}
+
+	.doctor-video-card__avatar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		height: 56px;
+		border-radius: 50%;
+		flex-shrink: 0;
+		font-family: var(--font-heading);
+		font-size: 16px;
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.doctor-video-card__avatar--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.doctor-video-card__avatar--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.doctor-video-card__avatar--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.doctor-video-card__person-text {
+		min-width: 0;
+	}
+
+	.doctor-video-card__name {
+		font-family: var(--font-heading);
+		font-size: 15.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.doctor-video-card__specialty {
+		font-size: 12.5px;
+		color: var(--color-teal);
+		font-weight: 600;
+		margin: 2px 0 0;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.doctor-video-card__qualification {
+		font-size: 12px;
+		color: var(--color-text-muted);
+		margin: 0;
+		line-height: 1.5;
+		display: -webkit-box;
+		-webkit-line-clamp: 2;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.doctor-video-card__meta {
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.doctor-video-card__meta-item {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 12px;
+		color: var(--color-text-secondary);
+		font-weight: 600;
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.doctor-video-card__meta-item span {
+		display: flex;
+		flex-shrink: 0;
+		width: 12px;
+		height: 12px;
+		color: var(--color-teal);
+	}
+
+	.doctor-video-card__meta-item span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-video-card__hospital {
+		font-size: 13px;
+		color: var(--color-text-secondary);
+		margin: 0;
+		line-height: 1.5;
+	}
+
+	.doctor-video-card__stars {
+		display: flex;
+		align-items: center;
+		gap: 3px;
+	}
+
+	.doctor-video-card__star {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		color: var(--color-border-light);
+	}
+
+	.doctor-video-card__star.is-filled {
+		color: #f5a623;
+	}
+
+	.doctor-video-card__star :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.doctor-video-card__rating-text {
+		font-size: 12px;
+		color: var(--color-text-muted);
+		margin-inline-start: 4px;
+	}
+
+	.doctor-video-card__link {
+		margin-top: auto;
+		padding-top: 10px;
+		font-size: 13.5px;
+		font-weight: 700;
+		color: var(--color-primary);
+		text-decoration: none;
+	}
+
+	.doctor-video-card__link:hover {
+		text-decoration: underline;
+	}
+
+	.doctor-video-carousel__controls {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 14px;
+		margin-top: 8px;
+	}
+
+	.doctor-video-carousel__nav {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 42px;
+		height: 42px;
+		border-radius: 50%;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		cursor: pointer;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+
+	.doctor-video-carousel__nav:hover {
+		background: var(--color-primary);
+		color: #ffffff;
+	}
+
+	:global(.doctor-video-swiper .swiper-pagination-bullet) {
+		background: var(--color-border-card);
+		opacity: 1;
+	}
+
+	:global(.doctor-video-swiper .swiper-pagination-bullet-active) {
+		background: var(--color-primary);
+	}
+
+	.doctor-video-modal {
+		position: fixed;
+		inset: 0;
+		z-index: 200;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 24px;
+	}
+
+	.doctor-video-modal[hidden] {
+		display: none;
+	}
+
+	.doctor-video-modal__backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(15, 23, 42, 0.88);
+	}
+
+	.doctor-video-modal__panel {
+		position: relative;
+		width: min(94vw, 1280px, calc(88vh * 16 / 9));
+	}
+
+	.doctor-video-modal__close {
+		position: absolute;
+		top: 10px;
+		inset-inline-end: 10px;
+		z-index: 1;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 38px;
+		height: 38px;
+		border: none;
+		border-radius: 50%;
+		background: rgba(0, 0, 0, 0.55);
+		color: #ffffff;
+		cursor: pointer;
+		transition: background 0.15s ease;
+	}
+
+	.doctor-video-modal__close:hover {
+		background: rgba(0, 0, 0, 0.75);
+	}
+
+	.doctor-video-modal__close :global(svg) {
+		width: 16px;
+		height: 16px;
+	}
+
+	.doctor-video-modal__content {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background: #000;
+		box-shadow: var(--shadow-card);
+	}
+
+	.doctor-video-modal__content :global(iframe),
+	.doctor-video-modal__content :global(video) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+
+	@media screen and (max-width: 640px) {
+		.doctor-video-carousel {
+			padding: 56px 16px 64px;
+		}
+
+		.doctor-video-carousel__title {
+			font-size: 26px;
+		}
+
+		.doctor-video-modal {
+			padding: 12px;
+		}
+
+		.doctor-video-modal__panel {
+			width: min(96vw, calc(80vh * 16 / 9));
+		}
+	}
+</style>

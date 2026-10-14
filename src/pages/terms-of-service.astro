@@ -1,0 +1,182 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+
+const lastUpdated = 'October 5, 2026';
+---
+
+<Layout
+	title="Terms of Service | AlisPro MediTours"
+	description="The terms governing your use of alispromeditours.com and AlisPro MediTours' medical tourism facilitation services."
+>
+	<PageHeader title="Terms of Service" subtitle={`Last updated: ${lastUpdated}`} breadcrumbs={[{ label: 'Terms of Service' }]} />
+
+	<section class="legal-page">
+		<div class="legal-page__inner">
+			<p>
+				These Terms of Service ("Terms") govern your use of alispromeditours.com (the "Site") and the medical
+				tourism facilitation services provided by AlisPro MediTours ("we", "us", "our"). By using the Site or
+				engaging our services, you agree to these Terms. If you do not agree, please do not use the Site.
+			</p>
+
+			<h2>1. What We Are — and What We Are Not</h2>
+			<p>
+				AlisPro MediTours is a medical tourism <strong>facilitation and coordination service</strong>. We help
+				international patients connect with independent, third-party hospitals, clinics, and doctors in India, and
+				coordinate related logistics such as travel and accommodation.
+			</p>
+			<p>
+				<strong>We are not a hospital, clinic, medical practice, or insurer, and we do not practice medicine.</strong>{' '}
+				We do not diagnose, treat, or provide medical advice. All diagnosis, treatment recommendations, and
+				clinical decisions are made solely by the independent, licensed hospitals and doctors you are referred
+				to, based on their own professional judgment.
+			</p>
+
+			<h2>2. Cost Estimates and Treatment Information</h2>
+			<p>
+				Costs, savings percentages, treatment durations, hospital stay lengths, and similar figures shown on the
+				Site are <strong>indicative estimates only</strong>, based on typical cases and information available to
+				us at the time. They are not quotes, do not account for every individual's medical complexity, and are
+				subject to change once a hospital reviews your specific reports. Final pricing, treatment plans, and
+				timelines are determined solely by the treating hospital.
+			</p>
+
+			<h2>3. No Guarantee of Outcomes</h2>
+			<p>
+				We make no representation or warranty, express or implied, regarding the outcome of any medical
+				procedure, the availability of any doctor or hospital, visa approval, or travel arrangements. Medical
+				treatment carries inherent risks that exist regardless of where or by whom it is performed, and we are
+				not liable for any medical outcome, complication, misdiagnosis, malpractice, or other act or omission of
+				any third-party hospital, doctor, or other provider.
+			</p>
+
+			<h2>4. Your Responsibilities</h2>
+			<ul>
+				<li>Provide accurate, complete, and up-to-date medical, personal, and travel information.</li>
+				<li>Obtain any visas, travel documents, or legal clearances required for international travel.</li>
+				<li>Make your own informed decision about any treatment, after discussing it directly with the treating doctor.</li>
+				<li>Comply with the policies of any hospital, hotel, airline, or other third party you engage with through our coordination.</li>
+			</ul>
+
+			<h2>5. Fees</h2>
+			<p>
+				Any coordination or service fees charged by AlisPro MediTours, separate from hospital or third-party
+				charges, will be disclosed to you before you commit to engaging our services. Hospital, doctor, travel,
+				and accommodation charges are set independently by those third parties and are not controlled by us.
+			</p>
+
+			<h2>6. Third-Party Services and Links</h2>
+			<p>
+				The Site may reference or link to third-party hospitals, hotels, airlines, insurers, or other services.
+				We are not responsible for the content, accuracy, availability, or practices of any third-party service,
+				and your use of them is governed by their own terms and policies.
+			</p>
+
+			<h2>7. Intellectual Property</h2>
+			<p>
+				All text, graphics, logos, and other content on the Site, except third-party content, is owned by or
+				licensed to AlisPro MediTours and may not be copied, reproduced, or distributed without our prior written
+				permission.
+			</p>
+
+			<h2>8. Limitation of Liability</h2>
+			<p>
+				To the fullest extent permitted by law, AlisPro MediTours shall not be liable for any indirect,
+				incidental, special, or consequential damages, or any loss of data, revenue, or profits, arising from
+				your use of the Site or our facilitation services, including but not limited to any medical outcome or
+				act or omission of a third-party provider.
+			</p>
+
+			<h2>9. Indemnification</h2>
+			<p>
+				You agree to indemnify and hold AlisPro MediTours harmless from any claim, loss, or damage arising from
+				your breach of these Terms, your misuse of the Site, or your interactions with third-party hospitals,
+				doctors, or service providers.
+			</p>
+
+			<h2>10. Governing Law</h2>
+			<p>
+				These Terms are governed by the laws of India, without regard to conflict-of-law principles. Any dispute
+				arising under these Terms shall be subject to the exclusive jurisdiction of the courts of New Delhi,
+				India.
+			</p>
+
+			<h2>11. Changes to These Terms</h2>
+			<p>
+				We may update these Terms from time to time. Material changes will be reflected by updating the "Last
+				updated" date above. Continued use of the Site after changes take effect constitutes acceptance of the
+				revised Terms.
+			</p>
+
+			<h2>12. Contact Us</h2>
+			<p>
+				Questions about these Terms can be sent to{' '}
+				<a href="mailto:care@alispromeditours.com">care@alispromeditours.com</a> or 238 Westend Mall, Janakpuri,
+				New Delhi, Delhi 110058, India.
+			</p>
+
+			<p class="legal-page__disclaimer">
+				This document is provided for general informational purposes and does not constitute legal advice. It
+				should be reviewed by a qualified attorney — particularly regarding medical-disclaimer language and
+				liability limitations relevant to your jurisdiction — before being relied upon as a complete, enforceable
+				agreement.
+			</p>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.legal-page {
+		background: var(--color-bg-white);
+		padding: 56px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.legal-page__inner {
+		max-width: 760px;
+		margin: 0 auto;
+	}
+
+	.legal-page__inner p {
+		font-size: 15px;
+		line-height: 1.8;
+		color: var(--color-text-secondary);
+		margin: 0 0 18px;
+	}
+
+	.legal-page__inner ul {
+		margin: 0 0 18px;
+		padding-left: 22px;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.legal-page__inner li {
+		font-size: 15px;
+		line-height: 1.75;
+		color: var(--color-text-secondary);
+	}
+
+	.legal-page__inner h2 {
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 36px 0 14px;
+	}
+
+	.legal-page__inner a {
+		color: var(--color-primary);
+		font-weight: 600;
+	}
+
+	.legal-page__disclaimer {
+		margin-top: 40px;
+		padding-top: 20px;
+		border-top: 1px solid var(--color-border-light);
+		font-size: 13px;
+		color: var(--color-text-muted);
+		font-style: italic;
+	}
+</style>

@@ -1,0 +1,1151 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../../layouts/Layout.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import FaqAccordion from '../../../components/FaqAccordion.astro';
+import EnquiryCard from '../../../components/EnquiryCard.astro';
+import { treatments, type TreatmentData } from '../../../data/treatments';
+import { ptTreatments } from '../../../i18n/pt-treatments';
+import { ptTreatmentsPage } from '../../../i18n/pt-pages';
+import { pt } from '../../../i18n/pt';
+import iconTag from 'bootstrap-icons/icons/tag-fill.svg?raw';
+import iconPiggyBank from 'bootstrap-icons/icons/piggy-bank-fill.svg?raw';
+import iconHospital from 'healthicons/public/icons/svg/outline/places/hospital.svg?raw';
+import iconCheck from 'bootstrap-icons/icons/check-circle-fill.svg?raw';
+import iconCross from 'bootstrap-icons/icons/x-circle-fill.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import iconCalendar from 'bootstrap-icons/icons/calendar-week-fill.svg?raw';
+import iconHeart from 'healthicons/public/icons/svg/outline/specialties/cardiology.svg?raw';
+import iconActivity from 'healthicons/public/icons/svg/outline/specialties/orthopaedics.svg?raw';
+import iconShieldPlus from 'healthicons/public/icons/svg/outline/specialties/oncology.svg?raw';
+import iconGem from 'bootstrap-icons/icons/gem.svg?raw';
+import iconDroplet from 'healthicons/public/icons/svg/outline/specialties/gynecology.svg?raw';
+import iconDropletFill from 'healthicons/public/icons/svg/outline/body/kidneys.svg?raw';
+import iconCapsule from 'healthicons/public/icons/svg/outline/body/tooth.svg?raw';
+import iconEye from 'healthicons/public/icons/svg/outline/specialties/opthalmology.svg?raw';
+import iconBrain from 'healthicons/public/icons/svg/outline/body/neurology.svg?raw';
+import iconSpine from 'healthicons/public/icons/svg/outline/body/spine.svg?raw';
+import iconStomach from 'healthicons/public/icons/svg/outline/body/stomach.svg?raw';
+import iconKidney from 'healthicons/public/icons/svg/outline/specialties/urology.svg?raw';
+import iconEarNoseThroat from 'healthicons/public/icons/svg/outline/specialties/ears_nose_and_throat.svg?raw';
+import { slugifyProcedure } from '../../../utils/slugify';
+import imgCardiacCare from '../../../assets/treatments/cardiac-care.jpg';
+import imgOrthopedics from '../../../assets/treatments/orthopedics2.jpg';
+import imgOncology from '../../../assets/treatments/oncology2.jpg';
+import imgCosmeticSurgery from '../../../assets/treatments/cosmetic-surgery2.jpg';
+import imgFertility from '../../../assets/treatments/fertility2.png';
+import imgOrganTransplant from '../../../assets/treatments/organ-transplant2.jpg';
+import imgDentalCare from '../../../assets/treatments/oral.avif';
+import imgEyeCare from '../../../assets/treatments/eye-care2.jpg';
+import imgUrology from '../../../assets/treatments/urology.jpg';
+import imgNeurology from '../../../assets/treatments/neuro.jpg';
+import imgSpineSurgery from '../../../assets/treatments/spine.jpg';
+import imgBariatric from '../../../assets/treatments/Bariatric.png';
+
+const IMAGES = {
+	cardiacCare: imgCardiacCare,
+	orthopedics: imgOrthopedics,
+	oncology: imgOncology,
+	cosmeticSurgery: imgCosmeticSurgery,
+	fertility: imgFertility,
+	organTransplant: imgOrganTransplant,
+	dentalCare: imgDentalCare,
+	eyeCare: imgEyeCare,
+	urology: imgUrology,
+	neurology: imgNeurology,
+	spineSurgery: imgSpineSurgery,
+	bariatric: imgBariatric,
+} as const;
+
+const ICONS = {
+	heart: iconHeart,
+	activity: iconActivity,
+	shieldPlus: iconShieldPlus,
+	gem: iconGem,
+	droplet: iconDroplet,
+	dropletFill: iconDropletFill,
+	capsule: iconCapsule,
+	eye: iconEye,
+	brain: iconBrain,
+	spine: iconSpine,
+	stomach: iconStomach,
+	kidney: iconKidney,
+	earNoseThroat: iconEarNoseThroat,
+} as const;
+
+export function getStaticPaths() {
+	return treatments.map((treatment) => ({
+		params: { slug: treatment.slug },
+		props: { treatment },
+	}));
+}
+
+const { treatment: baseTreatment } = Astro.props as { treatment: TreatmentData };
+const ptT = ptTreatments[baseTreatment.slug];
+const treatment: TreatmentData = ptT ? { ...baseTreatment, ...ptT } : baseTreatment;
+const formatPrice = (value: number) => `${value.toLocaleString('en-US')}`;
+function procedureTeaser(text: string): string {
+	const sentence = text.split('. ')[0].trim();
+	const withPeriod = sentence.endsWith('.') ? sentence : `${sentence}.`;
+	return withPeriod.length > 170 ? `${withPeriod.slice(0, 167).trimEnd()}…` : withPeriod;
+}
+const currentTreatmentIndex = treatments.findIndex((t) => t.slug === baseTreatment.slug);
+const related = Array.from({ length: 3 }, (_, i) => treatments[(currentTreatmentIndex + 1 + i) % treatments.length]);
+const d = ptTreatmentsPage.detail;
+const year = new Date().getFullYear();
+---
+
+<Layout
+	title={`${treatment.name} na Índia – Custo ${year} | Alis Pro Med Tour`}
+	description={treatment.shortDescription}
+	locale="pt"
+	alternates={[
+		{ locale: 'en', href: `/treatments/${treatment.slug}` },
+		{ locale: 'fr', href: `/fr/treatments/${treatment.slug}` },
+		{ locale: 'ru', href: `/ru/treatments/${treatment.slug}` },
+		{ locale: 'bn', href: `/bn/treatments/${treatment.slug}` },
+		{ locale: 'ro', href: `/ro/treatments/${treatment.slug}` },
+		{ locale: 'es', href: `/es/treatments/${treatment.slug}` },
+		{ locale: 'pt', href: `/pt/treatments/${treatment.slug}` },
+		{ locale: 'vi', href: `/vi/treatments/${treatment.slug}` },
+		{ locale: 'ar', href: `/ar/treatments/${treatment.slug}` },
+	]}
+>
+	<PageHeader
+		badge={d.savingsBadgeTemplate(treatment.avgSavings)}
+		title={treatment.name}
+		subtitle={treatment.shortDescription}
+		breadcrumbs={[{ label: 'Tratamentos', href: '/pt/treatments' }, { label: treatment.name }]}
+		homeHref="/pt/"
+		homeLabel="Início"
+	/>
+
+	<section class="treatment-detail">
+		<div class="treatment-detail__inner">
+			<div class="treatment-detail__hero-row">
+				{treatment.imageKey ? (
+					<Image
+						src={IMAGES[treatment.imageKey]}
+						alt={treatment.name}
+						width={1200}
+						height={480}
+						class="treatment-detail__hero-image"
+					/>
+				) : (
+					<div class={`treatment-detail__hero-fallback treatment-detail__hero-fallback--${treatment.theme}`}>
+						<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
+					</div>
+				)}
+
+				<EnquiryCard
+					defaultTreatment={treatment.name}
+					title={pt.hero.enquiry.title}
+					subtitle={pt.hero.enquiry.subtitle}
+					treatmentPlaceholder={pt.hero.enquiry.treatmentPlaceholder}
+					namePlaceholder={pt.hero.enquiry.namePlaceholder}
+					emailPlaceholder={pt.hero.enquiry.emailPlaceholder}
+					countryPlaceholder={pt.common.selectCountryPlaceholder}
+					phonePlaceholder={pt.hero.enquiry.phonePlaceholder}
+					uploadLabel={pt.hero.enquiry.uploadLabel}
+					submitLabel={pt.hero.enquiry.submit}
+					privacyNote={pt.hero.enquiry.privacyNote}
+					successMessage={pt.hero.enquiry.successMessage}
+				/>
+			</div>
+
+			<div class="treatment-detail__stats">
+				<div class="treatment-detail__stat">
+					<span set:html={iconTag} aria-hidden="true" />
+					<div>
+						<strong>{formatPrice(treatment.startingPrice)}</strong>
+						<span>{d.startingPriceLabel}</span>
+					</div>
+				</div>
+				<div class="treatment-detail__stat">
+					<span set:html={iconPiggyBank} aria-hidden="true" />
+					<div>
+						<strong>{treatment.avgSavings}%</strong>
+						<span>{d.avgSavingsLabel}</span>
+					</div>
+				</div>
+				<div class="treatment-detail__stat">
+					<span set:html={iconHospital} aria-hidden="true" />
+					<div>
+						<strong>{treatment.hospitalsCount}+</strong>
+						<span>{d.partnerHospitalsLabel}</span>
+					</div>
+				</div>
+			</div>
+
+			<div class="treatment-detail__grid">
+				<div class="treatment-detail__main">
+					<h2>{d.overviewHeading}</h2>
+					<p>{treatment.overview}</p>
+					</div>
+
+					<aside class="treatment-detail__aside">
+					<div class="treatment-detail__benefits-card">
+						<h2>{d.whyChooseTemplate(treatment.name)}</h2>
+						<ul class="treatment-detail__benefits">
+							{
+								treatment.benefits.map((benefit) => (
+									<li>
+										<span set:html={iconCheck} aria-hidden="true" />
+										{benefit}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</aside>
+				</div>
+
+				<div class="treatment-detail__procedures-section">
+					<h2>{d.proceduresHeading}</h2>
+					{treatment.detailedProcedures ? (
+						<div class="procedure-detail-cards">
+							{treatment.detailedProcedures.map((proc) => (
+								<a class="procedure-detail-card" href={`/treatments/${treatment.slug}/${slugifyProcedure(proc.name)}`}>
+									{treatment.imageKey ? (
+										<Image
+											src={IMAGES[treatment.imageKey]}
+											alt={proc.name}
+											width={400}
+											height={220}
+											class="procedure-detail-card__img"
+										/>
+									) : (
+										<div class={`procedure-detail-card__img-fallback procedure-detail-card__img-fallback--${treatment.theme}`}>
+											<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
+										</div>
+									)}
+									<div class="procedure-detail-card__body">
+										<h3>{proc.name}</h3>
+										<p>{procedureTeaser(proc.description)}</p>
+										<span class="procedure-detail-card__cta">
+											View More
+											<span set:html={iconArrowRight} aria-hidden="true" />
+										</span>
+									</div>
+								</a>
+							))}
+						</div>
+					) : (
+						<div class="procedure-cards">
+							{(treatment.allProcedures ?? treatment.procedures).map((procedure) => (
+								<div class="procedure-card">
+									<span class="procedure-card__icon" set:html={iconCheck} aria-hidden="true" />
+									<span class="procedure-card__label">{procedure}</span>
+								</div>
+							))}
+						</div>
+					)}
+				</div>
+
+				<div class="treatment-detail__package">
+				<div class="treatment-detail__package-header">
+					<span class="treatment-detail__package-badge">{d.sampleBadgeTemplate(treatment.flagshipProcedure)}</span>
+					<h2>{d.packageHeading}</h2>
+					<p
+						set:html={d.packageIntroTemplate(
+							`<strong>${formatPrice(treatment.packagePrice)}</strong>`,
+							`<strong>${treatment.totalTripDays} dias</strong>`
+						)}
+					/>
+				</div>
+
+				<div class="stay-duration">
+					<div class="stay-duration__card">
+						<span class="stay-duration__icon" set:html={iconCalendar} aria-hidden="true" />
+						<div>
+							<strong>{d.patientStayLabel}</strong>
+							<span>
+								{treatment.stayDuration.patient.totalDays > 0
+									? d.daysTotalTemplate(
+											treatment.stayDuration.patient.totalDays,
+											treatment.stayDuration.patient.icuDays,
+											treatment.stayDuration.patient.roomDays
+										)
+									: d.outpatientText}
+							</span>
+						</div>
+					</div>
+					{
+						treatment.stayDuration.donor && (
+							<div class="stay-duration__card">
+								<span class="stay-duration__icon" set:html={iconCalendar} aria-hidden="true" />
+								<div>
+									<strong>{d.donorStayLabel}</strong>
+									<span>
+										{d.daysTotalTemplate(
+											treatment.stayDuration.donor.totalDays,
+											treatment.stayDuration.donor.icuDays,
+											treatment.stayDuration.donor.roomDays
+										)}
+									</span>
+								</div>
+							</div>
+						)
+					}
+				</div>
+
+				<div class="cost-table-wrap">
+					<table class="cost-table" dir="ltr">
+						<thead>
+							<tr>
+								<th>{d.tableHeaders.country}</th>
+								<th>{d.tableHeaders.cost}</th>
+								<th>{d.tableHeaders.waitTime}</th>
+								<th>{d.tableHeaders.successRate}</th>
+							</tr>
+						</thead>
+						<tbody>
+							{
+								treatment.costComparison.map((row) => (
+									<tr class={row.highlight ? 'cost-table__row--highlight' : ''}>
+										<td>{row.country}</td>
+										<td>{row.cost}</td>
+										<td>{row.waitTime}</td>
+										<td>{row.successRate}</td>
+									</tr>
+								))
+							}
+						</tbody>
+					</table>
+				</div>
+
+				<div class="inclusions-grid">
+					<div class="inclusions-col">
+						<h3>{d.inclusionsHeading}</h3>
+						<ul class="inclusions-list inclusions-list--yes">
+							{
+								treatment.inclusions.map((item) => (
+									<li>
+										<span set:html={iconCheck} aria-hidden="true" />
+										{item}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+					<div class="inclusions-col">
+						<h3>{d.exclusionsHeading}</h3>
+						<ul class="inclusions-list inclusions-list--no">
+							{
+								treatment.exclusions.map((item) => (
+									<li>
+										<span set:html={iconCross} aria-hidden="true" />
+										{item}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+				</div>
+
+				<p class="treatment-detail__package-note">{d.packageNoteTemplate(treatment.flagshipProcedure.toLowerCase())}</p>
+			</div>
+
+			<div class="treatment-detail__cta">
+				<h3>{d.ctaHeadingTemplate(treatment.name.toLowerCase())}</h3>
+				<p>{d.ctaBody}</p>
+				<div class="treatment-detail__cta-actions">
+					<a class="treatment-detail__btn treatment-detail__btn--primary" href="/pt/contact">
+						{d.getFreeQuote}
+						<span set:html={iconArrowRight} aria-hidden="true" />
+					</a>
+					<a class="treatment-detail__btn treatment-detail__btn--secondary" href="/pt/treatments">
+						{d.browseAll}
+					</a>
+				</div>
+			</div>
+
+			<div class="treatment-detail__related">
+				<h2>{d.otherTreatmentsHeading}</h2>
+				<div class="treatment-detail__related-grid">
+					{
+						related.map((item) => {
+							const itemName = ptTreatments[item.slug]?.name ?? item.name;
+							return (
+								<a class="treatment-related-card" href={`/pt/treatments/${item.slug}`}>
+									{item.imageKey ? (
+										<Image src={IMAGES[item.imageKey]} alt={itemName} width={320} height={180} loading="lazy" />
+									) : (
+										<div class={`treatment-related-card__fallback treatment-related-card__fallback--${item.theme}`}>
+											<span set:html={ICONS[item.icon]} aria-hidden="true" />
+										</div>
+									)}
+									<span class="treatment-related-card__label">{itemName}</span>
+								</a>
+							);
+						})
+					}
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<FaqAccordion
+		badge={ptTreatmentsPage.faq.badge}
+		title={`${treatment.name} —`}
+		highlight={ptTreatmentsPage.faq.highlight}
+		subtitle={ptTreatmentsPage.faq.subtitleTemplate(treatment.flagshipProcedure.toLowerCase())}
+		faqs={treatment.faqs}
+	/>
+</Layout>
+
+<style>
+	.treatment-detail {
+		background: var(--color-bg-white);
+		padding: 64px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.treatment-detail__inner {
+		max-width: 1120px;
+		margin: 0 auto;
+	}
+
+	.treatment-detail__hero-row {
+		display: grid;
+		grid-template-columns: 1fr 380px;
+		align-items: start;
+		gap: 32px;
+	}
+
+	.treatment-detail__hero-image {
+		width: 100%;
+		height: 100%;
+		max-height: 480px;
+		object-fit: cover;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+	}
+
+	.treatment-detail__hero-fallback {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		min-height: 280px;
+		max-height: 480px;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+	}
+
+	.treatment-detail__hero-fallback span {
+		display: flex;
+		width: 96px;
+		height: 96px;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.treatment-detail__hero-fallback span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.treatment-detail__hero-fallback--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.treatment-detail__hero-fallback--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.treatment-detail__hero-fallback--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.treatment-detail__stats {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 16px;
+		margin: 32px 0 0;
+	}
+
+	.treatment-detail__stat {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		padding: 16px 18px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.treatment-detail__stat span {
+		display: flex;
+		flex-shrink: 0;
+		width: 22px;
+		height: 22px;
+		color: var(--color-primary);
+	}
+
+	.treatment-detail__stat span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.treatment-detail__stat div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.treatment-detail__stat strong {
+		font-family: var(--font-heading);
+		font-size: 18px;
+		color: var(--color-text-primary);
+	}
+
+	.treatment-detail__stat span + div span {
+		font-size: 12px;
+		color: var(--color-text-muted);
+	}
+
+	.treatment-detail__grid {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr;
+		gap: 40px;
+		margin-top: 56px;
+	}
+
+	.treatment-detail__main h2,
+	.treatment-detail__benefits-card h2,
+	.treatment-detail__procedures-section h2 {
+		font-family: var(--font-heading);
+		font-size: 22px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 14px;
+	}
+
+	.treatment-detail__main p {
+		font-size: 15px;
+		line-height: 1.75;
+		color: var(--color-text-secondary);
+		margin: 0 0 32px;
+	}
+
+	.treatment-detail__procedures-section {
+		margin-top: 48px;
+	}
+
+	.procedure-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 14px;
+	}
+
+	.procedure-card {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		padding: 14px 16px;
+		box-shadow: var(--shadow-soft);
+		transition: box-shadow 0.2s ease, transform 0.2s ease;
+	}
+
+	.procedure-card:hover {
+		box-shadow: var(--shadow-card);
+		transform: translateY(-2px);
+	}
+
+	.procedure-card__icon {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		border-radius: 9px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+	}
+
+	.procedure-card__icon :global(svg) {
+		width: 16px;
+		height: 16px;
+	}
+
+	.procedure-card__label {
+		font-size: 13.5px;
+		font-weight: 600;
+		line-height: 1.4;
+		color: var(--color-text-primary);
+	}
+
+	.procedure-detail-cards {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+		gap: 24px;
+	}
+
+	.procedure-detail-card {
+		display: flex;
+		flex-direction: column;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background: var(--color-bg-white);
+		box-shadow: var(--shadow-soft);
+		transition: transform 0.2s ease, box-shadow 0.2s ease;
+	}
+
+	.procedure-detail-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.procedure-detail-card__img {
+		width: 100%;
+		height: 180px;
+		object-fit: cover;
+	}
+
+	.procedure-detail-card__img-fallback {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 180px;
+	}
+
+	.procedure-detail-card__img-fallback span {
+		display: flex;
+		width: 48px;
+		height: 48px;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.procedure-detail-card__img-fallback span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.procedure-detail-card__img-fallback--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.procedure-detail-card__img-fallback--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.procedure-detail-card__img-fallback--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.procedure-detail-card__body {
+		padding: 20px;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.procedure-detail-card__body h3 {
+		font-family: var(--font-heading);
+		font-size: 1.05rem;
+		line-height: 1.35;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.procedure-detail-card__body p {
+		font-size: 13.5px;
+		line-height: 1.65;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.procedure-detail-card {
+		text-decoration: none;
+	}
+
+	.procedure-detail-card__body {
+		flex: 1;
+	}
+
+	.procedure-detail-card__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		margin-top: auto;
+		padding-top: 8px;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--color-teal);
+	}
+
+	.procedure-detail-card__cta span {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		transition: transform 0.2s ease;
+	}
+
+	.procedure-detail-card__cta span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.procedure-detail-card:hover .procedure-detail-card__cta span {
+		transform: translateX(3px);
+	}
+
+	.treatment-detail__aside {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		align-self: start;
+		position: sticky;
+		top: 100px;
+	}
+
+	.treatment-detail__benefits-card {
+		background: var(--color-bg-alt);
+		border-radius: var(--radius-lg);
+		padding: 26px;
+	}
+
+	.treatment-detail__benefits {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.treatment-detail__benefits li {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.treatment-detail__benefits li span {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		margin-top: 2px;
+		color: var(--color-green);
+	}
+
+	.treatment-detail__benefits li span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.treatment-detail__package {
+		margin-top: 64px;
+		padding: 40px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		background: var(--color-bg-alt);
+	}
+
+	.treatment-detail__package-header {
+		text-align: center;
+		max-width: 620px;
+		margin: 0 auto 32px;
+	}
+
+	.treatment-detail__package-badge {
+		display: inline-block;
+		padding: 6px 16px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		font-size: 11.5px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+		margin-bottom: 14px;
+	}
+
+	.treatment-detail__package-header h2 {
+		font-family: var(--font-heading);
+		font-size: 22px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 10px;
+	}
+
+	.treatment-detail__package-header p {
+		font-size: 14.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.treatment-detail__package-header strong {
+		color: var(--color-text-primary);
+	}
+
+	.stay-duration {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 16px;
+		margin-bottom: 28px;
+	}
+
+	.stay-duration__card {
+		display: flex;
+		align-items: center;
+		gap: 14px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		padding: 16px 18px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.stay-duration__icon {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 40px;
+		height: 40px;
+		border-radius: 10px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+	}
+
+	.stay-duration__icon :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	.stay-duration__card strong {
+		display: block;
+		font-family: var(--font-heading);
+		font-size: 14px;
+		color: var(--color-text-primary);
+		margin-bottom: 2px;
+	}
+
+	.stay-duration__card span {
+		font-size: 12.5px;
+		color: var(--color-text-secondary);
+	}
+
+	.cost-table-wrap {
+		overflow-x: auto;
+		margin-bottom: 28px;
+		border-radius: var(--radius-md);
+		border: 1px solid var(--color-border-light);
+	}
+
+	.cost-table {
+		width: 100%;
+		border-collapse: collapse;
+		background: var(--color-bg-white);
+		font-size: 13.5px;
+	}
+
+	.cost-table th,
+	.cost-table td {
+		padding: 12px 16px;
+		text-align: left;
+		white-space: nowrap;
+	}
+
+	.cost-table thead th {
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 11.5px;
+		font-weight: 700;
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.cost-table tbody tr {
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.cost-table tbody td {
+		color: var(--color-text-secondary);
+	}
+
+	.cost-table__row--highlight {
+		background: rgba(20, 184, 166, 0.08);
+	}
+
+	.cost-table__row--highlight td {
+		color: var(--color-text-primary);
+		font-weight: 700;
+	}
+
+	.inclusions-grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 28px;
+	}
+
+	.inclusions-col h3 {
+		font-family: var(--font-heading);
+		font-size: 15.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 14px;
+	}
+
+	.inclusions-list {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.inclusions-list li {
+		display: flex;
+		align-items: flex-start;
+		gap: 9px;
+		font-size: 13px;
+		line-height: 1.55;
+		color: var(--color-text-secondary);
+	}
+
+	.inclusions-list li span {
+		display: flex;
+		flex-shrink: 0;
+		width: 15px;
+		height: 15px;
+		margin-top: 2px;
+	}
+
+	.inclusions-list li span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.inclusions-list--yes li span {
+		color: var(--color-green);
+	}
+
+	.inclusions-list--no li span {
+		color: #dc2626;
+	}
+
+	.treatment-detail__package-note {
+		margin: 28px 0 0;
+		font-size: 12.5px;
+		line-height: 1.6;
+		color: var(--color-text-muted);
+		text-align: center;
+	}
+
+	@media screen and (max-width: 640px) {
+		.treatment-detail__package {
+			padding: 26px 18px;
+		}
+
+		.inclusions-grid {
+			grid-template-columns: 1fr;
+			gap: 24px;
+		}
+	}
+
+	.treatment-detail__cta {
+		margin-top: 64px;
+		padding: 44px 32px;
+		border-radius: var(--radius-lg);
+		background: var(--gradient-premium);
+		text-align: center;
+	}
+
+	.treatment-detail__cta h3 {
+		font-family: var(--font-heading);
+		font-size: clamp(1.3rem, 2.2vw, 1.7rem);
+		font-weight: 700;
+		color: #ffffff;
+		margin: 0;
+	}
+
+	.treatment-detail__cta p {
+		max-width: 560px;
+		margin: 14px auto 0;
+		font-size: 14.5px;
+		color: rgba(255, 255, 255, 0.8);
+	}
+
+	.treatment-detail__cta-actions {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		justify-content: center;
+		gap: 14px;
+		margin-top: 26px;
+	}
+
+	.treatment-detail__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 13px 26px;
+		border-radius: var(--radius-md);
+		font-size: 14.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: transform 0.15s ease;
+	}
+
+	.treatment-detail__btn :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	.treatment-detail__btn--primary {
+		background: #ffffff;
+		color: var(--color-primary);
+	}
+
+	.treatment-detail__btn--primary:hover {
+		transform: translateY(-2px);
+	}
+
+	.treatment-detail__btn--secondary {
+		background: rgba(255, 255, 255, 0.1);
+		color: #ffffff;
+		border: 1px solid rgba(255, 255, 255, 0.4);
+	}
+
+	.treatment-detail__related {
+		margin-top: 64px;
+	}
+
+	.treatment-detail__related h2 {
+		font-family: var(--font-heading);
+		font-size: 22px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 20px;
+	}
+
+	.treatment-detail__related-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 20px;
+	}
+
+	.treatment-related-card {
+		position: relative;
+		display: block;
+		border-radius: var(--radius-md);
+		overflow: hidden;
+		height: 140px;
+		text-decoration: none;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
+	}
+
+	.treatment-related-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.treatment-related-card :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.treatment-related-card__fallback {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+
+	.treatment-related-card__fallback span {
+		display: flex;
+		width: 32px;
+		height: 32px;
+		color: rgba(255, 255, 255, 0.9);
+	}
+
+	.treatment-related-card__fallback span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.treatment-related-card__fallback--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.treatment-related-card__fallback--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.treatment-related-card__fallback--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.treatment-related-card__label {
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		padding: 12px 14px;
+		background: linear-gradient(0deg, rgba(15, 23, 42, 0.75), transparent);
+		color: #ffffff;
+		font-size: 13.5px;
+		font-weight: 700;
+	}
+
+	@media screen and (max-width: 860px) {
+		.treatment-detail__hero-row {
+			grid-template-columns: 1fr;
+		}
+
+		.treatment-detail__hero-image {
+			max-height: 340px;
+		}
+
+		.treatment-detail__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.treatment-detail__aside {
+			position: static;
+		}
+
+		.treatment-detail__related-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.treatment-detail {
+			padding: 48px 16px 64px;
+		}
+
+		.treatment-detail__stats {
+			grid-template-columns: 1fr;
+			margin-top: 24px;
+		}
+
+		.procedure-cards {
+			grid-template-columns: 1fr;
+		}
+
+		.treatment-detail__related-grid {
+			grid-template-columns: 1fr;
+		}
+	}
+</style>

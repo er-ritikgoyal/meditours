@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TreatmentsGrid from '../../components/TreatmentsGrid.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { treatments } from '../../data/treatments';
+import { viTreatments } from '../../i18n/vi-treatments';
+import { viTreatmentsPage } from '../../i18n/vi-pages';
+
+const translatedTreatments = treatments.map((treatment) => {
+	const vi = viTreatments[treatment.slug];
+	return vi
+		? {
+				...treatment,
+				name: vi.name,
+				shortDescription: vi.shortDescription,
+				procedures: vi.procedures,
+			}
+		: treatment;
+});
+
+const { grid, costComparison } = viTreatmentsPage;
+---
+
+<Layout
+	title="Điều trị tại Ấn Độ | Chăm sóc y tế hợp túi tiền | AlisPro MediTours"
+	description="Khám phá các phương pháp điều trị y tế tiên tiến tại Ấn Độ cùng AlisPro MediTours. Nhận bác sĩ giàu kinh nghiệm, bệnh viện được công nhận và chăm sóc cá nhân hóa cho tim mạch, ung bướu, chỉnh hình, hiếm muộn, phẫu thuật thẩm mỹ và nhiều hơn nữa."
+	locale="vi"
+	alternates={[
+		{ locale: 'en', href: '/treatments' },
+		{ locale: 'fr', href: '/fr/treatments' },
+		{ locale: 'ru', href: '/ru/treatments' },
+		{ locale: 'bn', href: '/bn/treatments' },
+		{ locale: 'ro', href: '/ro/treatments' },
+		{ locale: 'es', href: '/es/treatments' },
+		{ locale: 'pt', href: '/pt/treatments' },
+		{ locale: 'vi', href: '/vi/treatments' },
+		{ locale: 'ar', href: '/ar/treatments' },
+	]}
+>
+
+	<TreatmentsGrid
+		basePath="/vi"
+		badge={grid.badge}
+		title={grid.title}
+		highlight={grid.highlight}
+		subtitle={grid.subtitle}
+		treatments={translatedTreatments}
+		searchPlaceholder={grid.searchPlaceholder}
+		searchAriaLabel={grid.searchAriaLabel}
+		clearAriaLabel={grid.clearAriaLabel}
+		noResultsTitle={grid.noResultsTitle}
+		noResultsBody={grid.noResultsBody}
+		fromPrefix={grid.fromPrefix}
+		learnMoreLabel={grid.learnMore}
+		showingCountTemplate={grid.showingCountTemplate}
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="Tiết kiệm {pct}%"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<CostEstimateCta
+		title="Bạn muốn có ước tính chính xác về việc điều trị của mình?"
+		text="Tải lên hồ sơ y tế của bạn và nhận kế hoạch điều trị cá nhân hóa với ước tính chi phí minh bạch từ các chuyên gia của chúng tôi, trong 24 giờ."
+		primaryLabel="Tư vấn miễn phí"
+		primaryHref="/vi/contact"
+		secondaryLabel="Tải lên hồ sơ y tế"
+		secondaryHref="/vi/contact#enquiry-form"
+	/>
+</Layout>

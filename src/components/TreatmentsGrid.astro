@@ -1,0 +1,618 @@
+---
+import { Image } from 'astro:assets';
+import iconHeart from 'healthicons/public/icons/svg/outline/specialties/cardiology.svg?raw';
+import iconActivity from 'healthicons/public/icons/svg/outline/specialties/orthopaedics.svg?raw';
+import iconShieldPlus from 'healthicons/public/icons/svg/outline/specialties/oncology.svg?raw';
+import iconGem from 'bootstrap-icons/icons/gem.svg?raw';
+import iconDroplet from 'healthicons/public/icons/svg/outline/specialties/gynecology.svg?raw';
+import iconDropletFill from 'healthicons/public/icons/svg/outline/body/kidneys.svg?raw';
+import iconCapsule from 'healthicons/public/icons/svg/outline/body/tooth.svg?raw';
+import iconEye from 'healthicons/public/icons/svg/outline/specialties/opthalmology.svg?raw';
+import iconBrain from 'healthicons/public/icons/svg/outline/body/neurology.svg?raw';
+import iconSpine from 'healthicons/public/icons/svg/outline/body/spine.svg?raw';
+import iconStomach from 'healthicons/public/icons/svg/outline/body/stomach.svg?raw';
+import iconKidney from 'healthicons/public/icons/svg/outline/specialties/urology.svg?raw';
+import iconEarNoseThroat from 'healthicons/public/icons/svg/outline/specialties/ears_nose_and_throat.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import iconSearch from 'bootstrap-icons/icons/search.svg?raw';
+import iconX from 'bootstrap-icons/icons/x-lg.svg?raw';
+import imgCardiacCare from '../assets/treatments/cardiac-care.jpg';
+import imgOrthopedics from '../assets/treatments/orthopedics2.jpg';
+import imgOncology from '../assets/treatments/oncology2.jpg';
+import imgCosmeticSurgery from '../assets/treatments/cosmetic-surgery2.jpg';
+import imgFertility from '../assets/treatments/fertility2.png';
+import imgOrganTransplant from '../assets/treatments/organ-transplant2.jpg';
+import imgDentalCare from '../assets/treatments/oral.avif';
+import imgEyeCare from '../assets/treatments/eye-care2.jpg';
+import imgUrology from '../assets/treatments/urology.jpg';
+import imgNeurology from '../assets/treatments/neuro.jpg';
+import imgSpineSurgery from '../assets/treatments/spine.jpg';
+import imgBariatric from '../assets/treatments/Bariatric.png';
+import { treatments as defaultTreatments, type TreatmentData } from '../data/treatments';
+
+const ICONS = {
+	heart: iconHeart,
+	activity: iconActivity,
+	shieldPlus: iconShieldPlus,
+	gem: iconGem,
+	droplet: iconDroplet,
+	dropletFill: iconDropletFill,
+	capsule: iconCapsule,
+	eye: iconEye,
+	brain: iconBrain,
+	spine: iconSpine,
+	stomach: iconStomach,
+	kidney: iconKidney,
+	earNoseThroat: iconEarNoseThroat,
+} as const;
+
+const IMAGES = {
+	cardiacCare: imgCardiacCare,
+	orthopedics: imgOrthopedics,
+	oncology: imgOncology,
+	cosmeticSurgery: imgCosmeticSurgery,
+	fertility: imgFertility,
+	organTransplant: imgOrganTransplant,
+	dentalCare: imgDentalCare,
+	eyeCare: imgEyeCare,
+	urology: imgUrology,
+	neurology: imgNeurology,
+	spineSurgery: imgSpineSurgery,
+	bariatric: imgBariatric,
+} as const;
+
+export interface Props {
+	badge?: string;
+	title?: string;
+	highlight?: string;
+	subtitle?: string;
+	/** Locale URL prefix, e.g. '/fr' — prepended to every card link. Empty for English. */
+	basePath?: string;
+	treatments?: TreatmentData[];
+	searchPlaceholder?: string;
+	searchAriaLabel?: string;
+	clearAriaLabel?: string;
+	noResultsTitle?: string;
+	noResultsBody?: string;
+	fromPrefix?: string;
+	learnMoreLabel?: string;
+	/** Use {visible} and {total} placeholders, e.g. "Showing {visible} of {total} treatments" */
+	showingCountTemplate?: string;
+}
+
+const formatPrice = (value: number) => `$${value.toLocaleString('en-US')}`;
+
+const {
+	badge = 'Our Specialties',
+	title = 'Treatments We',
+	highlight = 'Specialize In',
+	subtitle = 'Board-certified specialists across every major specialty, at accredited hospitals worldwide.',
+	basePath = '',
+	treatments = defaultTreatments,
+	searchPlaceholder = 'Search treatments — e.g. cardiac, dental, cosmetic surgery...',
+	searchAriaLabel = 'Search treatments',
+	clearAriaLabel = 'Clear search',
+	noResultsTitle = 'No treatments found',
+	noResultsBody = 'Try a different search term, or browse all our specialties above.',
+	fromPrefix = 'From',
+	learnMoreLabel = 'Learn More',
+	showingCountTemplate = 'Showing {visible} of {total} treatments',
+} = Astro.props;
+---
+
+<section class="treatments-grid">
+	<div class="treatments-grid__inner">
+		<div class="treatments-grid__header">
+			<span class="treatments-grid__badge">{badge}</span>
+			<h2 class="treatments-grid__title">
+				{title} <span>{highlight}</span>
+			</h2>
+			<p class="treatments-grid__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="treatments-search" data-showing-template={showingCountTemplate}>
+				<div class="treatments-search__box">
+					<span class="treatments-search__icon" set:html={iconSearch} aria-hidden="true" />
+					<input
+						type="search"
+						id="treatment-search-input"
+						class="treatments-search__input"
+						placeholder={searchPlaceholder}
+						aria-label={searchAriaLabel}
+						autocomplete="off"
+					/>
+					<button type="button" class="treatments-search__clear" id="treatment-search-clear" aria-label={clearAriaLabel} hidden>
+						<span set:html={iconX} aria-hidden="true" />
+					</button>
+				</div>
+				<p class="treatments-search__count" id="treatment-search-count" aria-live="polite"></p>
+			</div>
+
+			<div class="treatments-grid__grid" id="treatments-grid">
+			{
+				treatments.map((treatment) => (
+					<article
+							class="treatment-card"
+							data-search={`${treatment.name} ${treatment.shortDescription} ${treatment.procedures.join(' ')}`.toLowerCase()}
+						>
+						<a href={`${basePath}/treatments/${treatment.slug}`} class="treatment-card__media">
+							{treatment.imageKey ? (
+								<>
+									<Image
+										src={IMAGES[treatment.imageKey]}
+										alt={treatment.name}
+										width={480}
+										height={280}
+										loading="lazy"
+									/>
+									<span class={`treatment-card__icon treatment-card__icon--${treatment.theme}`} set:html={ICONS[treatment.icon]} />
+								</>
+							) : (
+								<div class={`treatment-card__media-fallback treatment-card__media-fallback--${treatment.theme}`}>
+									<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
+								</div>
+							)}
+						</a>
+
+						<div class="treatment-card__body">
+							<h3 class="treatment-card__name">
+								<a href={`${basePath}/treatments/${treatment.slug}`}>{treatment.name}</a>
+							</h3>
+							<p class="treatment-card__desc">{treatment.shortDescription}</p>
+
+							<ul class="treatment-card__tags">
+								{treatment.procedures.map((procedure) => (
+									<li>{procedure}</li>
+								))}
+							</ul>
+
+							<div class="treatment-card__footer">
+								<span class="treatment-card__price">
+									{fromPrefix} <strong>{formatPrice(treatment.startingPrice)}</strong>
+								</span>
+								<a class="treatment-card__cta" href={`${basePath}/treatments/${treatment.slug}`}>
+									{learnMoreLabel}
+									<span set:html={iconArrow} aria-hidden="true" />
+								</a>
+							</div>
+						</div>
+					</article>
+				))
+			}
+		</div>
+
+		<div class="treatments-search__empty" id="treatment-search-empty" hidden>
+			<span class="treatments-search__empty-icon" set:html={iconSearch} aria-hidden="true" />
+			<h3>{noResultsTitle}</h3>
+			<p>{noResultsBody}</p>
+		</div>
+	</div>
+</section>
+
+<script>
+	const input = document.getElementById('treatment-search-input') as HTMLInputElement | null;
+	const clearBtn = document.getElementById('treatment-search-clear') as HTMLButtonElement | null;
+	const countEl = document.getElementById('treatment-search-count');
+	const emptyEl = document.getElementById('treatment-search-empty');
+	const grid = document.getElementById('treatments-grid');
+	const searchWrap = document.querySelector<HTMLElement>('.treatments-search');
+	const countTemplate = searchWrap?.dataset.showingTemplate ?? 'Showing {visible} of {total} treatments';
+	const cards = grid ? Array.from(grid.querySelectorAll<HTMLElement>('.treatment-card')) : [];
+	const total = cards.length;
+
+	const applyFilter = () => {
+		const query = (input?.value ?? '').trim().toLowerCase();
+		clearBtn?.toggleAttribute('hidden', query.length === 0);
+
+		let visible = 0;
+		cards.forEach((card) => {
+			const matches = query === '' || (card.dataset.search ?? '').includes(query);
+			card.style.display = matches ? '' : 'none';
+			if (matches) visible += 1;
+		});
+
+		emptyEl?.toggleAttribute('hidden', visible !== 0);
+		if (countEl) {
+			countEl.textContent =
+				query === '' ? '' : countTemplate.replace('{visible}', String(visible)).replace('{total}', String(total));
+		}
+	};
+
+	input?.addEventListener('input', applyFilter);
+	clearBtn?.addEventListener('click', () => {
+		if (input) input.value = '';
+		applyFilter();
+		input?.focus();
+	});
+</script>
+
+<style>
+	.treatments-grid {
+		background: var(--color-bg-white);
+		padding: 80px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.treatments-grid__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+	}
+
+	.treatments-grid__header {
+		text-align: center;
+		max-width: 640px;
+		margin: 0 auto 48px;
+	}
+
+	.treatments-grid__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.treatments-grid__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.treatments-grid__title span {
+		color: var(--color-teal);
+	}
+
+	.treatments-grid__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.treatments-search {
+		max-width: 640px;
+		margin: 0 auto 40px;
+	}
+
+	.treatments-search__box {
+		position: relative;
+		display: flex;
+		align-items: center;
+	}
+
+	.treatments-search__icon {
+		position: absolute;
+		inset-inline-start: 20px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 18px;
+		height: 18px;
+		color: var(--color-text-muted);
+		pointer-events: none;
+	}
+
+	.treatments-search__icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.treatments-search__input {
+		width: 100%;
+		padding: 15px 48px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		box-shadow: var(--shadow-soft);
+		font-family: var(--font-body);
+		font-size: 14.5px;
+		color: var(--color-text-primary);
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.treatments-search__input::placeholder {
+		color: var(--color-text-light);
+	}
+
+	.treatments-search__input:focus {
+		outline: none;
+		border-color: var(--color-teal);
+		box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.14);
+	}
+
+	.treatments-search__input::-webkit-search-cancel-button {
+		display: none;
+	}
+
+	.treatments-search__clear {
+		position: absolute;
+		inset-inline-end: 8px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		border: none;
+		border-radius: 50%;
+		background: var(--color-bg-gray);
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.treatments-search__clear:hover {
+		background: var(--color-border-light);
+		color: var(--color-text-primary);
+	}
+
+	.treatments-search__clear :global(svg) {
+		width: 13px;
+		height: 13px;
+	}
+
+	.treatments-search__count {
+		margin: 12px 0 0;
+		text-align: center;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--color-text-muted);
+	}
+
+	.treatments-search__empty {
+		display: none;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		padding: 56px 24px;
+	}
+
+	.treatments-search__empty:not([hidden]) {
+		display: flex;
+	}
+
+	.treatments-search__empty-icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		height: 56px;
+		margin-bottom: 20px;
+		border-radius: 50%;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+	}
+
+	.treatments-search__empty-icon :global(svg) {
+		width: 24px;
+		height: 24px;
+	}
+
+	.treatments-search__empty h3 {
+		font-family: var(--font-heading);
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 8px;
+	}
+
+	.treatments-search__empty p {
+		font-size: 14px;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.treatments-grid__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+		gap: 24px;
+	}
+
+	.treatment-card {
+		display: flex;
+		flex-direction: column;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.treatment-card:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.treatment-card__media {
+		position: relative;
+		display: block;
+		height: 300px;
+	}
+
+	.treatment-card__media :global(img) {
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.treatment-card__icon {
+		position: absolute;
+		inset-inline-start: 18px;
+		bottom: -22px;
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 52px;
+		height: 52px;
+		border-radius: 14px;
+		border: 3px solid var(--color-bg-white);
+		color: #ffffff;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.treatment-card__icon :global(svg) {
+		width: 24px;
+		height: 24px;
+	}
+
+	.treatment-card__icon--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.treatment-card__icon--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.treatment-card__icon--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.treatment-card__media-fallback {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+	}
+
+	.treatment-card__media-fallback span {
+		display: flex;
+		width: 64px;
+		height: 64px;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.treatment-card__media-fallback span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.treatment-card__media-fallback--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.treatment-card__media-fallback--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.treatment-card__media-fallback--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.treatment-card__body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 34px 24px 24px;
+	}
+
+	.treatment-card__name {
+		margin: 0 0 8px;
+	}
+
+	.treatment-card__name a {
+		font-family: var(--font-heading);
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		text-decoration: none;
+	}
+
+	.treatment-card__name a:hover {
+		color: var(--color-primary);
+	}
+
+	.treatment-card__desc {
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0 0 18px;
+	}
+
+	.treatment-card__tags {
+		display: flex;
+		flex-wrap: wrap;
+		gap: 6px;
+		list-style: none;
+		margin: 0 0 22px;
+		padding: 0;
+	}
+
+	.treatment-card__tags li {
+		padding: 4px 10px;
+		border-radius: 999px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 11px;
+		font-weight: 600;
+	}
+
+	.treatment-card__footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin-top: auto;
+		padding-top: 18px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.treatment-card__price {
+		font-size: 13px;
+		color: var(--color-text-muted);
+	}
+
+	.treatment-card__price strong {
+		color: var(--color-text-primary);
+		font-size: 15px;
+	}
+
+	.treatment-card__cta {
+		display: inline-flex;
+		align-items: center;
+		gap: 2px;
+		font-size: 13.5px;
+		font-weight: 600;
+		color: var(--color-teal);
+		text-decoration: none;
+	}
+
+	.treatment-card__cta:hover {
+		color: var(--btn-primary-hover);
+	}
+
+	.treatment-card__cta :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	@media screen and (max-width: 640px) {
+		.treatments-grid {
+			padding: 56px 16px 64px;
+		}
+
+		.treatments-search__input {
+			padding: 13px 42px;
+			font-size: 14px;
+		}
+
+		.treatments-search__icon {
+			inset-inline-start: 16px;
+		}
+	}
+</style>

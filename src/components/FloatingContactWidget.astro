@@ -1,0 +1,569 @@
+---
+import iconWhatsapp from 'bootstrap-icons/icons/whatsapp.svg?raw';
+import iconTelephone from 'bootstrap-icons/icons/telephone-fill.svg?raw';
+import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
+import iconEmail from 'bootstrap-icons/icons/envelope-fill.svg?raw';
+import iconClock from 'bootstrap-icons/icons/clock-fill.svg?raw';
+import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
+import iconShield from 'bootstrap-icons/icons/shield-check.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import iconClose from 'bootstrap-icons/icons/x-lg.svg?raw';
+import { countries } from '../data/countries';
+
+export interface Props {
+	whatsappNumber?: string;
+	whatsappMessage?: string;
+	phoneNumber?: string;
+	whatsappLabel?: string;
+	whatsappAriaLabel?: string;
+	callbackLabel?: string;
+	closeLabel?: string;
+	modalTitle?: string;
+	modalSubtitle?: string;
+	namePlaceholder?: string;
+	countryPlaceholder?: string;
+	phonePlaceholder?: string;
+	emailPlaceholder?: string;
+	preferredTimePlaceholder?: string;
+	submitLabel?: string;
+	privacyNote?: string;
+	successMessage?: string;
+}
+
+const {
+	whatsappNumber = '919821701155',
+	whatsappMessage = 'Hello, I am interested in the services listed on your website',
+	phoneNumber = '+91 9821701155',
+	whatsappLabel = 'WhatsApp Us',
+	whatsappAriaLabel = 'Chat with us on WhatsApp',
+	callbackLabel = 'Request a Callback',
+	closeLabel = 'Close',
+	modalTitle = 'Request a Callback',
+	modalSubtitle = 'Share your details and a patient coordinator will call you back shortly.',
+	namePlaceholder = 'Full name',
+	countryPlaceholder = '---Select Country---',
+	phonePlaceholder = 'Phone / WhatsApp number',
+	emailPlaceholder = 'Email address',
+	preferredTimePlaceholder = 'Preferred callback time (optional)',
+	submitLabel = 'Request Callback',
+	privacyNote = 'Your information is confidential',
+	successMessage = 'Thanks! A patient coordinator will call you back shortly.',
+} = Astro.props;
+
+const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
+---
+
+<div class="floating-contact">
+	<a
+		class="floating-contact__btn floating-contact__btn--whatsapp"
+		href={whatsappHref}
+		target="_blank"
+		rel="noopener noreferrer"
+		aria-label={whatsappAriaLabel}
+	>
+		<span set:html={iconWhatsapp} aria-hidden="true" />
+		<span class="floating-contact__label">{whatsappLabel}</span>
+	</a>
+
+	<button
+		type="button"
+		class="floating-contact__btn floating-contact__btn--callback"
+		id="floating-callback-open"
+		aria-haspopup="dialog"
+		aria-controls="floating-callback-modal"
+	>
+		<span set:html={iconTelephone} aria-hidden="true" />
+		<span class="floating-contact__label">{callbackLabel}</span>
+	</button>
+</div>
+
+<div class="callback-modal" id="floating-callback-modal" role="dialog" aria-modal="true" aria-labelledby="floating-callback-title" hidden>
+	<div class="callback-modal__backdrop" id="floating-callback-backdrop"></div>
+	<div class="callback-modal__panel">
+		<button type="button" class="callback-modal__close" id="floating-callback-close" aria-label={closeLabel}>
+			<span set:html={iconClose} aria-hidden="true" />
+		</button>
+
+		<h2 class="callback-modal__title" id="floating-callback-title">{modalTitle}</h2>
+		<p class="callback-modal__subtitle">{modalSubtitle}</p>
+
+		<form class="callback-form" data-enquiry-form enctype="multipart/form-data">
+			<input type="hidden" name="subject" value="Callback Request" />
+			<input type="hidden" name="message" data-message-field />
+			<input type="text" name="website" class="callback-form__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+			<label class="callback-form__field">
+				<span set:html={iconPerson} aria-hidden="true" />
+				<input type="text" name="name" placeholder={namePlaceholder} autocomplete="name" required />
+			</label>
+
+			<label class="callback-form__field">
+				<span set:html={iconGlobe} aria-hidden="true" />
+				<select name="country" id="callback-country">
+					<option value="" selected disabled>{countryPlaceholder}</option>
+					{countries.map((country) => (
+						<option value={country.name} data-dial={country.dial}>{country.name}</option>
+					))}
+				</select>
+			</label>
+
+			<div class="callback-form__row">
+				<label class="callback-form__field callback-form__field--code">
+					<span set:html={iconTelephone} aria-hidden="true" />
+					<input type="text" name="phoneCode" id="callback-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+				</label>
+
+				<label class="callback-form__field callback-form__field--phone">
+					<input type="tel" name="phone" placeholder={phonePlaceholder} autocomplete="tel" required data-phone-field />
+				</label>
+			</div>
+
+			<label class="callback-form__field">
+				<span set:html={iconEmail} aria-hidden="true" />
+				<input type="email" name="email" placeholder={emailPlaceholder} autocomplete="email" required />
+			</label>
+
+			<label class="callback-form__field">
+				<span set:html={iconClock} aria-hidden="true" />
+				<input type="text" name="preferredTime" placeholder={preferredTimePlaceholder} data-time-field />
+			</label>
+
+			<button type="submit" class="callback-form__submit">
+				{submitLabel}
+				<span set:html={iconArrow} aria-hidden="true" />
+			</button>
+
+			<p class="callback-form__privacy">
+				<span set:html={iconShield} aria-hidden="true" />
+				{privacyNote}
+			</p>
+
+			<p class="callback-form__success" data-enquiry-success hidden>
+				{successMessage}
+			</p>
+			<p class="callback-form__error" data-enquiry-error hidden />
+		</form>
+	</div>
+</div>
+
+<script>
+	import { bindEnquiryForm } from '../scripts/enquiryForm';
+
+	const openBtn = document.getElementById('floating-callback-open');
+	const closeBtn = document.getElementById('floating-callback-close');
+	const backdrop = document.getElementById('floating-callback-backdrop');
+	const modal = document.getElementById('floating-callback-modal');
+	const form = document.querySelector<HTMLFormElement>('.callback-form[data-enquiry-form]');
+	const successEl = form?.querySelector('[data-enquiry-success]');
+	const errorEl = form?.querySelector('[data-enquiry-error]');
+	const countrySelect = document.getElementById('callback-country') as HTMLSelectElement | null;
+	const phoneCodeInput = document.getElementById('callback-phone-code') as HTMLInputElement | null;
+
+	const openModal = () => {
+		modal?.removeAttribute('hidden');
+		document.body.classList.add('callback-modal-open');
+	};
+
+	const closeModal = () => {
+		modal?.setAttribute('hidden', '');
+		document.body.classList.remove('callback-modal-open');
+	};
+
+	openBtn?.addEventListener('click', openModal);
+	closeBtn?.addEventListener('click', closeModal);
+	backdrop?.addEventListener('click', closeModal);
+
+	document.addEventListener('keydown', (e) => {
+		if (e.key === 'Escape' && !modal?.hasAttribute('hidden')) closeModal();
+	});
+
+	countrySelect?.addEventListener('change', () => {
+		const dial = countrySelect.selectedOptions[0]?.dataset.dial ?? '';
+		if (dial && phoneCodeInput) {
+			phoneCodeInput.value = `+${dial}`;
+		}
+	});
+
+	bindEnquiryForm(form ?? null, {
+		successEl,
+		errorEl,
+		beforeSubmit: (formEl) => {
+			const country = formEl.querySelector<HTMLSelectElement>('[name="country"]')?.value ?? '';
+			const phoneCode = formEl.querySelector<HTMLInputElement>('[name="phoneCode"]')?.value ?? '';
+			const phoneInput = formEl.querySelector<HTMLInputElement>('[data-phone-field]');
+			const phone = phoneInput?.value ?? '';
+			const time = formEl.querySelector<HTMLInputElement>('[data-time-field]')?.value ?? '';
+			const messageField = formEl.querySelector<HTMLInputElement>('[data-message-field]');
+
+			if (phoneInput && phone && !phone.startsWith('+')) {
+				phoneInput.value = `${phoneCode} ${phone}`;
+			}
+
+			if (messageField) {
+				messageField.value = [
+					`Callback requested for ${phoneCode} ${phone}.`,
+					country ? `Country: ${country}.` : '',
+					time ? `Preferred time: ${time}.` : '',
+				]
+					.filter(Boolean)
+					.join(' ');
+			}
+		},
+	});
+</script>
+
+<style>
+	.floating-contact {
+		position: fixed;
+		inset-inline-end: 20px;
+		bottom: 20px;
+		z-index: 200;
+		display: flex;
+		flex-direction: column;
+		align-items: flex-end;
+		gap: 12px;
+		font-family: var(--font-body);
+	}
+
+	.floating-contact__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 10px;
+		height: 52px;
+		padding-inline: 0 20px;
+		border: none;
+		border-radius: 999px;
+		box-shadow: var(--shadow-card);
+		cursor: pointer;
+		text-decoration: none;
+		font-family: inherit;
+		font-size: 14px;
+		font-weight: 600;
+		white-space: nowrap;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.floating-contact__btn:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-hover, var(--shadow-card));
+	}
+
+	.floating-contact__btn span:first-child {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 52px;
+		height: 52px;
+		flex-shrink: 0;
+		border-radius: 50%;
+	}
+
+	.floating-contact__btn span:first-child :global(svg) {
+		width: 24px;
+		height: 24px;
+	}
+
+	.floating-contact__btn--whatsapp {
+		background: #ffffff;
+		color: #25d366;
+		border: 1px solid var(--color-border-card);
+	}
+
+	.floating-contact__btn--whatsapp span:first-child {
+		background: #25d366;
+		color: #ffffff;
+	}
+
+	.floating-contact__btn--callback {
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+	}
+
+	.floating-contact__btn--callback span:first-child {
+		background: rgba(255, 255, 255, 0.18);
+		color: #ffffff;
+	}
+
+	.floating-contact__label {
+		padding-inline-start: 2px;
+	}
+
+	.callback-modal {
+		position: fixed;
+		inset: 0;
+		z-index: 300;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		padding: 20px;
+		font-family: var(--font-body);
+	}
+
+	.callback-modal[hidden] {
+		display: none;
+	}
+
+	.callback-modal__backdrop {
+		position: absolute;
+		inset: 0;
+		background: rgba(15, 23, 42, 0.55);
+		backdrop-filter: blur(2px);
+	}
+
+	.callback-modal__panel {
+		position: relative;
+		width: 100%;
+		max-width: 420px;
+		max-height: calc(100vh - 40px);
+		overflow-y: auto;
+		background: var(--color-bg-white);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+		padding: 32px 28px 28px;
+	}
+
+	.callback-modal__close {
+		position: absolute;
+		top: 16px;
+		inset-inline-end: 16px;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 32px;
+		height: 32px;
+		border: none;
+		border-radius: 50%;
+		background: var(--color-bg-gray);
+		color: var(--color-text-muted);
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.callback-modal__close:hover {
+		background: var(--color-border-light);
+		color: var(--color-text-primary);
+	}
+
+	.callback-modal__close :global(svg) {
+		width: 13px;
+		height: 13px;
+	}
+
+	.callback-modal__title {
+		font-family: var(--font-heading);
+		font-size: 1.4rem;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 8px;
+	}
+
+	.callback-modal__subtitle {
+		font-size: 13.5px;
+		line-height: 1.5;
+		color: var(--color-text-secondary);
+		margin: 0 0 24px;
+	}
+
+	.callback-form {
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.callback-form__field {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 0 16px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-white);
+		transition: border-color 0.15s ease;
+	}
+
+	.callback-form__field:focus-within {
+		border-color: var(--color-teal);
+		box-shadow: 0 0 0 4px rgba(20, 184, 166, 0.14);
+	}
+
+	.callback-form__field span {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		color: var(--color-text-muted);
+	}
+
+	.callback-form__field span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.callback-form__field input,
+	.callback-form__field select {
+		flex: 1;
+		min-width: 0;
+		border: none;
+		outline: none;
+		background: transparent;
+		padding: 13px 0;
+		font-family: inherit;
+		font-size: 14px;
+		color: var(--color-text-primary);
+	}
+
+	.callback-form__field select {
+		appearance: auto;
+	}
+
+	.callback-form__field input::placeholder {
+		color: var(--color-text-light);
+	}
+
+	.callback-form__row {
+		display: grid;
+		grid-template-columns: 96px 1fr;
+		gap: 10px;
+	}
+
+	.callback-form__field--code input {
+		width: 100%;
+		text-align: center;
+	}
+
+	.callback-form__honeypot {
+		position: absolute;
+		inset-inline-start: -9999px;
+		width: 1px;
+		height: 1px;
+		opacity: 0;
+	}
+
+	.callback-form__submit {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 4px;
+		margin-top: 4px;
+		padding: 14px 20px;
+		border: none;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-family: inherit;
+		font-size: 14.5px;
+		font-weight: 600;
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.callback-form__submit:hover {
+		background: var(--btn-primary-hover);
+		transform: translateY(-1px);
+	}
+
+	.callback-form__submit:disabled {
+		opacity: 0.6;
+		cursor: not-allowed;
+		transform: none;
+	}
+
+	.callback-form__submit :global(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	.callback-form__privacy {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		margin: 0;
+		font-size: 12px;
+		color: var(--color-text-muted);
+	}
+
+	.callback-form__privacy :global(svg) {
+		width: 13px;
+		height: 13px;
+		color: var(--color-teal);
+	}
+
+	.callback-form__success {
+		margin: 0;
+		padding: 12px 14px;
+		border-radius: var(--radius-md);
+		background: rgba(34, 197, 94, 0.12);
+		color: #15803d;
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.callback-form__error {
+		margin: 0;
+		padding: 12px 14px;
+		border-radius: var(--radius-md);
+		background: rgba(239, 68, 68, 0.12);
+		color: #b91c1c;
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	@media screen and (max-width: 640px) {
+		.floating-contact {
+			inset-inline-end: 14px;
+			bottom: 14px;
+			gap: 10px;
+		}
+
+		.floating-contact__btn {
+			height: 48px;
+			padding: 0;
+			width: 48px;
+			justify-content: center;
+		}
+
+		.floating-contact__btn span:first-child {
+			width: 48px;
+			height: 48px;
+		}
+
+		.floating-contact__label {
+			display: none;
+		}
+
+		.callback-modal {
+			padding: 0;
+			align-items: flex-end;
+		}
+
+		.callback-modal__panel {
+			max-width: 100%;
+			max-height: 88vh;
+			border-radius: 20px 20px 0 0;
+			padding: 26px 20px 24px;
+		}
+
+		.callback-form__row {
+			grid-template-columns: 1fr;
+		}
+
+		.callback-form__field--code input {
+			text-align: start;
+		}
+
+		.callback-form__field input,
+		.callback-form__field select {
+			/* 16px prevents iOS Safari from auto-zooming the page on input focus */
+			font-size: 16px;
+		}
+	}
+</style>

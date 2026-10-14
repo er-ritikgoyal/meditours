@@ -1,0 +1,51 @@
+import type { AboutShared } from './types';
+
+export const viShared: AboutShared = {
+	headings: {
+		history: 'Lịch sử và giới thiệu',
+		specialities: 'Chuyên khoa và trung tâm xuất sắc',
+		technology: 'Công nghệ và cơ sở vật chất',
+		international: 'Bệnh nhân quốc tế',
+		howWeHelp: 'AlisPro MediTours hỗ trợ việc điều trị của bạn như thế nào',
+		prepare: 'Trước khi lên đường',
+		cityGuide: 'Cẩm nang du lịch:',
+	},
+	howWeHelp: [
+		'AlisPro MediTours là dịch vụ điều phối chuyến đi khám chữa bệnh, không phải một bệnh viện. Chúng tôi không cung cấp dịch vụ điều trị y tế, và các quyết định lâm sàng luôn thuộc về bác sĩ điều trị của bạn. Điều chúng tôi làm là giúp việc lên kế hoạch đến bệnh viện này dễ dàng hơn và việc thu xếp bớt căng thẳng hơn.',
+		'Sau khi bạn gửi hồ sơ y tế qua biểu mẫu yêu cầu của chúng tôi, các điều phối viên của chúng tôi sẽ chuyển hồ sơ đến đội ngũ phụ trách bệnh nhân quốc tế của bệnh viện và giúp bạn nhận được ý kiến bằng văn bản cùng ước tính chi phí. Nếu bạn quyết định tiếp tục, chúng tôi có thể hỗ trợ thư mời xin visa y tế, lên kế hoạch chuyến bay, đón tại sân bay, chỗ ở gần bệnh viện, phương tiện di chuyển tại chỗ, hỗ trợ phiên dịch và sắp xếp lịch hẹn. Trong thời gian bạn lưu trú, chúng tôi giữ liên lạc với bạn và gia đình, và sau khi bạn về nước, chúng tôi giúp sắp xếp các buổi tái khám và tiếp cận hồ sơ bệnh án.',
+		'Chi phí, những gì gói dịch vụ bao gồm và thời gian chờ đợi khác nhau tùy theo bệnh viện, bác sĩ và phương pháp điều trị, vì vậy chúng tôi khuyên bạn nên yêu cầu một bản báo giá bằng văn bản nêu rõ những gì được và không được bao gồm.',
+	],
+	prepare: [
+		'Sự chuẩn bị tốt tạo nên khác biệt lớn cho một chuyến đi khám chữa bệnh diễn ra suôn sẻ. Hãy tập hợp các báo cáo y tế gần đây, hình ảnh chẩn đoán (kèm đĩa hoặc tệp số hóa), danh sách thuốc đang dùng và tóm tắt các ca phẫu thuật trước đó, và gửi sớm để bệnh viện có thể đưa ra ý kiến sát thực tế trước khi bạn lên đường.',
+		'Hãy hỏi bệnh viện hoặc điều phối viên của bạn về thời gian lưu trú dự kiến, tổng chi phí có thể phát sinh và những gì được bao gồm, liệu người thân có thể đi cùng hay không, và cần theo dõi gì sau khi bạn về nước. Xác nhận tên bác sĩ điều trị, sự công nhận của khoa bạn sẽ sử dụng và cách xử lý các tình huống khẩn cấp.',
+		'Hầu hết bệnh nhân quốc tế nhập cảnh Ấn Độ bằng visa y tế, thường yêu cầu thư mời từ bệnh viện. Hãy kiểm tra thời hạn hộ chiếu, nếu có thể hãy mua bảo hiểm du lịch bao gồm cả các chuyến đi khám chữa bệnh, và dự phòng thêm vài ngày trong trường hợp việc điều trị hoặc hồi phục kéo dài hơn dự kiến. Giữ bản sao của tất cả giấy tờ trong điện thoại và trong hành lý.',
+	],
+	cityNames: {
+		delhi: 'Delhi',
+		gurugram: 'Gurugram',
+		noida: 'Noida',
+		faridabad: 'Faridabad',
+		ghaziabad: 'Ghaziabad',
+		mumbai: 'Mumbai',
+		chennai: 'Chennai',
+		bangalore: 'Bengaluru',
+		hyderabad: 'Hyderabad',
+		kochi: 'Kochi',
+		kolkata: 'Kolkata',
+		ahmedabad: 'Ahmedabad',
+	},
+	cities: {
+		delhi: 'Delhi được phục vụ bởi sân bay quốc tế Indira Gandhi, và các bệnh viện ở thủ đô thường cách sân bay 30 đến 60 phút tùy vào tình trạng giao thông và thời điểm trong ngày. Tàu điện ngầm Delhi Metro phủ hầu hết các khu vực và là cách di chuyển nhanh trong thành phố, trong khi taxi và các ứng dụng gọi xe rất phổ biến. Những người lưu trú để điều trị thường chọn khách sạn hoặc căn hộ dịch vụ gần bệnh viện tại các khu như South Delhi, Saket, Vasant Kunj hoặc trung tâm Delhi. Thời tiết nóng nhất từ tháng 4 đến tháng 6, mùa mưa từ tháng 7 đến tháng 9, và dễ chịu nhất từ tháng 10 đến tháng 3. Tiếng Hindi và tiếng Anh được sử dụng rộng rãi.',
+		gurugram: 'Gurugram nằm ở phía tây nam Delhi, cách sân bay quốc tế Indira Gandhi khoảng 20 đến 40 phút đi đường bộ tùy giao thông. Đây là trung tâm doanh nghiệp với nhiều khách sạn và căn hộ dịch vụ quanh Golf Course Road, Cyber City và trục Sohna Road, được kết nối với Delhi bằng tàu điện ngầm, bao gồm tuyến HUDA City Centre. Taxi và ứng dụng gọi xe dễ tìm. Thời tiết nóng vào mùa hè, ẩm trong mùa mưa và dễ chịu vào mùa đông. Tiếng Anh và tiếng Hindi được sử dụng rộng rãi, giúp việc giao tiếp hằng ngày thuận tiện.',
+		noida: 'Noida là một thành phố được quy hoạch ở phía đông Delhi, cách sân bay quốc tế Indira Gandhi khoảng một giờ khi giao thông bình thường, được kết nối với Delhi bằng tàu điện ngầm và các tuyến đường cao tốc. Nơi đây có khách sạn và căn hộ dịch vụ tại các khu vực chính, và những khu mới như Noida Extension và hành lang Yamuna Expressway đang phát triển nhanh. Taxi và ứng dụng gọi xe rất phổ biến. Khí hậu theo mô hình của Delhi, với mùa hè nóng, mùa mưa từ tháng 7 đến tháng 9 và mùa đông mát mẻ. Tiếng Hindi và tiếng Anh được sử dụng rộng rãi.',
+		faridabad: 'Faridabad là một thành phố công nghiệp ở phía đông nam Delhi, cách sân bay quốc tế Indira Gandhi khoảng 45 đến 75 phút tùy giao thông, và được kết nối với Delhi bằng tàu điện ngầm và đường cao tốc Delhi–Mathura. Lựa chọn khách sạn ở đây hạn chế hơn so với trung tâm Delhi, nên nhiều bệnh nhân quốc tế đặt chỗ ở gần bệnh viện hoặc tại South Delhi. Có taxi và ứng dụng gọi xe. Khí hậu theo mô hình của Delhi, với mùa hè nóng, mùa mưa từ tháng 7 đến tháng 9 và mùa đông mát hơn. Tiếng Hindi và tiếng Anh được sử dụng rộng rãi trong các bệnh viện.',
+		ghaziabad: 'Ghaziabad nằm ở rìa phía đông của vùng Delhi, được kết nối với trung tâm Delhi bằng tàu điện ngầm, bao gồm các ga Kaushambi và Vaishali. Thường mất 60 đến 90 phút từ sân bay quốc tế Indira Gandhi tùy giao thông. Chỗ ở đa dạng từ khách sạn bình dân đến căn hộ dịch vụ, và một số du khách thích ở tại các khu lân cận của Delhi như Anand Vihar hoặc Preet Vihar. Khí hậu theo mô hình của Delhi, với mùa hè nóng, mùa mưa từ tháng 7 đến tháng 9 và mùa đông mát mẻ. Tiếng Hindi và tiếng Anh được sử dụng rộng rãi.',
+		mumbai: 'Mumbai được phục vụ bởi sân bay quốc tế Chhatrapati Shivaji Maharaj, và các bệnh viện thường cách sân bay 30 đến 90 phút tùy khu vực và tình trạng giao thông, vốn có thể đông đúc, nên bạn nên dành thêm thời gian cho các cuộc hẹn. Thành phố có tàu ngoại ô, các tuyến tàu điện ngầm, taxi và ứng dụng gọi xe. Khách sạn và căn hộ dịch vụ có sẵn khắp các vùng ngoại ô và nam Mumbai. Mùa mưa từ tháng 6 đến tháng 9 mang lại mưa lớn, và những tháng dễ chịu nhất là từ tháng 11 đến tháng 2. Tiếng Hindi, tiếng Marathi và tiếng Anh được sử dụng rộng rãi.',
+		chennai: 'Chennai được phục vụ bởi sân bay quốc tế Chennai, và hầu hết các bệnh viện cách đó 30 đến 60 phút đi đường bộ tùy giao thông. Thành phố có tàu điện ngầm, tàu ngoại ô, taxi và ứng dụng gọi xe, cùng nhiều lựa chọn khách sạn và căn hộ dịch vụ; Adyar, Alwarpet và hành lang công nghệ thông tin được nhiều khách y tế ưa chuộng. Thời tiết nóng và ẩm phần lớn thời gian trong năm, với mùa mưa đông bắc từ tháng 10 đến tháng 12, và những tháng dễ chịu nhất từ tháng 12 đến tháng 2. Tiếng Tamil và tiếng Anh được sử dụng rộng rãi, và nhiều nhân viên bệnh viện cũng nói được tiếng Hindi.',
+		bangalore: 'Bengaluru (Bangalore) được phục vụ bởi sân bay quốc tế Kempegowda, khá xa trung tâm thành phố, thường mất một đến hai giờ đi đường bộ nếu kẹt xe, vì vậy hãy lên kế hoạch đưa đón cẩn thận. Thành phố có tàu điện ngầm Namma, taxi và ứng dụng gọi xe, cùng nhiều khách sạn và căn hộ dịch vụ gần các hành lang bệnh viện chính. Khí hậu ôn hòa phần lớn thời gian trong năm, mưa chủ yếu từ tháng 6 đến tháng 10. Tiếng Anh được sử dụng rộng rãi, cùng với tiếng Kannada, và bệnh nhân quốc tế nhìn chung giao tiếp dễ dàng.',
+		hyderabad: 'Hyderabad được phục vụ bởi sân bay quốc tế Rajiv Gandhi, cách hầu hết các bệnh viện khoảng 30 đến 60 phút tùy giao thông. Thành phố có tàu điện ngầm, taxi và ứng dụng gọi xe, cùng nhiều khách sạn và căn hộ dịch vụ gần các khu bệnh viện chính như Jubilee Hills, Banjara Hills, Somajiguda và Financial District. Mùa hè nóng, mùa mưa kéo dài từ tháng 6 đến tháng 9, và mùa đông dễ chịu. Tiếng Telugu, Hindi, Urdu và tiếng Anh được sử dụng rộng rãi, và Hyderabad nổi tiếng với ẩm thực, có nhiều lựa chọn chay và mặn.',
+		kochi: 'Kochi được phục vụ bởi sân bay quốc tế Cochin, cách thành phố khoảng 25 đến 40 phút, và thành phố có tàu điện ngầm, taxi, ứng dụng gọi xe và phà qua các vùng nước ngập mặn. Khách sạn và căn hộ dịch vụ có sẵn gần các bệnh viện chính, và Kochi là nơi được ưa chuộng để kết hợp phục hồi sức khỏe với kỳ nghỉ yên tĩnh tại vùng sông nước của Kerala. Khí hậu nhiệt đới, mùa mưa từ tháng 6 đến tháng 9, và những tháng dễ chịu nhất từ tháng 11 đến tháng 2. Tiếng Malayalam và tiếng Anh được sử dụng rộng rãi.',
+		kolkata: 'Kolkata được phục vụ bởi sân bay quốc tế Netaji Subhas Chandra Bose, thường cách các khu bệnh viện chính 30 đến 60 phút tùy giao thông. Thành phố có tàu điện ngầm, taxi và ứng dụng gọi xe, cùng nhiều lựa chọn khách sạn và căn hộ dịch vụ; nhiều bệnh nhân quốc tế, đặc biệt từ Bangladesh láng giềng, đến đây để điều trị. Thời tiết nóng và ẩm vào mùa hè, mưa từ tháng 6 đến tháng 9 và dễ chịu nhất từ tháng 10 đến tháng 3. Tiếng Bengal, Hindi và tiếng Anh được sử dụng rộng rãi, và có phiên dịch viên tại các bệnh viện lớn.',
+		ahmedabad: 'Ahmedabad được phục vụ bởi sân bay quốc tế Sardar Vallabhbhai Patel, gần thành phố, nên hầu hết các chuyến đưa đón đến bệnh viện chỉ mất 20 đến 45 phút tùy giao thông. Thành phố có tàu điện ngầm và hệ thống xe buýt nhanh, taxi và ứng dụng gọi xe, cùng nhiều lựa chọn khách sạn và căn hộ dịch vụ quanh S. G. Highway và khu vực phía tây thành phố. Mùa hè rất nóng và khô, mùa mưa kéo dài từ tháng 6 đến tháng 9, và những tháng dễ chịu nhất là từ tháng 11 đến tháng 2. Tiếng Gujarat, Hindi và tiếng Anh được sử dụng rộng rãi, và đồ ăn chay dễ tìm.',
+	},
+};

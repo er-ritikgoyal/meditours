@@ -1,0 +1,113 @@
+---
+import HeroSection from '../../components/HeroSection.astro';
+import TravelProcess from '../../components/TravelProcess.astro';
+import OurDoctors from '../../components/OurDoctors.astro';
+import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
+import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import SupportServices from '../../components/SupportServices.astro';
+import Layout from '../../layouts/Layout.astro';
+import { bn } from '../../i18n/bn';
+import { bnAbout, bnTreatmentsPage } from '../../i18n/bn-pages';
+import { bnDoctors, bnPartnerHospitalsHome, bnSupportServices, bnTravelProcess } from '../../i18n/bn-home';
+import { doctors as defaultDoctors } from '../../data/doctors';
+import { translateDoctors } from '../../i18n/doctorsTranslate';
+import { bnDoctorsTr } from '../../i18n/bn-doctors';
+import { getFeaturedHospitals } from '../../data/hospitals';
+import { translateHospitals } from '../../i18n/bn-hospitals';
+
+const bengaliHospitals = translateHospitals(getFeaturedHospitals(2));
+
+const bengaliDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...bnDoctors.doctors[i] }));
+
+const { costComparison } = bnTreatmentsPage;
+const videoEntries = defaultDoctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+---
+
+<Layout
+	title="ভারতে বিশ্বস্ত মেডিকেল ট্যুরিজম | AlisPro MediTours"
+	description="AlisPro MediTours আন্তর্জাতিক রোগীদের বিশেষজ্ঞ মেডিকেল সহায়তা, হাসপাতাল সমন্বয়, চিকিৎসা পরিকল্পনা, ভ্রমণ সহায়তা এবং ব্যক্তিগতকৃত যত্নের মাধ্যমে ভারতে বিশ্বস্ত স্বাস্থ্যসেবা পেতে সাহায্য করে।"
+	locale="bn"
+	alternates={[
+		{ locale: 'en', href: '/' },
+		{ locale: 'fr', href: '/fr/' },
+		{ locale: 'ru', href: '/ru/' },
+		{ locale: 'bn', href: '/bn/' },
+		{ locale: 'ro', href: '/ro/' },
+		{ locale: 'es', href: '/es/' },
+		{ locale: 'pt', href: '/pt/' },
+		{ locale: 'vi', href: '/vi/' },
+		{ locale: 'ar', href: '/ar/' },
+	]}
+>
+	<HeroSection
+		treatmentOptions={bn.hero.treatmentOptions}
+		trust={bn.hero.trust}
+		enquiry={bn.hero.enquiry}
+	/>
+	<OurDoctors
+		basePath="/bn"
+		badge={bnDoctors.badge}
+		title={bnDoctors.title}
+		highlight={bnDoctors.highlight}
+		subtitle={bnDoctors.subtitle}
+		doctors={translateDoctors(bengaliDoctors, bnDoctorsTr)}
+		yearsExpLabel={bnDoctors.yearsExpLabel}
+		reviewsLabel={bnDoctors.reviewsLabel}
+		contactLabel={bnDoctors.contactLabel}
+		verifiedLabel={bnDoctors.verifiedLabel}
+	/>
+	<DoctorsVideoCarousel entries={videoEntries} />
+	<OurPartnerHospitals
+		badge={bnPartnerHospitalsHome.badge}
+		title={bnPartnerHospitalsHome.title}
+		highlight={bnPartnerHospitalsHome.highlight}
+		subtitle={bnPartnerHospitalsHome.subtitle}
+		hospitals={bengaliHospitals}
+		basePath="/bn"
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="{pct}% সাশ্রয়"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<SupportServices
+		badge={bnSupportServices.badge}
+		title={bnSupportServices.titleLead}
+		highlight={bnSupportServices.titleHighlight}
+		subtitle={bnSupportServices.subtitle}
+		services={bnSupportServices.services}
+	/>
+	<Testimonials
+		badge={bnAbout.testimonials.badge}
+		title={bnAbout.testimonials.title}
+		highlight={bnAbout.testimonials.highlight}
+		subtitle={bnAbout.testimonials.subtitle}
+		testimonials={bnAbout.testimonials.items}
+	/>
+	<TravelProcess
+		badge={bnTravelProcess.badge}
+		title={bnTravelProcess.titleLead}
+		highlight={bnTravelProcess.titleHighlight}
+		subtitle={bnTravelProcess.subtitle}
+		steps={bnTravelProcess.steps}
+	/>
+	<CostEstimateCta
+		title="আপনার চিকিৎসার সঠিক প্রাক্কলন চান?"
+		text="আপনার মেডিকেল রিপোর্ট আপলোড করুন এবং ২৪ ঘণ্টার মধ্যে আমাদের বিশেষজ্ঞদের কাছ থেকে স্বচ্ছ খরচের প্রাক্কলনসহ একটি ব্যক্তিগতকৃত চিকিৎসা পরিকল্পনা পান।"
+		primaryLabel="বিনামূল্যে পরামর্শ নিন"
+		primaryHref="/bn/contact"
+		secondaryLabel="মেডিকেল রিপোর্ট আপলোড করুন"
+		secondaryHref="/bn/contact#enquiry-form"
+	/>
+</Layout>

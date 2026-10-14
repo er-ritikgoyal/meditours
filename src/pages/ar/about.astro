@@ -1,0 +1,71 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import OurStory from '../../components/OurStory.astro';
+import OurJourney from '../../components/OurJourney.astro';
+import Testimonials from '../../components/Testimonials.astro';
+import FaqAccordion from '../../components/FaqAccordion.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { arAbout } from '../../i18n/ar-pages';
+---
+
+<Layout
+	title="عن AlisPro MediTours | شركة سياحة علاجية موثوقة في الهند"
+	description="تعرّف على AlisPro MediTours، شركة سياحة علاجية موثوقة تربط المرضى الدوليين بمستشفيات معتمدة واختصاصيين ذوي خبرة في الهند، مع دعم شامل من الاستشارة حتى التعافي."
+	locale="ar"
+	alternates={[
+		{ locale: 'en', href: '/about' },
+		{ locale: 'fr', href: '/fr/about' },
+		{ locale: 'ru', href: '/ru/about' },
+		{ locale: 'bn', href: '/bn/about' },
+		{ locale: 'ro', href: '/ro/about' },
+		{ locale: 'es', href: '/es/about' },
+		{ locale: 'pt', href: '/pt/about' },
+		{ locale: 'vi', href: '/vi/about' },
+		{ locale: 'ar', href: '/ar/about' },
+	]}
+>
+	<PageHeader
+		badge={arAbout.pageHeader.badge}
+		title={arAbout.pageHeader.title}
+		highlight={arAbout.pageHeader.highlight}
+		subtitle={arAbout.pageHeader.subtitle}
+		breadcrumbs={[{ label: 'من نحن' }]}
+		homeHref="/ar/"
+		homeLabel="الرئيسية"
+	/>
+
+	<OurStory
+		badge={arAbout.story.badge}
+		titleLead={arAbout.story.titleLead}
+		titleHighlight={arAbout.story.titleHighlight}
+		paragraphs={arAbout.story.paragraphs}
+		statsLabels={arAbout.story.statsLabels}
+		valuesTitle={arAbout.story.valuesTitle}
+		values={arAbout.story.values}
+	/>
+	<OurJourney
+		badge={arAbout.journey.badge}
+		titleLead={arAbout.journey.titleLead}
+		titleHighlight={arAbout.journey.titleHighlight}
+		subtitle={arAbout.journey.subtitle}
+		milestones={arAbout.journey.milestones}
+	/>
+	<Testimonials
+		badge={arAbout.testimonials.badge}
+		title={arAbout.testimonials.title}
+		highlight={arAbout.testimonials.highlight}
+		subtitle={arAbout.testimonials.subtitle}
+		testimonials={arAbout.testimonials.items}
+	/>
+	<FaqAccordion badge={arAbout.faq.badge} title={arAbout.faq.title} highlight={arAbout.faq.highlight} subtitle={arAbout.faq.subtitle} />
+
+	<CostEstimateCta
+		title="هل تريد تقديرًا دقيقًا لتكلفة علاجك؟"
+		text="ارفع تقاريرك الطبية واحصل على خطة علاج شخصية مع تقدير تكلفة شفاف من اختصاصيينا، خلال 24 ساعة."
+		primaryLabel="استشارة مجانية"
+		primaryHref="/ar/contact"
+		secondaryLabel="ارفع تقاريرك الطبية"
+		secondaryHref="/ar/contact#enquiry-form"
+	/>
+</Layout>

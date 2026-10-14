@@ -1,0 +1,413 @@
+---
+import iconCompass from 'bootstrap-icons/icons/compass-fill.svg?raw';
+import iconWater from 'bootstrap-icons/icons/water.svg?raw';
+import iconUmbrella from 'bootstrap-icons/icons/umbrella-fill.svg?raw';
+import iconCamera from 'bootstrap-icons/icons/camera-fill.svg?raw';
+import iconCheck from 'bootstrap-icons/icons/check-circle-fill.svg?raw';
+import iconClock from 'bootstrap-icons/icons/clock-fill.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+
+export interface PackageContent {
+	name: string;
+	route: string;
+	duration: string;
+	description: string;
+	highlights: string[];
+}
+
+export interface Props {
+	badge?: string;
+	titleLead?: string;
+	titleHighlight?: string;
+	subtitle?: string;
+	packages?: PackageContent[];
+	ctaLabel?: string;
+	perPersonLabel?: string;
+	fromLabel?: string;
+}
+
+const packageIcons = [iconCompass, iconWater, iconUmbrella, iconCamera];
+const packagePrices = [420, 380, 460, 260];
+const packageThemes = ['blue', 'teal', 'green', 'blue'] as const;
+
+const {
+	badge = 'Curated Packages',
+	titleLead = 'Recovery-Paced Tours',
+	titleHighlight = 'Across India',
+	subtitle = 'Every itinerary is scheduled around your treatment and recovery timeline — never the other way around.',
+	packages: packagesProp = [
+		{
+			name: 'Golden Triangle Recovery',
+			route: 'Delhi · Agra · Jaipur',
+			duration: '5 Days',
+			description: 'A gentle, recovery-paced tour of India’s most iconic heritage circuit, scheduled around your rest days.',
+			highlights: ['Taj Mahal at sunrise', 'Amber Fort by private car', 'Wheelchair-accessible stops'],
+		},
+		{
+			name: 'Kerala Backwaters Wellness',
+			route: 'Kochi · Alleppey',
+			duration: '4 Days',
+			description: 'Float through calm backwaters on a private houseboat — a low-exertion, high-serenity recovery escape.',
+			highlights: ['Private houseboat stay', 'Ayurvedic wellness session', 'Riverside recovery suite'],
+		},
+		{
+			name: 'Goa Beach Recovery Retreat',
+			route: 'North & South Goa',
+			duration: '6 Days',
+			description: 'Sea-facing recovery stays with gentle beach walks, sunset views, and doctor-approved low-impact activity.',
+			highlights: ['Sea-facing recovery suite', 'Beachside physiotherapy access', 'Flexible daily pacing'],
+		},
+		{
+			name: 'Mysore & Bangalore Heritage',
+			route: 'Bangalore · Mysore',
+			duration: '3 Days',
+			description: 'A short, comfortable heritage tour for patients recovering near our Bangalore partner hospitals.',
+			highlights: ['Mysore Palace private tour', 'Botanical garden visit', 'Short-transfer itinerary'],
+		},
+	],
+	ctaLabel = 'Enquire',
+	perPersonLabel = '/ person',
+	fromLabel = 'From',
+} = Astro.props;
+
+const packages = packagesProp.map((pkg, i) => ({ ...pkg, icon: packageIcons[i], price: packagePrices[i], theme: packageThemes[i] }));
+---
+
+<section class="packages">
+	<div class="packages__inner">
+		<div class="packages__header" data-animate>
+			<span class="packages__badge">{badge}</span>
+			<h2 class="packages__title">
+				{titleLead} <span>{titleHighlight}</span>
+			</h2>
+			<p class="packages__subtitle">
+				{subtitle}
+			</p>
+		</div>
+
+		<div class="packages__grid">
+			{
+				packages.map((pkg, i) => (
+					<div class={`package-card package-card--${pkg.theme}`} data-animate style={`transition-delay: ${i * 100}ms`}>
+						<div class="package-card__top">
+							<span class="package-card__icon" set:html={pkg.icon} aria-hidden="true" />
+							<span class="package-card__duration">
+								<span set:html={iconClock} aria-hidden="true" />
+								{pkg.duration}
+							</span>
+						</div>
+						<h3 class="package-card__name">{pkg.name}</h3>
+						<p class="package-card__route">{pkg.route}</p>
+						<p class="package-card__desc">{pkg.description}</p>
+
+						<ul class="package-card__highlights">
+							{pkg.highlights.map((highlight) => (
+								<li>
+									<span set:html={iconCheck} aria-hidden="true" />
+									{highlight}
+								</li>
+							))}
+						</ul>
+
+						<div class="package-card__footer">
+							<span class="package-card__price">
+								{fromLabel} <strong>${pkg.price}</strong> {perPersonLabel}
+							</span>
+							<a class="package-card__cta" href="/contact">
+								{ctaLabel}
+								<span set:html={iconArrow} aria-hidden="true" />
+							</a>
+						</div>
+					</div>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.packages [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.packages {
+		background: var(--color-bg-white);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.packages__inner {
+		max-width: 1280px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.packages__header {
+		text-align: center;
+		max-width: 640px;
+		margin: 0 auto 48px;
+	}
+
+	.packages__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.packages__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.packages__title span {
+		color: var(--color-teal);
+	}
+
+	.packages__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+	}
+
+	.packages__grid {
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 28px;
+	}
+
+	.package-card {
+		display: flex;
+		flex-direction: column;
+		padding: 30px 28px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.package-card:hover {
+		transform: translateY(-8px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.package-card__top {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		margin-bottom: 18px;
+	}
+
+	.package-card__icon {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		width: 56px;
+		height: 56px;
+		border-radius: 16px;
+		color: #ffffff;
+	}
+
+	.package-card__icon :global(svg) {
+		width: 26px;
+		height: 26px;
+	}
+
+	.package-card--blue .package-card__icon {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.package-card--teal .package-card__icon {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.package-card--green .package-card__icon {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.package-card__duration {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 5px 12px;
+		border-radius: 999px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+	}
+
+	.package-card__duration span {
+		display: flex;
+		width: 12px;
+		height: 12px;
+	}
+
+	.package-card__duration span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.package-card__name {
+		font-family: var(--font-heading);
+		font-size: 19px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 4px;
+	}
+
+	.package-card__route {
+		font-size: 12.5px;
+		font-weight: 600;
+		color: var(--color-text-muted);
+		margin: 0 0 12px;
+	}
+
+	.package-card__desc {
+		font-size: 13.5px;
+		line-height: 1.6;
+		color: var(--color-text-secondary);
+		margin: 0 0 18px;
+	}
+
+	.package-card__highlights {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+		list-style: none;
+		margin: 0 0 24px;
+		padding: 0;
+		flex: 1;
+	}
+
+	.package-card__highlights li {
+		display: flex;
+		align-items: flex-start;
+		gap: 8px;
+		font-size: 13px;
+		line-height: 1.5;
+		color: var(--color-text-secondary);
+	}
+
+	.package-card__highlights li span {
+		display: flex;
+		flex-shrink: 0;
+		width: 14px;
+		height: 14px;
+		margin-top: 2px;
+		color: var(--color-green);
+	}
+
+	.package-card__highlights li span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.package-card__footer {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin-top: auto;
+		padding-top: 18px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.package-card__price {
+		font-size: 13px;
+		color: var(--color-text-muted);
+	}
+
+	.package-card__price strong {
+		color: var(--color-text-primary);
+		font-size: 16px;
+	}
+
+	.package-card__cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2px;
+		padding: 11px 20px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 13.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.15s ease;
+	}
+
+	.package-card__cta:hover {
+		background: var(--btn-primary-hover);
+	}
+
+	@media screen and (max-width: 900px) {
+		.packages__grid {
+			grid-template-columns: 1fr;
+			max-width: 480px;
+			margin: 0 auto;
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.packages {
+			padding: 56px 16px;
+		}
+
+		.package-card__footer {
+			flex-direction: column;
+			align-items: stretch;
+			gap: 14px;
+		}
+
+		.package-card__cta {
+			justify-content: center;
+		}
+	}
+</style>

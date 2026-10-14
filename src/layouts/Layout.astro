@@ -1,0 +1,257 @@
+---
+import '../styles/theme.css';
+import Navbar from '../components/Navbar.astro';
+import Footer from '../components/Footer.astro';
+import FloatingContactWidget from '../components/FloatingContactWidget.astro';
+import InsuranceEligibility from '../components/InsuranceEligibility.astro';
+import SearchBar from '../components/SearchBar.astro';
+import CookieConsent from '../components/CookieConsent.astro';
+import { fr } from '../i18n/fr';
+import { ru } from '../i18n/ru';
+import { bn } from '../i18n/bn';
+import { ro } from '../i18n/ro';
+import { es } from '../i18n/es';
+import { pt } from '../i18n/pt';
+import { vi } from '../i18n/vi';
+import { ar } from '../i18n/ar';
+
+export interface Alternate {
+	locale: string;
+	href: string;
+}
+
+export interface Props {
+	title?: string;
+	description?: string;
+	ogImage?: string;
+	locale?: string;
+	alternates?: Alternate[];
+}
+
+const {
+	title = 'Trusted Medical Tourism Services in India | AlisPro MediTours',
+	description = 'AlisPro MediTours helps international patients access trusted healthcare in India with expert medical assistance, hospital coordination, treatment planning, travel support, and personalised care for a smooth medical tourism journey',
+	ogImage = '/images/Alis_Logo.png',
+	locale = 'en',
+	alternates,
+} = Astro.props;
+
+const siteUrl = 'https://alispromeditours.com';
+const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
+
+const ogLocaleMap: Record<string, string> = { en: 'en_IN', fr: 'fr_FR', ru: 'ru_RU', bn: 'bn_IN', ro: 'ro_RO', es: 'es_ES', pt: 'pt_PT', vi: 'vi_VN', ar: 'ar_SA' };
+const ogLocale = ogLocaleMap[locale] ?? 'en_IN';
+const inLanguageMap: Record<string, string> = { fr: 'fr-FR', ru: 'ru-RU', bn: 'bn-IN', ro: 'ro-RO', es: 'es-ES', pt: 'pt-PT', vi: 'vi-VN', ar: 'ar-SA' };
+
+// Non-English site chrome (nav/footer). About/Contact/Destinations/Treatments/
+// Doctors (incl. detail pages) have real translated routes; Hotels/Flights/Tourism
+// don't yet, so those links intentionally point back to the English pages rather
+// than a nonexistent translated URL.
+const localeDicts: Record<string, typeof fr | typeof ru | typeof bn | typeof ro | typeof es | typeof pt | typeof vi | typeof ar> = { fr, ru, bn, ro, es, pt, vi, ar };
+const t = localeDicts[locale];
+const prefix = `/${locale}/`;
+
+// Arabic is the only RTL locale live today; this flips document direction and
+// text-align sitewide so Navbar/Footer/widgets/pages don't need per-locale markup.
+const rtlLocales = new Set(['ar']);
+const dir = rtlLocales.has(locale) ? 'rtl' : 'ltr';
+
+const navbarProps = t
+	? {
+			locale,
+			tagline: t.nav.tagline,
+			insuranceLabel: t.nav.checkInsuranceEligibility,
+			ctaLabel: t.nav.cta,
+			links: [
+				{ label: t.nav.home, href: prefix },
+				{ label: t.nav.destinations, href: `${prefix}destinations` },
+				{ label: t.nav.treatments, href: `${prefix}treatments` },
+				{ label: t.nav.about, href: `${prefix}about` },
+				{ label: t.nav.contact, href: `${prefix}contact` },
+				{ label: t.footer.ourDoctors, href: `${prefix}doctors` },
+			],
+		}
+	: { locale };
+
+const footerProps = t
+	? {
+			description: t.footer.description,
+			quickLinksHeading: t.footer.quickLinks,
+			treatmentsHeading: t.footer.popularTreatments,
+			getInTouchHeading: t.footer.getInTouch,
+			officeAddress: t.footer.officeAddress,
+			supportHours: t.footer.supportHours,
+			privacyPolicyLabel: t.footer.privacyPolicy,
+			termsOfServiceLabel: t.footer.termsOfService,
+			sitemapLabel: t.footer.sitemap,
+			allRightsReservedLabel: t.footer.allRightsReserved,
+			cookiePolicyLabel: t.footer.cookiePolicy,
+			manageCookiesLabel: t.footer.manageCookies,
+			// Legal pages are English-only sitewide for now (same pattern as Hotels/Flights/Tourism above).
+			privacyPolicyHref: '/privacy-policy',
+			termsOfServiceHref: '/terms-of-service',
+			cookiePolicyHref: '/cookie-policy',
+			quickLinks: [
+				{ label: t.footer.home, href: prefix },
+				{ label: t.footer.aboutUs, href: `${prefix}about` },
+				{ label: t.footer.destinations, href: `${prefix}destinations` },
+				{ label: t.footer.treatments, href: `${prefix}treatments` },
+				{ label: t.footer.ourDoctors, href: `${prefix}doctors` },
+				{ label: t.footer.contact, href: `${prefix}contact` },
+			],
+			treatments: [
+				{ label: t.footer.treatmentNames.cardiacCare, href: `${prefix}treatments/cardiac-care` },
+				{ label: t.footer.treatmentNames.orthopedics, href: `${prefix}treatments/orthopedics` },
+				{ label: t.footer.treatmentNames.oncology, href: `${prefix}treatments/oncology` },
+				{ label: t.footer.treatmentNames.cosmeticSurgery, href: `${prefix}treatments/cosmetic-surgery` },
+				{ label: t.footer.treatmentNames.fertilityTreatment, href: `${prefix}treatments/fertility` },
+				{ label: t.footer.treatmentNames.organTransplant, href: `${prefix}treatments/organ-transplant` },
+				{ label: t.footer.treatmentNames.dentalCare, href: `${prefix}treatments/dental-care` },
+				{ label: t.footer.treatmentNames.eyeCare, href: `${prefix}treatments/eye-care` },
+			],
+		}
+	: {};
+
+const floatingWidgetProps = t ? t.floatingWidget : {};
+const insuranceModalProps = t ? t.insuranceModal : {};
+const cookieBannerProps = t ? t.cookieBanner : {};
+
+const jsonLdGraph: Record<string, unknown>[] = [
+	{
+		'@type': 'MedicalBusiness',
+		'@id': `${siteUrl}/#medicalbusiness`,
+		name: 'AlisPro MediTours',
+		url: `${siteUrl}/`,
+		logo: `${siteUrl}/images/Alis_Logo.png`,
+		image: `${siteUrl}/images/Alis_Logo.png`,
+		description,
+		telephone: '+91-9821701155',
+		email: 'care@alispromeditours.com',
+		priceRange: '$$',
+		address: {
+			'@type': 'PostalAddress',
+			streetAddress: '238 Westend Mall, Janakpuri',
+			addressLocality: 'New Delhi',
+			addressRegion: 'Delhi',
+			postalCode: '110058',
+			addressCountry: 'IN',
+		},
+		areaServed: [
+			{ '@type': 'Country', name: 'India' },
+			{ '@type': 'Place', name: 'International Patients' },
+		],
+		sameAs: [
+			'https://www.facebook.com/alisprofessional',
+			'https://www.instagram.com/alisprofessional',
+			'https://x.com/alisprofession2',
+			'https://www.youtube.com/@Alisprofessional',
+		],
+	},
+	{
+		'@type': 'WebSite',
+		'@id': `${siteUrl}/#website`,
+		url: `${siteUrl}/`,
+		name: 'AlisPro MediTours',
+		publisher: { '@id': `${siteUrl}/#medicalbusiness` },
+		inLanguage: inLanguageMap[locale] ?? 'en-IN',
+	},
+];
+
+if (Astro.url.pathname === '/') {
+	jsonLdGraph.push({
+		'@type': 'BreadcrumbList',
+		'@id': `${siteUrl}/#breadcrumb`,
+		itemListElement: [{ '@type': 'ListItem', position: 1, name: 'Home', item: `${siteUrl}/` }],
+	});
+}
+
+// Escape "</" so a literal "</script>" inside the JSON can't break out of the script tag
+const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': jsonLdGraph }).replace(/<\//g, '<\\/');
+---
+
+<!doctype html>
+<html lang={locale} dir={dir}>
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width" />
+		<link rel="icon" type="image/png" href="/images/alis_small_logo.png" />
+		<link rel="apple-touch-icon" href="/images/alis_small_logo.png" />
+		<meta name="generator" content={Astro.generator} />
+		<meta name="robots" content="index, follow" />
+		<meta name="author" content="AlisPro MediTours" />
+		<meta name="theme-color" content="#0f4c81" />
+		<link rel="preconnect" href="https://fonts.googleapis.com" />
+		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+		<link
+			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Cairo:wght@500;600;700;800&family=Tajawal:wght@400;500;700&display=swap"
+			rel="stylesheet"
+		/>
+		<title>{title}</title>
+		<meta name="description" content={description} />
+		<link rel="canonical" href={canonicalUrl} />
+
+		{
+			alternates?.map((alt) => (
+				<link rel="alternate" hreflang={alt.locale} href={new URL(alt.href, siteUrl).toString()} />
+			))
+		}
+		{alternates && <link rel="alternate" hreflang="x-default" href={new URL(alternates[0].href, siteUrl).toString()} />}
+
+		<!-- Open Graph Meta Tags -->
+		<meta property="og:type" content="website" />
+		<meta property="og:title" content={title} />
+		<meta property="og:description" content={description} />
+		<meta property="og:url" content={canonicalUrl} />
+		<meta property="og:site_name" content="AlisPro MediTours" />
+		<meta property="og:image" content={new URL(ogImage, siteUrl).toString()} />
+		<meta property="og:image:alt" content="AlisPro MediTours - Medical Tourism Services in India" />
+		<meta property="og:locale" content={ogLocale} />
+
+		<script type="application/ld+json" is:inline set:html={jsonLd} />
+	</head>
+	<body>
+		<Navbar {...navbarProps} />
+		<div class="site-search-bar">
+			<SearchBar locale={locale} />
+		</div>
+		<slot />
+		<Footer {...footerProps} />
+		<FloatingContactWidget {...floatingWidgetProps} />
+		<InsuranceEligibility {...insuranceModalProps} />
+		<CookieConsent locale={locale} cookiePolicyHref="/cookie-policy" {...cookieBannerProps} />
+	</body>
+</html>
+
+<style>
+	:global(*),
+	:global(*::before),
+	:global(*::after) {
+		box-sizing: border-box;
+	}
+
+	html,
+	body {
+		margin: 0;
+		width: 100%;
+		height: 100%;
+	}
+
+	body {
+		background: var(--color-bg-white);
+		color: var(--color-text-primary);
+		font-family: var(--font-body);
+	}
+
+	.site-search-bar {
+		background: var(--color-bg-alt);
+		border-bottom: 1px solid var(--color-border-light);
+		padding: 14px 0;
+	}
+
+	:global(h1),
+	:global(h2),
+	:global(h3),
+	:global(h4) {
+		font-family: var(--font-heading);
+	}
+</style>

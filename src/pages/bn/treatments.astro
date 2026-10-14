@@ -1,0 +1,77 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import TreatmentsGrid from '../../components/TreatmentsGrid.astro';
+import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { treatments } from '../../data/treatments';
+import { bnTreatments } from '../../i18n/bn-treatments';
+import { bnTreatmentsPage } from '../../i18n/bn-pages';
+
+const translatedTreatments = treatments.map((treatment) => {
+	const bn = bnTreatments[treatment.slug];
+	return bn
+		? {
+				...treatment,
+				name: bn.name,
+				shortDescription: bn.shortDescription,
+				procedures: bn.procedures,
+			}
+		: treatment;
+});
+
+const { grid, costComparison } = bnTreatmentsPage;
+---
+
+<Layout
+	title="ভারতে চিকিৎসা | সাশ্রয়ী স্বাস্থ্যসেবা | AlisPro MediTours"
+	description="AlisPro MediTours-এর সাথে ভারতে উন্নত চিকিৎসা আবিষ্কার করুন। হৃদরোগ, অনকোলজি, অর্থোপেডিক, বন্ধ্যাত্ব, কসমেটিক এবং অন্যান্য চিকিৎসার জন্য অভিজ্ঞ ডাক্তার, স্বীকৃত হাসপাতাল এবং ব্যক্তিগতকৃত যত্ন পান।"
+	locale="bn"
+	alternates={[
+		{ locale: 'en', href: '/treatments' },
+		{ locale: 'fr', href: '/fr/treatments' },
+		{ locale: 'ru', href: '/ru/treatments' },
+		{ locale: 'bn', href: '/bn/treatments' },
+		{ locale: 'ro', href: '/ro/treatments' },
+		{ locale: 'es', href: '/es/treatments' },
+		{ locale: 'pt', href: '/pt/treatments' },
+		{ locale: 'vi', href: '/vi/treatments' },
+		{ locale: 'ar', href: '/ar/treatments' },
+	]}
+>
+
+	<TreatmentsGrid
+		basePath="/bn"
+		badge={grid.badge}
+		title={grid.title}
+		highlight={grid.highlight}
+		subtitle={grid.subtitle}
+		treatments={translatedTreatments}
+		searchPlaceholder={grid.searchPlaceholder}
+		searchAriaLabel={grid.searchAriaLabel}
+		clearAriaLabel={grid.clearAriaLabel}
+		noResultsTitle={grid.noResultsTitle}
+		noResultsBody={grid.noResultsBody}
+		fromPrefix={grid.fromPrefix}
+		learnMoreLabel={grid.learnMore}
+		showingCountTemplate={grid.showingCountTemplate}
+	/>
+	<TreatmentCostComparison
+		title={costComparison.title}
+		subtitle={costComparison.subtitle}
+		note={costComparison.note}
+		scrollHint={costComparison.scrollHint}
+		mostAffordableLabel={costComparison.mostAffordable}
+		saveLabel="{pct}% সাশ্রয়"
+		countryLabels={costComparison.countries}
+		treatmentNames={costComparison.treatmentNames}
+		stats={costComparison.stats}
+	/>
+	<CostEstimateCta
+		title="আপনার চিকিৎসার সঠিক প্রাক্কলন চান?"
+		text="আপনার মেডিকেল রিপোর্ট আপলোড করুন এবং ২৪ ঘণ্টার মধ্যে আমাদের বিশেষজ্ঞদের কাছ থেকে স্বচ্ছ খরচের প্রাক্কলনসহ একটি ব্যক্তিগতকৃত চিকিৎসা পরিকল্পনা পান।"
+		primaryLabel="বিনামূল্যে পরামর্শ নিন"
+		primaryHref="/bn/contact"
+		secondaryLabel="মেডিকেল রিপোর্ট আপলোড করুন"
+		secondaryHref="/bn/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DestinationsGrid from '../../components/Destinations.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { destinations } from '../../data/destinations';
+import { viDestinations } from '../../i18n/vi-destinations';
+import { viDestinationsPage } from '../../i18n/vi-pages';
+
+const translatedDestinations = destinations.map((destination) => ({
+	...destination,
+	...viDestinations[destination.slug],
+}));
+---
+
+<Layout
+	title="Điểm đến du lịch y tế tại Ấn Độ | AlisPro MediTours"
+	description="Khám phá các điểm đến du lịch y tế hàng đầu tại Ấn Độ cùng AlisPro MediTours. Tìm hiểu các bệnh viện hàng đầu, bác sĩ chuyên khoa, phương pháp điều trị tiên tiến và hỗ trợ y tế cá nhân hóa."
+	locale="vi"
+	alternates={[
+		{ locale: 'en', href: '/destinations' },
+		{ locale: 'fr', href: '/fr/destinations' },
+		{ locale: 'ru', href: '/ru/destinations' },
+		{ locale: 'bn', href: '/bn/destinations' },
+		{ locale: 'ro', href: '/ro/destinations' },
+		{ locale: 'es', href: '/es/destinations' },
+		{ locale: 'pt', href: '/pt/destinations' },
+		{ locale: 'vi', href: '/vi/destinations' },
+		{ locale: 'ar', href: '/ar/destinations' },
+	]}
+>
+
+	<DestinationsGrid
+		basePath="/vi"
+		badge={viDestinationsPage.grid.badge}
+		title={viDestinationsPage.grid.title}
+		highlight={viDestinationsPage.grid.highlight}
+		subtitle={viDestinationsPage.grid.subtitle}
+		destinations={translatedDestinations}
+		exploreLabel={viDestinationsPage.grid.exploreLabel}
+	/>
+
+	<CostEstimateCta
+		title="Bạn muốn có ước tính chính xác về việc điều trị của mình?"
+		text="Tải lên hồ sơ y tế của bạn và nhận kế hoạch điều trị cá nhân hóa với ước tính chi phí minh bạch từ các chuyên gia của chúng tôi, trong 24 giờ."
+		primaryLabel="Tư vấn miễn phí"
+		primaryHref="/vi/contact"
+		secondaryLabel="Tải lên hồ sơ y tế"
+		secondaryHref="/vi/contact#enquiry-form"
+	/>
+</Layout>

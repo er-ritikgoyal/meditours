@@ -1,0 +1,724 @@
+---
+import { Image } from 'astro:assets';
+import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
+import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
+import iconEmail from 'bootstrap-icons/icons/envelope-fill.svg?raw';
+import iconPhone from 'bootstrap-icons/icons/whatsapp.svg?raw';
+import iconShield from 'bootstrap-icons/icons/shield-check.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
+import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
+import iconVerified from 'bootstrap-icons/icons/patch-check-fill.svg?raw';
+import { countries } from '../data/countries';
+import { getDoctorBySlug } from '../data/doctors';
+
+// The before/after showcase is tied to whichever doctor actually has a
+// before/after result photo on file — currently only Dr. Anika Bhasin Arora
+// (src/assets/hospitals/before after shining smile.png, set as her
+// `bannerPhoto`). Swap this slug once more before/after pairs exist.
+const spotlightDoctor = getDoctorBySlug('anika-bhasin-arora')!;
+
+export interface TrustItem {
+	value: string;
+	label: string;
+}
+
+export interface EnquiryContent {
+	title: string;
+	subtitle: string;
+	treatmentPlaceholder: string;
+	namePlaceholder: string;
+	emailPlaceholder: string;
+	countryPlaceholder: string;
+	phonePlaceholder: string;
+	uploadLabel: string;
+	submit: string;
+	privacyNote: string;
+	successMessage: string;
+}
+
+export interface Props {
+	treatmentOptions?: string[];
+	trust?: TrustItem[];
+	enquiry?: EnquiryContent;
+}
+
+const {
+	treatmentOptions = [
+		'Cardiac Surgery',
+		'Orthopedics & Joint Replacement',
+		'Oncology',
+		'Cosmetic & Plastic Surgery',
+		'Fertility Treatment',
+		'Organ Transplant',
+		'Other',
+	],
+	trust = [
+		{ value: '500+', label: 'Partner Hospitals' },
+		{ value: '45', label: 'Countries' },
+		{ value: '24/7', label: 'Patient Support' },
+		{ value: '12,000+', label: 'Patients Helped' },
+	],
+	enquiry = {
+		title: 'Get a Free Consultation',
+		subtitle: 'Our medical team replies within 24 hours',
+		treatmentPlaceholder: "I'm looking for...",
+		namePlaceholder: 'Full name',
+		emailPlaceholder: 'Email address',
+		countryPlaceholder: '---Select Country---',
+		phonePlaceholder: 'WhatsApp / phone number',
+		uploadLabel: 'Upload Medical Reports (PDF/JPG, optional)',
+		submit: 'Get Free Quote',
+		privacyNote: 'Your information is confidential',
+		successMessage: 'Thanks! A patient coordinator will reach out shortly.',
+	},
+} = Astro.props;
+---
+
+<section class="hero">
+	<div class="hero-stage">
+		<div class="hero-showcase">
+			<div class="hero-showcase__decoration" aria-hidden="true">
+				<svg viewBox="0 0 200 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+					<circle cx="100" cy="100" r="90" stroke="currentColor" stroke-opacity="0.18" stroke-width="1.5" />
+					<circle cx="100" cy="100" r="130" stroke="currentColor" stroke-opacity="0.12" stroke-width="1.5" />
+					<path
+						d="M100 55v90M55 100h90"
+						stroke="currentColor"
+						stroke-opacity="0.15"
+						stroke-width="10"
+						stroke-linecap="round"
+					/>
+				</svg>
+			</div>
+
+			<div class="hero-showcase__inner">
+				{
+					spotlightDoctor.bannerPhoto && (
+						<div class="hero-showcase__frame">
+							<Image src={spotlightDoctor.bannerPhoto} alt={`${spotlightDoctor.name} — patient results`} width={720} />
+						</div>
+					)
+				}
+
+				<a class="hero-showcase__doctor" href={`/doctors/${spotlightDoctor.slug}`}>
+					<span class="hero-showcase__doctor-photo-wrap">
+						{
+							spotlightDoctor.photo ? (
+								<Image
+									src={spotlightDoctor.photo}
+									alt={spotlightDoctor.name}
+									width={64}
+									height={64}
+									class="hero-showcase__doctor-photo"
+								/>
+							) : (
+								<span class="hero-showcase__doctor-avatar">
+									{spotlightDoctor.name.replace(/^Dr\.?\s*/i, '').charAt(0)}
+								</span>
+							)
+						}
+						<span class="hero-showcase__doctor-badge" set:html={iconVerified} aria-hidden="true" />
+					</span>
+					<span class="hero-showcase__doctor-info">
+						<strong>{spotlightDoctor.name}</strong>
+						<span>{spotlightDoctor.specialty}</span>
+					</span>
+					<span class="hero-showcase__doctor-arrow" set:html={iconArrowRight} aria-hidden="true" />
+				</a>
+			</div>
+		</div>
+
+		<div class="hero-enquiry">
+			<div class="hero-enquiry__header">
+				<h2>{enquiry.title}</h2>
+				<p>{enquiry.subtitle}</p>
+			</div>
+
+			<form class="hero-enquiry__form" data-enquiry-form enctype="multipart/form-data">
+				<input type="hidden" name="subject" value="Hero Quick Quote Request" />
+				<input type="hidden" name="message" data-message-field />
+				<input
+					type="text"
+					name="website"
+					class="hero-enquiry__honeypot"
+					tabindex="-1"
+					autocomplete="off"
+					aria-hidden="true"
+				/>
+
+				<label class="hero-enquiry__field">
+					<span set:html={iconTreatment} aria-hidden="true" />
+					<select name="category" data-treatment-field required>
+						<option value="" selected disabled>
+							{enquiry.treatmentPlaceholder}
+						</option>
+						{treatmentOptions.map((option) => (
+							<option value={option}>{option}</option>
+						))}
+					</select>
+				</label>
+
+				<label class="hero-enquiry__field">
+					<span set:html={iconPerson} aria-hidden="true" />
+					<input type="text" name="name" placeholder={enquiry.namePlaceholder} autocomplete="name" required />
+				</label>
+
+				<label class="hero-enquiry__field">
+					<span set:html={iconEmail} aria-hidden="true" />
+					<input type="email" name="email" placeholder={enquiry.emailPlaceholder} autocomplete="email" required />
+				</label>
+
+				<label class="hero-enquiry__field">
+					<span set:html={iconGlobe} aria-hidden="true" />
+					<select name="country" id="hero-country">
+						<option value="" selected disabled>{enquiry.countryPlaceholder}</option>
+						{countries.map((country) => (
+							<option value={country.name} data-dial={country.dial}>{country.name}</option>
+						))}
+					</select>
+				</label>
+
+				<div class="hero-enquiry__row">
+					<label class="hero-enquiry__field hero-enquiry__field--code">
+						<span set:html={iconPhone} aria-hidden="true" />
+						<input type="text" name="phoneCode" id="hero-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+					</label>
+
+					<label class="hero-enquiry__field hero-enquiry__field--phone">
+						<input type="tel" name="phone" placeholder={enquiry.phonePlaceholder} autocomplete="tel" required data-phone-field />
+					</label>
+				</div>
+
+				<label class="hero-enquiry__file" data-file-label>
+					<span set:html={iconUpload} aria-hidden="true" />
+					<span data-file-name data-file-fallback={enquiry.uploadLabel}>{enquiry.uploadLabel}</span>
+					<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg" data-file-input />
+				</label>
+
+				<button type="submit" class="hero-enquiry__submit">
+					{enquiry.submit}
+					<span set:html={iconArrow} aria-hidden="true" />
+				</button>
+
+				<p class="hero-enquiry__privacy">
+					<span set:html={iconShield} aria-hidden="true" />
+					{enquiry.privacyNote}
+				</p>
+
+				<p class="hero-enquiry__success" data-enquiry-success hidden>
+					{enquiry.successMessage}
+				</p>
+				<p class="hero-enquiry__error" data-enquiry-error hidden />
+			</form>
+		</div>
+	</div>
+
+	<div class="hero-trust">
+		{
+			trust.map((item) => (
+				<div class="hero-trust__item">
+					<strong>{item.value}</strong> {item.label}
+				</div>
+			))
+		}
+	</div>
+</section>
+
+<script>
+	import { bindEnquiryForm } from '../scripts/enquiryForm';
+
+	const enquiryForm = document.querySelector<HTMLFormElement>('[data-enquiry-form]');
+	const enquirySuccess = document.querySelector('[data-enquiry-success]');
+	const enquiryError = document.querySelector('[data-enquiry-error]');
+	const heroCountrySelect = document.getElementById('hero-country') as HTMLSelectElement | null;
+	const heroPhoneCodeInput = document.getElementById('hero-phone-code') as HTMLInputElement | null;
+
+	heroCountrySelect?.addEventListener('change', () => {
+		const dial = heroCountrySelect.selectedOptions[0]?.dataset.dial ?? '';
+		if (dial && heroPhoneCodeInput) {
+			heroPhoneCodeInput.value = `+${dial}`;
+		}
+	});
+
+	bindEnquiryForm(enquiryForm, {
+		successEl: enquirySuccess,
+		errorEl: enquiryError,
+		beforeSubmit: (form) => {
+			const treatment = form.querySelector<HTMLSelectElement>('[data-treatment-field]')?.value ?? '';
+			const country = form.querySelector<HTMLSelectElement>('[name="country"]')?.value ?? '';
+			const phoneCode = form.querySelector<HTMLInputElement>('[name="phoneCode"]')?.value ?? '';
+			const phoneInput = form.querySelector<HTMLInputElement>('[data-phone-field]');
+			const phone = phoneInput?.value ?? '';
+			const messageField = form.querySelector<HTMLInputElement>('[data-message-field]');
+
+			if (phoneInput && phone && !phone.startsWith('+')) {
+				phoneInput.value = `${phoneCode} ${phone}`;
+			}
+
+			if (messageField) {
+				messageField.value = [
+					'Quick quote request from the homepage.',
+					`Treatment: ${treatment}`,
+					country ? `Country: ${country}` : '',
+				]
+					.filter(Boolean)
+					.join('\n');
+			}
+		},
+	});
+
+	const fileInput = enquiryForm?.querySelector<HTMLInputElement>('[data-file-input]');
+	const fileName = enquiryForm?.querySelector('[data-file-name]');
+
+	fileInput?.addEventListener('change', () => {
+		if (fileName) {
+			fileName.textContent = fileInput.files?.[0]?.name ?? fileName.dataset.fileFallback ?? '';
+		}
+	});
+</script>
+
+<style>
+	.hero {
+		font-family: var(--font-body);
+	}
+
+	.hero-stage {
+		position: relative;
+		background: var(--gradient-hero);
+		padding: 56px 24px 96px;
+	}
+
+	.hero-showcase {
+		position: relative;
+		max-width: 1200px;
+		margin: 0 auto;
+		padding: 0 24px;
+	}
+
+	.hero-showcase__inner {
+		position: relative;
+		z-index: 1;
+		max-width: 560px;
+	}
+
+	.hero-showcase__decoration {
+		position: absolute;
+		top: 50%;
+		inset-inline-start: -60px;
+		transform: translateY(-50%);
+		width: 420px;
+		height: 420px;
+		color: var(--color-green);
+		pointer-events: none;
+		z-index: 0;
+	}
+
+	.hero-showcase__frame {
+		position: relative;
+		z-index: 1;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--shadow-card);
+		border: 1px solid rgba(255, 255, 255, 0.6);
+	}
+
+	.hero-showcase__frame :global(img) {
+		display: block;
+		width: 100%;
+		height: auto;
+	}
+
+	.hero-showcase__doctor {
+		position: relative;
+		z-index: 2;
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		width: fit-content;
+		max-width: calc(100% - 32px);
+		margin: -28px auto 0;
+		padding: 10px 20px 10px 10px;
+		border-radius: 999px;
+		background: var(--color-bg-white);
+		box-shadow: var(--shadow-card);
+		text-decoration: none;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.hero-showcase__doctor:hover {
+		transform: translateY(-2px);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.hero-showcase__doctor-photo-wrap {
+		position: relative;
+		flex-shrink: 0;
+	}
+
+	.hero-showcase__doctor-photo {
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		object-fit: cover;
+		display: block;
+	}
+
+	.hero-showcase__doctor-avatar {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 48px;
+		height: 48px;
+		border-radius: 50%;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-family: var(--font-heading);
+		font-size: 18px;
+		font-weight: 700;
+	}
+
+	.hero-showcase__doctor-badge {
+		position: absolute;
+		inset-inline-end: -2px;
+		bottom: -2px;
+		display: flex;
+		width: 16px;
+		height: 16px;
+		border-radius: 50%;
+		background: var(--color-bg-white);
+		color: var(--color-gold);
+		border: 2px solid var(--color-bg-white);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.hero-showcase__doctor-badge :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-showcase__doctor-info {
+		display: flex;
+		flex-direction: column;
+		gap: 1px;
+		min-width: 0;
+	}
+
+	.hero-showcase__doctor-info strong {
+		font-family: var(--font-heading);
+		font-size: 14.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		white-space: nowrap;
+	}
+
+	.hero-showcase__doctor-info span {
+		font-size: 12px;
+		color: var(--color-text-secondary);
+		white-space: nowrap;
+		overflow: hidden;
+		text-overflow: ellipsis;
+	}
+
+	.hero-showcase__doctor-arrow {
+		display: flex;
+		flex-shrink: 0;
+		width: 20px;
+		height: 20px;
+		color: var(--color-teal);
+		margin-inline-start: 4px;
+	}
+
+	.hero-showcase__doctor-arrow :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-trust {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 32px;
+		padding: 22px 24px;
+		background: var(--gradient-premium);
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 14px;
+	}
+
+	.hero-trust__item strong {
+		color: #ffffff;
+		font-weight: 700;
+		margin-inline-end: 6px;
+	}
+
+	/* Glassmorphism enquiry card */
+	.hero-enquiry {
+		position: relative;
+		z-index: 6;
+		width: calc(100% - 48px);
+		max-width: 420px;
+		margin: -40px auto 0;
+		padding: 28px 26px 26px;
+		border-radius: var(--radius-lg);
+		background: rgba(255, 255, 255, 0.6);
+		backdrop-filter: blur(20px) saturate(180%);
+		-webkit-backdrop-filter: blur(20px) saturate(180%);
+		border: 1px solid rgba(255, 255, 255, 0.6);
+		box-shadow: var(--shadow-card);
+	}
+
+	.hero-enquiry__header h2 {
+		font-family: var(--font-heading);
+		font-size: 19px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 4px;
+	}
+
+	.hero-enquiry__header p {
+		font-size: 13px;
+		color: var(--color-text-secondary);
+		margin: 0 0 18px;
+	}
+
+	.hero-enquiry__form {
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.hero-enquiry__field {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 0 12px;
+		border-radius: 12px;
+		border: 1px solid var(--color-border-light);
+		background: rgba(255, 255, 255, 0.85);
+	}
+
+	.hero-enquiry__field span {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		color: var(--color-primary);
+	}
+
+	.hero-enquiry__field span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-enquiry__field select,
+	.hero-enquiry__field input {
+		flex: 1;
+		min-width: 0;
+		border: none;
+		background: transparent;
+		padding: 12px 4px;
+		font-size: 14px;
+		font-family: var(--font-body);
+		color: var(--color-text-primary);
+		appearance: none;
+	}
+
+	.hero-enquiry__field select:invalid {
+		color: var(--color-text-light);
+	}
+
+	.hero-enquiry__row {
+		display: grid;
+		grid-template-columns: 96px 1fr;
+		gap: 10px;
+	}
+
+	.hero-enquiry__field--code input {
+		width: 100%;
+		text-align: center;
+	}
+
+	.hero-enquiry__file {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		padding: 11px 12px;
+		border-radius: 12px;
+		border: 1px dashed var(--color-border-light);
+		background: rgba(255, 255, 255, 0.85);
+		cursor: pointer;
+		transition: border-color 0.15s ease;
+	}
+
+	.hero-enquiry__file:hover {
+		border-color: var(--color-teal);
+	}
+
+	.hero-enquiry__file span:first-child {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		color: var(--color-primary);
+	}
+
+	.hero-enquiry__file span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-enquiry__file span:nth-child(2) {
+		flex: 1;
+		min-width: 0;
+		font-size: 12.5px;
+		color: var(--color-text-secondary);
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+	}
+
+	.hero-enquiry__file input[data-file-input] {
+		display: none;
+	}
+
+	.hero-enquiry__field input::placeholder {
+		color: var(--color-text-light);
+	}
+
+	.hero-enquiry__field select:focus,
+	.hero-enquiry__field input:focus {
+		outline: none;
+	}
+
+	.hero-enquiry__field:focus-within {
+		border-color: var(--color-teal);
+	}
+
+	.hero-enquiry__submit {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		margin-top: 4px;
+		padding: 13px 20px;
+		border: none;
+		border-radius: 12px;
+		background: var(--gradient-cta);
+		color: #ffffff;
+		font-size: 15px;
+		font-weight: 600;
+		cursor: pointer;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.hero-enquiry__submit:hover {
+		transform: translateY(-1px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.hero-enquiry__submit :global(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	.hero-enquiry__privacy {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		margin: 12px 0 0;
+		font-size: 11.5px;
+		color: var(--color-text-muted);
+	}
+
+	.hero-enquiry__privacy span {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		color: var(--color-green);
+		flex-shrink: 0;
+	}
+
+	.hero-enquiry__privacy span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hero-enquiry__success {
+		margin: 12px 0 0;
+		padding: 10px 12px;
+		border-radius: 10px;
+		background: rgba(34, 197, 94, 0.12);
+		color: #15803d;
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.hero-enquiry__error {
+		margin: 12px 0 0;
+		padding: 10px 12px;
+		border-radius: 10px;
+		background: rgba(239, 68, 68, 0.1);
+		color: var(--color-danger);
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.hero-enquiry__honeypot {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	@media screen and (min-width: 1180px) {
+		.hero-enquiry {
+			position: absolute;
+			top: 50%;
+			inset-inline-end: 5%;
+			transform: translateY(-50%);
+			margin: 0;
+			width: 360px;
+		}
+	}
+
+	@media screen and (max-width: 768px) {
+		.hero-stage {
+			padding: 40px 16px 64px;
+		}
+
+		.hero-showcase {
+			padding: 0;
+		}
+
+		.hero-showcase__inner {
+			max-width: none;
+		}
+
+		.hero-showcase__decoration {
+			width: 260px;
+			height: 260px;
+			inset-inline-start: -80px;
+			top: -30px;
+			transform: none;
+		}
+
+		.hero-trust {
+			gap: 16px 24px;
+			font-size: 13px;
+		}
+
+		.hero-enquiry {
+			margin-top: 24px;
+		}
+	}
+</style>

@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DestinationsGrid from '../../components/Destinations.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { destinations } from '../../data/destinations';
+import { bnDestinations } from '../../i18n/bn-destinations';
+import { bnDestinationsPage } from '../../i18n/bn-pages';
+
+const translatedDestinations = destinations.map((destination) => ({
+	...destination,
+	...bnDestinations[destination.slug],
+}));
+---
+
+<Layout
+	title="ভারতে মেডিকেল ট্যুরিজম গন্তব্য | AlisPro MediTours"
+	description="AlisPro MediTours-এর সাথে ভারতের শীর্ষ মেডিকেল ট্যুরিজম গন্তব্যগুলো আবিষ্কার করুন। শীর্ষস্থানীয় হাসপাতাল, বিশেষজ্ঞ ডাক্তার, উন্নত চিকিৎসা এবং ব্যক্তিগতকৃত স্বাস্থ্যসেবা সহায়তা খুঁজুন।"
+	locale="bn"
+	alternates={[
+		{ locale: 'en', href: '/destinations' },
+		{ locale: 'fr', href: '/fr/destinations' },
+		{ locale: 'ru', href: '/ru/destinations' },
+		{ locale: 'bn', href: '/bn/destinations' },
+		{ locale: 'ro', href: '/ro/destinations' },
+		{ locale: 'es', href: '/es/destinations' },
+		{ locale: 'pt', href: '/pt/destinations' },
+		{ locale: 'vi', href: '/vi/destinations' },
+		{ locale: 'ar', href: '/ar/destinations' },
+	]}
+>
+
+	<DestinationsGrid
+		basePath="/bn"
+		badge={bnDestinationsPage.grid.badge}
+		title={bnDestinationsPage.grid.title}
+		highlight={bnDestinationsPage.grid.highlight}
+		subtitle={bnDestinationsPage.grid.subtitle}
+		destinations={translatedDestinations}
+		exploreLabel={bnDestinationsPage.grid.exploreLabel}
+	/>
+
+	<CostEstimateCta
+		title="আপনার চিকিৎসার সঠিক প্রাক্কলন চান?"
+		text="আপনার মেডিকেল রিপোর্ট আপলোড করুন এবং ২৪ ঘণ্টার মধ্যে আমাদের বিশেষজ্ঞদের কাছ থেকে স্বচ্ছ খরচের প্রাক্কলনসহ একটি ব্যক্তিগতকৃত চিকিৎসা পরিকল্পনা পান।"
+		primaryLabel="বিনামূল্যে পরামর্শ নিন"
+		primaryHref="/bn/contact"
+		secondaryLabel="মেডিকেল রিপোর্ট আপলোড করুন"
+		secondaryHref="/bn/contact#enquiry-form"
+	/>
+</Layout>

@@ -1,0 +1,535 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../../layouts/Layout.astro';
+import PageHeader from '../../../components/PageHeader.astro';
+import EnquiryCard from '../../../components/EnquiryCard.astro';
+import CostEstimateCta from '../../../components/CostEstimateCta.astro';
+import OurPartnerHospitals from '../../../components/OurPartnerHospitals.astro';
+import iconAward from 'bootstrap-icons/icons/award-fill.svg?raw';
+import iconBed from 'bootstrap-icons/icons/building-fill-check.svg?raw';
+import iconGeo from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconDownload from 'bootstrap-icons/icons/file-earmark-arrow-down.svg?raw';
+import iconCheck from 'bootstrap-icons/icons/check-circle-fill.svg?raw';
+import iconCalendar from 'bootstrap-icons/icons/calendar-check-fill.svg?raw';
+import iconCert from 'bootstrap-icons/icons/patch-check-fill.svg?raw';
+import iconHospital from 'bootstrap-icons/icons/hospital-fill.svg?raw';
+import iconPersonBadge from 'bootstrap-icons/icons/person-badge-fill.svg?raw';
+import { hospitals, type HospitalData } from '../../../data/hospitals';
+import { doctors } from '../../../data/doctors';
+import { destinations } from '../../../data/destinations';
+import { hospitalDetails } from '../../../data/hospitalDetails';
+import { detailLabels } from '../../../i18n/hospitalNames';
+import { getOverview } from '../../../i18n/overviews';
+import { getHospitalAbout } from '../../../i18n/about';
+import { translateHospital, translateHospitals } from '../../../i18n/pt-hospitals';
+
+export function getStaticPaths() {
+	return hospitals.map((hospital) => ({
+		params: { slug: hospital.slug },
+		props: { hospital },
+	}));
+}
+
+const { hospital: baseHospital } = Astro.props as { hospital: HospitalData };
+const hospital = translateHospital(baseHospital);
+
+const destination = destinations.find((d) => d.slug === baseHospital.citySlug);
+
+// Doctors whose profile lists this hospital — best-effort text match, since
+// a doctor's `hospital` field is free text, not a foreign key to a slug.
+const cityToken = baseHospital.city.split(/[,/]/)[0].trim();
+const affiliatedDoctors = doctors.filter((d) => d.hospital.includes(baseHospital.name) && d.hospital.includes(cityToken));
+
+const relatedHospitals = translateHospitals(
+	hospitals.filter((h) => h.citySlug === baseHospital.citySlug && h.slug !== baseHospital.slug).slice(0, 3),
+);
+
+const cityLabel = hospital.city.split(/[,/]/)[0].trim();
+
+const details = hospitalDetails[baseHospital.slug];
+const labels = detailLabels['pt'];
+const overview = getOverview(baseHospital.slug, 'pt', baseHospital.name, hospital.name);
+const aboutSections = getHospitalAbout(baseHospital.slug, 'pt', baseHospital.name, hospital.name, baseHospital.citySlug, baseHospital.city);
+---
+
+<Layout
+	title={`${hospital.name}, ${hospital.city} | Perfil do hospital | AlisPro MediTours`}
+	description={`${hospital.name} em ${hospital.city}, ${hospital.country} — ${hospital.accreditation}. ${hospital.about}`.slice(0, 155)}
+	locale="pt"
+	alternates={[{ locale: 'en', href: `/hospitals/${hospital.slug}` }]}
+>
+	<PageHeader
+		badge={hospital.accreditation}
+		title={hospital.name}
+		subtitle={`${hospital.city}, ${hospital.country}`}
+		breadcrumbs={[
+			{ label: 'Destinations', href: '/pt/destinations' },
+			...(destination ? [{ label: destination.city, href: `/pt/destinations/${destination.slug}` }] : []),
+			{ label: hospital.name },
+		]}
+		homeHref="/pt/"
+		homeLabel="Início"
+	/>
+
+	<section class="hospital-detail">
+		<div class="hospital-detail__inner">
+			<div class="hospital-detail__main">
+				{
+					hospital.image && (
+						<div class="hospital-detail__banner">
+							<Image src={hospital.image} alt={hospital.name} width={960} height={420} />
+						</div>
+					)
+				}
+
+				<div class="hospital-detail__section">
+					<h2>Sobre {hospital.name}</h2>
+					<p>{hospital.about}</p>
+					{
+						aboutSections ? (
+							<div class="hospital-detail__long">
+								{aboutSections.map((s) => (
+									<>
+										<h3>{s.title}</h3>
+										{s.paragraphs.map((p) => (
+											<p>{p}</p>
+										))}
+									</>
+								))}
+							</div>
+						) : (
+							overview && <p>{overview}</p>
+						)
+					}
+				</div>
+
+				<div class="hospital-detail__section">
+					<h2>Especialidades e serviços</h2>
+					<ul class="hospital-detail__specialties">
+						{
+							hospital.specialties.map((specialty) => (
+								<li>
+									<span set:html={iconCheck} aria-hidden="true" />
+									{specialty}
+								</li>
+							))
+						}
+					</ul>
+				</div>
+
+				{
+					affiliatedDoctors.length > 0 && (
+						<div class="hospital-detail__section">
+							<h2>Médicos no {hospital.name}</h2>
+							<div class="hospital-detail__doctors">
+								{affiliatedDoctors.map((doc) => (
+									<a class="hospital-doctor-card" href={`/pt/doctors/${doc.slug}`}>
+										<span class="hospital-doctor-card__icon" set:html={iconPersonBadge} aria-hidden="true" />
+										<span class="hospital-doctor-card__text">
+											<strong>{doc.name}</strong>
+											<span>{doc.specialty}</span>
+										</span>
+									</a>
+								))}
+							</div>
+						</div>
+					)
+				}
+
+				{
+					hospital.profileUrl && (
+						<a class="hospital-detail__download" href={hospital.profileUrl} target="_blank" rel="noopener">
+							<span set:html={iconDownload} aria-hidden="true" />
+							Baixar o perfil do hospital
+						</a>
+					)
+				}
+			</div>
+
+			<aside class="hospital-detail__sidebar">
+				<div class="hospital-detail__sidebar-sticky">
+					<div class="hospital-facts">
+						<h3>
+							<span set:html={iconHospital} aria-hidden="true" />
+							Informações essenciais
+						</h3>
+						<ul>
+							<li>
+								<span set:html={iconAward} aria-hidden="true" />
+								<span>
+									<strong>Credenciamento</strong>
+									<span>{hospital.accreditation}</span>
+								</span>
+							</li>
+							<li>
+								<span set:html={iconBed} aria-hidden="true" />
+								<span>
+									<strong>Capacidade</strong>
+									<span>{hospital.beds}</span>
+								</span>
+							</li>
+							<li>
+								<span set:html={iconGeo} aria-hidden="true" />
+								<span>
+									<strong>Localização</strong>
+									<span>
+										{hospital.city}, {hospital.country}
+									</span>
+								</span>
+							</li>
+							{
+								details?.established && (
+									<li>
+										<span set:html={iconCalendar} aria-hidden="true" />
+										<span>
+											<strong>{labels.established}</strong>
+											<span>{details.established}</span>
+										</span>
+									</li>
+								)
+							}
+							{
+								details?.address && (
+									<li>
+										<span set:html={iconGeo} aria-hidden="true" />
+										<span>
+											<strong>{labels.address}</strong>
+											<span>{details.address}</span>
+										</span>
+									</li>
+								)
+							}
+							{
+								details && details.certs.length > 0 && (
+									<li>
+										<span set:html={iconCert} aria-hidden="true" />
+										<span>
+											<strong>{labels.certifications}</strong>
+											<span>{details.certs.join(' · ')}</span>
+										</span>
+									</li>
+								)
+							}
+						</ul>
+					</div>
+					<EnquiryCard title="Planeie o seu tratamento" subtitle={`Envie o seu caso à nossa equipa de coordenação para ${hospital.name}`} />
+				</div>
+			</aside>
+		</div>
+	</section>
+
+	{
+		relatedHospitals.length > 0 && (
+			<OurPartnerHospitals
+				badge="Nas proximidades"
+				title="Outros hospitais em"
+				highlight={cityLabel}
+				subtitle="Outros hospitais credenciados na mesma cidade, caso queira comparar opções."
+				hospitals={relatedHospitals}
+				viewMoreHref={`/pt/destinations/${hospital.citySlug}`}
+				basePath="/fr"
+			/>
+		)
+	}
+
+	<CostEstimateCta
+		title="Quer uma estimativa exata do seu tratamento?"
+		text="Envie os seus relatórios médicos e receba um plano de tratamento personalizado com uma estimativa de custo transparente dos nossos especialistas em 24 horas."
+		primaryLabel="Obter orçamento gratuito"
+		primaryHref="/pt/contact"
+		secondaryLabel="Enviar relatórios médicos"
+		secondaryHref="/pt/contact#enquiry-form"
+	/>
+</Layout>
+
+<style>
+	.hospital-detail {
+		padding: 56px 24px;
+		font-family: var(--font-body);
+	}
+
+	.hospital-detail__inner {
+		max-width: 1100px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 320px;
+		gap: 40px;
+		align-items: start;
+	}
+
+	.hospital-detail__main {
+		min-width: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 32px;
+	}
+
+	.hospital-detail__banner {
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.hospital-detail__banner :global(img) {
+		width: 100%;
+		height: auto;
+		display: block;
+	}
+
+	.hospital-detail__section h2 {
+		font-family: var(--font-heading);
+		font-size: 1.35rem;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 12px;
+	}
+
+	.hospital-detail__long h3 {
+		font-family: var(--font-heading);
+		font-size: 1.1rem;
+		font-weight: 600;
+		color: var(--color-text-primary);
+		margin: 24px 0 8px;
+	}
+
+	.hospital-detail__section .hospital-detail__long p {
+		margin: 0 0 12px;
+	}
+
+	.hospital-detail__section p {
+		font-size: 15px;
+		line-height: 1.7;
+		color: var(--color-text-secondary);
+		margin: 0;
+	}
+
+	.hospital-detail__specialties {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: grid;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		gap: 10px;
+	}
+
+	.hospital-detail__specialties li {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		padding: 10px 14px;
+		background: var(--color-bg-soft-blue);
+		border-radius: var(--radius-md);
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--color-text-primary);
+	}
+
+	.hospital-detail__specialties li span:first-child {
+		display: flex;
+		width: 15px;
+		height: 15px;
+		flex-shrink: 0;
+		color: var(--color-teal);
+	}
+
+	.hospital-detail__specialties li span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hospital-detail__doctors {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 12px;
+	}
+
+	.hospital-doctor-card {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 14px;
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.hospital-doctor-card:hover {
+		border-color: var(--color-teal);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.hospital-doctor-card__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		flex-shrink: 0;
+		border-radius: 50%;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-teal);
+	}
+
+	.hospital-doctor-card__icon :global(svg) {
+		width: 15px;
+		height: 15px;
+	}
+
+	.hospital-doctor-card__text {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		min-width: 0;
+	}
+
+	.hospital-doctor-card__text strong {
+		font-size: 13.5px;
+		color: var(--color-text-primary);
+	}
+
+	.hospital-doctor-card__text span {
+		font-size: 12.5px;
+		color: var(--color-text-secondary);
+	}
+
+	.hospital-detail__download {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		align-self: flex-start;
+		padding: 12px 22px;
+		border-radius: 999px;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.hospital-detail__download:hover {
+		transform: translateY(-1px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.hospital-detail__download :global(svg) {
+		width: 15px;
+		height: 15px;
+	}
+
+	.hospital-detail__sidebar {
+		min-width: 0;
+	}
+
+	.hospital-detail__sidebar-sticky {
+		position: sticky;
+		top: 96px;
+		display: flex;
+		flex-direction: column;
+		gap: 20px;
+	}
+
+	.hospital-facts {
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+		padding: 22px;
+	}
+
+	.hospital-facts h3 {
+		display: flex;
+		align-items: center;
+		gap: 8px;
+		font-family: var(--font-heading);
+		font-size: 1.05rem;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 16px;
+	}
+
+	.hospital-facts h3 span:first-child {
+		display: flex;
+		width: 18px;
+		height: 18px;
+		color: var(--color-teal);
+	}
+
+	.hospital-facts h3 span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hospital-facts ul {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 14px;
+	}
+
+	.hospital-facts li {
+		display: flex;
+		align-items: flex-start;
+		gap: 10px;
+	}
+
+	.hospital-facts li > span:first-child {
+		display: flex;
+		width: 16px;
+		height: 16px;
+		margin-top: 2px;
+		flex-shrink: 0;
+		color: var(--color-teal);
+	}
+
+	.hospital-facts li > span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.hospital-facts li > span:last-child {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+	}
+
+	.hospital-facts li strong {
+		font-size: 12.5px;
+		font-weight: 700;
+		color: var(--color-text-muted);
+		text-transform: uppercase;
+		letter-spacing: 0.04em;
+	}
+
+	.hospital-facts li > span:last-child > span {
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--color-text-primary);
+	}
+
+	@media screen and (max-width: 860px) {
+		.hospital-detail {
+			padding: 40px 16px;
+		}
+
+		.hospital-detail__inner {
+			grid-template-columns: 1fr;
+		}
+
+		.hospital-detail__specialties {
+			grid-template-columns: 1fr;
+		}
+
+		.hospital-detail__sidebar-sticky {
+			position: static;
+		}
+	}
+</style>

@@ -1,0 +1,629 @@
+---
+import iconChevron from 'bootstrap-icons/icons/chevron-down.svg?raw';
+import iconShield from 'bootstrap-icons/icons/shield-fill-check.svg?raw';
+
+export interface NavLink {
+	label: string;
+	href: string;
+	children?: { label: string; href: string }[];
+}
+
+export interface Props {
+	links?: NavLink[];
+	ctaLabel?: string;
+	ctaHref?: string;
+	brand?: string;
+	tagline?: string;
+	insuranceLabel?: string;
+	locale?: string;
+}
+
+const {
+	links = [
+		{ label: 'Home', href: '/' },
+		{ label: 'Doctors', href: '/doctors' },
+		{ label: 'Destinations', href: '/destinations' },
+		{ label: 'Treatments', href: '/treatments' },
+		{ label: 'About', href: '/about' },
+		{ label: 'Contact', href: '/contact' },
+		
+	],
+	ctaLabel = 'Get a Free Quote',
+	ctaHref = '/contact',
+	brand = 'Alis Pro Med Tour',
+	tagline = 'Your Medical Consultant',
+	insuranceLabel = 'Check Insurance Eligibility',
+	locale = 'en',
+} = Astro.props;
+
+const langOptions = [
+	{ value: 'en', label: 'English' },
+	{ value: 'fr', label: 'Français' },
+	{ value: 'ar', label: 'العربية' },
+	{ value: 'ru', label: 'Русский' },
+	{ value: 'bn', label: 'বাংলা' },
+	{ value: 'ro', label: 'Română' },
+	{ value: 'es', label: 'Español' },
+	{ value: 'pt', label: 'Português' },
+	{ value: 'vi', label: 'Tiếng Việt' },
+];
+---
+
+<div class="navbar-top">
+	<p class="navbar-top__text">
+		<span class="navbar-top__letter">A</span>dvanced <span class="navbar-top__letter">L</span>ife <span class="navbar-top__letter">I</span>nnovation <span class="navbar-top__letter">S</span>ystem for <span class="navbar-top__letter">Pro</span>fessionals
+	</p>
+</div>
+
+<header class="navbar" id="site-navbar">
+	<nav class="navbar__inner">
+		<a href="/" class="navbar__brand" aria-label={`${brand} home`}>
+			<img src="/images/Alis_Logo.png" alt={brand} class="navbar__brand-logo" />
+			<span class="navbar__brand-tagline">{tagline}</span>
+		</a>
+
+		<ul class="navbar__links" id="navbar-links">
+			{
+				links.map((link) =>
+					link.children ? (
+						<li class="navbar__dropdown">
+							<button type="button" class="navbar__dropdown-toggle" aria-expanded="false">
+								{link.label}
+								<span class="navbar__dropdown-icon" set:html={iconChevron} aria-hidden="true" />
+							</button>
+							<ul class="navbar__dropdown-menu">
+								{link.children.map((child) => (
+									<li>
+										<a href={child.href}>{child.label}</a>
+									</li>
+								))}
+							</ul>
+						</li>
+					) : (
+						<li>
+							<a href={link.href}>{link.label}</a>
+						</li>
+					)
+				)
+			}
+		</ul>
+
+		<div class="navbar__actions">
+			<select class="navbar__lang" id="navbar-lang" aria-label="Select Language" data-current={locale}>
+				{
+					langOptions.map((opt) => (
+						<option value={opt.value} selected={opt.value === locale}>
+							{opt.label}
+						</option>
+					))
+				}
+			</select>
+			<button type="button" class="navbar__insurance" data-insurance-open aria-label={insuranceLabel}>
+				<span set:html={iconShield} aria-hidden="true" />
+				<span class="navbar__insurance-label">{insuranceLabel}</span>
+			</button>
+			<a class="navbar__cta" href={ctaHref}>{ctaLabel}</a>
+			<button
+				class="navbar__toggle"
+				id="navbar-toggle"
+				type="button"
+				aria-expanded="false"
+				aria-controls="navbar-links"
+				aria-label="Toggle navigation menu"
+			>
+				<span></span>
+				<span></span>
+				<span></span>
+			</button>
+		</div>
+	</nav>
+</header>
+
+<script>
+	const header = document.getElementById('site-navbar');
+	const toggle = document.getElementById('navbar-toggle');
+	const links = document.getElementById('navbar-links');
+
+	toggle?.addEventListener('click', () => {
+		const isOpen = links?.classList.toggle('navbar__links--open');
+		toggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+	});
+
+	links?.querySelectorAll(':scope > li > a').forEach((link) => {
+		link.addEventListener('click', () => {
+			links.classList.remove('navbar__links--open');
+			toggle?.setAttribute('aria-expanded', 'false');
+		});
+	});
+
+	// Dropdown ("More") — click-to-toggle so it works on both touch and desktop
+	document.querySelectorAll<HTMLButtonElement>('.navbar__dropdown-toggle').forEach((dropdownToggle) => {
+		const item = dropdownToggle.closest('.navbar__dropdown');
+
+		dropdownToggle.addEventListener('click', (e) => {
+			e.stopPropagation();
+			const isOpen = item?.classList.toggle('navbar__dropdown--open');
+			dropdownToggle.setAttribute('aria-expanded', String(Boolean(isOpen)));
+		});
+
+		item?.querySelectorAll('.navbar__dropdown-menu a').forEach((child) => {
+			child.addEventListener('click', () => {
+				item.classList.remove('navbar__dropdown--open');
+				dropdownToggle.setAttribute('aria-expanded', 'false');
+				links?.classList.remove('navbar__links--open');
+				toggle?.setAttribute('aria-expanded', 'false');
+			});
+		});
+	});
+
+	document.addEventListener('click', (e) => {
+		document.querySelectorAll('.navbar__dropdown--open').forEach((item) => {
+			if (!(e.target instanceof Node) || !item.contains(e.target)) {
+				item.classList.remove('navbar__dropdown--open');
+				item.querySelector('.navbar__dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+			}
+		});
+	});
+
+	// Locale switcher — only en/fr have real translated routes today.
+	// Other options are inert placeholders until those routes exist.
+	const localeRoutes: Record<string, string> = { en: '/', fr: '/fr/', ru: '/ru/', bn: '/bn/', ro: '/ro/', es: '/es/', pt: '/pt/', vi: '/vi/', ar: '/ar/' };
+	const langSelect = document.getElementById('navbar-lang') as HTMLSelectElement | null;
+
+	langSelect?.addEventListener('change', () => {
+		const target = localeRoutes[langSelect.value];
+		if (target) {
+			// Remembered as a "necessary" preference cookie — see CookieConsent.astro,
+			// which reads this to offer a returning visitor their chosen language.
+			const d = new Date();
+			d.setTime(d.getTime() + 365 * 24 * 60 * 60 * 1000);
+			document.cookie = `site_locale=${langSelect.value};expires=${d.toUTCString()};path=/;SameSite=Lax`;
+			window.location.href = target;
+		} else {
+			langSelect.value = langSelect.dataset.current ?? 'en';
+		}
+	});
+
+	const onScroll = () => {
+		header?.classList.toggle('navbar--scrolled', window.scrollY > 8);
+	};
+	onScroll();
+	window.addEventListener('scroll', onScroll, { passive: true });
+</script>
+
+<style>
+	.navbar-top {
+		background: var(--gradient-premium);
+		padding: 7px 24px;
+		font-family: var(--font-body);
+	}
+
+	.navbar-top__text {
+		max-width: 1200px;
+		margin: 0 auto;
+		text-align: center;
+		color: rgba(255, 255, 255, 0.85);
+		font-size: 12px;
+		font-weight: 600;
+		letter-spacing: 0.04em;
+	}
+
+	.navbar-top__letter {
+		color: var(--color-gold);
+		font-weight: 800;
+		font-size: 1.1em;
+	}
+
+	@media screen and (max-width: 640px) {
+		.navbar-top {
+			padding: 6px 16px;
+		}
+
+		.navbar-top__text {
+			font-size: 10.5px;
+		}
+	}
+
+	.navbar {
+		position: sticky;
+		top: 0;
+		z-index: 100;
+		width: 100%;
+		background: transparent;
+		border-bottom: 1px solid transparent;
+		transition:
+			background 0.25s ease,
+			box-shadow 0.25s ease,
+			border-color 0.25s ease;
+		font-family: var(--font-body);
+	}
+
+	.navbar--scrolled {
+		background: rgba(255, 255, 255, 0.92);
+		backdrop-filter: blur(16px);
+		-webkit-backdrop-filter: blur(16px);
+		border-bottom-color: var(--color-border-light);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.navbar__inner {
+		max-width: 1200px;
+		margin: 0 auto;
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 24px;
+		padding: 14px 24px;
+	}
+
+	.navbar__brand {
+		display: flex;
+		flex-direction: column;
+		align-items: flex-start;
+		gap: 2px;
+		text-decoration: none;
+		flex-shrink: 0;
+	}
+
+	.navbar__brand-logo {
+		display: block;
+		height: 38px;
+		width: auto;
+	}
+
+	.navbar__brand-tagline {
+		font-family: var(--font-heading);
+		font-size: 10px;
+		font-weight: 600;
+		letter-spacing: 0.12em;
+		text-transform: uppercase;
+		color: var(--color-text-muted);
+		padding-inline-start: 2px;
+	}
+
+	.navbar__links {
+		display: flex;
+		align-items: center;
+		gap: 28px;
+		list-style: none;
+		margin: 0;
+		padding: 0;
+	}
+
+	.navbar__links a {
+		display: block;
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		font-size: 15px;
+		font-weight: 500;
+		padding: 8px 2px;
+		position: relative;
+		transition: color 0.2s ease;
+	}
+
+	.navbar__links a::after {
+		content: '';
+		position: absolute;
+		left: 0;
+		right: 0;
+		bottom: 0;
+		height: 2px;
+		border-radius: 2px;
+		background: var(--gradient-cta);
+		transform: scaleX(0);
+		transform-origin: left;
+		transition: transform 0.2s ease;
+	}
+
+	.navbar__links a:hover {
+		color: var(--color-primary);
+	}
+
+	.navbar__links a:hover::after {
+		transform: scaleX(1);
+	}
+
+	.navbar__dropdown {
+		position: relative;
+	}
+
+	.navbar__dropdown-toggle {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		background: none;
+		border: none;
+		font-family: inherit;
+		color: var(--color-text-secondary);
+		font-size: 15px;
+		font-weight: 500;
+		padding: 8px 2px;
+		cursor: pointer;
+		transition: color 0.2s ease;
+	}
+
+	.navbar__dropdown-toggle:hover {
+		color: var(--color-primary);
+	}
+
+	.navbar__dropdown-icon {
+		display: flex;
+		width: 12px;
+		height: 12px;
+		flex-shrink: 0;
+		transition: transform 0.2s ease;
+	}
+
+	.navbar__dropdown-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.navbar__dropdown--open .navbar__dropdown-icon {
+		transform: rotate(180deg);
+	}
+
+	.navbar__dropdown-menu {
+		position: absolute;
+		top: 100%;
+		inset-inline-start: 0;
+		z-index: 20;
+		min-width: 170px;
+		margin-top: 10px;
+		padding: 8px;
+		list-style: none;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-card);
+		opacity: 0;
+		visibility: hidden;
+		transform: translateY(-6px);
+		transition:
+			opacity 0.2s ease,
+			transform 0.2s ease,
+			visibility 0.2s ease;
+	}
+
+	.navbar__dropdown--open .navbar__dropdown-menu {
+		opacity: 1;
+		visibility: visible;
+		transform: translateY(0);
+	}
+
+	.navbar__dropdown-menu a {
+		display: block;
+		padding: 9px 12px;
+		border-radius: 8px;
+		font-size: 14px;
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		transition:
+			background 0.15s ease,
+			color 0.15s ease;
+	}
+
+	.navbar__dropdown-menu a:hover {
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+	}
+
+	.navbar__actions {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		flex-shrink: 0;
+	}
+
+	.navbar__lang {
+		flex-shrink: 0;
+		max-width: 130px;
+		padding: 8px 10px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-text-secondary);
+		font-family: inherit;
+		font-size: 13px;
+		font-weight: 600;
+		cursor: pointer;
+		transition: border-color 0.15s ease;
+	}
+
+	.navbar__lang:hover {
+		border-color: var(--color-teal);
+	}
+
+	.navbar__cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		padding: 10px 20px;
+		border-radius: 999px;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 14px;
+		font-weight: 600;
+		text-decoration: none;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease,
+			background 0.15s ease;
+		white-space: nowrap;
+	}
+
+	.navbar__cta:hover {
+		background: var(--btn-primary-hover);
+		transform: translateY(-1px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.navbar__insurance {
+		display: inline-flex;
+		align-items: center;
+		gap: 7px;
+		padding: 9px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		font-family: inherit;
+		font-size: 13.5px;
+		font-weight: 600;
+		white-space: nowrap;
+		cursor: pointer;
+		transition:
+			background 0.15s ease,
+			border-color 0.15s ease,
+			transform 0.15s ease;
+	}
+
+	.navbar__insurance:hover {
+		background: var(--color-bg-soft-blue);
+		border-color: var(--color-teal);
+		transform: translateY(-1px);
+	}
+
+	.navbar__insurance span:first-child {
+		display: flex;
+		width: 15px;
+		height: 15px;
+		flex-shrink: 0;
+		color: var(--color-teal);
+	}
+
+	.navbar__insurance span:first-child :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.navbar__toggle {
+		display: none;
+		flex-direction: column;
+		justify-content: center;
+		align-items: center;
+		gap: 5px;
+		width: 38px;
+		height: 38px;
+		border: none;
+		border-radius: 8px;
+		background: transparent;
+		cursor: pointer;
+	}
+
+	.navbar__toggle:hover {
+		background: var(--color-bg-soft-blue);
+	}
+
+	.navbar__toggle span {
+		display: block;
+		width: 20px;
+		height: 2px;
+		border-radius: 2px;
+		background: var(--color-text-primary);
+		transition: transform 0.2s ease, opacity 0.2s ease;
+	}
+
+	.navbar__toggle[aria-expanded='true'] span:nth-child(1) {
+		transform: translateY(7px) rotate(45deg);
+	}
+
+	.navbar__toggle[aria-expanded='true'] span:nth-child(2) {
+		opacity: 0;
+	}
+
+	.navbar__toggle[aria-expanded='true'] span:nth-child(3) {
+		transform: translateY(-7px) rotate(-45deg);
+	}
+
+	@media screen and (max-width: 860px) {
+		.navbar__links {
+			position: absolute;
+			top: 100%;
+			left: 0;
+			right: 0;
+			flex-direction: column;
+			align-items: stretch;
+			gap: 0;
+			background: rgba(255, 255, 255, 0.98);
+			backdrop-filter: blur(16px);
+			border-bottom: 1px solid var(--color-border-light);
+			box-shadow: var(--shadow-card);
+			max-height: 0;
+			overflow: hidden;
+			transition: max-height 0.25s ease;
+		}
+
+		.navbar__links--open {
+			max-height: 600px;
+		}
+
+		.navbar__links a {
+			padding: 14px 24px;
+			border-top: 1px solid var(--color-border-light);
+		}
+
+		.navbar__links a::after {
+			display: none;
+		}
+
+		.navbar__dropdown-toggle {
+			width: 100%;
+			justify-content: space-between;
+			padding: 14px 24px;
+			border-top: 1px solid var(--color-border-light);
+		}
+
+		.navbar__dropdown-menu {
+			position: static;
+			max-height: 0;
+			overflow: hidden;
+			opacity: 1;
+			visibility: visible;
+			transform: none;
+			margin: 0;
+			padding: 0;
+			border: none;
+			border-radius: 0;
+			box-shadow: none;
+			background: var(--color-bg-soft-blue);
+			transition: max-height 0.25s ease;
+		}
+
+		.navbar__dropdown--open .navbar__dropdown-menu {
+			max-height: 200px;
+		}
+
+		.navbar__dropdown-menu a {
+			padding: 12px 24px 12px 40px;
+			border-radius: 0;
+			border-top: 1px solid var(--color-border-light);
+			font-size: 14px;
+		}
+
+		.navbar__cta {
+			display: none;
+		}
+
+		.navbar__insurance {
+			padding: 9px;
+			width: 38px;
+			justify-content: center;
+		}
+
+		.navbar__insurance-label {
+			display: none;
+		}
+
+		.navbar__lang {
+			max-width: 78px;
+			padding: 8px 6px;
+			font-size: 12px;
+		}
+
+		.navbar__toggle {
+			display: inline-flex;
+		}
+	}
+</style>

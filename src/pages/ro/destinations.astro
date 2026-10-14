@@ -1,0 +1,50 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import DestinationsGrid from '../../components/Destinations.astro';
+import CostEstimateCta from '../../components/CostEstimateCta.astro';
+import { destinations } from '../../data/destinations';
+import { roDestinations } from '../../i18n/ro-destinations';
+import { roDestinationsPage } from '../../i18n/ro-pages';
+
+const translatedDestinations = destinations.map((destination) => ({
+	...destination,
+	...roDestinations[destination.slug],
+}));
+---
+
+<Layout
+	title="Destinații de turism medical în India | AlisPro MediTours"
+	description="Descoperiți cele mai importante destinații de turism medical din India alături de AlisPro MediTours. Găsiți spitale de top, medici specialiști, tratamente avansate și sprijin medical personalizat."
+	locale="ro"
+	alternates={[
+		{ locale: 'en', href: '/destinations' },
+		{ locale: 'fr', href: '/fr/destinations' },
+		{ locale: 'ru', href: '/ru/destinations' },
+		{ locale: 'bn', href: '/bn/destinations' },
+		{ locale: 'ro', href: '/ro/destinations' },
+		{ locale: 'es', href: '/es/destinations' },
+		{ locale: 'pt', href: '/pt/destinations' },
+		{ locale: 'vi', href: '/vi/destinations' },
+		{ locale: 'ar', href: '/ar/destinations' },
+	]}
+>
+
+	<DestinationsGrid
+		basePath="/ro"
+		badge={roDestinationsPage.grid.badge}
+		title={roDestinationsPage.grid.title}
+		highlight={roDestinationsPage.grid.highlight}
+		subtitle={roDestinationsPage.grid.subtitle}
+		destinations={translatedDestinations}
+		exploreLabel={roDestinationsPage.grid.exploreLabel}
+	/>
+
+	<CostEstimateCta
+		title="Doriți o estimare exactă a tratamentului dumneavoastră?"
+		text="Încărcați rapoartele dumneavoastră medicale și primiți un plan de tratament personalizat cu o estimare transparentă a costurilor de la specialiștii noștri, în 24 de ore."
+		primaryLabel="Consultație gratuită"
+		primaryHref="/ro/contact"
+		secondaryLabel="Încărcați raportul medical"
+		secondaryHref="/ro/contact#enquiry-form"
+	/>
+</Layout>

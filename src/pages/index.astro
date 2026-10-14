@@ -1,0 +1,47 @@
+---
+import HeroSection from '../components/HeroSection.astro';
+import TravelProcess from '../components/TravelProcess.astro';
+import OurDoctors from '../components/OurDoctors.astro';
+import OurPartnerHospitals from '../components/OurPartnerHospitals.astro';
+import Testimonials from '../components/Testimonials.astro';
+import TreatmentCostComparison from '../components/TreatmentCostComparison.astro';
+import CostEstimateCta from '../components/CostEstimateCta.astro';
+import SupportServices from '../components/SupportServices.astro';
+import WhyChooseUs from '../components/WhyChooseUs.astro';
+import Layout from '../layouts/Layout.astro';
+import DoctorsVideoCarousel from '../components/DoctorsVideoCarousel.astro';
+import { doctors } from '../data/doctors';
+
+// Sourced from each doctor's own `videoUrl` (src/data/doctors.ts) — add a
+// videoUrl to a doctor there and their card appears here automatically.
+const videoEntries = doctors
+	.filter((doctor) => doctor.videoUrl)
+	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl as string }));
+---
+
+<Layout
+	alternates={[
+		{ locale: 'en', href: '/' },
+		{ locale: 'fr', href: '/fr/' },
+		{ locale: 'ru', href: '/ru/' },
+		{ locale: 'bn', href: '/bn/' },
+		{ locale: 'ro', href: '/ro/' },
+		{ locale: 'es', href: '/es/' },
+		{ locale: 'pt', href: '/pt/' },
+		{ locale: 'vi', href: '/vi/' },
+		{ locale: 'ar', href: '/ar/' },
+	]}
+>
+	<HeroSection />
+	<WhyChooseUs />
+	<!-- <OurDoctors badge="Our Medical Team" title="Meet Our" highlight="Specialists" /> -->
+
+	<DoctorsVideoCarousel entries={videoEntries} />
+	<!-- <OurDoctors /> -->
+	<OurPartnerHospitals />
+	<TreatmentCostComparison />
+	<SupportServices />
+	<Testimonials />
+	<TravelProcess />
+	<CostEstimateCta />
+</Layout>

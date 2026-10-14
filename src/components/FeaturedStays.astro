@@ -1,0 +1,353 @@
+---
+import iconBuilding from 'bootstrap-icons/icons/building-fill.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconGeo from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconDistance from 'bootstrap-icons/icons/signpost-split-fill.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+
+export interface StayContent {
+	name: string;
+	city: string;
+	distance: string;
+}
+
+export interface Props {
+	badge?: string;
+	titleLead?: string;
+	titleHighlight?: string;
+	subtitle?: string;
+	stays?: StayContent[];
+	fromLabel?: string;
+	perNightLabel?: string;
+	viewDetailsLabel?: string;
+}
+
+const stayMeta = [
+	{ rating: 4.8, reviews: 214, price: 45, theme: 'blue' as const },
+	{ rating: 4.7, reviews: 176, price: 55, theme: 'teal' as const },
+	{ rating: 4.9, reviews: 302, price: 50, theme: 'green' as const },
+	{ rating: 4.6, reviews: 158, price: 48, theme: 'blue' as const },
+];
+
+const {
+	badge = 'Partner Stays',
+	titleLead = 'Featured Stays Near',
+	titleHighlight = 'Our Top Hospitals',
+	subtitle = 'A sample of the accommodations our coordinators book most often.',
+	stays: staysProp = [
+		{ name: 'The Wellness Residency', city: 'Delhi NCR', distance: '0.4 km from Apollo Hospital' },
+		{ name: 'Kokilaben Guest Suites', city: 'Mumbai', distance: '0.6 km from partner hospital' },
+		{ name: 'Apollo Comfort Inn', city: 'Chennai', distance: '0.3 km from Apollo Chennai' },
+		{ name: 'Narayana Recovery Stays', city: 'Bangalore', distance: '0.5 km from Narayana Health' },
+	],
+	fromLabel = 'From',
+	perNightLabel = '/night',
+	viewDetailsLabel = 'View Details',
+} = Astro.props;
+
+const stays = staysProp.map((stay, i) => ({ ...stay, ...stayMeta[i] }));
+---
+
+<section class="stays">
+	<div class="stays__inner">
+		<div class="stays__header" data-animate>
+			<span class="stays__badge">{badge}</span>
+			<h2 class="stays__title">
+				{titleLead} <span>{titleHighlight}</span>
+			</h2>
+			<p class="stays__subtitle">{subtitle}</p>
+		</div>
+
+		<div class="stays__grid">
+			{
+				stays.map((stay, i) => (
+					<article class="stay-card" data-animate style={`transition-delay: ${i * 100}ms`}>
+						<div class={`stay-card__media stay-card__media--${stay.theme}`}>
+							<span class="stay-card__icon" set:html={iconBuilding} aria-hidden="true" />
+						</div>
+						<div class="stay-card__body">
+							<h3 class="stay-card__name">{stay.name}</h3>
+							<p class="stay-card__location">
+								<span set:html={iconGeo} aria-hidden="true" />
+								{stay.city}
+							</p>
+							<p class="stay-card__distance">
+								<span set:html={iconDistance} aria-hidden="true" />
+								{stay.distance}
+							</p>
+
+							<div class="stay-card__meta">
+								<span class="stay-card__rating">
+									<span set:html={iconStar} aria-hidden="true" />
+									{stay.rating.toFixed(1)} ({stay.reviews})
+								</span>
+								<span class="stay-card__price">
+									{fromLabel} <strong>${stay.price}</strong>{perNightLabel}
+								</span>
+							</div>
+
+							<a class="stay-card__cta" href="/contact">
+								{viewDetailsLabel}
+								<span set:html={iconArrow} aria-hidden="true" />
+							</a>
+						</div>
+					</article>
+				))
+			}
+		</div>
+	</div>
+</section>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.stays [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.15 }
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.stays {
+		background: var(--color-bg-white);
+		padding: 80px 24px;
+		font-family: var(--font-body);
+	}
+
+	.stays__inner {
+		max-width: 1320px;
+		margin: 0 auto;
+	}
+
+	[data-animate] {
+		opacity: 0;
+		transform: translateY(24px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+	}
+
+	[data-animate].is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.stays__header {
+		text-align: center;
+		max-width: 620px;
+		margin: 0 auto 48px;
+	}
+
+	.stays__badge {
+		display: inline-block;
+		padding: 7px 18px;
+		border-radius: 999px;
+		border: 1px solid var(--color-border-card);
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.14em;
+		text-transform: uppercase;
+		margin-bottom: 20px;
+	}
+
+	.stays__title {
+		font-family: var(--font-heading);
+		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-weight: 700;
+		letter-spacing: -0.01em;
+		color: var(--color-text-primary);
+		margin: 0;
+	}
+
+	.stays__title span {
+		color: var(--color-teal);
+	}
+
+	.stays__subtitle {
+		margin-top: 14px;
+		font-size: 1rem;
+		color: var(--color-text-secondary);
+	}
+
+	.stays__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+		gap: 24px;
+	}
+
+	.stay-card {
+		display: flex;
+		flex-direction: column;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--shadow-soft);
+		transition:
+			transform 0.25s ease,
+			box-shadow 0.25s ease;
+	}
+
+	.stay-card:hover {
+		transform: translateY(-6px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.stay-card__media {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		height: 110px;
+	}
+
+	.stay-card__media--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.stay-card__media--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.stay-card__media--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.stay-card__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 60px;
+		height: 60px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.16);
+		border: 1px solid rgba(255, 255, 255, 0.4);
+		color: #ffffff;
+	}
+
+	.stay-card__icon :global(svg) {
+		width: 28px;
+		height: 28px;
+	}
+
+	.stay-card__body {
+		display: flex;
+		flex-direction: column;
+		flex: 1;
+		padding: 20px 20px 22px;
+	}
+
+	.stay-card__name {
+		font-family: var(--font-heading);
+		font-size: 16.5px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 8px;
+	}
+
+	.stay-card__location,
+	.stay-card__distance {
+		display: flex;
+		align-items: center;
+		gap: 6px;
+		font-size: 12.5px;
+		color: var(--color-text-muted);
+		margin: 0 0 4px;
+	}
+
+	.stay-card__location span,
+	.stay-card__distance span {
+		display: flex;
+		flex-shrink: 0;
+		width: 12px;
+		height: 12px;
+		color: var(--color-primary);
+	}
+
+	.stay-card__location span :global(svg),
+	.stay-card__distance span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.stay-card__meta {
+		display: flex;
+		align-items: center;
+		justify-content: space-between;
+		gap: 10px;
+		margin: 14px 0 18px;
+		padding-top: 14px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.stay-card__rating {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+		font-size: 13px;
+		font-weight: 600;
+		color: var(--color-text-primary);
+	}
+
+	.stay-card__rating span {
+		display: flex;
+		width: 13px;
+		height: 13px;
+		color: var(--color-gold);
+	}
+
+	.stay-card__rating span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.stay-card__price {
+		font-size: 12.5px;
+		color: var(--color-text-muted);
+	}
+
+	.stay-card__price strong {
+		color: var(--color-text-primary);
+		font-size: 14px;
+	}
+
+	.stay-card__cta {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 2px;
+		margin-top: auto;
+		padding: 11px 18px;
+		border-radius: var(--radius-md);
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font-size: 13.5px;
+		font-weight: 600;
+		text-decoration: none;
+		transition: background 0.15s ease;
+	}
+
+	.stay-card__cta:hover {
+		background: var(--btn-primary-hover);
+	}
+
+	@media screen and (max-width: 640px) {
+		.stays {
+			padding: 56px 16px;
+		}
+	}
+</style>
