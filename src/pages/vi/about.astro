@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import OurStory from '../../components/OurStory.astro';
 import OurJourney from '../../components/OurJourney.astro';
-import Testimonials from '../../components/Testimonials.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import { viAbout } from '../../i18n/vi-pages';
@@ -50,13 +49,6 @@ import { viAbout } from '../../i18n/vi-pages';
 		titleHighlight={viAbout.journey.titleHighlight}
 		subtitle={viAbout.journey.subtitle}
 		milestones={viAbout.journey.milestones}
-	/>
-	<Testimonials
-		badge={viAbout.testimonials.badge}
-		title={viAbout.testimonials.title}
-		highlight={viAbout.testimonials.highlight}
-		subtitle={viAbout.testimonials.subtitle}
-		testimonials={viAbout.testimonials.items}
 	/>
 	<FaqAccordion badge={viAbout.faq.badge} title={viAbout.faq.title} highlight={viAbout.faq.highlight} subtitle={viAbout.faq.subtitle} />
 

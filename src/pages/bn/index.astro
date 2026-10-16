@@ -5,7 +5,6 @@ import TravelProcess from '../../components/TravelProcess.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
 import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
-import Testimonials from '../../components/Testimonials.astro';
 import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
 import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import SupportServices from '../../components/SupportServices.astro';
@@ -94,13 +93,6 @@ const videoEntries = defaultDoctors
 		highlight={bnSupportServices.titleHighlight}
 		subtitle={bnSupportServices.subtitle}
 		services={bnSupportServices.services}
-	/>
-	<Testimonials
-		badge={bnAbout.testimonials.badge}
-		title={bnAbout.testimonials.title}
-		highlight={bnAbout.testimonials.highlight}
-		subtitle={bnAbout.testimonials.subtitle}
-		testimonials={bnAbout.testimonials.items}
 	/>
 	<TravelProcess
 		badge={bnTravelProcess.badge}

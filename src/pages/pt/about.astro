@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import OurStory from '../../components/OurStory.astro';
 import OurJourney from '../../components/OurJourney.astro';
-import Testimonials from '../../components/Testimonials.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import { ptAbout } from '../../i18n/pt-pages';
@@ -50,13 +49,6 @@ import { ptAbout } from '../../i18n/pt-pages';
 		titleHighlight={ptAbout.journey.titleHighlight}
 		subtitle={ptAbout.journey.subtitle}
 		milestones={ptAbout.journey.milestones}
-	/>
-	<Testimonials
-		badge={ptAbout.testimonials.badge}
-		title={ptAbout.testimonials.title}
-		highlight={ptAbout.testimonials.highlight}
-		subtitle={ptAbout.testimonials.subtitle}
-		testimonials={ptAbout.testimonials.items}
 	/>
 	<FaqAccordion badge={ptAbout.faq.badge} title={ptAbout.faq.title} highlight={ptAbout.faq.highlight} subtitle={ptAbout.faq.subtitle} />
 

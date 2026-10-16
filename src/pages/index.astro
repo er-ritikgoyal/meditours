@@ -4,7 +4,6 @@ import TravelProcess from '../components/TravelProcess.astro';
 import OurDoctors from '../components/OurDoctors.astro';
 import OurPartnerHospitals from '../components/OurPartnerHospitals.astro';
 import { hospitals } from '../data/hospitals';
-import Testimonials from '../components/Testimonials.astro';
 import TreatmentCostComparison from '../components/TreatmentCostComparison.astro';
 import CostEstimateCta from '../components/CostEstimateCta.astro';
 import SupportServices from '../components/SupportServices.astro';
@@ -43,7 +42,6 @@ const videoEntries = doctors
 	<OurPartnerHospitals hospitals={hospitals.slice(0, 4)} />
 	<TreatmentCostComparison />
 	<SupportServices />
-	<Testimonials />
 	<TravelProcess />
 	<CostEstimateCta />
 </Layout>

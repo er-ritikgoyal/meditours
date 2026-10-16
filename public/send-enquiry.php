@@ -34,6 +34,8 @@ $subject  = clean_input($_POST['subject']  ?? null);
 $category = clean_input($_POST['category'] ?? $_POST['products'] ?? null);
 $message  = clean_input($_POST['message']  ?? null);
 $website  = clean_input($_POST['website']  ?? null);
+// DPDP Act 2023: no consent, no processing. Set by the ConsentCheckbox component on every form.
+$consent  = clean_input($_POST['consent']  ?? null);
 
 $resolvedSubject = $subject !== '' ? $subject : ($category !== '' ? $category : 'General enquiry');
 
@@ -41,6 +43,7 @@ if (
     $name === '' ||
     $message === '' ||
     $website !== '' ||
+    $consent !== 'yes' ||
     ($email === '' && $phone === '') ||
     ($email !== '' && filter_var($email, FILTER_VALIDATE_EMAIL) === false)
 ) {
@@ -60,7 +63,10 @@ $mailBody    = "New Website Enquiry\r\n"
     . "Company:             {$company}\r\n"
     . "Subject:             {$resolvedSubject}\r\n"
     . "Category / Products: {$category}\r\n"
-    . "Message:\r\n{$message}\r\n";
+    . "Message:\r\n{$message}\r\n"
+    . "\r\n"
+    . "Consent:             given on the website form, " . gmdate('Y-m-d H:i') . " UTC\r\n"
+    . "Page:                " . clean_input($_SERVER['HTTP_REFERER'] ?? '') . "\r\n";
 
 // ── File attachment ────────────────────────────────────────
 $att       = $_FILES['attachment'] ?? null;

@@ -34,6 +34,8 @@ export interface Props {
 	verifiedLabel?: string;
 	/** Locale URL prefix, e.g. '/fr' — prepended to every card link. Empty for English. */
 	basePath?: string;
+	/** 1 on the doctors listing pages, where this title is the page's main heading. */
+	headingLevel?: 1 | 2;
 }
 
 const initials = (name: string) =>
@@ -57,16 +59,19 @@ const {
 	contactLabel = 'View Profile',
 	verifiedLabel = 'Verified specialist',
 	basePath = '',
+	headingLevel = 2,
 } = Astro.props;
+
+const Heading = headingLevel === 1 ? 'h1' : 'h2';
 ---
 
 <section class="doctors">
 	<div class="doctors__inner">
 		<div class="doctors__header">
 			<span class="doctors__badge">{badge}</span>
-			<h2 class="doctors__title">
-				{title} <span>{highlight}</span>
-			</h2>
+			<Heading class="doctors__title">
+				{title}{' '}<span>{highlight}</span>
+			</Heading>
 			<p class="doctors__subtitle">{subtitle}</p>
 		</div>
 

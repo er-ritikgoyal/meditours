@@ -1,4 +1,5 @@
 ---
+import ConsentCheckbox from '../../components/ConsentCheckbox.astro';
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import iconPhone from 'bootstrap-icons/icons/telephone-fill.svg?raw';
@@ -154,6 +155,7 @@ const { form, info } = esContact;
 							<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg" data-file-input />
 						</label>
 
+						<ConsentCheckbox />
 						<button type="submit" class="contact-form__submit">
 							{form.submit}
 							<span set:html={iconSend} aria-hidden="true" />
