@@ -1,0 +1,126 @@
+---
+/**
+ * Click-to-play video: shows a YouTube thumbnail with a play button and only
+ * loads the YouTube player (or a native <video>) once the visitor clicks, so
+ * pages don't pay for the embed up front.
+ */
+import iconPlay from 'bootstrap-icons/icons/play-fill.svg?raw';
+
+export interface Props {
+	/** A YouTube/Vimeo URL, or a direct video file path. */
+	url: string;
+	/** Used for the thumbnail alt text and the play button's label. */
+	title: string;
+}
+
+const { url, title } = Astro.props;
+
+const youTubeId = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/)?.[1];
+const vimeoId = url.match(/vimeo\.com\/(?:video\/)?(\d+)/)?.[1];
+const embedSrc = youTubeId
+	? `https://www.youtube.com/embed/${youTubeId}?autoplay=1&rel=0`
+	: vimeoId
+		? `https://player.vimeo.com/video/${vimeoId}?autoplay=1`
+		: null;
+---
+
+<div class="video-embed" data-video-embed data-embed-src={embedSrc ?? undefined} data-video-src={embedSrc ? undefined : url}>
+	<button type="button" class="video-embed__trigger" aria-label={`Play video — ${title}`}>
+		{
+			youTubeId ? (
+				<img src={`https://img.youtube.com/vi/${youTubeId}/hqdefault.jpg`} alt={title} class="video-embed__thumb" loading="lazy" />
+			) : (
+				<span class="video-embed__thumb" aria-hidden="true" />
+			)
+		}
+		<span class="video-embed__play" set:html={iconPlay} aria-hidden="true" />
+	</button>
+</div>
+
+<script>
+	document.querySelectorAll<HTMLElement>('[data-video-embed]').forEach((embed) => {
+		embed.querySelector('button')?.addEventListener('click', () => {
+			const { embedSrc, videoSrc } = embed.dataset;
+			const player = embedSrc ? document.createElement('iframe') : document.createElement('video');
+			if (player instanceof HTMLIFrameElement) {
+				player.src = embedSrc!;
+				player.title = 'Video';
+				player.allow = 'autoplay; encrypted-media; picture-in-picture';
+				player.allowFullscreen = true;
+			} else {
+				player.src = videoSrc ?? '';
+				player.controls = true;
+				player.autoplay = true;
+				player.playsInline = true;
+			}
+			embed.replaceChildren(player);
+		});
+	});
+</script>
+
+<style>
+	.video-embed {
+		position: relative;
+		margin-top: 24px;
+		aspect-ratio: 16 / 9;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		background: #000;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.video-embed__trigger {
+		display: block;
+		width: 100%;
+		height: 100%;
+		padding: 0;
+		border: none;
+		background: none;
+		cursor: pointer;
+	}
+
+	.video-embed__thumb {
+		display: block;
+		width: 100%;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.video-embed__play {
+		position: absolute;
+		inset: 0;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		margin: auto;
+		width: 64px;
+		height: 64px;
+		border-radius: 50%;
+		background: rgba(15, 76, 129, 0.85);
+		color: #ffffff;
+		box-shadow: var(--shadow-card);
+		transition:
+			transform 0.15s ease,
+			background 0.15s ease;
+	}
+
+	.video-embed__trigger:hover .video-embed__play {
+		background: var(--color-primary);
+		transform: scale(1.08);
+	}
+
+	.video-embed__play :global(svg) {
+		width: 26px;
+		height: 26px;
+		margin-inline-start: 3px;
+	}
+
+	.video-embed :global(iframe),
+	.video-embed :global(video) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
+	}
+</style>

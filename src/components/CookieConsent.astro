@@ -4,8 +4,9 @@
  *
  * - Shows a banner (Accept All / Reject Non-Essential / Customize) until the
  *   visitor decides, then remembers the choice in a `cc_consent` cookie.
- * - Google Analytics (GA4) is only loaded if the visitor opts into
- *   "Analytics". Nothing is ever loaded before a decision is made.
+ * - Google Analytics (GA4) and the Google Ads conversion tag are only loaded
+ *   if the visitor opts into "Analytics". Nothing is ever loaded before a
+ *   decision is made.
  * - Locale preference (the language the visitor picked in the navbar) is
  *   treated as strictly necessary — it's not tracking, just remembering an
  *   explicit choice — so it's stored in `site_locale` regardless of the
@@ -17,12 +18,13 @@
  *                               logged as a GA4 "generate_lead" conversion
  *                               event when Analytics consent is granted.
  *
- * TODO before this does anything useful: replace GA_MEASUREMENT_ID below with
+ * TODO before GA4 does anything useful: replace GA_MEASUREMENT_ID below with
  * your real GA4 Measurement ID (GA4 Admin -> Data Streams -> your stream).
- * Until then analytics loading is skipped (with a console warning) so nothing
- * breaks, but no data is collected.
+ * Until then only the Google Ads tag below loads (with a console warning
+ * about the missing GA4 ID) so nothing breaks, but GA4 data isn't collected.
  */
 const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
+const GOOGLE_ADS_ID = 'AW-18512504526';
 
 export interface Props {
 	locale?: string;
@@ -106,7 +108,7 @@ const {
 	</div>
 </div>
 
-<script define:vars={{ GA_MEASUREMENT_ID, locale }}>
+<script define:vars={{ GA_MEASUREMENT_ID, GOOGLE_ADS_ID, locale }}>
 	const COOKIE_NAME = 'cc_consent';
 	const COOKIE_DAYS = 365;
 
@@ -139,14 +141,18 @@ const {
 
 	function loadGA4() {
 		if (window.__gaLoaded) return;
-		if (!GA_MEASUREMENT_ID || GA_MEASUREMENT_ID === 'G-XXXXXXXXXX') {
-			console.warn('[analytics] No real GA4 Measurement ID configured in CookieConsent.astro — skipping analytics load.');
-			return;
+
+		const hasGA4 = GA_MEASUREMENT_ID && GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX';
+		const hasGoogleAds = GOOGLE_ADS_ID && !GOOGLE_ADS_ID.includes('XXXXXXXXXX');
+		if (!hasGA4) {
+			console.warn('[analytics] No real GA4 Measurement ID configured in CookieConsent.astro — skipping GA4 load.');
 		}
+		if (!hasGA4 && !hasGoogleAds) return;
+
 		window.__gaLoaded = true;
 		const script = document.createElement('script');
 		script.async = true;
-		script.src = `https://www.googletagmanager.com/gtag/js?id=${GA_MEASUREMENT_ID}`;
+		script.src = `https://www.googletagmanager.com/gtag/js?id=${hasGA4 ? GA_MEASUREMENT_ID : GOOGLE_ADS_ID}`;
 		document.head.appendChild(script);
 
 		window.dataLayer = window.dataLayer || [];
@@ -154,7 +160,8 @@ const {
 			window.dataLayer.push(arguments);
 		};
 		window.gtag('js', new Date());
-		window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+		if (hasGA4) window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+		if (hasGoogleAds) window.gtag('config', GOOGLE_ADS_ID);
 	}
 
 	function applyConsent(consent) {

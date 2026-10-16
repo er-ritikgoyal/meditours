@@ -1,5 +1,6 @@
 ---
 import HeroSection from '../../components/HeroSection.astro';
+import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
@@ -10,19 +11,18 @@ import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { ar } from '../../i18n/ar';
-import { arAbout, arTreatmentsPage } from '../../i18n/ar-pages';
+import { arAbout } from '../../i18n/ar-pages';
 import { arDoctors, arPartnerHospitalsHome, arSupportServices, arTravelProcess } from '../../i18n/ar-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { arDoctorsTr } from '../../i18n/ar-doctors';
-import { getFeaturedHospitals } from '../../data/hospitals';
+import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/ar-hospitals';
 
-const arabicHospitals = translateHospitals(getFeaturedHospitals(2));
+const arabicHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const arabicDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...arDoctors.doctors[i] }));
 
-const { costComparison } = arTreatmentsPage;
 const videoEntries = defaultDoctors
 	.filter((doctor) => doctor.videoUrl)
 	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
@@ -45,9 +45,20 @@ const videoEntries = defaultDoctors
 	]}
 >
 	<HeroSection
-		treatmentOptions={ar.hero.treatmentOptions}
 		trust={ar.hero.trust}
 		enquiry={ar.hero.enquiry}
+	/>
+	<Achievements
+		badge="أثرنا"
+		title="أرقام"
+		highlight="تتحدث عن نفسها"
+		subtitle={`أكثر من 5 سنوات من تنسيق الرعاية الصحية العالمية المستوى، يُقاس بعدد المرضى الذين ساعدناهم.`}
+		labels={{
+			countriesTouched: 'دولة تم الوصول إليها',
+			livesImpacted: 'حياة تأثرت',
+			yearsOfExcellence: 'سنوات من التميز',
+			accreditedHospitals: 'مستشفى معتمد',
+		}}
 	/>
 	<OurDoctors
 		basePath="/ar"
@@ -61,7 +72,13 @@ const videoEntries = defaultDoctors
 		contactLabel={arDoctors.contactLabel}
 		verifiedLabel={arDoctors.verifiedLabel}
 	/>
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="تعرف على اختصاصيينا"
+		title="استمع إلى"
+		highlight="أطبائنا"
+		subtitle={`مقاطع فيديو تعريفية قصيرة من الاختصاصيين الذين ينسقون رعايتك.`}
+		entries={videoEntries}
+	/>
 	<OurPartnerHospitals
 		badge={arPartnerHospitalsHome.badge}
 		title={arPartnerHospitalsHome.title}
@@ -70,17 +87,7 @@ const videoEntries = defaultDoctors
 		hospitals={arabicHospitals}
 		basePath="/ar"
 	/>
-	<TreatmentCostComparison
-		title={costComparison.title}
-		subtitle={costComparison.subtitle}
-		note={costComparison.note}
-		scrollHint={costComparison.scrollHint}
-		mostAffordableLabel={costComparison.mostAffordable}
-		saveLabel="وفّر {pct}%"
-		countryLabels={costComparison.countries}
-		treatmentNames={costComparison.treatmentNames}
-		stats={costComparison.stats}
-	/>
+	<TreatmentCostComparison basePath="/ar" />
 	<SupportServices
 		badge={arSupportServices.badge}
 		title={arSupportServices.titleLead}

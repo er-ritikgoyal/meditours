@@ -70,6 +70,8 @@ export interface HospitalData {
 	image?: ImageMetadata | string;
 	/** Public URL to a downloadable hospital profile document (PDF), if one exists. */
 	profileUrl?: string;
+	/** Optional YouTube/Vimeo URL shown as a click-to-play video under the About section. */
+	videoUrl?: string;
 	/** 2–3 sentence profile shown on the hospital's own detail page. */
 	about: string;
 }
@@ -904,6 +906,7 @@ export const hospitals: HospitalData[] = [
 		beds: 'Fertility Clinic',
 		theme: 'green',
 		image: `${PUBLIC_IMAGES}/pristyn-care-ferticity-ivf-hospital.jpg`,
+		videoUrl: 'https://youtu.be/TZ6OrQioenU',
 		about: "Pristyn Care Ferticity Super Speciality & IVF Hospital in Malviya Nagar combines a fertility and IVF programme with the wider Pristyn Care surgical care network.",
 	},
 	{

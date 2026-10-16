@@ -6,6 +6,7 @@ import FloatingContactWidget from '../components/FloatingContactWidget.astro';
 import InsuranceEligibility from '../components/InsuranceEligibility.astro';
 import SearchBar from '../components/SearchBar.astro';
 import CookieConsent from '../components/CookieConsent.astro';
+import GoogleAdsTag from '../components/GoogleAdsTag.astro';
 import { fr } from '../i18n/fr';
 import { ru } from '../i18n/ru';
 import { bn } from '../i18n/bn';
@@ -14,6 +15,9 @@ import { es } from '../i18n/es';
 import { pt } from '../i18n/pt';
 import { vi } from '../i18n/vi';
 import { ar } from '../i18n/ar';
+import { treatments } from '../data/treatments';
+import { treatmentIcons } from '../utils/treatmentIcons';
+import iconGrid from 'bootstrap-icons/icons/grid-fill.svg?raw';
 
 export interface Alternate {
 	locale: string;
@@ -65,7 +69,16 @@ const navbarProps = t
 			links: [
 				{ label: t.nav.home, href: prefix },
 				{ label: t.nav.destinations, href: `${prefix}destinations` },
-				{ label: t.nav.treatments, href: `${prefix}treatments` },
+				{
+						label: t.nav.treatments,
+						href: `${prefix}treatments`,
+						// Category names are English-only across every locale, same as the
+						// procedure lists on the treatment pages themselves.
+						children: [
+							{ label: t.nav.treatments, href: `${prefix}treatments`, icon: iconGrid },
+							...treatments.map((tr) => ({ label: tr.name, href: `${prefix}treatments/${tr.slug}`, icon: treatmentIcons[tr.icon] })),
+						],
+					},
 				{ label: t.nav.about, href: `${prefix}about` },
 				{ label: t.nav.contact, href: `${prefix}contact` },
 				{ label: t.footer.ourDoctors, href: `${prefix}doctors` },
@@ -173,6 +186,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 <html lang={locale} dir={dir}>
 	<head>
 		<meta charset="UTF-8" />
+		<GoogleAdsTag />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/png" href="/images/alis_small_logo.png" />
 		<link rel="apple-touch-icon" href="/images/alis_small_logo.png" />
@@ -243,9 +257,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 	}
 
 	.site-search-bar {
-		background: var(--color-bg-alt);
 		border-bottom: 1px solid var(--color-border-light);
-		padding: 14px 0;
 	}
 
 	:global(h1),

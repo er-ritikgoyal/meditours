@@ -19,7 +19,7 @@ export const viAbout = {
 		titleHighlight: 'với mọi người',
 		paragraphs: [
 			'Alis Pro Med Tour được thành lập để thu hẹp khoảng cách giữa chăm sóc y tế đẳng cấp thế giới và chi phí của nó. Chúng tôi tin rằng nơi bạn sinh ra không nên quyết định việc bạn có đủ khả năng chi trả cho ca phẫu thuật mình cần hay không. Kể từ khi thành lập, chúng tôi đã đồng hành cùng hàng nghìn bệnh nhân — từ ý kiến y tế đầu tiên đến khi hồi phục hoàn toàn — thông qua các bệnh viện được công nhận cao nhất tại Ấn Độ, giúp các gia đình tiết kiệm những khoản tiền có thể thay đổi cuộc sống, mà không bao giờ đánh đổi chất lượng.',
-			'Những gì bắt đầu như một đội ngũ điều phối viên bệnh nhân nhỏ đã phát triển thành một mạng lưới dịch vụ hỗ trợ toàn diện trải rộng khắp 45 quốc gia, với các hội đồng y khoa nội bộ, chuyên gia thị thực tận tâm và hỗ trợ đa ngôn ngữ 24/7 — bởi vì việc tìm hiểu hệ thống y tế của một quốc gia xa lạ không bao giờ nên là một hành trình đơn độc.',
+			'Những gì bắt đầu như một đội ngũ điều phối viên bệnh nhân nhỏ đã phát triển thành một mạng lưới dịch vụ hỗ trợ toàn diện trải rộng khắp hơn 40 quốc gia, với các hội đồng y khoa nội bộ, chuyên gia thị thực tận tâm và hỗ trợ đa ngôn ngữ 24/7 — bởi vì việc tìm hiểu hệ thống y tế của một quốc gia xa lạ không bao giờ nên là một hành trình đơn độc.',
 		],
 		statsLabels: ['Bệnh viện đối tác', 'Quốc gia được hỗ trợ', 'Hỗ trợ bệnh nhân', 'Bệnh nhân đã hỗ trợ'],
 		valuesTitle: 'Giá trị cốt lõi',
@@ -44,9 +44,9 @@ export const viAbout = {
 	},
 	journey: {
 		badge: 'Hành trình của chúng tôi',
-		titleLead: 'Một thập kỷ xây dựng',
+		titleLead: 'Hơn 5 năm xây dựng',
 		titleHighlight: 'niềm tin của bệnh nhân',
-		subtitle: 'Từ một đội ngũ điều phối viên nhỏ đến mạng lưới bệnh nhân tại 45 quốc gia.',
+		subtitle: 'Từ một đội ngũ điều phối viên nhỏ đến mạng lưới bệnh nhân tại hơn 40 quốc gia.',
 		milestones: [
 			{ title: 'Thành lập tại Mumbai', description: 'Alis Pro Med Tour ra mắt với một số ít bệnh viện đối tác tại Delhi và Mumbai.' },
 			{
@@ -66,8 +66,8 @@ export const viAbout = {
 				description: 'Giới thiệu hỗ trợ bệnh nhân đa ngôn ngữ liên tục và điều phối viên hồ sơ tận tâm.',
 			},
 			{
-				title: '45 quốc gia, hơn 12.000 bệnh nhân',
-				description: 'Chúng tôi hỗ trợ bệnh nhân từ 45 quốc gia thông qua hơn 500 bệnh viện đối tác trên toàn quốc.',
+				title: 'Hơn 40 quốc gia, hơn 10.000 bệnh nhân',
+				description: 'Chúng tôi hỗ trợ bệnh nhân từ hơn 40 quốc gia thông qua hơn 100 bệnh viện đối tác được công nhận trên toàn quốc.',
 			},
 		],
 	},
@@ -199,6 +199,11 @@ export const viContact = {
 		'Ghép tạng',
 		'Nha khoa',
 		'Nhãn khoa',
+		'ENT (Ear, Nose & Throat)',
+		'Neurology & Neurosurgery',
+		'Spine Surgery',
+		'Bariatric Surgery',
+		'Nephrology & Urology',
 		'Khác',
 	],
 };
@@ -339,6 +344,6 @@ export const viDoctorsPage = {
 		otherSpecialists: 'Các chuyên gia khác',
 		bookConsultation: 'Đặt lịch tư vấn',
 		sendCaseTemplate: (name: string) => `Gửi hồ sơ của bạn đến đội ngũ điều phối của ${name}`,
-		whatsappMessageTemplate: (name: string) => `Xin chào, tôi muốn đặt lịch tư vấn với ${name}.`,
+		whatsappMessageTemplate: (name: string) => `Xin chào, tôi muốn đặt lịch tư vấn video với ${name}.`,
 	},
 };

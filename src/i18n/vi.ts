@@ -27,7 +27,7 @@ export const vi = {
 
 	footer: {
 		description:
-			'Chúng tôi kết nối bệnh nhân với các bệnh viện được công nhận và bác sĩ chuyên khoa được chứng nhận tại hơn 20 quốc gia — hỗ trợ toàn diện, từ ý kiến y tế đầu tiên đến khi hồi phục.',
+			'Chúng tôi kết nối bệnh nhân với các bệnh viện được công nhận và bác sĩ chuyên khoa được chứng nhận tại hơn 40 quốc gia — hỗ trợ toàn diện, từ ý kiến y tế đầu tiên đến khi hồi phục.',
 		quickLinks: 'Liên kết nhanh',
 		home: 'Trang chủ',
 		aboutUs: 'Về chúng tôi',
@@ -65,7 +65,7 @@ export const vi = {
 				title: 'Chăm sóc y tế đẳng cấp thế giới,',
 				highlight: 'không chờ đợi, không giá cao',
 				description:
-					'So sánh các bệnh viện được công nhận và bác sĩ chuyên khoa từ hơn 20 quốc gia, tiết kiệm đến 70% chi phí điều trị bạn cần.',
+					'So sánh các bệnh viện được công nhận và bác sĩ chuyên khoa từ hơn 40 quốc gia, tiết kiệm đến 70% chi phí điều trị bạn cần.',
 				primaryCta: 'Tư vấn miễn phí',
 				secondaryCta: 'Khám phá điểm đến',
 			},
@@ -88,10 +88,10 @@ export const vi = {
 			},
 		],
 		trust: [
-			{ value: '500+', label: 'Bệnh viện đối tác' },
-			{ value: '45', label: 'Quốc gia' },
+			{ value: '100+', label: 'Bệnh viện đối tác' },
+			{ value: '40+', label: 'Quốc gia' },
 			{ value: '24/7', label: 'Hỗ trợ bệnh nhân' },
-			{ value: '12.000+', label: 'Bệnh nhân đã hỗ trợ' },
+			{ value: '10.000+', label: 'Bệnh nhân đã hỗ trợ' },
 		],
 		treatmentOptions: [
 			'Tim mạch',

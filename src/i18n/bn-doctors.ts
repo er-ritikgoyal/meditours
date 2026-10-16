@@ -86,6 +86,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		awards: ['সেরা আইভিএফ বিশেষজ্ঞ, ইন্ডিয়ান ফার্টিলিটি সোসাইটি অ্যাওয়ার্ডস'],
 	},
 	'javed-rizwan': {
+		name: 'ডা. জাভেদ রিজওয়ান',
 		specialty: 'ইমপ্লান্টোলজিস্ট ও অর্থোডন্টিস্ট',
 		title: 'পরিচালক ও প্রধান — ডেন্টাল ইমপ্লান্টোলজি ও অর্থোডন্টিক্স',
 		about: [
@@ -139,6 +140,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'anika-bhasin-arora': {
+		name: 'ডা. অনিকা ভাসিন অরোরা',
 		specialty: 'এন্ডোডন্টিস্ট ও কসমেটিক ডেন্টিস্ট',
 		title: 'মালিক ও প্রধান ডেন্টিস্ট — এন্ডোডন্টিক্স ও কসমেটিক ডেন্টিস্ট্রি',
 		about:
@@ -180,6 +182,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'suraj-munjal': {
+		name: 'ডা. সুরজ মুঞ্জাল',
 		specialty: 'চক্ষু বিশেষজ্ঞ ও ছানি সার্জন',
 		title: 'প্রতিষ্ঠাতা, চেয়ারম্যান ও ব্যবস্থাপনা পরিচালক — দ্য সাইট অ্যাভিনিউ আই হাসপাতাল',
 		about:
@@ -230,6 +233,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'himanshu-champaneri': {
+		name: 'ডা. হিমাংশু চম্পানেরি',
 		specialty: 'নিউরোসার্জন',
 		title: 'সহযোগী পরিচালক ও ইউনিট প্রধান — নিউরোসার্জারি',
 		about:
@@ -285,6 +289,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'amitabh-singh': {
+		name: 'ডা. অমিতাভ সিং',
 		specialty: 'প্লাস্টিক সার্জন',
 		title: 'ক্লিনিক্যাল ডিরেক্টর ও প্রধান — প্লাস্টিক সার্জারি',
 		about:
@@ -333,6 +338,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'sunil-sanghi': {
+		name: 'ডা. সুনীল সাংঘি',
 		specialty: 'চর্মরোগ বিশেষজ্ঞ',
 		title: 'ক্লিনিক্যাল ডিরেক্টর ও প্রধান — ডার্মাটোলজি',
 		about:
@@ -386,6 +392,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'bilal-ahmad-baba': {
+		name: 'ডা. বিলাল আহমদ বাবা',
 		specialty: 'ইন্টারভেনশনাল কার্ডিওলজিস্ট',
 		title: 'সিনিয়র কনসালটেন্ট — ইন্টারভেনশনাল কার্ডিওলজি',
 		about:
@@ -436,6 +443,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'saurabh-verma': {
+		name: 'ডা. সৌরভ ভার্মা',
 		specialty: 'অর্থোপেডিক ও স্পাইন সার্জন',
 		title: 'সহযোগী পরিচালক — অর্থোপেডিক্স ও স্পাইন সার্জারি',
 		about:
@@ -498,6 +506,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'krishan-kumar-yadav': {
+		name: 'ডা. (এয়ার কমোডর) কৃষাণ কুমার যাদব',
 		specialty: 'নিউরোসার্জন',
 		title: 'ক্লিনিক্যাল ডিরেক্টর, অধ্যাপক ও বিভাগীয় প্রধান — নিউরোসার্জারি ও নিউরোস্পাইনাল সার্জারি',
 		about:
@@ -544,6 +553,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'punit-singla': {
+		name: 'ডা. পুনিত সিংলা',
 		specialty: 'লিভার ট্রান্সপ্লান্ট সার্জন',
 		title: 'ক্লিনিক্যাল প্রোগ্রাম ডিরেক্টর — ইনস্টিটিউট অব লিভার ট্রান্সপ্লান্ট অ্যান্ড HPB সার্জারি',
 		about:
@@ -588,6 +598,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'neeraj-teotia': {
+		name: 'ডা. নীরজ তেওটিয়া',
 		specialty: 'শিশু হেমাটো-অনকোলজিস্ট',
 		title: 'কনসালটেন্ট — শিশু হেমাটো-অনকোলজি ও বোন ম্যারো ট্রান্সপ্লান্ট',
 		about:
@@ -649,6 +660,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'ritesh-mongha': {
+		name: 'ডা. রিতেশ মোংঘা',
 		specialty: 'ইউরোলজিস্ট ও কিডনি ট্রান্সপ্লান্ট সার্জন',
 		title: 'ক্লিনিক্যাল ডিরেক্টর ও প্রধান — ইউরোলজি, ইউরো-অনকোলজি ও কিডনি ট্রান্সপ্লান্ট',
 		about:
@@ -698,6 +710,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'meet-kumar': {
+		name: 'ডা. মিত কুমার',
 		specialty: 'হেমাটোলজিস্ট ও বোন ম্যারো ট্রান্সপ্লান্ট বিশেষজ্ঞ',
 		title: 'ক্লিনিক্যাল ডিরেক্টর ও বিভাগীয় প্রধান — হেমাটো-অনকোলজি ও বোন ম্যারো ট্রান্সপ্লান্ট',
 		about:
@@ -759,6 +772,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'shibal-bhartiya': {
+		name: 'ডা. শিবাল ভারতীয়',
 		specialty: 'চক্ষু বিশেষজ্ঞ ও গ্লুকোমা বিশেষজ্ঞ',
 		title: 'ক্লিনিক্যাল ডিরেক্টর — চক্ষুবিজ্ঞান; প্রোগ্রাম ডিরেক্টর — কমিউনিটি আউটরিচ ও ওয়েলনেস, MAIINS',
 		about:
@@ -851,6 +865,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'ila-gupta': {
+		name: 'ডা. ইলা গুপ্তা',
 		"name": "ডাঃ ইলা গুপ্তা",
 		"specialty": "আইভিএফ ও বন্ধ্যাত্ব বিশেষজ্ঞ",
 		"title": "সহ-প্রতিষ্ঠাতা ও পরিচালক — Pristyn Care Ferticity IVF & Fertility Clinics",
@@ -904,6 +919,7 @@ export const bnDoctorsTr: DoctorTranslations = {
 		]
 	},
 	'rahil-chaudhary': {
+		name: 'ডা. রাহিল চৌধুরী',
 		"name": "ডাঃ রাহিল চৌধুরী",
 		"specialty": "ছানি ও রিফ্র্যাক্টিভ সার্জন",
 		"title": "ম্যানেজিং ডিরেক্টর — Eye7 Eye Hospitals",

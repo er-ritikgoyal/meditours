@@ -3,6 +3,8 @@ import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import PageHeader from '../../../components/PageHeader.astro';
 import EnquiryCard from '../../../components/EnquiryCard.astro';
+import RecommendationLayout from '../../../components/RecommendationLayout.astro';
+import VideoEmbed from '../../../components/VideoEmbed.astro';
 import CostEstimateCta from '../../../components/CostEstimateCta.astro';
 import OurPartnerHospitals from '../../../components/OurPartnerHospitals.astro';
 import iconAward from 'bootstrap-icons/icons/award-fill.svg?raw';
@@ -56,7 +58,17 @@ const aboutSections = getHospitalAbout(baseHospital.slug, 'fr', baseHospital.nam
 	title={`${hospital.name}, ${hospital.city} | Profil hospitalier | AlisPro MediTours`}
 	description={`${hospital.name} à ${hospital.city}, ${hospital.country} — ${hospital.accreditation}. ${hospital.about}`.slice(0, 155)}
 	locale="fr"
-	alternates={[{ locale: 'en', href: `/hospitals/${hospital.slug}` }]}
+	alternates={[
+			{ locale: 'en', href: `/hospitals/${hospital.slug}` },
+			{ locale: 'fr', href: `/fr/hospitals/${hospital.slug}` },
+			{ locale: 'ru', href: `/ru/hospitals/${hospital.slug}` },
+			{ locale: 'bn', href: `/bn/hospitals/${hospital.slug}` },
+			{ locale: 'ro', href: `/ro/hospitals/${hospital.slug}` },
+			{ locale: 'es', href: `/es/hospitals/${hospital.slug}` },
+			{ locale: 'pt', href: `/pt/hospitals/${hospital.slug}` },
+			{ locale: 'vi', href: `/vi/hospitals/${hospital.slug}` },
+			{ locale: 'ar', href: `/ar/hospitals/${hospital.slug}` },
+	]}
 >
 	<PageHeader
 		badge={hospital.accreditation}
@@ -71,152 +83,155 @@ const aboutSections = getHospitalAbout(baseHospital.slug, 'fr', baseHospital.nam
 		homeLabel="Accueil"
 	/>
 
-	<section class="hospital-detail">
-		<div class="hospital-detail__inner">
-			<div class="hospital-detail__main">
-				{
-					hospital.image && (
-						<div class="hospital-detail__banner">
-							<Image src={hospital.image} alt={hospital.name} width={960} height={420} />
-						</div>
-					)
-				}
-
-				<div class="hospital-detail__section">
-					<h2>À propos de {hospital.name}</h2>
-					<p>{hospital.about}</p>
+	<RecommendationLayout kind="hospital" slug={Astro.params.slug} locale="fr">
+		<section class="hospital-detail">
+			<div class="hospital-detail__inner">
+				<div class="hospital-detail__main">
 					{
-						aboutSections ? (
-							<div class="hospital-detail__long">
-								{aboutSections.map((s) => (
-									<>
-										<h3>{s.title}</h3>
-										{s.paragraphs.map((p) => (
-											<p>{p}</p>
-										))}
-									</>
-								))}
+						hospital.image && (
+							<div class="hospital-detail__banner">
+								<Image src={hospital.image} alt={hospital.name} width={960} height={420} />
 							</div>
-						) : (
-							overview && <p>{overview}</p>
+						)
+					}
+
+					<div class="hospital-detail__section">
+						<h2>À propos de {hospital.name}</h2>
+						<p>{hospital.about}</p>
+						{
+							aboutSections ? (
+								<div class="hospital-detail__long">
+									{aboutSections.map((s) => (
+										<>
+											<h3>{s.title}</h3>
+											{s.paragraphs.map((p) => (
+												<p>{p}</p>
+											))}
+										</>
+									))}
+								</div>
+							) : (
+								overview && <p>{overview}</p>
+							)
+						}
+						{baseHospital.videoUrl && <VideoEmbed url={baseHospital.videoUrl} title={hospital.name} />}
+					</div>
+
+					<div class="hospital-detail__section">
+						<h2>Spécialités et services</h2>
+						<ul class="hospital-detail__specialties">
+							{
+								hospital.specialties.map((specialty) => (
+									<li>
+										<span set:html={iconCheck} aria-hidden="true" />
+										{specialty}
+									</li>
+								))
+							}
+						</ul>
+					</div>
+
+					{
+						affiliatedDoctors.length > 0 && (
+							<div class="hospital-detail__section">
+								<h2>Médecins à {hospital.name}</h2>
+								<div class="hospital-detail__doctors">
+									{affiliatedDoctors.map((doc) => (
+										<a class="hospital-doctor-card" href={`/fr/doctors/${doc.slug}`}>
+											<span class="hospital-doctor-card__icon" set:html={iconPersonBadge} aria-hidden="true" />
+											<span class="hospital-doctor-card__text">
+												<strong>{doc.name}</strong>
+												<span>{doc.specialty}</span>
+											</span>
+										</a>
+									))}
+								</div>
+							</div>
+						)
+					}
+
+					{
+						hospital.profileUrl && (
+							<a class="hospital-detail__download" href={hospital.profileUrl} target="_blank" rel="noopener">
+								<span set:html={iconDownload} aria-hidden="true" />
+								Télécharger le profil de l'hôpital
+							</a>
 						)
 					}
 				</div>
 
-				<div class="hospital-detail__section">
-					<h2>Spécialités et services</h2>
-					<ul class="hospital-detail__specialties">
-						{
-							hospital.specialties.map((specialty) => (
+				<aside class="hospital-detail__sidebar">
+					<div class="hospital-detail__sidebar-sticky">
+						<div class="hospital-facts">
+							<h3>
+								<span set:html={iconHospital} aria-hidden="true" />
+								Informations clés
+							</h3>
+							<ul>
 								<li>
-									<span set:html={iconCheck} aria-hidden="true" />
-									{specialty}
-								</li>
-							))
-						}
-					</ul>
-				</div>
-
-				{
-					affiliatedDoctors.length > 0 && (
-						<div class="hospital-detail__section">
-							<h2>Médecins à {hospital.name}</h2>
-							<div class="hospital-detail__doctors">
-								{affiliatedDoctors.map((doc) => (
-									<a class="hospital-doctor-card" href={`/fr/doctors/${doc.slug}`}>
-										<span class="hospital-doctor-card__icon" set:html={iconPersonBadge} aria-hidden="true" />
-										<span class="hospital-doctor-card__text">
-											<strong>{doc.name}</strong>
-											<span>{doc.specialty}</span>
-										</span>
-									</a>
-								))}
-							</div>
-						</div>
-					)
-				}
-
-				{
-					hospital.profileUrl && (
-						<a class="hospital-detail__download" href={hospital.profileUrl} target="_blank" rel="noopener">
-							<span set:html={iconDownload} aria-hidden="true" />
-							Télécharger le profil de l'hôpital
-						</a>
-					)
-				}
-			</div>
-
-			<aside class="hospital-detail__sidebar">
-				<div class="hospital-detail__sidebar-sticky">
-					<div class="hospital-facts">
-						<h3>
-							<span set:html={iconHospital} aria-hidden="true" />
-							Informations clés
-						</h3>
-						<ul>
-							<li>
-								<span set:html={iconAward} aria-hidden="true" />
-								<span>
-									<strong>Accréditation</strong>
-									<span>{hospital.accreditation}</span>
-								</span>
-							</li>
-							<li>
-								<span set:html={iconBed} aria-hidden="true" />
-								<span>
-									<strong>Capacité</strong>
-									<span>{hospital.beds}</span>
-								</span>
-							</li>
-							<li>
-								<span set:html={iconGeo} aria-hidden="true" />
-								<span>
-									<strong>Localisation</strong>
+									<span set:html={iconAward} aria-hidden="true" />
 									<span>
-										{hospital.city}, {hospital.country}
+										<strong>Accréditation</strong>
+										<span>{hospital.accreditation}</span>
 									</span>
-								</span>
-							</li>
-							{
-								details?.established && (
-									<li>
-										<span set:html={iconCalendar} aria-hidden="true" />
+								</li>
+								<li>
+									<span set:html={iconBed} aria-hidden="true" />
+									<span>
+										<strong>Capacité</strong>
+										<span>{hospital.beds}</span>
+									</span>
+								</li>
+								<li>
+									<span set:html={iconGeo} aria-hidden="true" />
+									<span>
+										<strong>Localisation</strong>
 										<span>
-											<strong>{labels.established}</strong>
-											<span>{details.established}</span>
+											{hospital.city}, {hospital.country}
 										</span>
-									</li>
-								)
-							}
-							{
-								details?.address && (
-									<li>
-										<span set:html={iconGeo} aria-hidden="true" />
-										<span>
-											<strong>{labels.address}</strong>
-											<span>{details.address}</span>
-										</span>
-									</li>
-								)
-							}
-							{
-								details && details.certs.length > 0 && (
-									<li>
-										<span set:html={iconCert} aria-hidden="true" />
-										<span>
-											<strong>{labels.certifications}</strong>
-											<span>{details.certs.join(' · ')}</span>
-										</span>
-									</li>
-								)
-							}
-						</ul>
+									</span>
+								</li>
+								{
+									details?.established && (
+										<li>
+											<span set:html={iconCalendar} aria-hidden="true" />
+											<span>
+												<strong>{labels.established}</strong>
+												<span>{details.established}</span>
+											</span>
+										</li>
+									)
+								}
+								{
+									details?.address && (
+										<li>
+											<span set:html={iconGeo} aria-hidden="true" />
+											<span>
+												<strong>{labels.address}</strong>
+												<span>{details.address}</span>
+											</span>
+										</li>
+									)
+								}
+								{
+									details && details.certs.length > 0 && (
+										<li>
+											<span set:html={iconCert} aria-hidden="true" />
+											<span>
+												<strong>{labels.certifications}</strong>
+												<span>{details.certs.join(' · ')}</span>
+											</span>
+										</li>
+									)
+								}
+							</ul>
+						</div>
+						<EnquiryCard title="Planifiez votre traitement" subtitle={`Envoyez votre dossier à notre équipe de coordination pour ${hospital.name}`} />
 					</div>
-					<EnquiryCard title="Planifiez votre traitement" subtitle={`Envoyez votre dossier à notre équipe de coordination pour ${hospital.name}`} />
-				</div>
-			</aside>
-		</div>
-	</section>
+				</aside>
+			</div>
+		</section>
+	</RecommendationLayout>
 
 	{
 		relatedHospitals.length > 0 && (

@@ -1,0 +1,63 @@
+---
+/**
+ * Google Ads tag (AW-18512504526) + conversion tracking.
+ * Add-only component: does not replace any existing file.
+ * Usage in src/layouts/Layout.astro:
+ *   1) at the top (frontmatter):  import GoogleAdsTag from '../components/GoogleAdsTag.astro';
+ *   2) as the FIRST line inside <head>:  <GoogleAdsTag />
+ *
+ * - Loads on every page for every visitor in Google Consent Mode v2
+ *   (cookies stay "denied" until the visitor accepts in the cookie banner).
+ * - Counts: WhatsApp clicks, phone (tel:) clicks, enquiry form submits.
+ */
+const ADS_ID = 'AW-18512504526';
+const LABELS = {
+	whatsappClick: 'fq9HCMzczZwdEM7NuftE',
+	phoneClick: '5bF_CM_czZwdEM7NuftE',
+	enquirySubmit: 'CGPdCLDi1ZwdEM7NuftE',
+};
+---
+<script is:inline define:vars={{ ADS_ID, LABELS }}>
+	window.dataLayer = window.dataLayer || [];
+	window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
+	function __ccGranted() {
+		try {
+			var m = document.cookie.match(/(?:^|; )cc_consent=([^;]*)/);
+			return !!(m && JSON.parse(decodeURIComponent(m[1])).analytics);
+		} catch (e) { return false; }
+	}
+	var __s = __ccGranted() ? 'granted' : 'denied';
+	window.gtag('consent', 'default', {
+		ad_storage: __s, ad_user_data: __s, ad_personalization: __s, analytics_storage: __s,
+	});
+	window.gtag('js', new Date());
+	window.gtag('config', ADS_ID);
+
+	function __adsConversion(key) {
+		var label = LABELS[key];
+		if (label) window.gtag('event', 'conversion', { send_to: ADS_ID + '/' + label });
+	}
+	window.__adsConversion = __adsConversion;
+
+	// WhatsApp + phone clicks anywhere on the site
+	document.addEventListener('click', function (ev) {
+		var a = ev.target && ev.target.closest ? ev.target.closest('a[href]') : null;
+		if (a) {
+			var href = a.getAttribute('href') || '';
+			if (/wa\.me\/|api\.whatsapp\.com|whatsapp:/i.test(href)) __adsConversion('whatsappClick');
+			else if (/^tel:/i.test(href)) __adsConversion('phoneClick');
+		}
+		// Cookie banner buttons: send consent update right after the visitor decides
+		var b = ev.target && ev.target.closest ? ev.target.closest('#cc-accept, #cc-save, #cc-reject') : null;
+		if (b) setTimeout(function () {
+			var s = __ccGranted() ? 'granted' : 'denied';
+			window.gtag('consent', 'update', {
+				ad_storage: s, ad_user_data: s, ad_personalization: s, analytics_storage: s,
+			});
+		}, 300);
+	}, true);
+
+	// Enquiry form success (fired by src/scripts/enquiryForm.ts)
+	document.addEventListener('enquiry:success', function () { __adsConversion('enquirySubmit'); });
+</script>
+<script is:inline async src={`https://www.googletagmanager.com/gtag/js?id=${ADS_ID}`}></script>

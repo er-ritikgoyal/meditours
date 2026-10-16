@@ -2,6 +2,7 @@ import type { ImageMetadata } from 'astro';
 import { doctors } from '../data/doctors';
 import { hospitals } from '../data/hospitals';
 import { treatments } from '../data/treatments';
+import { destinations } from '../data/destinations';
 import imgCardiacCare from '../assets/treatments/cardiac-care.jpg';
 import imgOrthopedics from '../assets/treatments/orthopedics2.jpg';
 import imgOncology from '../assets/treatments/oncology2.jpg';
@@ -68,9 +69,32 @@ export interface SearchItem {
 	haystack: string;
 	/** Resolved image URL, if this entry has a photo — falls back to a type icon when absent. */
 	image?: string;
+	/** Destination slug (data/destinations.ts) used by the city filter; treatments have none. */
+	citySlug?: string;
 }
 
-const TREATMENT_IMAGES: Record<string, ImageMetadata> = {
+// City words in a doctor's free-text `city`/`hospital` fields -> destination slug.
+const CITY_TOKENS: Array<[RegExp, string]> = [
+	[/delhi|gurugram|gurgaon|noida|faridabad|ghaziabad/i, 'delhi-ncr'],
+	[/mumbai/i, 'mumbai'],
+	[/chennai/i, 'chennai'],
+	[/bangalore|bengaluru/i, 'bangalore'],
+	[/hyderabad/i, 'hyderabad'],
+	[/kochi|cochin/i, 'kochi'],
+	[/kolkata/i, 'kolkata'],
+	[/ahmedabad/i, 'ahmedabad'],
+];
+
+/** Best-effort destination for a doctor: their listed hospital's city, else a city word in their profile. */
+const doctorCitySlug = (doctor: (typeof doctors)[number]): string | undefined => {
+	const hospital = hospitals.find((h) => doctor.hospital.includes(h.name));
+	if (hospital) return hospital.citySlug;
+	const text = `${doctor.city} ${doctor.hospital}`;
+	const slug = CITY_TOKENS.find(([re]) => re.test(text))?.[1];
+	return slug && destinations.some((d) => d.slug === slug) ? slug : undefined;
+};
+
+export const TREATMENT_IMAGES: Record<string, ImageMetadata> = {
 	cardiacCare: imgCardiacCare,
 	orthopedics: imgOrthopedics,
 	oncology: imgOncology,
@@ -115,6 +139,7 @@ export function buildSearchIndex(locale = 'en'): SearchItem[] {
 				`${doctor.name} ${localized.name} ${doctor.specialty} ${localized.specialty} ${doctor.hospital} ${localized.hospital} ${doctor.city} ${localized.city}`,
 			),
 			image: resolveImage(doctor.photo),
+			citySlug: doctorCitySlug(doctor),
 		};
 	});
 
@@ -128,6 +153,7 @@ export function buildSearchIndex(locale = 'en'): SearchItem[] {
 			href: `${prefix}hospitals/${hospital.slug}`,
 			haystack: normalize(`${hospital.name} ${name} ${hospital.city} ${city} ${hospital.country} ${hospital.specialties.join(' ')}`),
 			image: resolveImage(hospital.image),
+			citySlug: hospital.citySlug,
 		};
 	});
 

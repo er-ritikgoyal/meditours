@@ -3,6 +3,7 @@ import { Image } from 'astro:assets';
 import 'flag-icons/css/flag-icons.min.css';
 import Layout from '../../../layouts/Layout.astro';
 import EnquiryCard from '../../../components/EnquiryCard.astro';
+import RecommendationLayout from '../../../components/RecommendationLayout.astro';
 import CostEstimateCta from '../../../components/CostEstimateCta.astro';
 import iconHome from 'bootstrap-icons/icons/house-door-fill.svg?raw';
 import iconChevron from 'bootstrap-icons/icons/chevron-right.svg?raw';
@@ -19,7 +20,14 @@ import iconPeople from 'bootstrap-icons/icons/people-fill.svg?raw';
 import iconWhatsapp from 'bootstrap-icons/icons/whatsapp.svg?raw';
 import iconArrowRight from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import iconImage from 'bootstrap-icons/icons/image-fill.svg?raw';
+import iconTabAbout from 'bootstrap-icons/icons/person-vcard-fill.svg?raw';
+import iconTabSpecializations from 'bootstrap-icons/icons/clipboard2-pulse-fill.svg?raw';
+import iconTabQualifications from 'bootstrap-icons/icons/mortarboard-fill.svg?raw';
+import iconTabExperience from 'bootstrap-icons/icons/briefcase-fill.svg?raw';
+import iconTabAwards from 'bootstrap-icons/icons/award-fill.svg?raw';
+import iconTabMemberships from 'bootstrap-icons/icons/people-fill.svg?raw';
 import { doctors, type DoctorData } from '../../../data/doctors';
+import { doctorCornerPhoto } from '../../../utils/doctorHospital';
 import { roDoctorsPage } from '../../../i18n/ro-pages';
 import { translateDoctor, translateDoctors } from '../../../i18n/doctorsTranslate';
 import { roDoctorsTr } from '../../../i18n/ro-doctors';
@@ -34,6 +42,9 @@ export function getStaticPaths() {
 const { doctor: baseDoctor } = Astro.props as { doctor: DoctorData };
 const doctor = translateDoctor(baseDoctor, roDoctorsTr);
 const d = roDoctorsPage.detail;
+
+// Doctor's own clinic photo, falling back to their hospital's photo.
+const cornerPhoto = doctorCornerPhoto(doctors.find((d) => d.slug === Astro.params.slug)!);
 
 const currentIndex = doctors.findIndex((d) => d.slug === doctor.slug);
 const related = translateDoctors(
@@ -60,6 +71,15 @@ const tabs = [
 	...(doctor.awards.length > 0 ? [{ id: 'awards', label: d.tabs.awards }] : []),
 	...(doctor.memberships.length > 0 ? [{ id: 'memberships', label: d.tabs.memberships }] : []),
 ];
+
+const TAB_ICONS: Record<string, string> = {
+	about: iconTabAbout,
+	specializations: iconTabSpecializations,
+	qualifications: iconTabQualifications,
+	experience: iconTabExperience,
+	awards: iconTabAwards,
+	memberships: iconTabMemberships,
+};
 
 const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.whatsappMessageTemplate(doctor.name))}`;
 ---
@@ -95,9 +115,13 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.wha
 
 			<div class="doctor-hero__corner-photo">
 				{
-					doctor.topRightPhoto ? (
+					cornerPhoto ? (
 						<>
-							<Image src={doctor.topRightPhoto} alt={`${doctor.name} — clinic`} width={320} height={220} />
+							{typeof cornerPhoto === 'string' ? (
+								<img src={cornerPhoto} alt={`${doctor.name} — ${doctor.hospital}`} width="320" height="220" />
+							) : (
+								<Image src={cornerPhoto} alt={`${doctor.name} — ${doctor.hospital}`} width={320} height={220} />
+							)}
 							<div class="doctor-hero__corner-caption">
 								<span set:html={iconHospital} aria-hidden="true" />
 								<span>{doctor.hospital}</span>
@@ -155,7 +179,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.wha
 					</div>
 
 					<div class="doctor-hero__ctas">
-						<a class="doctor-hero__cta doctor-hero__cta--primary" href="/ro/contact#enquiry-form">
+						<a class="doctor-hero__cta doctor-hero__cta--primary" href="#doctor-enquiry">
 							{d.bookAppointment}
 							<span set:html={iconArrowRight} aria-hidden="true" />
 						</a>
@@ -169,179 +193,195 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.wha
 		</div>
 	</section>
 
-	<section class="doctor-detail">
-		<div class="doctor-detail__layout">
-			<div class="doctor-detail__main">
-				<div class="doctor-tabs" role="tablist">
-					{
-						tabs.map((tab, i) => (
-							<button
-								class={`doctor-tabs__btn ${i === 0 ? 'is-active' : ''}`}
-								data-tab-trigger
-								data-tab-target={tab.id}
-								role="tab"
-								aria-selected={i === 0 ? 'true' : 'false'}
-							>
-								{tab.label}
-							</button>
-						))
-					}
-				</div>
-
-				<div class="doctor-tabs__panels">
-					<div class="doctor-tab-panel" data-tab-panel="about">
-						<h2>{d.aboutPrefix} {doctor.name}</h2>
-						{doctor.bannerPhoto && (
-							<Image
-								src={doctor.bannerPhoto}
-								alt={`${doctor.name} — ${doctor.specialty}`}
-								width={860}
-								class="doctor-tab-panel__banner"
-							/>
-						)}
-						{doctor.about.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
-					</div>
-
-					<div class="doctor-tab-panel" data-tab-panel="specializations" hidden>
-						<h2>{d.tabs.specializations}</h2>
-						<ul class="doctor-tab-list">
-							{
-								doctor.specializations.map((item) => (
-									<li>
-										<span set:html={iconCheck} aria-hidden="true" />
-										{item}
-									</li>
-								))
-							}
-						</ul>
-					</div>
-
-					<div class="doctor-tab-panel" data-tab-panel="qualifications" hidden>
-						<h2>{d.tabs.qualifications}</h2>
-						<ul class="doctor-timeline">
-							{
-								doctor.education.map((edu) => (
-									<li>
-										<span class="doctor-timeline__icon" set:html={iconMortarboard} aria-hidden="true" />
-										<div>
-											<strong>{edu.degree}</strong>
-											<span>{edu.institution}</span>
-											{edu.year && <span class="doctor-timeline__year">{edu.year}</span>}
-										</div>
-									</li>
-								))
-							}
-						</ul>
-					</div>
-
-					<div class="doctor-tab-panel" data-tab-panel="experience" hidden>
-						<h2>{d.tabs.experience}</h2>
-						<ul class="doctor-timeline">
-							{
-								doctor.experience.map((exp) => (
-									<li>
-										<span class="doctor-timeline__icon" set:html={iconExperience} aria-hidden="true" />
-										<div>
-											<strong>{exp.role}</strong>
-											<span>{exp.place}</span>
-											<span class="doctor-timeline__year">{exp.period}</span>
-										</div>
-									</li>
-								))
-							}
-						</ul>
-					</div>
-
-					<div class="doctor-tab-panel" data-tab-panel="awards" hidden>
-						<h2>{d.tabs.awards}</h2>
-						<ul class="doctor-tab-list">
-							{
-								doctor.awards.map((award) => (
-									<li>
-										<span set:html={iconAward} aria-hidden="true" />
-										{award.title}
-										{award.year && ` (${award.year})`}
-									</li>
-								))
-							}
-						</ul>
-					</div>
-
-					<div class="doctor-tab-panel" data-tab-panel="memberships" hidden>
-						<h2>{d.tabs.memberships}</h2>
-						<ul class="doctor-tab-list">
-							{
-								doctor.memberships.map((membership) => (
-									<li>
-										<span set:html={iconPeople} aria-hidden="true" />
-										{membership}
-									</li>
-								))
-							}
-						</ul>
-					</div>
-				</div>
-
-				{
-					doctor.testimonials.length > 0 && (
-						<div class="doctor-reviews">
-							<h2>{d.patientReviews}</h2>
-							<div class="doctor-reviews__grid">
-								{doctor.testimonials.map((t) => (
-									<article class="doctor-review-card">
-										<span class="doctor-review-card__quote" set:html={iconQuote} aria-hidden="true" />
-										<div class="doctor-review-card__stars" aria-label={`${t.rating} out of 5 stars`}>
-											{Array.from({ length: 5 }).map((_, i) => (
-												<span class={`doctor-review-card__star ${i < Math.round(t.rating) ? 'is-filled' : ''}`} set:html={iconStar} />
-											))}
-										</div>
-										<p>{t.text}</p>
-										<div class="doctor-review-card__person">
-											<span class={`fi fi-${t.countryCode}`} aria-hidden="true" />
-											<span>
-												<strong>{t.name}</strong>
-												<span>{t.country}</span>
-											</span>
-										</div>
-									</article>
-								))}
-							</div>
-						</div>
-					)
-				}
-
-				<div class="doctor-related">
-					<h2>{d.otherSpecialists}</h2>
-					<div class="doctor-related__grid">
+	<RecommendationLayout kind="doctor" slug={Astro.params.slug} locale="ro">
+		<section class="doctor-detail">
+			<div class="doctor-detail__layout">
+				<div class="doctor-detail__main">
+					<div class="doctor-tabs" role="tablist">
 						{
-							related.map((item) => (
-								<a class="doctor-related-card" href={`/ro/doctors/${item.slug}`}>
-									{item.photo ? (
-										<Image src={item.photo} alt={item.name} width={72} height={72} class="doctor-related-card__photo" />
-									) : (
-										<span class={`doctor-related-card__avatar doctor-related-card__avatar--${item.theme}`}>{initials(item.name)}</span>
-									)}
-									<span class="doctor-related-card__name">{item.name}</span>
-									<span class="doctor-related-card__specialty">{item.specialty}</span>
-								</a>
+							tabs.map((tab, i) => (
+								<button
+									type="button"
+									class={`doctor-tabs__btn ${i === 0 ? 'is-active' : ''}`}
+									data-tab-trigger
+									data-tab-target={tab.id}
+									role="tab"
+									aria-selected={i === 0 ? 'true' : 'false'}
+								>
+									<span class="doctor-tabs__icon" set:html={TAB_ICONS[tab.id]} aria-hidden="true" />
+									<span>{tab.label}</span>
+								</button>
 							))
 						}
 					</div>
-				</div>
-			</div>
 
-			<aside class="doctor-detail__sidebar">
-				<div class="doctor-detail__sidebar-sticky">
-					<EnquiryCard title={d.bookConsultation} subtitle={d.sendCaseTemplate(doctor.name)} />
+					<div class="doctor-tabs__panels">
+						<div class="doctor-tab-panel" data-tab-panel="about">
+							<h2>{d.aboutPrefix} {doctor.name}</h2>
+							{doctor.bannerPhoto && (
+								<Image
+									src={doctor.bannerPhoto}
+									alt={`${doctor.name} — ${doctor.specialty}`}
+									width={860}
+									class="doctor-tab-panel__banner"
+								/>
+							)}
+							{doctor.about.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
+						</div>
+
+						<div class="doctor-tab-panel" data-tab-panel="specializations" hidden>
+							<h2>{d.tabs.specializations}</h2>
+							<ul class="doctor-tab-list">
+								{
+									doctor.specializations.map((item) => (
+										<li>
+											<span set:html={iconCheck} aria-hidden="true" />
+											{item}
+										</li>
+									))
+								}
+							</ul>
+						</div>
+
+						<div class="doctor-tab-panel" data-tab-panel="qualifications" hidden>
+							<h2>{d.tabs.qualifications}</h2>
+							<ul class="doctor-timeline">
+								{
+									doctor.education.map((edu) => (
+										<li>
+											<span class="doctor-timeline__icon" set:html={iconMortarboard} aria-hidden="true" />
+											<div>
+												<strong>{edu.degree}</strong>
+												<span>{edu.institution}</span>
+												{edu.year && <span class="doctor-timeline__year">{edu.year}</span>}
+											</div>
+										</li>
+									))
+								}
+							</ul>
+						</div>
+
+						<div class="doctor-tab-panel" data-tab-panel="experience" hidden>
+							<h2>{d.tabs.experience}</h2>
+							<ul class="doctor-timeline">
+								{
+									doctor.experience.map((exp) => (
+										<li>
+											<span class="doctor-timeline__icon" set:html={iconExperience} aria-hidden="true" />
+											<div>
+												<strong>{exp.role}</strong>
+												<span>{exp.place}</span>
+												<span class="doctor-timeline__year">{exp.period}</span>
+											</div>
+										</li>
+									))
+								}
+							</ul>
+						</div>
+
+						<div class="doctor-tab-panel" data-tab-panel="awards" hidden>
+							<h2>{d.tabs.awards}</h2>
+							<ul class="doctor-tab-list">
+								{
+									doctor.awards.map((award) => (
+										<li>
+											<span set:html={iconAward} aria-hidden="true" />
+											{award.title}
+											{award.year && ` (${award.year})`}
+										</li>
+									))
+								}
+							</ul>
+						</div>
+
+						<div class="doctor-tab-panel" data-tab-panel="memberships" hidden>
+							<h2>{d.tabs.memberships}</h2>
+							<ul class="doctor-tab-list">
+								{
+									doctor.memberships.map((membership) => (
+										<li>
+											<span set:html={iconPeople} aria-hidden="true" />
+											{membership}
+										</li>
+									))
+								}
+							</ul>
+						</div>
+					</div>
+
+					{
+						doctor.testimonials.length > 0 && (
+							<div class="doctor-reviews">
+								<h2>{d.patientReviews}</h2>
+								<div class="doctor-reviews__grid">
+									{doctor.testimonials.map((t) => (
+										<article class="doctor-review-card">
+											<span class="doctor-review-card__quote" set:html={iconQuote} aria-hidden="true" />
+											<div class="doctor-review-card__stars" aria-label={`${t.rating} out of 5 stars`}>
+												{Array.from({ length: 5 }).map((_, i) => (
+													<span class={`doctor-review-card__star ${i < Math.round(t.rating) ? 'is-filled' : ''}`} set:html={iconStar} />
+												))}
+											</div>
+											<p>{t.text}</p>
+											<div class="doctor-review-card__person">
+												<span class={`fi fi-${t.countryCode}`} aria-hidden="true" />
+												<span>
+													<strong>{t.name}</strong>
+													<span>{t.country}</span>
+												</span>
+											</div>
+										</article>
+									))}
+								</div>
+							</div>
+						)
+					}
+
+					<div class="doctor-related">
+						<h2>{d.otherSpecialists}</h2>
+						<div class="doctor-related__grid">
+							{
+								related.map((item) => (
+									<a class="doctor-related-card" href={`/ro/doctors/${item.slug}`}>
+										{item.photo ? (
+											<Image src={item.photo} alt={item.name} width={72} height={72} class="doctor-related-card__photo" />
+										) : (
+											<span class={`doctor-related-card__avatar doctor-related-card__avatar--${item.theme}`}>{initials(item.name)}</span>
+										)}
+										<span class="doctor-related-card__name">{item.name}</span>
+										<span class="doctor-related-card__specialty">{item.specialty}</span>
+									</a>
+								))
+							}
+						</div>
+					</div>
 				</div>
-			</aside>
-		</div>
-	</section>
+
+				<aside class="doctor-detail__sidebar">
+					<div class="doctor-detail__sidebar-sticky" id="doctor-enquiry">
+						<EnquiryCard title={d.bookConsultation} subtitle={d.sendCaseTemplate(doctor.name)} />
+					</div>
+				</aside>
+			</div>
+		</section>
+	</RecommendationLayout>
 
 	<CostEstimateCta />
 </Layout>
 
 <script>
+	// "Book an Appointment" -> this page's enquiry form: scroll to it and put
+	// the cursor in the name field so the visitor can start typing.
+	document.querySelectorAll<HTMLAnchorElement>('a[href="#doctor-enquiry"]').forEach((link) => {
+		link.addEventListener('click', (event) => {
+			const target = document.getElementById('doctor-enquiry');
+			if (!target) return;
+			event.preventDefault();
+			target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+			target.querySelector<HTMLInputElement>('input[name="name"]')?.focus({ preventScroll: true });
+		});
+	});
+
 	const triggers = document.querySelectorAll<HTMLButtonElement>('[data-tab-trigger]');
 	const panels = document.querySelectorAll<HTMLElement>('[data-tab-panel]');
 
@@ -362,6 +402,11 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.wha
 </script>
 
 <style>
+	/* Clears the navbar when "Book an Appointment" scrolls the form into view. */
+	#doctor-enquiry {
+		scroll-margin-top: 96px;
+	}
+
 	.doctor-hero {
 		background: var(--gradient-hero);
 		padding: 40px 24px 64px;
@@ -783,43 +828,98 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.wha
 		top: 24px;
 	}
 
+	/* Tab bar: a tinted track of pill buttons, each with an icon, so it reads
+	   as navigation rather than plain text. Wraps instead of hiding tabs in a
+	   sideways scroll; on phones it becomes a grid of icon tiles. */
 	.doctor-tabs {
 		display: flex;
-		flex-wrap: nowrap;
+		flex-wrap: wrap;
+		justify-content: center;
 		gap: 6px;
-		padding-bottom: 4px;
+		padding: 6px;
 		margin-bottom: 28px;
-		border-bottom: 1px solid var(--color-border-light);
-		overflow-x: auto;
-		scrollbar-width: thin;
-		-webkit-overflow-scrolling: touch;
+		background: var(--color-bg-alt);
+		border: 1px solid var(--color-border-card);
+		border-radius: 14px;
 	}
 
 	.doctor-tabs__btn {
-		flex-shrink: 0;
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
 		padding: 10px 16px;
-		border: none;
+		border: 1px solid transparent;
 		background: transparent;
-		border-radius: var(--radius-md) var(--radius-md) 0 0;
+		border-radius: 10px;
 		font-family: var(--font-body);
-		font-size: 13.5px;
+		font-size: 14px;
 		font-weight: 600;
-		color: var(--color-text-secondary);
-		white-space: nowrap;
+		line-height: 1.25;
+		color: var(--color-primary);
 		cursor: pointer;
-		border-bottom: 2px solid transparent;
 		transition:
+			background 0.15s ease,
 			color 0.15s ease,
-			border-color 0.15s ease;
+			box-shadow 0.15s ease;
+	}
+
+	.doctor-tabs__icon {
+		display: flex;
+		flex-shrink: 0;
+		width: 16px;
+		height: 16px;
+		color: var(--color-teal);
+	}
+
+	.doctor-tabs__icon :global(svg) {
+		width: 100%;
+		height: 100%;
 	}
 
 	.doctor-tabs__btn:hover {
-		color: var(--color-primary);
+		background: var(--color-bg-white);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.doctor-tabs__btn:focus-visible {
+		outline: 2px solid var(--color-teal);
+		outline-offset: 2px;
 	}
 
 	.doctor-tabs__btn.is-active {
-		color: var(--color-primary);
-		border-bottom-color: var(--color-teal);
+		background: var(--color-primary);
+		color: #ffffff;
+		box-shadow: 0 6px 16px -6px rgba(15, 76, 129, 0.55);
+	}
+
+	.doctor-tabs__btn.is-active .doctor-tabs__icon {
+		color: #ffffff;
+	}
+
+	@media screen and (max-width: 640px) {
+		.doctor-tabs {
+			display: grid;
+			grid-template-columns: repeat(3, minmax(0, 1fr));
+			gap: 6px;
+			margin-bottom: 22px;
+		}
+
+		.doctor-tabs__btn {
+			flex-direction: column;
+			justify-content: center;
+			gap: 6px;
+			min-height: 74px;
+			padding: 10px 6px;
+			background: var(--color-bg-white);
+			border-color: var(--color-border-card);
+			font-size: 12px;
+			text-align: center;
+		}
+
+		.doctor-tabs__icon {
+			width: 20px;
+			height: 20px;
+		}
 	}
 
 	.doctor-tab-panel h2 {

@@ -800,6 +800,7 @@ export const doctors: DoctorData[] = [
 		slug: 'ila-gupta',
 		name: 'Dr. Ila Gupta',
 		photo: imgIlaGupta,
+		videoUrl: 'https://youtu.be/TZ6OrQioenU',
 		specialty: 'IVF & Infertility Specialist',
 		title: 'Co-Founder & Director — Pristyn Care Ferticity IVF & Fertility Clinics',
 		qualification: 'MBBS, MS — Obstetrics & Gynaecology; Diploma in Reproductive Medicine & ART (Kiel, Germany)',

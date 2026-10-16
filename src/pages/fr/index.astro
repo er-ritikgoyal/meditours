@@ -1,5 +1,6 @@
 ---
 import HeroSection from '../../components/HeroSection.astro';
+import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
@@ -10,19 +11,18 @@ import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { fr } from '../../i18n/fr';
-import { frAbout, frTreatmentsPage } from '../../i18n/fr-pages';
+import { frAbout } from '../../i18n/fr-pages';
 import { frDoctors, frPartnerHospitalsHome, frSupportServices, frTravelProcess } from '../../i18n/fr-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { frDoctorsTr } from '../../i18n/fr-doctors';
-import { getFeaturedHospitals } from '../../data/hospitals';
+import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/fr-hospitals';
 
-const frenchHospitals = translateHospitals(getFeaturedHospitals(2));
+const frenchHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const frenchDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...frDoctors.doctors[i] }));
 
-const { costComparison } = frTreatmentsPage;
 const videoEntries = defaultDoctors
 	.filter((doctor) => doctor.videoUrl)
 	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
@@ -45,9 +45,20 @@ const videoEntries = defaultDoctors
 	]}
 >
 	<HeroSection
-		treatmentOptions={fr.hero.treatmentOptions}
 		trust={fr.hero.trust}
 		enquiry={fr.hero.enquiry}
+	/>
+	<Achievements
+		badge="Notre impact"
+		title="Des chiffres qui"
+		highlight="parlent d'eux-mêmes"
+		subtitle={`Plus de 5 ans de coordination de soins de classe mondiale, mesurés par les patients que nous avons aidés.`}
+		labels={{
+			countriesTouched: 'Pays touchés',
+			livesImpacted: 'Vies impactées',
+			yearsOfExcellence: "Années d'excellence",
+			accreditedHospitals: 'Hôpitaux accrédités',
+		}}
 	/>
 	<OurDoctors
 		basePath="/fr"
@@ -61,7 +72,13 @@ const videoEntries = defaultDoctors
 		contactLabel={frDoctors.contactLabel}
 		verifiedLabel={frDoctors.verifiedLabel}
 	/>
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="Rencontrez nos spécialistes"
+		title="Écoutez nos"
+		highlight="médecins"
+		subtitle={`De courtes présentations vidéo des spécialistes qui coordonnent vos soins.`}
+		entries={videoEntries}
+	/>
 	<OurPartnerHospitals
 		badge={frPartnerHospitalsHome.badge}
 		title={frPartnerHospitalsHome.title}
@@ -70,17 +87,7 @@ const videoEntries = defaultDoctors
 		hospitals={frenchHospitals}
 		basePath="/fr"
 	/>
-	<TreatmentCostComparison
-		title={costComparison.title}
-		subtitle={costComparison.subtitle}
-		note={costComparison.note}
-		scrollHint={costComparison.scrollHint}
-		mostAffordableLabel={costComparison.mostAffordable}
-		saveLabel="Économisez {pct} %"
-		countryLabels={costComparison.countries}
-		treatmentNames={costComparison.treatmentNames}
-		stats={costComparison.stats}
-	/>
+	<TreatmentCostComparison basePath="/fr" />
 	<SupportServices
 		badge={frSupportServices.badge}
 		title={frSupportServices.titleLead}

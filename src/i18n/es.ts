@@ -27,7 +27,7 @@ export const es = {
 
 	footer: {
 		description:
-			'Conectamos a los pacientes con hospitales acreditados y especialistas certificados en más de 20 países — apoyo integral, desde la primera opinión médica hasta la recuperación.',
+			'Conectamos a los pacientes con hospitales acreditados y especialistas certificados en más de 40 países — apoyo integral, desde la primera opinión médica hasta la recuperación.',
 		quickLinks: 'Enlaces rápidos',
 		home: 'Inicio',
 		aboutUs: 'Sobre nosotros',
@@ -65,7 +65,7 @@ export const es = {
 				title: 'Atención médica de clase mundial,',
 				highlight: 'sin esperas ni precios excesivos',
 				description:
-					'Compare hospitales acreditados y especialistas de más de 20 países, y ahorre hasta un 70% en el tratamiento que necesita.',
+					'Compare hospitales acreditados y especialistas de más de 40 países, y ahorre hasta un 70% en el tratamiento que necesita.',
 				primaryCta: 'Consulta gratuita',
 				secondaryCta: 'Explorar destinos',
 			},
@@ -88,10 +88,10 @@ export const es = {
 			},
 		],
 		trust: [
-			{ value: '500+', label: 'Hospitales asociados' },
-			{ value: '45', label: 'Países' },
+			{ value: '100+', label: 'Hospitales asociados' },
+			{ value: '40+', label: 'Países' },
 			{ value: '24/7', label: 'Apoyo al paciente' },
-			{ value: '12,000+', label: 'Pacientes atendidos' },
+			{ value: '10,000+', label: 'Pacientes atendidos' },
 		],
 		treatmentOptions: [
 			'Cardiología',

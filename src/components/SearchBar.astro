@@ -1,14 +1,21 @@
 ---
-// Inline search bar — dropped at the top of the Doctors, Destinations/Hospitals
-// and Treatments pages. Not a modal: results appear as a panel attached
-// directly under the input while the visitor types, from a single
+// Site-wide search banner, rendered under the navbar on every page: a pastel
+// India skyline backdrop, a heading, and a two-part search card — a city
+// filter ("In or around") plus the free-text search. Results appear as a
+// panel attached under the input while the visitor types, from a single
 // locale-aware index covering doctors, hospitals and treatments.
+import { getImage } from 'astro:assets';
 import iconSearchGlass from 'bootstrap-icons/icons/search.svg?raw';
+import iconGeo from 'bootstrap-icons/icons/geo-alt-fill.svg?raw';
+import iconChevronDown from 'bootstrap-icons/icons/chevron-down.svg?raw';
 import iconDoctor from 'bootstrap-icons/icons/person-badge-fill.svg?raw';
 import iconHospitalType from 'bootstrap-icons/icons/hospital-fill.svg?raw';
 import iconTreatment from 'bootstrap-icons/icons/heart-pulse-fill.svg?raw';
 import iconClose from 'bootstrap-icons/icons/x-lg.svg?raw';
+import pastelIndia from '../assets/banners/pastel-india.png';
 import { buildSearchIndex } from '../utils/searchIndex';
+import { destinations } from '../data/destinations';
+import { localizeCity, type HospitalLocale } from '../i18n/hospitalNames';
 
 export interface Props {
 	locale?: string;
@@ -21,10 +28,20 @@ const index = buildSearchIndex(locale);
 // of the inline JSON payload below.
 const indexJson = JSON.stringify(index).replace(/</g, '\\u003c');
 
+const background = await getImage({ src: pastelIndia, format: 'webp', quality: 80 });
+
 const STRINGS: Record<
 	string,
 	{
+		title: string;
+		tagline: [string, string, string];
+		cityLabel: string;
+		anyCity: string;
+		queryLabel: string;
 		placeholder: string;
+		popularLabel: string;
+		/** Heart transplant, knee replacement, IVF — the doctor link uses the index's localized name. */
+		popular: [string, string, string];
 		noResults: string;
 		clear: string;
 		doctors: string;
@@ -33,7 +50,14 @@ const STRINGS: Record<
 	}
 > = {
 	en: {
-		placeholder: 'Search doctors, hospitals, treatments…',
+		title: 'Organize Your Healthcare Journey with us',
+		tagline: ['Consultation', 'Treatment', 'Coordination'],
+		cityLabel: 'In or around:',
+		anyCity: 'Any City',
+		queryLabel: 'I am looking for:',
+		placeholder: 'Search doctors, hospitals, clinics and treatments',
+		popularLabel: 'Most popular searches:',
+		popular: ['Heart Transplant', 'Knee Replacement', 'In Vitro Fertilization (IVF)'],
 		noResults: 'No results found.',
 		clear: 'Clear search',
 		doctors: 'Doctors',
@@ -41,7 +65,14 @@ const STRINGS: Record<
 		treatments: 'Treatments',
 	},
 	fr: {
-		placeholder: 'Rechercher médecins, hôpitaux, traitements…',
+		title: 'Planifiez votre voyage médical en Inde',
+		tagline: ['Fiable', 'Transparent', 'Sûr'],
+		cityLabel: 'À proximité de :',
+		anyCity: 'Toutes les villes',
+		queryLabel: 'Je recherche :',
+		placeholder: 'Rechercher médecins, hôpitaux, cliniques et traitements',
+		popularLabel: 'Recherches populaires :',
+		popular: ['Greffe du cœur', 'Prothèse du genou', 'Fécondation in vitro (FIV)'],
 		noResults: 'Aucun résultat trouvé.',
 		clear: 'Effacer la recherche',
 		doctors: 'Médecins',
@@ -49,7 +80,14 @@ const STRINGS: Record<
 		treatments: 'Traitements',
 	},
 	es: {
-		placeholder: 'Buscar médicos, hospitales, tratamientos…',
+		title: 'Planifique su viaje médico a la India',
+		tagline: ['Confiable', 'Transparente', 'Seguro'],
+		cityLabel: 'En o cerca de:',
+		anyCity: 'Cualquier ciudad',
+		queryLabel: 'Estoy buscando:',
+		placeholder: 'Buscar médicos, hospitales, clínicas y tratamientos',
+		popularLabel: 'Búsquedas populares:',
+		popular: ['Trasplante de corazón', 'Reemplazo de rodilla', 'Fecundación in vitro (FIV)'],
 		noResults: 'No se encontraron resultados.',
 		clear: 'Borrar búsqueda',
 		doctors: 'Médicos',
@@ -57,7 +95,14 @@ const STRINGS: Record<
 		treatments: 'Tratamientos',
 	},
 	pt: {
-		placeholder: 'Pesquisar médicos, hospitais, tratamentos…',
+		title: 'Planeje sua viagem médica para a Índia',
+		tagline: ['Confiável', 'Transparente', 'Seguro'],
+		cityLabel: 'Em ou perto de:',
+		anyCity: 'Qualquer cidade',
+		queryLabel: 'Estou procurando:',
+		placeholder: 'Pesquisar médicos, hospitais, clínicas e tratamentos',
+		popularLabel: 'Pesquisas populares:',
+		popular: ['Transplante de coração', 'Prótese de joelho', 'Fertilização in vitro (FIV)'],
 		noResults: 'Nenhum resultado encontrado.',
 		clear: 'Limpar pesquisa',
 		doctors: 'Médicos',
@@ -65,7 +110,14 @@ const STRINGS: Record<
 		treatments: 'Tratamentos',
 	},
 	ru: {
-		placeholder: 'Поиск врачей, больниц, процедур…',
+		title: 'Спланируйте медицинскую поездку в Индию',
+		tagline: ['Надёжно', 'Прозрачно', 'Безопасно'],
+		cityLabel: 'Город:',
+		anyCity: 'Любой город',
+		queryLabel: 'Я ищу:',
+		placeholder: 'Поиск врачей, больниц, клиник и процедур',
+		popularLabel: 'Популярные запросы:',
+		popular: ['Пересадка сердца', 'Эндопротезирование колена', 'ЭКО'],
 		noResults: 'Ничего не найдено.',
 		clear: 'Очистить поиск',
 		doctors: 'Врачи',
@@ -73,7 +125,14 @@ const STRINGS: Record<
 		treatments: 'Процедуры',
 	},
 	bn: {
-		placeholder: 'ডাক্তার, হাসপাতাল, চিকিৎসা খুঁজুন…',
+		title: 'ভারতে আপনার চিকিৎসা ভ্রমণের পরিকল্পনা করুন',
+		tagline: ['বিশ্বস্ত', 'স্বচ্ছ', 'নির্ভরযোগ্য'],
+		cityLabel: 'শহর বা আশেপাশে:',
+		anyCity: 'যেকোনো শহর',
+		queryLabel: 'আমি খুঁজছি:',
+		placeholder: 'ডাক্তার, হাসপাতাল, ক্লিনিক ও চিকিৎসা খুঁজুন',
+		popularLabel: 'জনপ্রিয় অনুসন্ধান:',
+		popular: ['হৃদপিণ্ড প্রতিস্থাপন', 'হাঁটু প্রতিস্থাপন', 'আইভিএফ'],
 		noResults: 'কোনো ফলাফল পাওয়া যায়নি।',
 		clear: 'অনুসন্ধান মুছুন',
 		doctors: 'ডাক্তার',
@@ -81,7 +140,14 @@ const STRINGS: Record<
 		treatments: 'চিকিৎসা',
 	},
 	ro: {
-		placeholder: 'Caută medici, spitale, tratamente…',
+		title: 'Planificați-vă călătoria medicală în India',
+		tagline: ['De încredere', 'Transparent', 'Sigur'],
+		cityLabel: 'În sau lângă:',
+		anyCity: 'Orice oraș',
+		queryLabel: 'Caut:',
+		placeholder: 'Caută medici, spitale, clinici și tratamente',
+		popularLabel: 'Căutări populare:',
+		popular: ['Transplant de inimă', 'Protezare de genunchi', 'Fertilizare in vitro (FIV)'],
 		noResults: 'Niciun rezultat găsit.',
 		clear: 'Șterge căutarea',
 		doctors: 'Medici',
@@ -89,7 +155,14 @@ const STRINGS: Record<
 		treatments: 'Tratamente',
 	},
 	vi: {
-		placeholder: 'Tìm bác sĩ, bệnh viện, phương pháp điều trị…',
+		title: 'Lên kế hoạch du lịch y tế đến Ấn Độ',
+		tagline: ['Uy tín', 'Minh bạch', 'Đáng tin cậy'],
+		cityLabel: 'Tại hoặc gần:',
+		anyCity: 'Mọi thành phố',
+		queryLabel: 'Tôi đang tìm:',
+		placeholder: 'Tìm bác sĩ, bệnh viện, phòng khám và phương pháp điều trị',
+		popularLabel: 'Tìm kiếm phổ biến:',
+		popular: ['Ghép tim', 'Thay khớp gối', 'Thụ tinh trong ống nghiệm (IVF)'],
 		noResults: 'Không tìm thấy kết quả.',
 		clear: 'Xóa tìm kiếm',
 		doctors: 'Bác sĩ',
@@ -97,7 +170,14 @@ const STRINGS: Record<
 		treatments: 'Phương pháp điều trị',
 	},
 	ar: {
-		placeholder: 'ابحث عن أطباء، مستشفيات، علاجات…',
+		title: 'خطّط لرحلتك العلاجية إلى الهند',
+		tagline: ['موثوق', 'شفاف', 'جدير بالثقة'],
+		cityLabel: 'في أو بالقرب من:',
+		anyCity: 'أي مدينة',
+		queryLabel: 'أبحث عن:',
+		placeholder: 'ابحث عن أطباء، مستشفيات، عيادات وعلاجات',
+		popularLabel: 'عمليات البحث الشائعة:',
+		popular: ['زراعة القلب', 'استبدال مفصل الركبة', 'أطفال الأنابيب (IVF)'],
 		noResults: 'لم يتم العثور على نتائج.',
 		clear: 'مسح البحث',
 		doctors: 'الأطباء',
@@ -107,25 +187,73 @@ const STRINGS: Record<
 };
 
 const s = STRINGS[locale] ?? STRINGS.en;
+const prefix = locale === 'en' ? '/' : `/${locale}/`;
+
+const cityOptions = destinations.map((d) => ({
+	slug: d.slug,
+	label: locale === 'en' ? d.city : localizeCity(d.city, locale as HospitalLocale),
+}));
+
+const featuredDoctorHref = `${prefix}doctors/gautam-banga`;
+const featuredDoctor = index.find((item) => item.href === featuredDoctorHref);
+const popularSearches = [
+	{ label: s.popular[0], href: `${prefix}treatments/organ-transplant/heart-transplant` },
+	{ label: s.popular[1], href: `${prefix}treatments/orthopedics/total-knee-replacement` },
+	{ label: s.popular[2], href: `${prefix}treatments/fertility/in-vitro-fertilization-ivf` },
+	...(featuredDoctor ? [{ label: featuredDoctor.title, href: featuredDoctorHref }] : []),
+];
 ---
 
-<div class="search-inline" id="search-inline">
-	<div class="search-inline__bar">
-		<span class="search-inline__bar-icon" set:html={iconSearchGlass} aria-hidden="true" />
-		<input
-			type="text"
-			id="search-inline-input"
-			class="search-inline__input"
-			placeholder={s.placeholder}
-			autocomplete="off"
-			spellcheck="false"
-		/>
-		<button type="button" class="search-inline__clear" id="search-inline-clear" aria-label={s.clear} hidden>
-			<span set:html={iconClose} aria-hidden="true" />
-		</button>
+<section class="search-hero" style={`--search-hero-bg: url('${background.src}')`}>
+	<div class="search-hero__inner">
+		<p class="search-hero__title">{s.title}</p>
+		<p class="search-hero__tagline">
+			{s.tagline.map((word, i) => (i === 0 ? <span>{word}</span> : <><span class="search-hero__dot" aria-hidden="true">.</span><span>{word}</span></>))}
+		</p>
+
+		<div class="search-inline" id="search-inline">
+			<div class="search-inline__fields">
+				<div class="search-inline__field search-inline__field--city">
+					<label class="search-inline__label" for="search-inline-city">
+						{s.cityLabel}
+						<span class="search-inline__label-icon" set:html={iconGeo} aria-hidden="true" />
+					</label>
+					<div class="search-inline__box search-inline__box--select">
+						<select id="search-inline-city" class="search-inline__select">
+							<option value="">{s.anyCity}</option>
+							{cityOptions.map((city) => <option value={city.slug}>{city.label}</option>)}
+						</select>
+						<span class="search-inline__chevron" set:html={iconChevronDown} aria-hidden="true" />
+					</div>
+				</div>
+
+				<div class="search-inline__field search-inline__field--query">
+					<label class="search-inline__label" for="search-inline-input">{s.queryLabel}</label>
+					<div class="search-inline__box">
+						<span class="search-inline__bar-icon" set:html={iconSearchGlass} aria-hidden="true" />
+						<input
+							type="text"
+							id="search-inline-input"
+							class="search-inline__input"
+							placeholder={s.placeholder}
+							autocomplete="off"
+							spellcheck="false"
+						/>
+						<button type="button" class="search-inline__clear" id="search-inline-clear" aria-label={s.clear} hidden>
+							<span set:html={iconClose} aria-hidden="true" />
+						</button>
+					</div>
+					<div class="search-inline__panel" id="search-inline-panel" hidden></div>
+				</div>
+			</div>
+
+			<div class="search-inline__popular">
+				<span class="search-inline__popular-label">{s.popularLabel}</span>
+				{popularSearches.map((link) => <a href={link.href}>{link.label}</a>)}
+			</div>
+		</div>
 	</div>
-	<div class="search-inline__panel" id="search-inline-panel" hidden></div>
-</div>
+</section>
 
 <script type="application/json" id="search-inline-data" set:html={indexJson} />
 
@@ -138,6 +266,7 @@ const s = STRINGS[locale] ?? STRINGS.en;
 >
 	const root = document.getElementById('search-inline');
 	const input = document.getElementById('search-inline-input');
+	const citySelect = document.getElementById('search-inline-city');
 	const clearBtn = document.getElementById('search-inline-clear');
 	const panel = document.getElementById('search-inline-panel');
 	const dataEl = document.getElementById('search-inline-data');
@@ -169,16 +298,24 @@ const s = STRINGS[locale] ?? STRINGS.en;
 		panel.innerHTML = '';
 	};
 
-	const render = (query) => {
-		const q = normalize(query.trim());
+	// With a city picked, doctors and hospitals are limited to that city;
+	// treatments aren't tied to a city, so they're always searchable. With a
+	// city but no text, the panel lists that city's doctors and hospitals.
+	const render = () => {
+		const q = normalize(input.value.trim());
+		const city = citySelect?.value || '';
 		clearBtn.hidden = q.length === 0;
 
-		if (!q) {
+		if (!q && !city) {
 			hidePanel();
 			return;
 		}
 
-		const matches = items.filter((item) => item.haystack.includes(q));
+		const matches = items.filter((item) => {
+			if (city && item.type !== 'treatment' && item.citySlug !== city) return false;
+			if (!q) return item.type !== 'treatment';
+			return item.haystack.includes(q);
+		});
 
 		if (matches.length === 0) {
 			panel.innerHTML = `<p class="search-inline__empty">${noResultsText}</p>`;
@@ -209,9 +346,13 @@ const s = STRINGS[locale] ?? STRINGS.en;
 		panel.hidden = false;
 	};
 
-	input?.addEventListener('input', () => render(input.value));
+	input?.addEventListener('input', render);
 	input?.addEventListener('focus', () => {
-		if (input.value.trim()) render(input.value);
+		if (input.value.trim() || citySelect?.value) render();
+	});
+	citySelect?.addEventListener('change', () => {
+		render();
+		input?.focus();
 	});
 
 	clearBtn?.addEventListener('click', () => {
@@ -239,36 +380,147 @@ const s = STRINGS[locale] ?? STRINGS.en;
 </script>
 
 <style>
-	.search-inline {
+	.search-hero {
 		position: relative;
-		max-width: 420px;
-		margin: 0 auto 8px;
-		padding: 0 24px;
+		padding: 10px 24px 12px;
+		background-color: #ece8f7;
+		background-image: var(--search-hero-bg);
+		background-size: cover;
+		/* Anchor to the top so any cropping comes off the bottom of the image. */
+		background-position: center top;
 		font-family: var(--font-body);
 	}
 
-	.search-inline__bar {
+	.search-hero__inner {
+		max-width: 1160px;
+		margin: 0 auto;
+		text-align: center;
+	}
+
+	.search-hero__title {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: clamp(18px, 1.9vw, 24px);
+		font-weight: 700;
+		line-height: 1.2;
+		color: #0b1220;
+	}
+
+	.search-hero__tagline {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 0 8px;
+		margin: 0 0 8px;
+		font-family: var(--font-heading);
+		font-size: clamp(16px, 1.7vw, 22px);
+		font-weight: 700;
+		line-height: 1.25;
+		color: var(--color-primary);
+	}
+
+	.search-hero__dot {
+		color: var(--color-primary);
+	}
+
+	.search-inline {
+		position: relative;
+		max-width: 1160px;
+		margin: 0 auto;
+		padding: 8px 14px;
+		text-align: start;
+		background: rgba(255, 255, 255, 0.96);
+		border-radius: 10px;
+		box-shadow: var(--shadow-card);
+	}
+
+	.search-inline__fields {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) minmax(0, 1.45fr);
+		gap: 8px 24px;
+	}
+
+	.search-inline__field {
+		position: relative;
+		min-width: 0;
+	}
+
+	.search-inline__label {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		margin-bottom: 3px;
+		font-family: var(--font-heading);
+		font-size: 14px;
+		font-weight: 500;
+		color: var(--color-primary);
+	}
+
+	.search-inline__label-icon {
+		display: flex;
+		width: 14px;
+		height: 14px;
+	}
+
+	.search-inline__label-icon :global(svg),
+	.search-inline__chevron :global(svg),
+	.search-inline__bar-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.search-inline__box {
+		position: relative;
 		display: flex;
 		align-items: center;
 		gap: 10px;
-		padding: 13px 16px;
+		height: 36px;
+		padding: 0 12px;
 		background: var(--color-bg-white);
-		border: 1px solid var(--color-border-card);
-		border-radius: 999px;
-		box-shadow: var(--shadow-soft);
+		border: 1.5px solid var(--color-primary);
+		border-radius: 6px;
+		transition: box-shadow 0.15s ease;
+	}
+
+	.search-inline__box:focus-within {
+		box-shadow: 0 0 0 3px rgba(20, 184, 166, 0.25);
+	}
+
+	.search-inline__box--select {
+		padding: 0;
+	}
+
+	.search-inline__select {
+		flex: 1;
+		min-width: 0;
+		height: 100%;
+		padding-inline: 12px 34px;
+		border: none;
+		outline: none;
+		background: transparent;
+		font-family: inherit;
+		font-size: 14px;
+		color: var(--color-text-primary);
+		cursor: pointer;
+		appearance: none;
+	}
+
+	.search-inline__chevron {
+		position: absolute;
+		inset-inline-end: 12px;
+		display: flex;
+		width: 12px;
+		height: 12px;
+		color: var(--color-text-muted);
+		pointer-events: none;
 	}
 
 	.search-inline__bar-icon {
 		display: flex;
-		width: 18px;
-		height: 18px;
+		width: 16px;
+		height: 16px;
 		flex-shrink: 0;
 		color: var(--color-text-muted);
-	}
-
-	.search-inline__bar-icon :global(svg) {
-		width: 100%;
-		height: 100%;
 	}
 
 	.search-inline__input {
@@ -278,7 +530,7 @@ const s = STRINGS[locale] ?? STRINGS.en;
 		outline: none;
 		background: transparent;
 		font-family: inherit;
-		font-size: 15px;
+		font-size: 14px;
 		color: var(--color-text-primary);
 	}
 
@@ -317,11 +569,36 @@ const s = STRINGS[locale] ?? STRINGS.en;
 		height: 11px;
 	}
 
+	.search-inline__popular {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: baseline;
+		gap: 4px 22px;
+		margin-top: 6px;
+		font-size: 13.5px;
+	}
+
+	.search-inline__popular-label {
+		font-family: var(--font-heading);
+		font-weight: 500;
+		color: var(--color-primary);
+	}
+
+	.search-inline__popular a {
+		color: #e8731a;
+		text-decoration: underline;
+		text-underline-offset: 3px;
+	}
+
+	.search-inline__popular a:hover {
+		color: var(--color-primary);
+	}
+
 	.search-inline__panel {
 		position: absolute;
-		top: calc(100% + 8px);
-		left: 24px;
-		right: 24px;
+		top: calc(100% + 6px);
+		left: 0;
+		right: 0;
 		z-index: 40;
 		max-height: 420px;
 		overflow-y: auto;
@@ -443,15 +720,34 @@ const s = STRINGS[locale] ?? STRINGS.en;
 		white-space: nowrap;
 	}
 
-	@media screen and (max-width: 640px) {
-		.search-inline {
-			padding: 0 16px;
-			margin-bottom: 4px;
+	@media screen and (max-width: 760px) {
+		.search-hero {
+			padding: 8px 16px 10px;
+			/* Keep the skyline's centre, where it's plain sky behind the text. */
+			background-position: center top;
 		}
 
-		.search-inline__panel {
-			left: 16px;
-			right: 16px;
+		.search-inline {
+			padding: 8px 10px;
+		}
+
+		.search-inline__fields {
+			grid-template-columns: minmax(0, 1fr);
+			gap: 6px;
+		}
+
+		.search-inline__label {
+			font-size: 13px;
+			margin-bottom: 2px;
+		}
+
+		.search-inline__popular {
+			gap: 4px 14px;
+			font-size: 13px;
+		}
+
+		.search-inline__popular-label {
+			flex-basis: 100%;
 		}
 	}
 </style>

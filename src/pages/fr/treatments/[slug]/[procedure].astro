@@ -1,0 +1,460 @@
+---
+import { Image } from 'astro:assets';
+import Layout from '../../../../layouts/Layout.astro';
+import PageHeader from '../../../../components/PageHeader.astro';
+import EnquiryCard from '../../../../components/EnquiryCard.astro';
+import { treatments, type TreatmentData } from '../../../../data/treatments';
+import { frTreatments } from '../../../../i18n/fr-treatments';
+import { fr } from '../../../../i18n/fr';
+import { slugifyProcedure } from '../../../../utils/slugify';
+import iconArrowLeft from 'bootstrap-icons/icons/arrow-left.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import iconHeart from 'healthicons/public/icons/svg/outline/specialties/cardiology.svg?raw';
+import iconActivity from 'healthicons/public/icons/svg/outline/specialties/orthopaedics.svg?raw';
+import iconShieldPlus from 'healthicons/public/icons/svg/outline/specialties/oncology.svg?raw';
+import iconGem from 'bootstrap-icons/icons/gem.svg?raw';
+import iconDroplet from 'healthicons/public/icons/svg/outline/specialties/gynecology.svg?raw';
+import iconDropletFill from 'healthicons/public/icons/svg/outline/body/kidneys.svg?raw';
+import iconCapsule from 'healthicons/public/icons/svg/outline/body/tooth.svg?raw';
+import iconEye from 'healthicons/public/icons/svg/outline/specialties/opthalmology.svg?raw';
+import iconBrain from 'healthicons/public/icons/svg/outline/body/neurology.svg?raw';
+import iconSpine from 'healthicons/public/icons/svg/outline/body/spine.svg?raw';
+import iconStomach from 'healthicons/public/icons/svg/outline/body/stomach.svg?raw';
+import iconKidney from 'healthicons/public/icons/svg/outline/specialties/urology.svg?raw';
+import iconEarNoseThroat from 'healthicons/public/icons/svg/outline/specialties/ears_nose_and_throat.svg?raw';
+import imgCardiacCare from '../../../../assets/treatments/cardiac-care.jpg';
+import imgOrthopedics from '../../../../assets/treatments/orthopedics2.jpg';
+import imgOncology from '../../../../assets/treatments/oncology2.jpg';
+import imgCosmeticSurgery from '../../../../assets/treatments/cosmetic-surgery2.jpg';
+import imgFertility from '../../../../assets/treatments/fertility2.png';
+import imgOrganTransplant from '../../../../assets/treatments/organ-transplant2.jpg';
+import imgDentalCare from '../../../../assets/treatments/oral.avif';
+import imgEyeCare from '../../../../assets/treatments/eye-care2.jpg';
+import imgUrology from '../../../../assets/treatments/urology.jpg';
+import imgNeurology from '../../../../assets/treatments/neuro.jpg';
+import imgSpineSurgery from '../../../../assets/treatments/spine.jpg';
+import imgBariatric from '../../../../assets/treatments/Bariatric.png';
+
+const IMAGES = {
+	cardiacCare: imgCardiacCare,
+	orthopedics: imgOrthopedics,
+	oncology: imgOncology,
+	cosmeticSurgery: imgCosmeticSurgery,
+	fertility: imgFertility,
+	organTransplant: imgOrganTransplant,
+	dentalCare: imgDentalCare,
+	eyeCare: imgEyeCare,
+	urology: imgUrology,
+	neurology: imgNeurology,
+	spineSurgery: imgSpineSurgery,
+	bariatric: imgBariatric,
+} as const;
+
+const ICONS = {
+	heart: iconHeart,
+	activity: iconActivity,
+	shieldPlus: iconShieldPlus,
+	gem: iconGem,
+	droplet: iconDroplet,
+	dropletFill: iconDropletFill,
+	capsule: iconCapsule,
+	eye: iconEye,
+	brain: iconBrain,
+	spine: iconSpine,
+	stomach: iconStomach,
+	kidney: iconKidney,
+	earNoseThroat: iconEarNoseThroat,
+} as const;
+
+interface Procedure {
+	name: string;
+	description: string;
+}
+
+export function getStaticPaths() {
+	return treatments.flatMap((baseTreatment) => {
+		const trT = frTreatments[baseTreatment.slug];
+		return (baseTreatment.detailedProcedures ?? []).map((enProc, i) => {
+			const trProc = trT?.detailedProcedures?.[i];
+			return {
+				params: { slug: baseTreatment.slug, procedure: slugifyProcedure(enProc.name) },
+				props: {
+					baseTreatment,
+					treatment: trT ? { ...baseTreatment, ...trT } : baseTreatment,
+					proc: trProc ?? enProc,
+					procIndex: i,
+				},
+			};
+		});
+	});
+}
+
+const { baseTreatment, treatment, proc, procIndex } = Astro.props as {
+	baseTreatment: TreatmentData;
+	treatment: TreatmentData;
+	proc: Procedure;
+	procIndex: number;
+};
+
+// Slugs always key off the stable English procedure names, shared across every locale.
+const otherProcedures = (treatment.detailedProcedures ?? [])
+	.map((p, i) => ({ name: p.name, slug: slugifyProcedure((baseTreatment.detailedProcedures ?? [])[i].name) }))
+	.filter((_, i) => i !== procIndex);
+
+const metaDescription = (() => {
+	const sentence = proc.description.split('. ')[0].trim();
+	const withPeriod = sentence.endsWith('.') ? sentence : `${sentence}.`;
+	return withPeriod.length > 155 ? `${withPeriod.slice(0, 152).trimEnd()}…` : withPeriod;
+})();
+const year = new Date().getFullYear();
+---
+
+<Layout
+	title={`${proc.name} en Inde (${year}) | Alis Pro Med Tour`}
+	description={metaDescription}
+	locale="fr"
+	alternates={[
+		{ locale: 'en', href: `/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'fr', href: `/fr/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'ru', href: `/ru/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'bn', href: `/bn/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'ro', href: `/ro/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'es', href: `/es/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'pt', href: `/pt/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'vi', href: `/vi/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'ar', href: `/ar/treatments/${baseTreatment.slug}/${Astro.params.procedure}` },
+	]}
+>
+	<PageHeader
+		badge={treatment.name}
+		title={proc.name}
+		subtitle={`Fait partie de notre programme ${treatment.name} — économisez jusqu'à ${treatment.avgSavings} % par rapport aux prix occidentaux.`}
+		breadcrumbs={[
+			{ label: 'Traitements', href: '/fr/treatments' },
+			{ label: treatment.name, href: `/fr/treatments/${treatment.slug}` },
+			{ label: proc.name },
+		]}
+		homeHref="/fr/"
+		homeLabel="Accueil"
+	/>
+
+	<section class="procedure-detail">
+		<div class="procedure-detail__inner">
+			<div class="procedure-detail__hero-row">
+				{treatment.imageKey ? (
+					<Image
+						src={IMAGES[treatment.imageKey]}
+						alt={proc.name}
+						width={1200}
+						height={480}
+						class="procedure-detail__hero-image"
+					/>
+				) : (
+					<div class={`procedure-detail__hero-fallback procedure-detail__hero-fallback--${treatment.theme}`}>
+						<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
+					</div>
+				)}
+
+				<EnquiryCard
+					defaultTreatment={proc.name}
+					title={fr.hero.enquiry.title}
+					subtitle={fr.hero.enquiry.subtitle}
+					treatmentPlaceholder={fr.hero.enquiry.treatmentPlaceholder}
+					namePlaceholder={fr.hero.enquiry.namePlaceholder}
+					emailPlaceholder={fr.hero.enquiry.emailPlaceholder}
+					countryPlaceholder={fr.common.selectCountryPlaceholder}
+					phonePlaceholder={fr.hero.enquiry.phonePlaceholder}
+					uploadLabel={fr.hero.enquiry.uploadLabel}
+					submitLabel={fr.hero.enquiry.submit}
+					privacyNote={fr.hero.enquiry.privacyNote}
+					successMessage={fr.hero.enquiry.successMessage}
+				/>
+			</div>
+
+			<div class="procedure-detail__grid">
+				<div class="procedure-detail__main">
+					<h2>À propos de {proc.name}</h2>
+					<p>{proc.description}</p>
+
+					<a class="procedure-detail__back" href={`/fr/treatments/${treatment.slug}`}>
+						<span set:html={iconArrowLeft} aria-hidden="true" />
+						Retour à {treatment.name}
+					</a>
+				</div>
+
+				{otherProcedures.length > 0 && (
+					<aside class="procedure-detail__aside">
+						<div class="procedure-detail__related-card">
+							<h2>Autres interventions en {treatment.name}</h2>
+							<ul class="procedure-detail__related-list">
+								{otherProcedures.map((p) => (
+									<li>
+										<a href={`/fr/treatments/${treatment.slug}/${p.slug}`}>{p.name}</a>
+									</li>
+								))}
+							</ul>
+						</div>
+					</aside>
+				)}
+			</div>
+
+			<div class="procedure-detail__cta">
+				<h3>Prêt à commencer avec {proc.name.toLowerCase()} ?</h3>
+				<p>Partagez vos rapports médicaux et recevez un plan de traitement personnalisé sous 24 heures.</p>
+				<div class="procedure-detail__cta-actions">
+					<a class="procedure-detail__btn procedure-detail__btn--primary" href="/fr/contact">
+						Obtenir un devis gratuit
+						<span set:html={iconArrowRight} aria-hidden="true" />
+					</a>
+					<a class="procedure-detail__btn procedure-detail__btn--secondary" href={`/fr/treatments/${treatment.slug}`}>
+						Voir toutes les interventions de {treatment.name}
+					</a>
+				</div>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.procedure-detail {
+		background: var(--color-bg-white);
+		padding: 64px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.procedure-detail__inner {
+		max-width: 1120px;
+		margin: 0 auto;
+	}
+
+	.procedure-detail__hero-row {
+		display: grid;
+		grid-template-columns: 1fr 380px;
+		align-items: start;
+		gap: 32px;
+	}
+
+	.procedure-detail__hero-image {
+		width: 100%;
+		height: 100%;
+		max-height: 420px;
+		object-fit: cover;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+	}
+
+	.procedure-detail__hero-fallback {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 100%;
+		height: 100%;
+		min-height: 260px;
+		max-height: 420px;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+	}
+
+	.procedure-detail__hero-fallback span {
+		display: flex;
+		width: 96px;
+		height: 96px;
+		color: rgba(255, 255, 255, 0.92);
+	}
+
+	.procedure-detail__hero-fallback span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.procedure-detail__hero-fallback--blue {
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+	}
+
+	.procedure-detail__hero-fallback--teal {
+		background: linear-gradient(135deg, #0f766e 0%, var(--color-teal) 100%);
+	}
+
+	.procedure-detail__hero-fallback--green {
+		background: linear-gradient(135deg, #15803d 0%, var(--color-green) 100%);
+	}
+
+	.procedure-detail__grid {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr;
+		gap: 40px;
+		margin-top: 48px;
+	}
+
+	.procedure-detail__main h2,
+	.procedure-detail__related-card h2 {
+		font-family: var(--font-heading);
+		font-size: 22px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 14px;
+	}
+
+	.procedure-detail__main p {
+		font-size: 15px;
+		line-height: 1.8;
+		color: var(--color-text-secondary);
+		margin: 0 0 24px;
+	}
+
+	.procedure-detail__back {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--color-primary);
+		text-decoration: none;
+	}
+
+	.procedure-detail__back span {
+		display: flex;
+		width: 14px;
+		height: 14px;
+	}
+
+	.procedure-detail__back span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.procedure-detail__aside {
+		align-self: start;
+		position: sticky;
+		top: 100px;
+	}
+
+	.procedure-detail__related-card {
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		padding: 24px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.procedure-detail__related-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 10px;
+	}
+
+	.procedure-detail__related-list a {
+		display: block;
+		font-size: 13.5px;
+		font-weight: 600;
+		color: var(--color-text-secondary);
+		text-decoration: none;
+		padding: 8px 10px;
+		border-radius: 8px;
+		transition: background 0.15s ease, color 0.15s ease;
+	}
+
+	.procedure-detail__related-list a:hover {
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+	}
+
+	.procedure-detail__cta {
+		margin-top: 56px;
+		background: linear-gradient(135deg, var(--color-primary) 0%, #2f6fa8 100%);
+		border-radius: var(--radius-lg);
+		padding: 40px;
+		text-align: center;
+		color: #fff;
+	}
+
+	.procedure-detail__cta h3 {
+		font-family: var(--font-heading);
+		font-size: 22px;
+		margin: 0 0 10px;
+	}
+
+	.procedure-detail__cta p {
+		font-size: 14.5px;
+		opacity: 0.9;
+		margin: 0 0 24px;
+	}
+
+	.procedure-detail__cta-actions {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		gap: 14px;
+		flex-wrap: wrap;
+	}
+
+	.procedure-detail__btn {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		padding: 13px 26px;
+		border-radius: 999px;
+		font-size: 14px;
+		font-weight: 700;
+		text-decoration: none;
+		transition: transform 0.15s ease, opacity 0.15s ease;
+	}
+
+	.procedure-detail__btn span {
+		display: flex;
+		width: 14px;
+		height: 14px;
+	}
+
+	.procedure-detail__btn span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.procedure-detail__btn:hover {
+		transform: translateY(-2px);
+	}
+
+	.procedure-detail__btn--primary {
+		background: var(--color-teal);
+		color: #fff;
+	}
+
+	.procedure-detail__btn--secondary {
+		background: rgba(255, 255, 255, 0.15);
+		color: #fff;
+		border: 1px solid rgba(255, 255, 255, 0.4);
+	}
+
+	@media screen and (max-width: 860px) {
+		.procedure-detail__hero-row {
+			grid-template-columns: 1fr;
+		}
+
+		.procedure-detail__hero-image,
+		.procedure-detail__hero-fallback {
+			max-height: 300px;
+		}
+
+		.procedure-detail__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.procedure-detail__aside {
+			position: static;
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.procedure-detail {
+			padding: 48px 16px 64px;
+		}
+
+		.procedure-detail__cta {
+			padding: 28px 20px;
+		}
+	}
+</style>

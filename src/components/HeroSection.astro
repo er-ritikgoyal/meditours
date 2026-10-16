@@ -6,12 +6,13 @@ import iconEmail from 'bootstrap-icons/icons/envelope-fill.svg?raw';
 import iconPhone from 'bootstrap-icons/icons/whatsapp.svg?raw';
 import iconShield from 'bootstrap-icons/icons/shield-check.svg?raw';
 import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
-import iconArrowRight from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
 import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
-import iconVerified from 'bootstrap-icons/icons/patch-check-fill.svg?raw';
 import { countries } from '../data/countries';
 import { getDoctorBySlug } from '../data/doctors';
+import { treatments } from '../data/treatments';
+
+const defaultTreatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
 // The before/after showcase is tied to whichever doctor actually has a
 // before/after result photo on file — currently only Dr. Anika Bhasin Arora
@@ -45,20 +46,12 @@ export interface Props {
 }
 
 const {
-	treatmentOptions = [
-		'Cardiac Surgery',
-		'Orthopedics & Joint Replacement',
-		'Oncology',
-		'Cosmetic & Plastic Surgery',
-		'Fertility Treatment',
-		'Organ Transplant',
-		'Other',
-	],
+	treatmentOptions = defaultTreatmentOptions,
 	trust = [
-		{ value: '500+', label: 'Partner Hospitals' },
-		{ value: '45', label: 'Countries' },
+		{ value: '100+', label: 'Partner Hospitals' },
+		{ value: '40+', label: 'Countries' },
 		{ value: '24/7', label: 'Patient Support' },
-		{ value: '12,000+', label: 'Patients Helped' },
+		{ value: '10,000+', label: 'Patients Helped' },
 	],
 	enquiry = {
 		title: 'Get a Free Consultation',
@@ -101,32 +94,6 @@ const {
 						</div>
 					)
 				}
-
-				<a class="hero-showcase__doctor" href={`/doctors/${spotlightDoctor.slug}`}>
-					<span class="hero-showcase__doctor-photo-wrap">
-						{
-							spotlightDoctor.photo ? (
-								<Image
-									src={spotlightDoctor.photo}
-									alt={spotlightDoctor.name}
-									width={64}
-									height={64}
-									class="hero-showcase__doctor-photo"
-								/>
-							) : (
-								<span class="hero-showcase__doctor-avatar">
-									{spotlightDoctor.name.replace(/^Dr\.?\s*/i, '').charAt(0)}
-								</span>
-							)
-						}
-						<span class="hero-showcase__doctor-badge" set:html={iconVerified} aria-hidden="true" />
-					</span>
-					<span class="hero-showcase__doctor-info">
-						<strong>{spotlightDoctor.name}</strong>
-						<span>{spotlightDoctor.specialty}</span>
-					</span>
-					<span class="hero-showcase__doctor-arrow" set:html={iconArrowRight} aria-hidden="true" />
-				</a>
 			</div>
 		</div>
 
@@ -328,113 +295,6 @@ const {
 		display: block;
 		width: 100%;
 		height: auto;
-	}
-
-	.hero-showcase__doctor {
-		position: relative;
-		z-index: 2;
-		display: flex;
-		align-items: center;
-		gap: 12px;
-		width: fit-content;
-		max-width: calc(100% - 32px);
-		margin: -28px auto 0;
-		padding: 10px 20px 10px 10px;
-		border-radius: 999px;
-		background: var(--color-bg-white);
-		box-shadow: var(--shadow-card);
-		text-decoration: none;
-		transition:
-			transform 0.15s ease,
-			box-shadow 0.15s ease;
-	}
-
-	.hero-showcase__doctor:hover {
-		transform: translateY(-2px);
-		box-shadow: var(--shadow-soft);
-	}
-
-	.hero-showcase__doctor-photo-wrap {
-		position: relative;
-		flex-shrink: 0;
-	}
-
-	.hero-showcase__doctor-photo {
-		width: 48px;
-		height: 48px;
-		border-radius: 50%;
-		object-fit: cover;
-		display: block;
-	}
-
-	.hero-showcase__doctor-avatar {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		width: 48px;
-		height: 48px;
-		border-radius: 50%;
-		background: var(--color-bg-soft-blue);
-		color: var(--color-primary);
-		font-family: var(--font-heading);
-		font-size: 18px;
-		font-weight: 700;
-	}
-
-	.hero-showcase__doctor-badge {
-		position: absolute;
-		inset-inline-end: -2px;
-		bottom: -2px;
-		display: flex;
-		width: 16px;
-		height: 16px;
-		border-radius: 50%;
-		background: var(--color-bg-white);
-		color: var(--color-gold);
-		border: 2px solid var(--color-bg-white);
-		box-shadow: var(--shadow-soft);
-	}
-
-	.hero-showcase__doctor-badge :global(svg) {
-		width: 100%;
-		height: 100%;
-	}
-
-	.hero-showcase__doctor-info {
-		display: flex;
-		flex-direction: column;
-		gap: 1px;
-		min-width: 0;
-	}
-
-	.hero-showcase__doctor-info strong {
-		font-family: var(--font-heading);
-		font-size: 14.5px;
-		font-weight: 700;
-		color: var(--color-text-primary);
-		white-space: nowrap;
-	}
-
-	.hero-showcase__doctor-info span {
-		font-size: 12px;
-		color: var(--color-text-secondary);
-		white-space: nowrap;
-		overflow: hidden;
-		text-overflow: ellipsis;
-	}
-
-	.hero-showcase__doctor-arrow {
-		display: flex;
-		flex-shrink: 0;
-		width: 20px;
-		height: 20px;
-		color: var(--color-teal);
-		margin-inline-start: 4px;
-	}
-
-	.hero-showcase__doctor-arrow :global(svg) {
-		width: 100%;
-		height: 100%;
 	}
 
 	.hero-trust {

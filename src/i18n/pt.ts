@@ -27,7 +27,7 @@ export const pt = {
 
 	footer: {
 		description:
-			'Conectamos pacientes a hospitais credenciados e especialistas certificados em mais de 20 países — apoio completo, da primeira opinião médica até a recuperação.',
+			'Conectamos pacientes a hospitais credenciados e especialistas certificados em mais de 40 países — apoio completo, da primeira opinião médica até a recuperação.',
 		quickLinks: 'Links rápidos',
 		home: 'Início',
 		aboutUs: 'Sobre nós',
@@ -65,7 +65,7 @@ export const pt = {
 				title: 'Cuidados médicos de classe mundial,',
 				highlight: 'sem espera ou preços exagerados',
 				description:
-					'Compare hospitais credenciados e especialistas de mais de 20 países e economize até 70% no tratamento de que precisa.',
+					'Compare hospitais credenciados e especialistas de mais de 40 países e economize até 70% no tratamento de que precisa.',
 				primaryCta: 'Consulta gratuita',
 				secondaryCta: 'Explorar destinos',
 			},
@@ -88,10 +88,10 @@ export const pt = {
 			},
 		],
 		trust: [
-			{ value: '500+', label: 'Hospitais parceiros' },
-			{ value: '45', label: 'Países' },
+			{ value: '100+', label: 'Hospitais parceiros' },
+			{ value: '40+', label: 'Países' },
 			{ value: '24/7', label: 'Apoio ao paciente' },
-			{ value: '12.000+', label: 'Pacientes atendidos' },
+			{ value: '10.000+', label: 'Pacientes atendidos' },
 		],
 		treatmentOptions: [
 			'Cardiologia',

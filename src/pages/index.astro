@@ -3,6 +3,7 @@ import HeroSection from '../components/HeroSection.astro';
 import TravelProcess from '../components/TravelProcess.astro';
 import OurDoctors from '../components/OurDoctors.astro';
 import OurPartnerHospitals from '../components/OurPartnerHospitals.astro';
+import { hospitals } from '../data/hospitals';
 import Testimonials from '../components/Testimonials.astro';
 import TreatmentCostComparison from '../components/TreatmentCostComparison.astro';
 import CostEstimateCta from '../components/CostEstimateCta.astro';
@@ -10,10 +11,10 @@ import SupportServices from '../components/SupportServices.astro';
 import WhyChooseUs from '../components/WhyChooseUs.astro';
 import Layout from '../layouts/Layout.astro';
 import DoctorsVideoCarousel from '../components/DoctorsVideoCarousel.astro';
+import Achievements from '../components/Achievements.astro';
 import { doctors } from '../data/doctors';
 
-// Sourced from each doctor's own `videoUrl` (src/data/doctors.ts) — add a
-// videoUrl to a doctor there and their card appears here automatically.
+
 const videoEntries = doctors
 	.filter((doctor) => doctor.videoUrl)
 	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl as string }));
@@ -33,12 +34,13 @@ const videoEntries = doctors
 	]}
 >
 	<HeroSection />
+	<Achievements />
 	<WhyChooseUs />
 	<!-- <OurDoctors badge="Our Medical Team" title="Meet Our" highlight="Specialists" /> -->
 
 	<DoctorsVideoCarousel entries={videoEntries} />
 	<!-- <OurDoctors /> -->
-	<OurPartnerHospitals />
+	<OurPartnerHospitals hospitals={hospitals.slice(0, 4)} />
 	<TreatmentCostComparison />
 	<SupportServices />
 	<Testimonials />

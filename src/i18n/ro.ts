@@ -27,7 +27,7 @@ export const ro = {
 
 	footer: {
 		description:
-			'Conectăm pacienții cu spitale acreditate și specialiști certificați în peste 20 de țări — sprijin complet, de la prima opinie medicală până la recuperare.',
+			'Conectăm pacienții cu spitale acreditate și specialiști certificați în peste 40 de țări — sprijin complet, de la prima opinie medicală până la recuperare.',
 		quickLinks: 'Linkuri rapide',
 		home: 'Acasă',
 		aboutUs: 'Despre noi',
@@ -65,7 +65,7 @@ export const ro = {
 				title: 'Îngrijire medicală de talie mondială,',
 				highlight: 'fără așteptare sau prețuri exagerate',
 				description:
-					'Comparați spitale acreditate și specialiști din peste 20 de țări și economisiți până la 70% la tratamentul de care aveți nevoie.',
+					'Comparați spitale acreditate și specialiști din peste 40 de țări și economisiți până la 70% la tratamentul de care aveți nevoie.',
 				primaryCta: 'Consultație gratuită',
 				secondaryCta: 'Explorați destinațiile',
 			},
@@ -88,10 +88,10 @@ export const ro = {
 			},
 		],
 		trust: [
-			{ value: '500+', label: 'Spitale partenere' },
-			{ value: '45', label: 'Țări' },
+			{ value: '100+', label: 'Spitale partenere' },
+			{ value: '40+', label: 'Țări' },
 			{ value: '24/7', label: 'Sprijin pentru pacienți' },
-			{ value: '12.000+', label: 'Pacienți ajutați' },
+			{ value: '10.000+', label: 'Pacienți ajutați' },
 		],
 		treatmentOptions: [
 			'Chirurgie cardiacă',

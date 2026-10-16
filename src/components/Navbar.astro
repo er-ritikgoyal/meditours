@@ -1,11 +1,14 @@
 ---
 import iconChevron from 'bootstrap-icons/icons/chevron-down.svg?raw';
 import iconShield from 'bootstrap-icons/icons/shield-fill-check.svg?raw';
+import iconGrid from 'bootstrap-icons/icons/grid-fill.svg?raw';
+import { treatments } from '../data/treatments';
+import { treatmentIcons } from '../utils/treatmentIcons';
 
 export interface NavLink {
 	label: string;
 	href: string;
-	children?: { label: string; href: string }[];
+	children?: { label: string; href: string; icon?: string }[];
 }
 
 export interface Props {
@@ -18,15 +21,19 @@ export interface Props {
 	locale?: string;
 }
 
+const treatmentChildren = [
+	{ label: 'All Treatments', href: '/treatments', icon: iconGrid },
+	...treatments.map((t) => ({ label: t.name, href: `/treatments/${t.slug}`, icon: treatmentIcons[t.icon] })),
+];
+
 const {
 	links = [
 		{ label: 'Home', href: '/' },
 		{ label: 'Doctors', href: '/doctors' },
 		{ label: 'Destinations', href: '/destinations' },
-		{ label: 'Treatments', href: '/treatments' },
+		{ label: 'Treatments', href: '/treatments', children: treatmentChildren },
 		{ label: 'About', href: '/about' },
 		{ label: 'Contact', href: '/contact' },
-		
 	],
 	ctaLabel = 'Get a Free Quote',
 	ctaHref = '/contact',
@@ -71,10 +78,13 @@ const langOptions = [
 								{link.label}
 								<span class="navbar__dropdown-icon" set:html={iconChevron} aria-hidden="true" />
 							</button>
-							<ul class="navbar__dropdown-menu">
+							<ul class={`navbar__dropdown-menu ${link.children.length > 6 ? 'navbar__dropdown-menu--wide' : ''}`}>
 								{link.children.map((child) => (
 									<li>
-										<a href={child.href}>{child.label}</a>
+										<a href={child.href}>
+											{child.icon && <span class="navbar__dropdown-item-icon" set:html={child.icon} aria-hidden="true" />}
+											{child.label}
+										</a>
 									</li>
 								))}
 							</ul>
@@ -165,13 +175,41 @@ const langOptions = [
 		});
 	});
 
-	// Locale switcher — only en/fr have real translated routes today.
-	// Other options are inert placeholders until those routes exist.
+	// Locale switcher — stays on the equivalent page in the new language rather
+	// than always jumping to that locale's homepage.
 	const localeRoutes: Record<string, string> = { en: '/', fr: '/fr/', ru: '/ru/', bn: '/bn/', ro: '/ro/', es: '/es/', pt: '/pt/', vi: '/vi/', ar: '/ar/' };
 	const langSelect = document.getElementById('navbar-lang') as HTMLSelectElement | null;
 
+	/** Strips a locale prefix (e.g. "/fr") off a pathname, returning the base path. */
+	function stripLocalePrefix(pathname: string): string {
+		const match = pathname.match(/^\/(fr|ru|bn|ro|es|pt|vi|ar)(\/.*)?$/);
+		if (!match) return pathname;
+		return match[2] && match[2] !== '/' ? match[2] : '/';
+	}
+
+	function targetUrlFor(locale: string): string | undefined {
+		// Prefer the exact equivalent page, declared by this page itself via
+		// Layout's `alternates` prop (rendered as <link rel="alternate" hreflang>).
+		const altLink = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${locale}"]`);
+		if (altLink) return new URL(altLink.href).pathname;
+
+		// No declared translation for this exact page — e.g. an individual
+		// procedure page (English-only by design). Fall back to its parent
+		// treatment category page, which does exist in every locale.
+		const basePath = stripLocalePrefix(window.location.pathname);
+		const procedureMatch = basePath.match(/^(\/treatments\/[^/]+)\/[^/]+\/?$/);
+		if (procedureMatch) {
+			const categoryPath = procedureMatch[1];
+			return locale === 'en' ? categoryPath : `/${locale}${categoryPath}`;
+		}
+
+		// Last resort: that locale's homepage (e.g. for English-only sections
+		// like /hotel, /flights, /tourism that have no translated equivalent).
+		return localeRoutes[locale];
+	}
+
 	langSelect?.addEventListener('change', () => {
-		const target = localeRoutes[langSelect.value];
+		const target = targetUrlFor(langSelect.value);
 		if (target) {
 			// Remembered as a "necessary" preference cookie — see CookieConsent.astro,
 			// which reads this to offer a returning visitor their chosen language.
@@ -391,8 +429,19 @@ const langOptions = [
 		transform: translateY(0);
 	}
 
+	.navbar__dropdown-menu--wide {
+		min-width: 460px;
+		display: grid;
+		grid-template-columns: repeat(2, 1fr);
+		gap: 2px 8px;
+		max-height: 70vh;
+		overflow-y: auto;
+	}
+
 	.navbar__dropdown-menu a {
-		display: block;
+		display: flex;
+		align-items: center;
+		gap: 10px;
 		padding: 9px 12px;
 		border-radius: 8px;
 		font-size: 14px;
@@ -401,6 +450,19 @@ const langOptions = [
 		transition:
 			background 0.15s ease,
 			color 0.15s ease;
+	}
+
+	.navbar__dropdown-item-icon {
+		display: flex;
+		flex-shrink: 0;
+		width: 18px;
+		height: 18px;
+		color: var(--color-primary);
+	}
+
+	.navbar__dropdown-item-icon :global(svg) {
+		width: 100%;
+		height: 100%;
 	}
 
 	.navbar__dropdown-menu a:hover {
@@ -593,6 +655,16 @@ const langOptions = [
 
 		.navbar__dropdown--open .navbar__dropdown-menu {
 			max-height: 200px;
+			overflow-y: auto;
+		}
+
+		.navbar__dropdown-menu--wide {
+			display: block;
+			min-width: 0;
+		}
+
+		.navbar__dropdown--open .navbar__dropdown-menu--wide {
+			max-height: 320px;
 		}
 
 		.navbar__dropdown-menu a {

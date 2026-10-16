@@ -1,5 +1,6 @@
 ---
 import HeroSection from '../../components/HeroSection.astro';
+import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
@@ -10,19 +11,18 @@ import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { ru } from '../../i18n/ru';
-import { ruAbout, ruTreatmentsPage } from '../../i18n/ru-pages';
+import { ruAbout } from '../../i18n/ru-pages';
 import { ruDoctors, ruPartnerHospitalsHome, ruSupportServices, ruTravelProcess } from '../../i18n/ru-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { ruDoctorsTr } from '../../i18n/ru-doctors';
-import { getFeaturedHospitals } from '../../data/hospitals';
+import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/ru-hospitals';
 
-const russianHospitals = translateHospitals(getFeaturedHospitals(2));
+const russianHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const russianDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...ruDoctors.doctors[i] }));
 
-const { costComparison } = ruTreatmentsPage;
 const videoEntries = defaultDoctors
 	.filter((doctor) => doctor.videoUrl)
 	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
@@ -45,9 +45,20 @@ const videoEntries = defaultDoctors
 	]}
 >
 	<HeroSection
-		treatmentOptions={ru.hero.treatmentOptions}
 		trust={ru.hero.trust}
 		enquiry={ru.hero.enquiry}
+	/>
+	<Achievements
+		badge="Наши результаты"
+		title="Цифры, которые"
+		highlight="говорят сами за себя"
+		subtitle={`Более 5 лет координации медицинской помощи мирового уровня, измеряемых числом пациентов, которым мы помогли.`}
+		labels={{
+			countriesTouched: 'Охваченных стран',
+			livesImpacted: 'Пациентов',
+			yearsOfExcellence: 'Лет опыта',
+			accreditedHospitals: 'Аккредитованных больниц',
+		}}
 	/>
 	<OurDoctors
 		basePath="/ru"
@@ -61,7 +72,13 @@ const videoEntries = defaultDoctors
 		contactLabel={ruDoctors.contactLabel}
 		verifiedLabel={ruDoctors.verifiedLabel}
 	/>
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="Познакомьтесь с нашими специалистами"
+		title="Послушайте наших"
+		highlight="врачей"
+		subtitle={`Короткие видеопредставления специалистов, координирующих ваше лечение.`}
+		entries={videoEntries}
+	/>
 	<OurPartnerHospitals
 		badge={ruPartnerHospitalsHome.badge}
 		title={ruPartnerHospitalsHome.title}
@@ -70,17 +87,7 @@ const videoEntries = defaultDoctors
 		hospitals={russianHospitals}
 		basePath="/ru"
 	/>
-	<TreatmentCostComparison
-		title={costComparison.title}
-		subtitle={costComparison.subtitle}
-		note={costComparison.note}
-		scrollHint={costComparison.scrollHint}
-		mostAffordableLabel={costComparison.mostAffordable}
-		saveLabel="Экономия {pct}%"
-		countryLabels={costComparison.countries}
-		treatmentNames={costComparison.treatmentNames}
-		stats={costComparison.stats}
-	/>
+	<TreatmentCostComparison basePath="/ru" />
 	<SupportServices
 		badge={ruSupportServices.badge}
 		title={ruSupportServices.titleLead}

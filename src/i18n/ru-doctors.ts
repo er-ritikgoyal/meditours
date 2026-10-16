@@ -86,6 +86,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		awards: ['Лучший специалист по ЭКО, Indian Fertility Society Awards'],
 	},
 	'javed-rizwan': {
+		name: 'Др. Джавед Ризван',
 		specialty: 'Имплантолог и ортодонт',
 		title: 'Директор и руководитель — дентальная имплантология и ортодонтия',
 		about: [
@@ -139,6 +140,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'anika-bhasin-arora': {
+		name: 'Др. Аника Бхасин Арора',
 		specialty: 'Эндодонт и эстетический стоматолог',
 		title: 'Владелица и ведущий стоматолог — эндодонтия и эстетическая стоматология',
 		about:
@@ -180,6 +182,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'suraj-munjal': {
+		name: 'Др. Сурадж Мунджал',
 		specialty: 'Офтальмолог и хирург-катарактолог',
 		title: 'Основатель, председатель и управляющий директор — The Sight Avenue Eye Hospital',
 		about:
@@ -230,6 +233,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'himanshu-champaneri': {
+		name: 'Др. Химаншу Чампанери',
 		specialty: 'Нейрохирург',
 		title: 'Заместитель директора и руководитель отделения — нейрохирургия',
 		about:
@@ -285,6 +289,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'amitabh-singh': {
+		name: 'Др. Амитабх Сингх',
 		specialty: 'Пластический хирург',
 		title: 'Клинический директор и руководитель — пластическая хирургия',
 		about:
@@ -333,6 +338,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'sunil-sanghi': {
+		name: 'Др. Сунил Сангхи',
 		specialty: 'Дерматолог',
 		title: 'Клинический директор и руководитель — дерматология',
 		about:
@@ -386,6 +392,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'bilal-ahmad-baba': {
+		name: 'Др. Билал Ахмад Баба',
 		specialty: 'Интервенционный кардиолог',
 		title: 'Старший консультант — интервенционная кардиология',
 		about:
@@ -436,6 +443,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'saurabh-verma': {
+		name: 'Др. Саурабх Верма',
 		specialty: 'Ортопед и хирург-вертебролог',
 		title: 'Заместитель директора — ортопедия и хирургия позвоночника',
 		about:
@@ -498,6 +506,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'krishan-kumar-yadav': {
+		name: 'Др. (авиакомодор) Кришан Кумар Ядав',
 		specialty: 'Нейрохирург',
 		title: 'Клинический директор, профессор и заведующий — нейрохирургия и хирургия позвоночника и спинного мозга',
 		about:
@@ -544,6 +553,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'punit-singla': {
+		name: 'Др. Пунит Сингла',
 		specialty: 'Хирург-трансплантолог печени',
 		title: 'Клинический директор программы — Институт трансплантации печени и HPB-хирургии',
 		about:
@@ -588,6 +598,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'neeraj-teotia': {
+		name: 'Др. Нирадж Теотия',
 		specialty: 'Детский гематолог-онколог',
 		title: 'Консультант — детская гематология-онкология и трансплантация костного мозга',
 		about:
@@ -649,6 +660,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'ritesh-mongha': {
+		name: 'Др. Ритеш Монгха',
 		specialty: 'Уролог и хирург-трансплантолог почек',
 		title: 'Клинический директор и руководитель — урология, уроонкология и трансплантация почек',
 		about:
@@ -698,6 +710,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'meet-kumar': {
+		name: 'Др. Мит Кумар',
 		specialty: 'Гематолог и специалист по трансплантации костного мозга',
 		title: 'Клинический директор и заведующий — гематология-онкология и трансплантация костного мозга',
 		about:
@@ -759,6 +772,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'shibal-bhartiya': {
+		name: 'Др. Шибал Бхартия',
 		specialty: 'Офтальмолог и специалист по глаукоме',
 		title: 'Клинический директор — офтальмология; директор программы — общественные инициативы и оздоровление, MAIINS',
 		about:
@@ -851,6 +865,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'ila-gupta': {
+		name: 'Др. Ила Гупта',
 		"name": "Др. Ила Гупта",
 		"specialty": "Специалист по ЭКО и бесплодию",
 		"title": "Сооснователь и директор — Pristyn Care Ferticity IVF & Fertility Clinics",
@@ -904,6 +919,7 @@ export const ruDoctorsTr: DoctorTranslations = {
 		]
 	},
 	'rahil-chaudhary': {
+		name: 'Др. Рахиль Чаудхари',
 		"name": "Др. Рахил Чаудхари",
 		"specialty": "Хирург по катаракте и рефракционной хирургии",
 		"title": "Управляющий директор — Eye7 Eye Hospitals",

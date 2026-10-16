@@ -19,7 +19,7 @@ export const roAbout = {
 		titleHighlight: 'accesibilă tuturor',
 		paragraphs: [
 			'Alis Pro Med Tour a fost fondată pentru a reduce decalajul dintre îngrijirea medicală de talie mondială și costul acesteia. Credem că locul unde v-ați născut nu ar trebui să determine dacă vă puteți permite intervenția chirurgicală de care aveți nevoie. De la înființarea noastră, am ghidat mii de pacienți — de la prima opinie medicală până la recuperarea completă — prin cele mai acreditate spitale din India, economisind familiilor sume de bani care le schimbă viața, fără a face vreodată compromisuri privind calitatea.',
-			'Ceea ce a început ca o mică echipă de coordonatori de pacienți a devenit o rețea completă de servicii concierge care se extinde în 45 de țări, cu comisii medicale interne, specialiști dedicați în vize și sprijin multilingv 24/7 — pentru că navigarea în sistemul de sănătate al unei țări străine nu ar trebui niciodată să pară o experiență de parcurs singur.',
+			'Ceea ce a început ca o mică echipă de coordonatori de pacienți a devenit o rețea completă de servicii concierge care se extinde în peste 40 de țări, cu comisii medicale interne, specialiști dedicați în vize și sprijin multilingv 24/7 — pentru că navigarea în sistemul de sănătate al unei țări străine nu ar trebui niciodată să pară o experiență de parcurs singur.',
 		],
 		statsLabels: ['Spitale partenere', 'Țări deservite', 'Sprijin pentru pacienți', 'Pacienți ajutați'],
 		valuesTitle: 'Valorile noastre',
@@ -44,9 +44,9 @@ export const roAbout = {
 	},
 	journey: {
 		badge: 'Parcursul nostru',
-		titleLead: 'Un deceniu de construire a',
+		titleLead: 'Peste 5 ani de construire a',
 		titleHighlight: 'încrederii pacienților',
-		subtitle: 'De la o mică echipă de coordonatori la o rețea de pacienți în 45 de țări.',
+		subtitle: 'De la o mică echipă de coordonatori la o rețea de pacienți în peste 40 de țări.',
 		milestones: [
 			{ title: 'Fondată la Mumbai', description: 'Alis Pro Med Tour se lansează cu câteva spitale partenere în Delhi și Mumbai.' },
 			{
@@ -66,8 +66,8 @@ export const roAbout = {
 				description: 'Introducerea sprijinului multilingv non-stop pentru pacienți și a coordonatorilor de caz dedicați.',
 			},
 			{
-				title: '45 de țări, peste 12.000 de pacienți',
-				description: 'Sprijinirea pacienților din 45 de țări prin peste 500 de spitale partenere la nivel național.',
+				title: 'Peste 40 de țări, peste 10.000 de pacienți',
+				description: 'Sprijinirea pacienților din peste 40 de țări prin peste 100 de spitale partenere acreditate la nivel național.',
 			},
 		],
 	},
@@ -199,6 +199,11 @@ export const roContact = {
 		'Transplant de organe',
 		'Îngrijire dentară',
 		'Îngrijire oftalmologică',
+		'ENT (Ear, Nose & Throat)',
+		'Neurology & Neurosurgery',
+		'Spine Surgery',
+		'Bariatric Surgery',
+		'Nephrology & Urology',
 		'Altele',
 	],
 };
@@ -339,6 +344,6 @@ export const roDoctorsPage = {
 		otherSpecialists: 'Alți specialiști',
 		bookConsultation: 'Programează o consultație',
 		sendCaseTemplate: (name: string) => `Trimiteți cazul dumneavoastră echipei de coordonare a lui ${name}`,
-		whatsappMessageTemplate: (name: string) => `Bună ziua, aș dori să programez o consultație cu ${name}.`,
+		whatsappMessageTemplate: (name: string) => `Bună ziua, aș dori să programez o consultație video cu ${name}.`,
 	},
 };

@@ -1,5 +1,6 @@
 ---
 import HeroSection from '../../components/HeroSection.astro';
+import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
@@ -10,19 +11,18 @@ import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { pt } from '../../i18n/pt';
-import { ptAbout, ptTreatmentsPage } from '../../i18n/pt-pages';
+import { ptAbout } from '../../i18n/pt-pages';
 import { ptDoctors, ptPartnerHospitalsHome, ptSupportServices, ptTravelProcess } from '../../i18n/pt-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { ptDoctorsTr } from '../../i18n/pt-doctors';
-import { getFeaturedHospitals } from '../../data/hospitals';
+import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/pt-hospitals';
 
-const portugueseHospitals = translateHospitals(getFeaturedHospitals(2));
+const portugueseHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const portugueseDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...ptDoctors.doctors[i] }));
 
-const { costComparison } = ptTreatmentsPage;
 const videoEntries = defaultDoctors
 	.filter((doctor) => doctor.videoUrl)
 	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
@@ -45,9 +45,20 @@ const videoEntries = defaultDoctors
 	]}
 >
 	<HeroSection
-		treatmentOptions={pt.hero.treatmentOptions}
 		trust={pt.hero.trust}
 		enquiry={pt.hero.enquiry}
+	/>
+	<Achievements
+		badge="Nosso impacto"
+		title="Números que"
+		highlight="falam por si"
+		subtitle={`Mais de 5 anos coordenando cuidados de saúde de classe mundial, medidos pelos pacientes que ajudamos.`}
+		labels={{
+			countriesTouched: 'Países alcançados',
+			livesImpacted: 'Vidas impactadas',
+			yearsOfExcellence: 'Anos de excelência',
+			accreditedHospitals: 'Hospitais credenciados',
+		}}
 	/>
 	<OurDoctors
 		basePath="/pt"
@@ -61,7 +72,13 @@ const videoEntries = defaultDoctors
 		contactLabel={ptDoctors.contactLabel}
 		verifiedLabel={ptDoctors.verifiedLabel}
 	/>
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="Conheça nossos especialistas"
+		title="Ouça nossos"
+		highlight="médicos"
+		subtitle={`Breves vídeos de apresentação dos especialistas que coordenam seu atendimento.`}
+		entries={videoEntries}
+	/>
 	<OurPartnerHospitals
 		badge={ptPartnerHospitalsHome.badge}
 		title={ptPartnerHospitalsHome.title}
@@ -70,17 +87,7 @@ const videoEntries = defaultDoctors
 		hospitals={portugueseHospitals}
 		basePath="/pt"
 	/>
-	<TreatmentCostComparison
-		title={costComparison.title}
-		subtitle={costComparison.subtitle}
-		note={costComparison.note}
-		scrollHint={costComparison.scrollHint}
-		mostAffordableLabel={costComparison.mostAffordable}
-		saveLabel="Economize {pct}%"
-		countryLabels={costComparison.countries}
-		treatmentNames={costComparison.treatmentNames}
-		stats={costComparison.stats}
-	/>
+	<TreatmentCostComparison basePath="/pt" />
 	<SupportServices
 		badge={ptSupportServices.badge}
 		title={ptSupportServices.titleLead}

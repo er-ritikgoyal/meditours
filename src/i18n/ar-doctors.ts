@@ -86,6 +86,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		awards: ['أفضل أخصائية أطفال أنابيب، جوائز الجمعية الهندية للخصوبة'],
 	},
 	'javed-rizwan': {
+		name: 'د. جاويد رضوان',
 		specialty: 'أخصائي زراعة الأسنان وتقويمها',
 		title: 'المدير ورئيس القسم — زراعة الأسنان وتقويم الأسنان',
 		about: [
@@ -139,6 +140,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'anika-bhasin-arora': {
+		name: 'د. أنيكا بهاسين أرورا',
 		specialty: 'أخصائية علاج جذور وطبيبة أسنان تجميلية',
 		title: 'المالكة وطبيبة الأسنان الرئيسية — علاج الجذور وطب الأسنان التجميلي',
 		about:
@@ -180,6 +182,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'suraj-munjal': {
+		name: 'د. سورج مونجال',
 		specialty: 'طبيب عيون وجراح إعتام عدسة',
 		title: 'المؤسس ورئيس مجلس الإدارة والمدير العام — مستشفى ذا سايت أفينيو للعيون',
 		about:
@@ -230,6 +233,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'himanshu-champaneri': {
+		name: 'د. هيمانشو تشامباناري',
 		specialty: 'جراح مخ وأعصاب',
 		title: 'المدير المشارك ورئيس الوحدة — جراحة المخ والأعصاب',
 		about:
@@ -285,6 +289,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'amitabh-singh': {
+		name: 'د. أميتاب سينغ',
 		specialty: 'جراح تجميل',
 		title: 'المدير السريري ورئيس القسم — الجراحة التجميلية',
 		about:
@@ -333,6 +338,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'sunil-sanghi': {
+		name: 'د. سونيل سانغي',
 		specialty: 'طبيب أمراض جلدية',
 		title: 'المدير السريري ورئيس القسم — الأمراض الجلدية',
 		about:
@@ -386,6 +392,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'bilal-ahmad-baba': {
+		name: 'د. بلال أحمد بابا',
 		specialty: 'طبيب قلب تداخلي',
 		title: 'استشاري أول — القلب التداخلي',
 		about:
@@ -436,6 +443,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'saurabh-verma': {
+		name: 'د. سوراب فيرما',
 		specialty: 'جراح عظام وعمود فقري',
 		title: 'المدير المشارك — جراحة العظام والعمود الفقري',
 		about:
@@ -498,6 +506,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'krishan-kumar-yadav': {
+		name: 'د. (العميد الجوي) كريشان كومار ياداف',
 		specialty: 'جراح مخ وأعصاب',
 		title: 'المدير السريري وأستاذ ورئيس القسم — جراحة المخ والأعصاب وجراحة العمود الفقري العصبية',
 		about:
@@ -544,6 +553,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'punit-singla': {
+		name: 'د. بونيت سينغلا',
 		specialty: 'جراح زراعة الكبد',
 		title: 'المدير السريري للبرنامج — معهد زراعة الكبد وجراحة الكبد والبنكرياس والمرارة',
 		about:
@@ -588,6 +598,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'neeraj-teotia': {
+		name: 'د. نيراج تيوتيا',
 		specialty: 'طبيب أورام ودم للأطفال',
 		title: 'استشاري — أمراض الدم والأورام عند الأطفال وزراعة نخاع العظم',
 		about:
@@ -649,6 +660,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'ritesh-mongha': {
+		name: 'د. ريتيش مونغا',
 		specialty: 'طبيب مسالك بولية وجراح زراعة كلى',
 		title: 'المدير السريري ورئيس القسم — المسالك البولية وأورام المسالك وزراعة الكلى',
 		about:
@@ -698,6 +710,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'meet-kumar': {
+		name: 'د. ميت كومار',
 		specialty: 'طبيب أمراض دم وأخصائي زراعة نخاع',
 		title: 'المدير السريري ورئيس القسم — أمراض الدم والأورام وزراعة نخاع العظم',
 		about:
@@ -759,6 +772,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'shibal-bhartiya': {
+		name: 'د. شيبال بهارتيا',
 		specialty: 'طبيبة عيون وأخصائية جلوكوما',
 		title: 'المديرة السريرية — طب العيون؛ مديرة البرنامج — المبادرات المجتمعية والصحة، MAIINS',
 		about:
@@ -851,6 +865,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		],
 	},
 	'ila-gupta': {
+		name: 'د. إيلا غوبتا',
 		"name": "د. إيلا غوبتا",
 		"specialty": "أخصائية أطفال الأنابيب والعقم",
 		"title": "شريكة مؤسِّسة ومديرة — Pristyn Care Ferticity IVF & Fertility Clinics",
@@ -904,6 +919,7 @@ export const arDoctorsTr: DoctorTranslations = {
 		]
 	},
 	'rahil-chaudhary': {
+		name: 'د. راهيل تشودري',
 		"name": "د. راحيل تشودري",
 		"specialty": "جرّاح المياه البيضاء وتصحيح الإبصار",
 		"title": "المدير العام — Eye7 Eye Hospitals",

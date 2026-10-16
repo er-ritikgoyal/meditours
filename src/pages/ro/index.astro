@@ -1,5 +1,6 @@
 ---
 import HeroSection from '../../components/HeroSection.astro';
+import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
@@ -10,19 +11,18 @@ import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { ro } from '../../i18n/ro';
-import { roAbout, roTreatmentsPage } from '../../i18n/ro-pages';
+import { roAbout } from '../../i18n/ro-pages';
 import { roDoctors, roPartnerHospitalsHome, roSupportServices, roTravelProcess } from '../../i18n/ro-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { roDoctorsTr } from '../../i18n/ro-doctors';
-import { getFeaturedHospitals } from '../../data/hospitals';
+import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/ro-hospitals';
 
-const romanianHospitals = translateHospitals(getFeaturedHospitals(2));
+const romanianHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const romanianDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...roDoctors.doctors[i] }));
 
-const { costComparison } = roTreatmentsPage;
 const videoEntries = defaultDoctors
 	.filter((doctor) => doctor.videoUrl)
 	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
@@ -45,9 +45,20 @@ const videoEntries = defaultDoctors
 	]}
 >
 	<HeroSection
-		treatmentOptions={ro.hero.treatmentOptions}
 		trust={ro.hero.trust}
 		enquiry={ro.hero.enquiry}
+	/>
+	<Achievements
+		badge="Impactul nostru"
+		title="Cifre care"
+		highlight="vorbesc de la sine"
+		subtitle={`Peste 5 ani de coordonare a îngrijirii medicale de talie mondială, măsurați prin pacienții pe care i-am ajutat.`}
+		labels={{
+			countriesTouched: 'Țări deservite',
+			livesImpacted: 'Vieți impactate',
+			yearsOfExcellence: 'Ani de excelență',
+			accreditedHospitals: 'Spitale acreditate',
+		}}
 	/>
 	<OurDoctors
 		basePath="/ro"
@@ -61,7 +72,13 @@ const videoEntries = defaultDoctors
 		contactLabel={roDoctors.contactLabel}
 		verifiedLabel={roDoctors.verifiedLabel}
 	/>
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="Cunoașteți-ne specialiștii"
+		title="Ascultați-ne"
+		highlight="medicii"
+		subtitle={`Scurte prezentări video ale specialiștilor care vă coordonează îngrijirea.`}
+		entries={videoEntries}
+	/>
 	<OurPartnerHospitals
 		badge={roPartnerHospitalsHome.badge}
 		title={roPartnerHospitalsHome.title}
@@ -70,17 +87,7 @@ const videoEntries = defaultDoctors
 		hospitals={romanianHospitals}
 		basePath="/ro"
 	/>
-	<TreatmentCostComparison
-		title={costComparison.title}
-		subtitle={costComparison.subtitle}
-		note={costComparison.note}
-		scrollHint={costComparison.scrollHint}
-		mostAffordableLabel={costComparison.mostAffordable}
-		saveLabel="Economisiți {pct}%"
-		countryLabels={costComparison.countries}
-		treatmentNames={costComparison.treatmentNames}
-		stats={costComparison.stats}
-	/>
+	<TreatmentCostComparison basePath="/ro" />
 	<SupportServices
 		badge={roSupportServices.badge}
 		title={roSupportServices.titleLead}

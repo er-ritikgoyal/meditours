@@ -8,6 +8,9 @@ import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
 import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
 import { countries } from '../data/countries';
+import { treatments } from '../data/treatments';
+
+const defaultTreatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
 export interface Props {
 	title?: string;
@@ -29,17 +32,7 @@ const {
 	title = 'Get a Free Consultation',
 	subtitle = 'Our medical team replies within 24 hours',
 	defaultTreatment,
-	treatmentOptions = [
-		'Cardiac Care',
-		'Orthopedics',
-		'Oncology',
-		'Cosmetic & Plastic Surgery',
-		'Fertility Treatment',
-		'Organ Transplant',
-		'Dental Care',
-		'Eye Care',
-		'Other',
-	],
+	treatmentOptions = defaultTreatmentOptions,
 	treatmentPlaceholder = "I'm looking for...",
 	namePlaceholder = 'Full name',
 	emailPlaceholder = 'Email address',
@@ -50,6 +43,16 @@ const {
 	privacyNote = 'Your information is confidential',
 	successMessage = 'Thanks! A patient coordinator will reach out shortly.',
 } = Astro.props;
+
+// `defaultTreatment` is sometimes a specific procedure (e.g. "Coronary
+// Angioplasty" from an individual procedure page) rather than one of the
+// broader category names in `treatmentOptions` — add it as its own option
+// so the dropdown always has something correct to preselect instead of
+// silently falling back to whatever option happens to be first.
+const selectOptions =
+	defaultTreatment && !treatmentOptions.includes(defaultTreatment)
+		? [defaultTreatment, ...treatmentOptions]
+		: treatmentOptions;
 ---
 
 <div class="enquiry-card">
@@ -76,7 +79,7 @@ const {
 				<option value="" disabled selected={!defaultTreatment}>
 					{treatmentPlaceholder}
 				</option>
-				{treatmentOptions.map((option) => (
+				{selectOptions.map((option) => (
 					<option value={option} selected={option === defaultTreatment}>{option}</option>
 				))}
 			</select>

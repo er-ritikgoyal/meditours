@@ -88,7 +88,21 @@ const metaDescription = (() => {
 const year = new Date().getFullYear();
 ---
 
-<Layout title={`${proc.name} in India (${year}) | Alis Pro Med Tour`} description={metaDescription}>
+<Layout
+	title={`${proc.name} in India (${year}) | Alis Pro Med Tour`}
+	description={metaDescription}
+	alternates={[
+		{ locale: 'en', href: `/treatments/${treatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'fr', href: `/fr/treatments/${treatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'ru', href: `/ru/treatments/${treatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'bn', href: `/bn/treatments/${treatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'ro', href: `/ro/treatments/${treatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'es', href: `/es/treatments/${treatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'pt', href: `/pt/treatments/${treatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'vi', href: `/vi/treatments/${treatment.slug}/${Astro.params.procedure}` },
+		{ locale: 'ar', href: `/ar/treatments/${treatment.slug}/${Astro.params.procedure}` },
+	]}
+>
 	<PageHeader
 		badge={treatment.name}
 		title={proc.name}

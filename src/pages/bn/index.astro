@@ -1,5 +1,6 @@
 ---
 import HeroSection from '../../components/HeroSection.astro';
+import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
@@ -10,19 +11,18 @@ import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { bn } from '../../i18n/bn';
-import { bnAbout, bnTreatmentsPage } from '../../i18n/bn-pages';
+import { bnAbout } from '../../i18n/bn-pages';
 import { bnDoctors, bnPartnerHospitalsHome, bnSupportServices, bnTravelProcess } from '../../i18n/bn-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { bnDoctorsTr } from '../../i18n/bn-doctors';
-import { getFeaturedHospitals } from '../../data/hospitals';
+import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/bn-hospitals';
 
-const bengaliHospitals = translateHospitals(getFeaturedHospitals(2));
+const bengaliHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const bengaliDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...bnDoctors.doctors[i] }));
 
-const { costComparison } = bnTreatmentsPage;
 const videoEntries = defaultDoctors
 	.filter((doctor) => doctor.videoUrl)
 	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
@@ -45,9 +45,20 @@ const videoEntries = defaultDoctors
 	]}
 >
 	<HeroSection
-		treatmentOptions={bn.hero.treatmentOptions}
 		trust={bn.hero.trust}
 		enquiry={bn.hero.enquiry}
+	/>
+	<Achievements
+		badge="আমাদের প্রভাব"
+		title="সংখ্যা যা"
+		highlight="নিজেই কথা বলে"
+		subtitle={`৫ বছরেরও বেশি সময় ধরে বিশ্বমানের চিকিৎসা সমন্বয়, আমরা যত রোগীকে সাহায্য করেছি তা দিয়ে পরিমাপ করা হয়েছে।`}
+		labels={{
+			countriesTouched: 'দেশ পৌঁছেছে',
+			livesImpacted: 'জীবন প্রভাবিত',
+			yearsOfExcellence: 'বছরের উৎকর্ষতা',
+			accreditedHospitals: 'স্বীকৃত হাসপাতাল',
+		}}
 	/>
 	<OurDoctors
 		basePath="/bn"
@@ -61,7 +72,13 @@ const videoEntries = defaultDoctors
 		contactLabel={bnDoctors.contactLabel}
 		verifiedLabel={bnDoctors.verifiedLabel}
 	/>
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="আমাদের বিশেষজ্ঞদের সাথে পরিচিত হন"
+		title="শুনুন আমাদের"
+		highlight="ডাক্তারদের কাছ থেকে"
+		subtitle={`আপনার যত্ন সমন্বয়কারী বিশেষজ্ঞদের সংক্ষিপ্ত ভিডিও পরিচিতি।`}
+		entries={videoEntries}
+	/>
 	<OurPartnerHospitals
 		badge={bnPartnerHospitalsHome.badge}
 		title={bnPartnerHospitalsHome.title}
@@ -70,17 +87,7 @@ const videoEntries = defaultDoctors
 		hospitals={bengaliHospitals}
 		basePath="/bn"
 	/>
-	<TreatmentCostComparison
-		title={costComparison.title}
-		subtitle={costComparison.subtitle}
-		note={costComparison.note}
-		scrollHint={costComparison.scrollHint}
-		mostAffordableLabel={costComparison.mostAffordable}
-		saveLabel="{pct}% সাশ্রয়"
-		countryLabels={costComparison.countries}
-		treatmentNames={costComparison.treatmentNames}
-		stats={costComparison.stats}
-	/>
+	<TreatmentCostComparison basePath="/bn" />
 	<SupportServices
 		badge={bnSupportServices.badge}
 		title={bnSupportServices.titleLead}

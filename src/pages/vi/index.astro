@@ -1,5 +1,6 @@
 ---
 import HeroSection from '../../components/HeroSection.astro';
+import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
@@ -10,19 +11,18 @@ import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { vi } from '../../i18n/vi';
-import { viAbout, viTreatmentsPage } from '../../i18n/vi-pages';
+import { viAbout } from '../../i18n/vi-pages';
 import { viDoctors, viPartnerHospitalsHome, viSupportServices, viTravelProcess } from '../../i18n/vi-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { viDoctorsTr } from '../../i18n/vi-doctors';
-import { getFeaturedHospitals } from '../../data/hospitals';
+import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/vi-hospitals';
 
-const vietnameseHospitals = translateHospitals(getFeaturedHospitals(2));
+const vietnameseHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const vietnameseDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...viDoctors.doctors[i] }));
 
-const { costComparison } = viTreatmentsPage;
 const videoEntries = defaultDoctors
 	.filter((doctor) => doctor.videoUrl)
 	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
@@ -45,9 +45,20 @@ const videoEntries = defaultDoctors
 	]}
 >
 	<HeroSection
-		treatmentOptions={vi.hero.treatmentOptions}
 		trust={vi.hero.trust}
 		enquiry={vi.hero.enquiry}
+	/>
+	<Achievements
+		badge="Tác động của chúng tôi"
+		title="Những con số"
+		highlight="tự nói lên tất cả"
+		subtitle={`Hơn 5 năm điều phối dịch vụ chăm sóc đẳng cấp thế giới, được đo bằng số bệnh nhân chúng tôi đã giúp đỡ.`}
+		labels={{
+			countriesTouched: 'Quốc gia tiếp cận',
+			livesImpacted: 'Cuộc sống được hỗ trợ',
+			yearsOfExcellence: 'Năm kinh nghiệm xuất sắc',
+			accreditedHospitals: 'Bệnh viện được công nhận',
+		}}
 	/>
 	<OurDoctors
 		basePath="/vi"
@@ -61,7 +72,13 @@ const videoEntries = defaultDoctors
 		contactLabel={viDoctors.contactLabel}
 		verifiedLabel={viDoctors.verifiedLabel}
 	/>
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="Gặp gỡ các chuyên gia của chúng tôi"
+		title="Lắng nghe"
+		highlight="bác sĩ của chúng tôi"
+		subtitle={`Những đoạn video giới thiệu ngắn từ các chuyên gia điều phối việc chăm sóc của bạn.`}
+		entries={videoEntries}
+	/>
 	<OurPartnerHospitals
 		badge={viPartnerHospitalsHome.badge}
 		title={viPartnerHospitalsHome.title}
@@ -70,17 +87,7 @@ const videoEntries = defaultDoctors
 		hospitals={vietnameseHospitals}
 		basePath="/vi"
 	/>
-	<TreatmentCostComparison
-		title={costComparison.title}
-		subtitle={costComparison.subtitle}
-		note={costComparison.note}
-		scrollHint={costComparison.scrollHint}
-		mostAffordableLabel={costComparison.mostAffordable}
-		saveLabel="Tiết kiệm {pct}%"
-		countryLabels={costComparison.countries}
-		treatmentNames={costComparison.treatmentNames}
-		stats={costComparison.stats}
-	/>
+	<TreatmentCostComparison basePath="/vi" />
 	<SupportServices
 		badge={viSupportServices.badge}
 		title={viSupportServices.titleLead}

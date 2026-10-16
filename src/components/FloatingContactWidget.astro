@@ -225,6 +225,29 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 		font-family: var(--font-body);
 	}
 
+	@keyframes floating-contact-in {
+		from {
+			opacity: 0;
+			transform: translateY(20px) scale(0.85);
+		}
+		to {
+			opacity: 1;
+			transform: translateY(0) scale(1);
+		}
+	}
+
+	@keyframes floating-contact-pulse {
+		0% {
+			box-shadow: 0 0 0 0 var(--floating-pulse-color, rgba(20, 184, 166, 0.55));
+		}
+		70% {
+			box-shadow: 0 0 0 14px rgba(20, 184, 166, 0);
+		}
+		100% {
+			box-shadow: 0 0 0 0 rgba(20, 184, 166, 0);
+		}
+	}
+
 	.floating-contact__btn {
 		display: inline-flex;
 		align-items: center;
@@ -240,17 +263,27 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 		font-size: 14px;
 		font-weight: 600;
 		white-space: nowrap;
+		animation: floating-contact-in 0.5s ease both;
 		transition:
 			transform 0.15s ease,
 			box-shadow 0.15s ease;
 	}
 
+	.floating-contact__btn--whatsapp {
+		animation-delay: 0.1s;
+	}
+
+	.floating-contact__btn--callback {
+		animation-delay: 0.25s;
+	}
+
 	.floating-contact__btn:hover {
-		transform: translateY(-2px);
+		transform: translateY(-4px) scale(1.03);
 		box-shadow: var(--shadow-hover, var(--shadow-card));
 	}
 
 	.floating-contact__btn span:first-child {
+		position: relative;
 		display: flex;
 		align-items: center;
 		justify-content: center;
@@ -258,6 +291,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 		height: 52px;
 		flex-shrink: 0;
 		border-radius: 50%;
+		animation: floating-contact-pulse 2.4s ease-out 1.2s infinite;
 	}
 
 	.floating-contact__btn span:first-child :global(svg) {
@@ -274,6 +308,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 	.floating-contact__btn--whatsapp span:first-child {
 		background: #25d366;
 		color: #ffffff;
+		--floating-pulse-color: rgba(37, 211, 102, 0.55);
 	}
 
 	.floating-contact__btn--callback {
@@ -284,6 +319,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 	.floating-contact__btn--callback span:first-child {
 		background: rgba(255, 255, 255, 0.18);
 		color: #ffffff;
+		--floating-pulse-color: rgba(20, 184, 166, 0.55);
 	}
 
 	.floating-contact__label {
@@ -515,6 +551,13 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 		font-size: 13px;
 		font-weight: 600;
 		text-align: center;
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.floating-contact__btn,
+		.floating-contact__btn span:first-child {
+			animation: none;
+		}
 	}
 
 	@media screen and (max-width: 640px) {

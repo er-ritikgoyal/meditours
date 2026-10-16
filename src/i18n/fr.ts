@@ -31,7 +31,7 @@ export const fr = {
 
 	footer: {
 		description:
-			'Nous mettons en relation les patients avec des hôpitaux accrédités et des spécialistes agréés dans plus de 20 pays — un accompagnement complet, du premier avis médical jusqu\'au rétablissement.',
+			'Nous mettons en relation les patients avec des hôpitaux accrédités et des spécialistes agréés dans plus de 40 pays — un accompagnement complet, du premier avis médical jusqu\'au rétablissement.',
 		quickLinks: 'Liens rapides',
 		home: 'Accueil',
 		aboutUs: 'À propos de nous',
@@ -69,7 +69,7 @@ export const fr = {
 				title: 'Des soins de classe mondiale,',
 				highlight: "sans l'attente ni le prix fort",
 				description:
-					'Comparez des hôpitaux accrédités et des spécialistes dans plus de 20 pays, et économisez jusqu\'à 70 % sur le traitement dont vous avez besoin.',
+					'Comparez des hôpitaux accrédités et des spécialistes dans plus de 40 pays, et économisez jusqu\'à 70 % sur le traitement dont vous avez besoin.',
 				primaryCta: 'Devis gratuit',
 				secondaryCta: 'Découvrir les destinations',
 			},
@@ -92,10 +92,10 @@ export const fr = {
 			},
 		],
 		trust: [
-			{ value: '500+', label: 'Hôpitaux partenaires' },
-			{ value: '45', label: 'Pays' },
+			{ value: '100+', label: 'Hôpitaux partenaires' },
+			{ value: '40+', label: 'Pays' },
 			{ value: '24 h/24 et 7 j/7', label: 'Assistance patients' },
-			{ value: '12 000+', label: 'Patients accompagnés' },
+			{ value: '10 000+', label: 'Patients accompagnés' },
 		],
 		treatmentOptions: [
 			'Chirurgie cardiaque',

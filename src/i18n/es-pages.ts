@@ -19,7 +19,7 @@ export const esAbout = {
 		titleHighlight: 'accesible para todos',
 		paragraphs: [
 			'Alis Pro Med Tour se fundó para cerrar la brecha entre la atención médica de clase mundial y su costo. Creemos que el lugar donde nació no debería determinar si puede permitirse la cirugía que necesita. Desde nuestro inicio, hemos guiado a miles de pacientes — desde la primera opinión médica hasta la recuperación completa — a través de los hospitales más acreditados de la India, ahorrando a las familias sumas que cambian sus vidas, sin comprometer nunca la calidad.',
-			'Lo que comenzó como un pequeño equipo de coordinadores de pacientes se ha convertido en una red completa de servicios de conserjería que abarca 45 países, con comités médicos internos, especialistas dedicados en visados y apoyo multilingüe 24/7 — porque navegar por el sistema de salud de un país extranjero nunca debería sentirse como un viaje en solitario.',
+			'Lo que comenzó como un pequeño equipo de coordinadores de pacientes se ha convertido en una red completa de servicios de conserjería que abarca más de 40 países, con comités médicos internos, especialistas dedicados en visados y apoyo multilingüe 24/7 — porque navegar por el sistema de salud de un país extranjero nunca debería sentirse como un viaje en solitario.',
 		],
 		statsLabels: ['Hospitales asociados', 'Países atendidos', 'Apoyo al paciente', 'Pacientes atendidos'],
 		valuesTitle: 'Nuestros valores',
@@ -44,9 +44,9 @@ export const esAbout = {
 	},
 	journey: {
 		badge: 'Nuestro recorrido',
-		titleLead: 'Una década construyendo',
+		titleLead: 'Más de 5 años construyendo',
 		titleHighlight: 'la confianza de los pacientes',
-		subtitle: 'De un pequeño equipo de coordinadores a una red de pacientes en 45 países.',
+		subtitle: 'De un pequeño equipo de coordinadores a una red de pacientes en más de 40 países.',
 		milestones: [
 			{ title: 'Fundada en Mumbai', description: 'Alis Pro Med Tour se lanza con un puñado de hospitales asociados en Delhi y Mumbai.' },
 			{
@@ -66,8 +66,8 @@ export const esAbout = {
 				description: 'Se introduce el apoyo multilingüe permanente al paciente y coordinadores de caso dedicados.',
 			},
 			{
-				title: '45 países, más de 12,000 pacientes',
-				description: 'Apoyamos a pacientes de 45 países a través de más de 500 hospitales asociados a nivel nacional.',
+				title: 'Más de 40 países, más de 10,000 pacientes',
+				description: 'Apoyamos a pacientes de más de 40 países a través de más de 100 hospitales asociados acreditados a nivel nacional.',
 			},
 		],
 	},
@@ -199,6 +199,11 @@ export const esContact = {
 		'Trasplante de órganos',
 		'Odontología',
 		'Oftalmología',
+		'ENT (Ear, Nose & Throat)',
+		'Neurology & Neurosurgery',
+		'Spine Surgery',
+		'Bariatric Surgery',
+		'Nephrology & Urology',
 		'Otros',
 	],
 };
@@ -339,6 +344,6 @@ export const esDoctorsPage = {
 		otherSpecialists: 'Otros especialistas',
 		bookConsultation: 'Reservar una consulta',
 		sendCaseTemplate: (name: string) => `Envíe su caso al equipo de coordinación de ${name}`,
-		whatsappMessageTemplate: (name: string) => `Hola, me gustaría reservar una consulta con ${name}.`,
+		whatsappMessageTemplate: (name: string) => `Hola, me gustaría reservar una videoconsulta con ${name}.`,
 	},
 };

@@ -1,0 +1,282 @@
+---
+/**
+ * Wraps a detail page's main section with a "recommended" rail on the left:
+ * other doctors on a doctor page, other hospitals on a hospital page, other
+ * treatments on a treatment page. On narrower screens the rail drops below
+ * the page content as a grid of cards.
+ *
+ * Usage:  <RecommendationLayout kind="doctor" slug={Astro.params.slug} locale="fr"> …section… </RecommendationLayout>
+ */
+import { Image } from 'astro:assets';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import { getRecommendations, type RecommendationKind } from '../utils/recommendations';
+
+export interface Props {
+	kind: RecommendationKind;
+	slug: string | undefined;
+	locale?: string;
+}
+
+const { kind, slug = '', locale = 'en' } = Astro.props;
+
+const STRINGS: Record<string, { doctor: string; hospital: string; treatment: string; viewAll: string }> = {
+	en: { doctor: 'Other Doctors', hospital: 'Other Hospitals', treatment: 'Other Treatments', viewAll: 'View all' },
+	fr: { doctor: 'Autres médecins', hospital: 'Autres hôpitaux', treatment: 'Autres traitements', viewAll: 'Voir tout' },
+	es: { doctor: 'Otros médicos', hospital: 'Otros hospitales', treatment: 'Otros tratamientos', viewAll: 'Ver todos' },
+	pt: { doctor: 'Outros médicos', hospital: 'Outros hospitais', treatment: 'Outros tratamentos', viewAll: 'Ver todos' },
+	ru: { doctor: 'Другие врачи', hospital: 'Другие больницы', treatment: 'Другие процедуры', viewAll: 'Смотреть все' },
+	bn: { doctor: 'অন্যান্য ডাক্তার', hospital: 'অন্যান্য হাসপাতাল', treatment: 'অন্যান্য চিকিৎসা', viewAll: 'সব দেখুন' },
+	ro: { doctor: 'Alți medici', hospital: 'Alte spitale', treatment: 'Alte tratamente', viewAll: 'Vezi toate' },
+	vi: { doctor: 'Bác sĩ khác', hospital: 'Bệnh viện khác', treatment: 'Phương pháp điều trị khác', viewAll: 'Xem tất cả' },
+	ar: { doctor: 'أطباء آخرون', hospital: 'مستشفيات أخرى', treatment: 'علاجات أخرى', viewAll: 'عرض الكل' },
+};
+
+const s = STRINGS[locale] ?? STRINGS.en;
+const prefix = locale === 'en' ? '/' : `/${locale}/`;
+const viewAllHref = { doctor: `${prefix}doctors`, hospital: `${prefix}destinations`, treatment: `${prefix}treatments` }[kind];
+
+const items = getRecommendations(kind, slug, locale);
+
+const initials = (name: string) =>
+	name
+		.replace(/^(Dr\.?|Prof\.?)\s+/i, '')
+		.split(/\s+/)
+		.slice(0, 2)
+		.map((w) => w[0] ?? '')
+		.join('')
+		.toUpperCase();
+---
+
+<div class="rec-layout">
+	<div class="rec-layout__content">
+		<slot />
+	</div>
+
+	{
+		items.length > 0 && (
+			<aside class="rec-rail" aria-labelledby={`rec-rail-title-${kind}`}>
+				<div class="rec-rail__sticky">
+					<h2 class="rec-rail__title" id={`rec-rail-title-${kind}`}>
+						{s[kind]}
+					</h2>
+					<ul class="rec-rail__list">
+						{items.map((item) => (
+							<li>
+								<a class={`rec-card rec-card--${kind}`} href={item.href}>
+									{item.image ? (
+										typeof item.image === 'string' ? (
+											<img src={item.image} alt="" class="rec-card__media" loading="lazy" width="56" height="56" />
+										) : (
+											<Image src={item.image} alt="" width={112} height={112} class="rec-card__media" loading="lazy" />
+										)
+									) : (
+										<span class={`rec-card__media rec-card__fallback rec-card__fallback--${item.theme ?? 'blue'}`} aria-hidden="true">
+											{initials(item.title)}
+										</span>
+									)}
+									<span class="rec-card__text">
+										<span class="rec-card__title">{item.title}</span>
+										<span class="rec-card__subtitle">{item.subtitle}</span>
+									</span>
+								</a>
+							</li>
+						))}
+					</ul>
+					<a class="rec-rail__all" href={viewAllHref}>
+						{s.viewAll}
+						<span set:html={iconArrow} aria-hidden="true" />
+					</a>
+				</div>
+			</aside>
+		)
+	}
+</div>
+
+<style>
+	.rec-layout {
+		display: grid;
+		grid-template-columns: 260px minmax(0, 1fr);
+		grid-template-areas: 'rail content';
+		max-width: 1480px;
+		margin: 0 auto;
+		font-family: var(--font-body);
+	}
+
+	.rec-layout__content {
+		grid-area: content;
+		min-width: 0;
+	}
+
+	.rec-rail {
+		grid-area: rail;
+		min-width: 0;
+		padding-block: 56px 40px;
+		padding-inline-start: 24px;
+	}
+
+	.rec-rail__sticky {
+		position: sticky;
+		top: 96px;
+		padding: 18px 14px 14px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.rec-rail__title {
+		margin: 0 4px 12px;
+		font-size: 16px;
+		font-weight: 700;
+		color: var(--color-primary);
+	}
+
+	.rec-rail__list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 4px;
+	}
+
+	.rec-card {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 8px;
+		border-radius: 12px;
+		text-decoration: none;
+		transition: background 0.15s ease;
+	}
+
+	.rec-card:hover,
+	.rec-card:focus-visible {
+		background: var(--color-bg-soft-blue);
+	}
+
+	.rec-card__media {
+		flex-shrink: 0;
+		width: 56px;
+		height: 56px;
+		object-fit: cover;
+		border-radius: 10px;
+		background: var(--color-bg-gray);
+	}
+
+	.rec-card--doctor .rec-card__media {
+		border-radius: 50%;
+		object-position: top;
+	}
+
+	.rec-card__fallback {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		font-family: var(--font-heading);
+		font-size: 16px;
+		font-weight: 700;
+		color: #ffffff;
+	}
+
+	.rec-card__fallback--blue {
+		background: var(--color-primary);
+	}
+
+	.rec-card__fallback--teal {
+		background: var(--color-teal);
+	}
+
+	.rec-card__fallback--green {
+		background: var(--color-green);
+	}
+
+	.rec-card__text {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		min-width: 0;
+	}
+
+	.rec-card__title,
+	.rec-card__subtitle {
+		display: -webkit-box;
+		-webkit-box-orient: vertical;
+		overflow: hidden;
+	}
+
+	.rec-card__title {
+		-webkit-line-clamp: 2;
+		font-size: 13.5px;
+		font-weight: 600;
+		line-height: 1.3;
+		color: var(--color-text-primary);
+	}
+
+	.rec-card:hover .rec-card__title {
+		color: var(--color-primary);
+	}
+
+	.rec-card__subtitle {
+		-webkit-line-clamp: 2;
+		font-size: 12px;
+		line-height: 1.35;
+		color: var(--color-text-muted);
+	}
+
+	.rec-rail__all {
+		display: inline-flex;
+		align-items: center;
+		gap: 2px;
+		margin: 10px 4px 0;
+		font-size: 13.5px;
+		font-weight: 600;
+		color: var(--color-teal);
+		text-decoration: none;
+	}
+
+	.rec-rail__all:hover {
+		color: var(--color-primary);
+	}
+
+	.rec-rail__all :global(svg) {
+		width: 20px;
+		height: 20px;
+	}
+
+	:global([dir='rtl']) .rec-rail__all :global(svg) {
+		transform: scaleX(-1);
+	}
+
+	/* Below this the page's own two-column layout needs the full width, so the
+	   rail moves under the content as a card grid. */
+	@media screen and (max-width: 1279px) {
+		.rec-layout {
+			grid-template-columns: minmax(0, 1fr);
+			grid-template-areas:
+				'content'
+				'rail';
+		}
+
+		.rec-rail {
+			padding: 8px 24px 48px;
+		}
+
+		.rec-rail__sticky {
+			position: static;
+			max-width: 1100px;
+			margin: 0 auto;
+		}
+
+		.rec-rail__list {
+			display: grid;
+			grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.rec-rail {
+			padding: 8px 16px 40px;
+		}
+	}
+</style>

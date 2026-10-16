@@ -1,176 +1,110 @@
 ---
-import 'flag-icons/css/flag-icons.min.css';
-import iconHeart from 'healthicons/public/icons/svg/outline/body/heart_organ.svg?raw';
-import iconActivity from 'healthicons/public/icons/svg/outline/body/joints.svg?raw';
-import iconBandaid from 'healthicons/public/icons/svg/outline/body/leg.svg?raw';
-import iconDroplet from 'healthicons/public/icons/svg/outline/body/female_reproductive_system.svg?raw';
-import iconCapsule from 'healthicons/public/icons/svg/outline/body/tooth.svg?raw';
-import iconBezier from 'healthicons/public/icons/svg/outline/body/spine.svg?raw';
-import iconDropletFill from 'healthicons/public/icons/svg/outline/body/liver.svg?raw';
-import iconDropletHalf from 'healthicons/public/icons/svg/outline/body/kidneys.svg?raw';
-import iconEye from 'healthicons/public/icons/svg/outline/body/eye.svg?raw';
-import iconInfo from 'bootstrap-icons/icons/info-circle-fill.svg?raw';
-import iconPiggyBank from 'bootstrap-icons/icons/piggy-bank-fill.svg?raw';
-import iconHospital from 'bootstrap-icons/icons/hospital-fill.svg?raw';
-import iconAward from 'bootstrap-icons/icons/award-fill.svg?raw';
+import iconJoints from 'healthicons/public/icons/svg/outline/body/joints.svg?raw';
+import iconOrthopaedics from 'healthicons/public/icons/svg/outline/specialties/orthopaedics.svg?raw';
+import iconNeurology from 'healthicons/public/icons/svg/outline/body/neurology.svg?raw';
+import iconHeartOrgan from 'healthicons/public/icons/svg/outline/body/heart_organ.svg?raw';
+import iconCardiology from 'healthicons/public/icons/svg/outline/specialties/cardiology.svg?raw';
+import iconBreasts from 'healthicons/public/icons/svg/outline/body/breasts.svg?raw';
+import iconLungs from 'healthicons/public/icons/svg/outline/body/lungs.svg?raw';
+import iconNose from 'healthicons/public/icons/svg/outline/body/nose.svg?raw';
+import iconScissors from 'bootstrap-icons/icons/scissors.svg?raw';
+import iconGynecology from 'healthicons/public/icons/svg/outline/specialties/gynecology.svg?raw';
+import iconWhatsapp from 'bootstrap-icons/icons/whatsapp.svg?raw';
 
-const ICONS = {
-	heart: iconHeart,
-	activity: iconActivity,
-	bandaid: iconBandaid,
-	droplet: iconDroplet,
-	capsule: iconCapsule,
-	bezier: iconBezier,
-	dropletFill: iconDropletFill,
-	dropletHalf: iconDropletHalf,
-	eye: iconEye,
-} as const;
-
-const treatmentDefs: { name: string; icon: keyof typeof ICONS; prices: Record<string, number> }[] = [
-	{ name: 'Heart Bypass Surgery', icon: 'heart', prices: { usa: 120000, uk: 65000, germany: 58000, uae: 42000, india: 8000 } },
-	{ name: 'Knee Replacement', icon: 'activity', prices: { usa: 40000, uk: 28000, germany: 25000, uae: 20000, india: 6000 } },
-	{ name: 'Hip Replacement', icon: 'bandaid', prices: { usa: 45000, uk: 30000, germany: 27000, uae: 22000, india: 5500 } },
-	{ name: 'IVF Treatment', icon: 'droplet', prices: { usa: 18000, uk: 12000, germany: 10500, uae: 9500, india: 3000 } },
-	{ name: 'Dental Implant', icon: 'capsule', prices: { usa: 5000, uk: 3500, germany: 3200, uae: 2800, india: 800 } },
-	{ name: 'Spinal Fusion', icon: 'bezier', prices: { usa: 110000, uk: 60000, germany: 55000, uae: 45000, india: 9000 } },
-	{ name: 'Liver Transplant', icon: 'dropletFill', prices: { usa: 575000, uk: 250000, germany: 220000, uae: 180000, india: 32000 } },
-	{ name: 'Kidney Transplant', icon: 'dropletHalf', prices: { usa: 300000, uk: 150000, germany: 140000, uae: 100000, india: 15000 } },
-	{ name: 'Cataract Surgery', icon: 'eye', prices: { usa: 5000, uk: 3000, germany: 2800, uae: 2500, india: 700 } },
-];
-
-const formatPrice = (value: number) => `$${value.toLocaleString('en-US')}`;
-const savingsPercent = (usa: number, india: number) => Math.round(((usa - india) / usa) * 100);
-
-export interface CostStat {
-	title: string;
-	description: string;
+export interface QuoteTreatment {
+	name: string;
+	startingPrice: number;
+	icon: string;
 }
 
 export interface Props {
 	title?: string;
 	subtitle?: string;
-	note?: string;
-	scrollHint?: string;
-	mostAffordableLabel?: string;
-	saveLabel?: string;
-	countryLabels?: { usa: string; uk: string; germany: string; uae: string; india: string };
-	treatmentNames?: Record<string, string>;
-	stats?: CostStat[];
+	discoverText?: string;
+	getQuoteLabel?: string;
+	chatLabel?: string;
+	basePath?: string;
+	whatsappNumber?: string;
+	whatsappMessage?: string;
+	treatments?: QuoteTreatment[];
 }
 
-const {
-	title = 'Compare Treatment Costs Worldwide',
-	subtitle = 'Receive world-class healthcare in India while saving up to 80% on treatment costs without compromising on quality.',
-	note = 'All prices are approximate averages in USD and may vary by hospital, specialist, and case complexity.',
-	scrollHint = 'Swipe left to compare all 5 countries, including India',
-	mostAffordableLabel = 'Most Affordable',
-	saveLabel = 'Save {pct}%',
-	countryLabels = { usa: 'United States', uk: 'United Kingdom', germany: 'Germany', uae: 'UAE', india: 'India' },
-	treatmentNames = {},
-	stats = [
-		{ title: 'Save Up To 80%', description: 'Compared to Western countries' },
-		{ title: 'World-Class Hospitals', description: 'JCI & NABH Accredited' },
-		{ title: 'Experienced Specialists', description: 'Globally recognized doctors' },
-	],
-} = Astro.props;
-
-const statIcons = [iconPiggyBank, iconHospital, iconAward];
-const statsWithIcons = stats.map((stat, i) => ({ ...stat, icon: statIcons[i] }));
-
-const countries = [
-	{ code: 'us', label: countryLabels.usa, key: 'usa' as const },
-	{ code: 'gb', label: countryLabels.uk, key: 'uk' as const },
-	{ code: 'de', label: countryLabels.germany, key: 'germany' as const },
-	{ code: 'ae', label: countryLabels.uae, key: 'uae' as const },
-	{ code: 'in', label: countryLabels.india, key: 'india' as const, highlight: true },
+const defaultTreatments: QuoteTreatment[] = [
+	{ name: 'Knee Replacement', startingPrice: 4000, icon: iconJoints },
+	{ name: 'Hip Replacement', startingPrice: 5500, icon: iconOrthopaedics },
+	{ name: 'Brain Tumor', startingPrice: 5000, icon: iconNeurology },
+	{ name: 'Heart Bypass Surgery', startingPrice: 4500, icon: iconHeartOrgan },
+	{ name: 'Valve Replacement', startingPrice: 9500, icon: iconCardiology },
+	{ name: 'Breast Cancer', startingPrice: 5000, icon: iconBreasts },
+	{ name: 'Lung Cancer', startingPrice: 5500, icon: iconLungs },
+	{ name: 'Rhinoplasty', startingPrice: 1800, icon: iconNose },
+	{ name: 'Breast Implants', startingPrice: 2750, icon: iconBreasts },
+	{ name: 'Hair Transplant', startingPrice: 1400, icon: iconScissors },
+	{ name: 'IVF Treatment', startingPrice: 3500, icon: iconGynecology },
+	{ name: 'Hysterectomy', startingPrice: 3000, icon: iconGynecology },
 ];
 
-const treatments = treatmentDefs.map((t) => ({ ...t, name: treatmentNames[t.name] ?? t.name }));
+const {
+	title = 'Lowest Quotes Assured',
+	subtitle = 'We constantly negotiate better prices and alternatives without compromising treatment quality. Our prices are consistently lower.',
+	discoverText = 'Discover what we offer!',
+	getQuoteLabel = 'Get Quote',
+	chatLabel = 'Chat',
+	basePath = '',
+	whatsappNumber = '919821701155',
+	whatsappMessage = 'Hello, I am interested in the services listed on your website',
+	treatments = defaultTreatments,
+} = Astro.props;
+
+const formatPrice = (value: number) => `$${value.toLocaleString('en-US')}`;
+const quoteHref = `${basePath}/contact#enquiry-form`;
+const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 
-<section class="cost">
-	<div class="cost__inner">
-		<div class="cost__header" data-animate>
-			<h2 class="cost__title">{title}</h2>
-			<p class="cost__subtitle">
-				{subtitle}
-			</p>
-			<p class="cost__note">
-				<span set:html={iconInfo} aria-hidden="true" />
-				{note}
-			</p>
+<section class="quotes">
+	<div class="quotes__inner">
+		<div class="quotes__header" data-animate>
+			<h2 class="quotes__title">{title}</h2>
+			<p class="quotes__subtitle">{subtitle}</p>
 		</div>
 
-		<div class="cost-table__wrap" data-animate>
-			<p class="cost-table__scroll-hint">
-				<span set:html={iconInfo} aria-hidden="true" />
-				{scrollHint}
-			</p>
-			<div class="cost-table__scroll">
-				<table class="cost-table" dir="ltr">
-					<thead>
-						<tr>
-							<th class="cost-table__treatment-head">Treatment</th>
-							{
-								countries.map((country) => (
-									<th class={country.highlight ? 'cost-table__col--highlight' : ''}>
-										{country.highlight && <span class="cost-table__most-affordable">{mostAffordableLabel}</span>}
-										<span class="cost-table__country">
-											<span class={`fi fi-${country.code}`} aria-hidden="true" />
-											{country.label}
-										</span>
-									</th>
-								))
-							}
-						</tr>
-					</thead>
-					<tbody>
-						{
-							treatments.map((treatment) => (
-								<tr>
-									<td class="cost-table__treatment">
-										<span class="cost-table__icon" set:html={ICONS[treatment.icon]} aria-hidden="true" />
-										{treatment.name}
-									</td>
-									{countries.map((country) => (
-										<td class={country.highlight ? 'cost-table__col--highlight' : ''}>
-											<span class="cost-table__price">{formatPrice(treatment.prices[country.key])}</span>
-											{country.highlight && (
-												<span class="cost-table__savings">
-													{saveLabel.replace('{pct}', String(savingsPercent(treatment.prices.usa, treatment.prices.india)))}
-												</span>
-											)}
-										</td>
-									))}
-								</tr>
-							))
-						}
-					</tbody>
-				</table>
-			</div>
-		</div>
-
-		<div class="cost-stats" data-animate>
+		<div class="quotes__grid">
 			{
-				statsWithIcons.map((stat) => (
-					<div class="cost-stats__card">
-						<span class="cost-stats__icon" set:html={stat.icon} aria-hidden="true" />
-						<h3 class="cost-stats__title" data-countup={stat.title.match(/\d+/) ? stat.title : undefined}>
-							{stat.title}
-						</h3>
-						<p class="cost-stats__desc">{stat.description}</p>
+				treatments.map((treatment, i) => (
+					<div class="quote-card" data-animate style={`transition-delay: ${Math.min(i, 7) * 50}ms`}>
+						<span class="quote-card__icon" set:html={treatment.icon} aria-hidden="true" />
+						<div class="quote-card__body">
+							<h3 class="quote-card__name">{treatment.name}</h3>
+							<p class="quote-card__price">
+								Starting <strong>{formatPrice(treatment.startingPrice)}</strong>
+							</p>
+							<a class="quote-card__link" href={quoteHref}>
+								{getQuoteLabel}
+							</a>
+						</div>
 					</div>
 				))
 			}
 		</div>
 
+		<div class="quotes__footer" data-animate>
+			<p class="quotes__discover">{discoverText}</p>
+			<div class="quotes__actions">
+				<a class="quotes__btn quotes__btn--quote" href={quoteHref}>
+					{getQuoteLabel}
+				</a>
+				<a class="quotes__btn quotes__btn--chat" href={whatsappHref} target="_blank" rel="noopener noreferrer">
+					<span set:html={iconWhatsapp} aria-hidden="true" />
+					{chatLabel}
+				</a>
+			</div>
+		</div>
 	</div>
 </section>
 
 <script>
 	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-	const animated = document.querySelectorAll('.cost__header, .cost-table__wrap, .cost-stats');
+	const animated = document.querySelectorAll('.quotes [data-animate]');
 
 	if (prefersReducedMotion) {
 		animated.forEach((el) => el.classList.add('is-visible'));
@@ -184,75 +118,27 @@ const treatments = treatmentDefs.map((t) => ({ ...t, name: treatmentNames[t.name
 					}
 				});
 			},
-			{ threshold: 0.15 }
+			{ threshold: 0.12 },
 		);
 		animated.forEach((el) => observer.observe(el));
-	}
-
-	// Count-up animation for stat numbers containing a percentage
-	const countUpEls = document.querySelectorAll<HTMLElement>('[data-countup]');
-
-	const runCountUp = (el: HTMLElement) => {
-		const raw = el.dataset.countup ?? '';
-		const match = raw.match(/\d+/);
-		if (!match) return;
-		const target = parseInt(match[0], 10);
-		const suffix = raw.slice(match.index! + match[0].length);
-		const prefix = raw.slice(0, match.index);
-
-		if (prefersReducedMotion) {
-			el.textContent = raw;
-			return;
-		}
-
-		const duration = 1200;
-		const start = performance.now();
-
-		const tick = (now: number) => {
-			const progress = Math.min((now - start) / duration, 1);
-			const eased = 1 - (1 - progress) * (1 - progress);
-			const current = Math.round(target * eased);
-			el.textContent = `${prefix}${current}${suffix}`;
-			if (progress < 1) requestAnimationFrame(tick);
-		};
-		requestAnimationFrame(tick);
-	};
-
-	if (prefersReducedMotion) {
-		countUpEls.forEach((el) => {
-			el.textContent = el.dataset.countup ?? el.textContent;
-		});
-	} else {
-		const countObserver = new IntersectionObserver(
-			(entries) => {
-				entries.forEach((entry) => {
-					if (entry.isIntersecting) {
-						runCountUp(entry.target as HTMLElement);
-						countObserver.unobserve(entry.target);
-					}
-				});
-			},
-			{ threshold: 0.5 }
-		);
-		countUpEls.forEach((el) => countObserver.observe(el));
 	}
 </script>
 
 <style>
-	.cost {
+	.quotes {
 		background: var(--color-bg-white);
 		padding: 80px 24px 88px;
 		font-family: var(--font-body);
 	}
 
-	.cost__inner {
+	.quotes__inner {
 		max-width: 1320px;
 		margin: 0 auto;
 	}
 
 	[data-animate] {
 		opacity: 0;
-		transform: translateY(24px);
+		transform: translateY(20px);
 		transition:
 			opacity 0.6s ease,
 			transform 0.6s ease;
@@ -263,331 +149,186 @@ const treatments = treatmentDefs.map((t) => ({ ...t, name: treatmentNames[t.name
 		transform: translateY(0);
 	}
 
-	.cost__header {
+	.quotes__header {
 		text-align: center;
-		max-width: 720px;
-		margin: 0 auto 44px;
+		max-width: 640px;
+		margin: 0 auto 40px;
 	}
 
-	.cost__title {
+	.quotes__title {
 		font-family: var(--font-heading);
-		font-size: clamp(1.8rem, 3.2vw, 2.6rem);
+		font-size: clamp(1.8rem, 3.2vw, 2.4rem);
 		font-weight: 700;
-		letter-spacing: -0.01em;
-		color: var(--color-text-primary);
+		color: var(--color-primary);
+		margin: 0 0 12px;
+	}
+
+	.quotes__subtitle {
+		font-size: 15px;
+		line-height: 1.7;
+		color: var(--color-text-secondary);
 		margin: 0;
 	}
 
-	.cost__subtitle {
-		margin-top: 14px;
-		font-size: 1rem;
-		line-height: 1.6;
-		color: var(--color-text-secondary);
-	}
-
-	.cost__note {
-		display: inline-flex;
-		align-items: center;
-		gap: 6px;
-		margin: 18px 0 0;
-		padding: 6px 14px;
-		border-radius: 999px;
-		background: var(--color-bg-soft-blue);
-		color: var(--color-text-muted);
-		font-size: 12.5px;
-	}
-
-	.cost__note span {
-		display: flex;
-		width: 14px;
-		height: 14px;
-		color: var(--color-primary);
-		flex-shrink: 0;
-	}
-
-	.cost__note span :global(svg) {
-		width: 100%;
-		height: 100%;
-	}
-
-	/* Table */
-	.cost-table__wrap {
-		position: relative;
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius-lg);
-		overflow: hidden;
-		box-shadow: var(--shadow-soft);
-	}
-
-	.cost-table__scroll-hint {
-		display: none;
-		align-items: center;
-		gap: 6px;
-		margin: 0;
-		padding: 10px 16px;
-		background: var(--color-bg-soft-blue);
-		border-bottom: 1px solid var(--color-border-light);
-		color: var(--color-primary);
-		font-size: 12.5px;
-		font-weight: 600;
-	}
-
-	.cost-table__scroll-hint span {
-		display: flex;
-		width: 14px;
-		height: 14px;
-		flex-shrink: 0;
-	}
-
-	.cost-table__scroll-hint span :global(svg) {
-		width: 100%;
-		height: 100%;
-	}
-
-	.cost-table__scroll {
-		position: relative;
-		overflow-x: auto;
-	}
-
-	.cost-table__wrap::after {
-		content: '';
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		width: 36px;
-		background: linear-gradient(90deg, transparent, rgba(30, 41, 59, 0.08));
-		pointer-events: none;
-		opacity: 0;
-		transition: opacity 0.2s ease;
-	}
-
-	@media screen and (max-width: 900px) {
-		.cost-table__scroll-hint {
-			display: flex;
-		}
-
-		.cost-table__wrap::after {
-			opacity: 1;
-		}
-	}
-
-	.cost-table {
-		width: 100%;
-		border-collapse: collapse;
-		min-width: 760px;
-		font-size: 14px;
-	}
-
-	.cost-table thead th {
-		position: sticky;
-		top: 66px;
-		z-index: 2;
-		background: var(--color-bg-soft-blue);
-		color: var(--color-text-primary);
-		font-family: var(--font-heading);
-		font-size: 13px;
-		font-weight: 600;
-		text-align: center;
-		padding: 16px 14px;
-		border-bottom: 1px solid var(--color-border-light);
-		white-space: nowrap;
-	}
-
-	.cost-table__treatment-head {
-		text-align: left !important;
-		min-width: 200px;
-	}
-
-	.cost-table__country {
-		display: inline-flex;
-		align-items: center;
-		gap: 7px;
-		justify-content: center;
-	}
-
-	.cost-table__country .fi {
-		border-radius: 2px;
-		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
-	}
-
-	.cost-table__most-affordable {
-		display: block;
-		margin: 0 auto 6px;
-		width: fit-content;
-		padding: 3px 10px;
-		border-radius: 999px;
-		background: var(--color-green);
-		color: #ffffff;
-		font-size: 10px;
-		font-weight: 700;
-		text-transform: uppercase;
-		letter-spacing: 0.06em;
-	}
-
-	.cost-table thead th.cost-table__col--highlight {
-		background: #ecfdf5;
-	}
-
-	.cost-table tbody tr {
-		border-bottom: 1px solid var(--color-border-light);
-		transition: background 0.15s ease;
-	}
-
-	.cost-table tbody tr:last-child {
-		border-bottom: none;
-	}
-
-	.cost-table tbody tr:nth-child(even) {
-		background: var(--color-bg-gray);
-	}
-
-	.cost-table tbody tr:hover {
-		background: var(--color-bg-soft-blue);
-	}
-
-	.cost-table tbody tr:hover td.cost-table__col--highlight {
-		background: #ddfbee;
-	}
-
-	.cost-table td {
-		padding: 14px;
-		text-align: center;
-		color: var(--color-text-secondary);
-		white-space: nowrap;
-	}
-
-	.cost-table td.cost-table__col--highlight {
-		background: #ecfdf5;
-	}
-
-	.cost-table__treatment {
-		display: flex;
-		align-items: center;
-		gap: 10px;
-		text-align: left;
-		font-weight: 600;
-		color: var(--color-text-primary);
-		white-space: normal;
-	}
-
-	.cost-table__icon {
-		display: flex;
-		align-items: center;
-		justify-content: center;
-		flex-shrink: 0;
-		width: 32px;
-		height: 32px;
-		border-radius: 9px;
-		background: var(--color-bg-soft-blue);
-		color: var(--color-primary);
-	}
-
-	.cost-table__icon :global(svg) {
-		width: 16px;
-		height: 16px;
-	}
-
-	.cost-table__price {
-		display: block;
-		font-weight: 600;
-		color: var(--color-text-primary);
-	}
-
-	.cost-table__col--highlight .cost-table__price {
-		color: #15803d;
-		font-weight: 700;
-	}
-
-	.cost-table__savings {
-		display: inline-block;
-		margin-top: 4px;
-		padding: 2px 8px;
-		border-radius: 999px;
-		background: var(--color-green);
-		color: #ffffff;
-		font-size: 10.5px;
-		font-weight: 700;
-	}
-
-	/* Stat cards */
-	.cost-stats {
+	.quotes__grid {
 		display: grid;
-		grid-template-columns: repeat(3, 1fr);
-		gap: 24px;
-		margin-top: 48px;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 18px;
 	}
 
-	.cost-stats__card {
+	.quote-card {
 		display: flex;
-		flex-direction: column;
-		align-items: center;
-		text-align: center;
-		padding: 32px 24px;
-		background: var(--color-bg-white);
-		border: 1px solid var(--color-border-light);
-		border-radius: var(--radius-lg);
-		box-shadow: var(--shadow-soft);
+		align-items: flex-start;
+		gap: 14px;
+		padding: 18px;
+		background: var(--color-bg-soft-blue);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
 		transition:
-			transform 0.25s ease,
-			box-shadow 0.25s ease;
+			transform 0.2s ease,
+			box-shadow 0.2s ease;
 	}
 
-	.cost-stats__card:hover {
-		transform: translateY(-6px);
-		box-shadow: var(--shadow-card);
+	.quote-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-soft);
 	}
 
-	.cost-stats__icon {
+	.quote-card__icon {
 		display: flex;
 		align-items: center;
 		justify-content: center;
-		width: 56px;
-		height: 56px;
+		flex-shrink: 0;
+		width: 52px;
+		height: 52px;
 		border-radius: 50%;
-		margin-bottom: 16px;
-		background: var(--gradient-cta);
-		color: #ffffff;
+		background: #ffffff;
+		color: var(--color-primary);
+		box-shadow: 0 0 0 1px var(--color-border-card);
 	}
 
-	.cost-stats__icon :global(svg) {
+	.quote-card__icon :global(svg) {
 		width: 26px;
 		height: 26px;
 	}
 
-	.cost-stats__title {
+	.quote-card__body {
+		min-width: 0;
+	}
+
+	.quote-card__name {
 		font-family: var(--font-heading);
-		font-size: 18px;
+		font-size: 15.5px;
 		font-weight: 700;
-		color: var(--color-text-primary);
-		margin: 0 0 6px;
+		color: var(--color-primary);
+		margin: 0 0 2px;
 	}
 
-	.cost-stats__desc {
+	.quote-card__price {
 		font-size: 13.5px;
-		color: var(--color-text-muted);
-		margin: 0;
+		color: var(--color-text-secondary);
+		margin: 0 0 4px;
 	}
 
-	@media screen and (max-width: 900px) {
-		.cost-stats {
+	.quote-card__price strong {
+		color: var(--color-text-primary);
+		font-weight: 700;
+	}
+
+	.quote-card__link {
+		display: inline-block;
+		font-size: 13px;
+		font-weight: 700;
+		color: var(--color-danger);
+		text-decoration: none;
+	}
+
+	.quote-card__link:hover {
+		text-decoration: underline;
+	}
+
+	.quotes__footer {
+		text-align: center;
+		margin-top: 48px;
+	}
+
+	.quotes__discover {
+		font-size: 14.5px;
+		color: var(--color-text-muted);
+		margin: 0 0 18px;
+	}
+
+	.quotes__actions {
+		display: inline-flex;
+		align-items: center;
+		gap: 14px;
+	}
+
+	.quotes__btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 8px;
+		padding: 13px 32px;
+		border-radius: 999px;
+		font-size: 14.5px;
+		font-weight: 700;
+		text-decoration: none;
+		cursor: pointer;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.quotes__btn:hover {
+		transform: translateY(-2px);
+	}
+
+	.quotes__btn--quote {
+		background: var(--color-danger);
+		color: #ffffff;
+		box-shadow: 0 8px 20px -8px rgba(239, 68, 68, 0.55);
+	}
+
+	.quotes__btn--chat {
+		background: #25d366;
+		color: #ffffff;
+		box-shadow: 0 8px 20px -8px rgba(37, 211, 102, 0.55);
+	}
+
+	.quotes__btn--chat :global(svg) {
+		width: 17px;
+		height: 17px;
+	}
+
+	@media screen and (max-width: 1080px) {
+		.quotes__grid {
+			grid-template-columns: repeat(3, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 760px) {
+		.quotes__grid {
 			grid-template-columns: repeat(2, 1fr);
 		}
-
-		.cost-stats__card:last-child {
-			grid-column: 1 / -1;
-		}
 	}
 
-	@media screen and (max-width: 560px) {
-		.cost-stats {
+	@media screen and (max-width: 520px) {
+		.quotes {
+			padding: 56px 16px 64px;
+		}
+
+		.quotes__grid {
 			grid-template-columns: 1fr;
 		}
-	}
 
-	@media screen and (max-width: 640px) {
-		.cost {
-			padding: 56px 16px 64px;
+		.quotes__actions {
+			flex-direction: column;
+			width: 100%;
+		}
+
+		.quotes__btn {
+			width: 100%;
 		}
 	}
 </style>

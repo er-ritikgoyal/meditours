@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import EnquiryCard from '../../components/EnquiryCard.astro';
+import RecommendationLayout from '../../components/RecommendationLayout.astro';
 import { treatments, type TreatmentData } from '../../data/treatments';
 import iconTag from 'bootstrap-icons/icons/tag-fill.svg?raw';
 import iconPiggyBank from 'bootstrap-icons/icons/piggy-bank-fill.svg?raw';
@@ -111,248 +112,250 @@ const year = new Date().getFullYear();
 		breadcrumbs={[{ label: 'Treatments', href: '/treatments' }, { label: treatment.name }]}
 	/>
 
-	<section class="treatment-detail">
-		<div class="treatment-detail__inner">
-			<div class="treatment-detail__hero-row">
-				{treatment.imageKey ? (
-					<Image
-						src={IMAGES[treatment.imageKey]}
-						alt={treatment.name}
-						width={1200}
-						height={480}
-						class="treatment-detail__hero-image"
-					/>
-				) : (
-					<div class={`treatment-detail__hero-fallback treatment-detail__hero-fallback--${treatment.theme}`}>
-						<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
-					</div>
-				)}
+	<RecommendationLayout kind="treatment" slug={Astro.params.slug} locale="en">
+		<section class="treatment-detail">
+			<div class="treatment-detail__inner">
+				<div class="treatment-detail__hero-row">
+					{treatment.imageKey ? (
+						<Image
+							src={IMAGES[treatment.imageKey]}
+							alt={treatment.name}
+							width={1200}
+							height={480}
+							class="treatment-detail__hero-image"
+						/>
+					) : (
+						<div class={`treatment-detail__hero-fallback treatment-detail__hero-fallback--${treatment.theme}`}>
+							<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
+						</div>
+					)}
 
-				<EnquiryCard defaultTreatment={treatment.name} />
-			</div>
-
-			<div class="treatment-detail__stats">
-				<div class="treatment-detail__stat">
-					<span set:html={iconTag} aria-hidden="true" />
-					<div>
-						<strong>{formatPrice(treatment.startingPrice)}</strong>
-						<span>Starting Price</span>
-					</div>
-				</div>
-				<div class="treatment-detail__stat">
-					<span set:html={iconPiggyBank} aria-hidden="true" />
-					<div>
-						<strong>{treatment.avgSavings}%</strong>
-						<span>Avg. Savings</span>
-					</div>
-				</div>
-				<div class="treatment-detail__stat">
-					<span set:html={iconHospital} aria-hidden="true" />
-					<div>
-						<strong>{treatment.hospitalsCount}+</strong>
-						<span>Partner Hospitals</span>
-					</div>
-				</div>
-			</div>
-
-			<div class="treatment-detail__grid">
-				<div class="treatment-detail__main">
-					<h2>Overview</h2>
-					<p>{treatment.overview}</p>
+					<EnquiryCard defaultTreatment={treatment.name} />
 				</div>
 
-				<aside class="treatment-detail__aside">
-					<div class="treatment-detail__benefits-card">
-						<h2>Why Choose India for {treatment.name}</h2>
-						<ul class="treatment-detail__benefits">
-							{
-								treatment.benefits.map((benefit) => (
-									<li>
-										<span set:html={iconCheck} aria-hidden="true" />
-										{benefit}
-									</li>
-								))
-							}
-						</ul>
+				<div class="treatment-detail__stats">
+					<div class="treatment-detail__stat">
+						<span set:html={iconTag} aria-hidden="true" />
+						<div>
+							<strong>{formatPrice(treatment.startingPrice)}</strong>
+							<span>Starting Price</span>
+						</div>
 					</div>
-				</aside>
-			</div>
+					<div class="treatment-detail__stat">
+						<span set:html={iconPiggyBank} aria-hidden="true" />
+						<div>
+							<strong>{treatment.avgSavings}%</strong>
+							<span>Avg. Savings</span>
+						</div>
+					</div>
+					<div class="treatment-detail__stat">
+						<span set:html={iconHospital} aria-hidden="true" />
+						<div>
+							<strong>{treatment.hospitalsCount}+</strong>
+							<span>Partner Hospitals</span>
+						</div>
+					</div>
+				</div>
 
-			<div class="treatment-detail__procedures-section">
-				<h2>Procedures We Offer</h2>
-				{treatment.detailedProcedures ? (
-					<div class="procedure-detail-cards">
-						{treatment.detailedProcedures.map((proc) => (
-							<a class="procedure-detail-card" href={`/treatments/${treatment.slug}/${slugifyProcedure(proc.name)}`}>
-								{treatment.imageKey ? (
-									<Image
-										src={IMAGES[treatment.imageKey]}
-										alt={proc.name}
-										width={400}
-										height={220}
-										class="procedure-detail-card__img"
-									/>
-								) : (
-									<div class={`procedure-detail-card__img-fallback procedure-detail-card__img-fallback--${treatment.theme}`}>
-										<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
+				<div class="treatment-detail__grid">
+					<div class="treatment-detail__main">
+						<h2>Overview</h2>
+						<p>{treatment.overview}</p>
+					</div>
+
+					<aside class="treatment-detail__aside">
+						<div class="treatment-detail__benefits-card">
+							<h2>Why Choose India for {treatment.name}</h2>
+							<ul class="treatment-detail__benefits">
+								{
+									treatment.benefits.map((benefit) => (
+										<li>
+											<span set:html={iconCheck} aria-hidden="true" />
+											{benefit}
+										</li>
+									))
+								}
+							</ul>
+						</div>
+					</aside>
+				</div>
+
+				<div class="treatment-detail__procedures-section">
+					<h2>Procedures We Offer</h2>
+					{treatment.detailedProcedures ? (
+						<div class="procedure-detail-cards">
+							{treatment.detailedProcedures.map((proc) => (
+								<a class="procedure-detail-card" href={`/treatments/${treatment.slug}/${slugifyProcedure(proc.name)}`}>
+									{treatment.imageKey ? (
+										<Image
+											src={IMAGES[treatment.imageKey]}
+											alt={proc.name}
+											width={400}
+											height={220}
+											class="procedure-detail-card__img"
+										/>
+									) : (
+										<div class={`procedure-detail-card__img-fallback procedure-detail-card__img-fallback--${treatment.theme}`}>
+											<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
+										</div>
+									)}
+									<div class="procedure-detail-card__body">
+										<h3>{proc.name}</h3>
+										<p>{procedureTeaser(proc.description)}</p>
+										<span class="procedure-detail-card__cta">
+											View More
+											<span set:html={iconArrowRight} aria-hidden="true" />
+										</span>
 									</div>
-								)}
-								<div class="procedure-detail-card__body">
-									<h3>{proc.name}</h3>
-									<p>{procedureTeaser(proc.description)}</p>
-									<span class="procedure-detail-card__cta">
-										View More
-										<span set:html={iconArrowRight} aria-hidden="true" />
-									</span>
+								</a>
+							))}
+						</div>
+					) : (
+						<div class="procedure-cards">
+							{(treatment.allProcedures ?? treatment.procedures).map((procedure) => (
+								<div class="procedure-card">
+									<span class="procedure-card__icon" set:html={iconCheck} aria-hidden="true" />
+									<span class="procedure-card__label">{procedure}</span>
 								</div>
-							</a>
-						))}
-					</div>
-				) : (
-					<div class="procedure-cards">
-						{(treatment.allProcedures ?? treatment.procedures).map((procedure) => (
-							<div class="procedure-card">
-								<span class="procedure-card__icon" set:html={iconCheck} aria-hidden="true" />
-								<span class="procedure-card__label">{procedure}</span>
-							</div>
-						))}
-					</div>
-				)}
-			</div>
+							))}
+						</div>
+					)}
+				</div>
 
-			<div class="treatment-detail__package">
-				<div class="treatment-detail__package-header">
-					<span class="treatment-detail__package-badge">Sample Package: {treatment.flagshipProcedure}</span>
-					<h2>Package Cost & Hospital Stay</h2>
-					<p>
-						Package starts from <strong>{formatPrice(treatment.packagePrice)}</strong> — plan for approximately{' '}
-						<strong>{treatment.totalTripDays} days</strong> in India from arrival to discharge and follow-up.
+				<div class="treatment-detail__package">
+					<div class="treatment-detail__package-header">
+						<span class="treatment-detail__package-badge">Sample Package: {treatment.flagshipProcedure}</span>
+						<h2>Package Cost & Hospital Stay</h2>
+						<p>
+							Package starts from <strong>{formatPrice(treatment.packagePrice)}</strong> — plan for approximately{' '}
+							<strong>{treatment.totalTripDays} days</strong> in India from arrival to discharge and follow-up.
+						</p>
+					</div>
+
+					<div class="stay-duration">
+						<div class="stay-duration__card">
+							<span class="stay-duration__icon" set:html={iconCalendar} aria-hidden="true" />
+							<div>
+								<strong>Patient Stay</strong>
+								<span>
+									{treatment.stayDuration.patient.totalDays > 0
+										? `${treatment.stayDuration.patient.totalDays} days total — ${treatment.stayDuration.patient.icuDays} ICU + ${treatment.stayDuration.patient.roomDays} room`
+										: 'Outpatient / same-day procedure'}
+								</span>
+							</div>
+						</div>
+						{
+							treatment.stayDuration.donor && (
+								<div class="stay-duration__card">
+									<span class="stay-duration__icon" set:html={iconCalendar} aria-hidden="true" />
+									<div>
+										<strong>Donor Stay</strong>
+										<span>
+											{treatment.stayDuration.donor.totalDays} days total — {treatment.stayDuration.donor.icuDays} ICU +{' '}
+											{treatment.stayDuration.donor.roomDays} room
+										</span>
+									</div>
+								</div>
+							)
+						}
+					</div>
+
+					<div class="cost-table-wrap">
+						<table class="cost-table" dir="ltr">
+							<thead>
+								<tr>
+									<th>Country</th>
+									<th>Estimated Cost</th>
+									<th>Wait Time</th>
+									<th>Success Rate</th>
+								</tr>
+							</thead>
+							<tbody>
+								{
+									treatment.costComparison.map((row) => (
+										<tr class={row.highlight ? 'cost-table__row--highlight' : ''}>
+											<td>{row.country}</td>
+											<td>{row.cost}</td>
+											<td>{row.waitTime}</td>
+											<td>{row.successRate}</td>
+										</tr>
+									))
+								}
+							</tbody>
+						</table>
+					</div>
+
+					<div class="inclusions-grid">
+						<div class="inclusions-col">
+							<h3>Package Inclusions</h3>
+							<ul class="inclusions-list inclusions-list--yes">
+								{
+									treatment.inclusions.map((item) => (
+										<li>
+											<span set:html={iconCheck} aria-hidden="true" />
+											{item}
+										</li>
+									))
+								}
+							</ul>
+						</div>
+						<div class="inclusions-col">
+							<h3>Package Exclusions</h3>
+							<ul class="inclusions-list inclusions-list--no">
+								{
+									treatment.exclusions.map((item) => (
+										<li>
+											<span set:html={iconCross} aria-hidden="true" />
+											{item}
+										</li>
+									))
+								}
+							</ul>
+						</div>
+					</div>
+
+					<p class="treatment-detail__package-note">
+						Every case is different — the figures above are indicative starting points for {treatment.flagshipProcedure.toLowerCase()}.
+						Share your medical reports for a personalized, itemized quote.
 					</p>
 				</div>
 
-				<div class="stay-duration">
-					<div class="stay-duration__card">
-						<span class="stay-duration__icon" set:html={iconCalendar} aria-hidden="true" />
-						<div>
-							<strong>Patient Stay</strong>
-							<span>
-								{treatment.stayDuration.patient.totalDays > 0
-									? `${treatment.stayDuration.patient.totalDays} days total — ${treatment.stayDuration.patient.icuDays} ICU + ${treatment.stayDuration.patient.roomDays} room`
-									: 'Outpatient / same-day procedure'}
-							</span>
-						</div>
-					</div>
-					{
-						treatment.stayDuration.donor && (
-							<div class="stay-duration__card">
-								<span class="stay-duration__icon" set:html={iconCalendar} aria-hidden="true" />
-								<div>
-									<strong>Donor Stay</strong>
-									<span>
-										{treatment.stayDuration.donor.totalDays} days total — {treatment.stayDuration.donor.icuDays} ICU +{' '}
-										{treatment.stayDuration.donor.roomDays} room
-									</span>
-								</div>
-							</div>
-						)
-					}
-				</div>
-
-				<div class="cost-table-wrap">
-					<table class="cost-table" dir="ltr">
-						<thead>
-							<tr>
-								<th>Country</th>
-								<th>Estimated Cost</th>
-								<th>Wait Time</th>
-								<th>Success Rate</th>
-							</tr>
-						</thead>
-						<tbody>
-							{
-								treatment.costComparison.map((row) => (
-									<tr class={row.highlight ? 'cost-table__row--highlight' : ''}>
-										<td>{row.country}</td>
-										<td>{row.cost}</td>
-										<td>{row.waitTime}</td>
-										<td>{row.successRate}</td>
-									</tr>
-								))
-							}
-						</tbody>
-					</table>
-				</div>
-
-				<div class="inclusions-grid">
-					<div class="inclusions-col">
-						<h3>Package Inclusions</h3>
-						<ul class="inclusions-list inclusions-list--yes">
-							{
-								treatment.inclusions.map((item) => (
-									<li>
-										<span set:html={iconCheck} aria-hidden="true" />
-										{item}
-									</li>
-								))
-							}
-						</ul>
-					</div>
-					<div class="inclusions-col">
-						<h3>Package Exclusions</h3>
-						<ul class="inclusions-list inclusions-list--no">
-							{
-								treatment.exclusions.map((item) => (
-									<li>
-										<span set:html={iconCross} aria-hidden="true" />
-										{item}
-									</li>
-								))
-							}
-						</ul>
+				<div class="treatment-detail__cta">
+					<h3>Ready to get started with {treatment.name.toLowerCase()}?</h3>
+					<p>Share your medical reports and receive a personalized treatment plan within 24 hours.</p>
+					<div class="treatment-detail__cta-actions">
+						<a class="treatment-detail__btn treatment-detail__btn--primary" href="/contact">
+							Get a Free Quote
+							<span set:html={iconArrowRight} aria-hidden="true" />
+						</a>
+						<a class="treatment-detail__btn treatment-detail__btn--secondary" href="/treatments">
+							Browse All Treatments
+						</a>
 					</div>
 				</div>
 
-				<p class="treatment-detail__package-note">
-					Every case is different — the figures above are indicative starting points for {treatment.flagshipProcedure.toLowerCase()}.
-					Share your medical reports for a personalized, itemized quote.
-				</p>
-			</div>
-
-			<div class="treatment-detail__cta">
-				<h3>Ready to get started with {treatment.name.toLowerCase()}?</h3>
-				<p>Share your medical reports and receive a personalized treatment plan within 24 hours.</p>
-				<div class="treatment-detail__cta-actions">
-					<a class="treatment-detail__btn treatment-detail__btn--primary" href="/contact">
-						Get a Free Quote
-						<span set:html={iconArrowRight} aria-hidden="true" />
-					</a>
-					<a class="treatment-detail__btn treatment-detail__btn--secondary" href="/treatments">
-						Browse All Treatments
-					</a>
+				<div class="treatment-detail__related">
+					<h2>Other Treatments</h2>
+					<div class="treatment-detail__related-grid">
+						{
+							related.map((item) => (
+								<a class="treatment-related-card" href={`/treatments/${item.slug}`}>
+									{item.imageKey ? (
+										<Image src={IMAGES[item.imageKey]} alt={item.name} width={320} height={180} loading="lazy" />
+									) : (
+										<div class={`treatment-related-card__fallback treatment-related-card__fallback--${item.theme}`}>
+											<span set:html={ICONS[item.icon]} aria-hidden="true" />
+										</div>
+									)}
+									<span class="treatment-related-card__label">{item.name}</span>
+								</a>
+							))
+						}
+					</div>
 				</div>
 			</div>
-
-			<div class="treatment-detail__related">
-				<h2>Other Treatments</h2>
-				<div class="treatment-detail__related-grid">
-					{
-						related.map((item) => (
-							<a class="treatment-related-card" href={`/treatments/${item.slug}`}>
-								{item.imageKey ? (
-									<Image src={IMAGES[item.imageKey]} alt={item.name} width={320} height={180} loading="lazy" />
-								) : (
-									<div class={`treatment-related-card__fallback treatment-related-card__fallback--${item.theme}`}>
-										<span set:html={ICONS[item.icon]} aria-hidden="true" />
-									</div>
-								)}
-								<span class="treatment-related-card__label">{item.name}</span>
-							</a>
-						))
-					}
-				</div>
-			</div>
-		</div>
-	</section>
+		</section>
+	</RecommendationLayout>
 
 	<FaqAccordion
 		badge="FAQs"

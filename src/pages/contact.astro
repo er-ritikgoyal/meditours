@@ -11,6 +11,7 @@ import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
 import iconChat from 'bootstrap-icons/icons/chat-square-text-fill.svg?raw';
 import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
 import { countries } from '../data/countries';
+import { treatments } from '../data/treatments';
 const quickOptions = [
 	{
 		icon: iconPhone,
@@ -35,17 +36,7 @@ const quickOptions = [
 	},
 ];
 
-const treatmentOptions = [
-	'Cardiac Care',
-	'Orthopedics',
-	'Oncology',
-	'Cosmetic & Plastic Surgery',
-	'Fertility Treatment',
-	'Organ Transplant',
-	'Dental Care',
-	'Eye Care',
-	'Other',
-];
+const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 ---
 
 <Layout
