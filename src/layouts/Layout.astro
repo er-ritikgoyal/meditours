@@ -18,6 +18,7 @@ import { ar } from '../i18n/ar';
 import { treatments } from '../data/treatments';
 import { treatmentIcons } from '../utils/treatmentIcons';
 import iconGrid from 'bootstrap-icons/icons/grid-fill.svg?raw';
+import { trimDescription } from '../utils/metaDescription';
 import { getSearchHeroBackgrounds, SEARCH_HERO_MOBILE_MAX } from '../utils/searchHeroBackground';
 
 export interface Alternate {
@@ -35,12 +36,14 @@ export interface Props {
 
 const {
 	title = 'Trusted Medical Tourism Services in India | AlisPro MediTours',
-	description = 'AlisPro MediTours helps international patients access trusted healthcare in India with expert medical assistance, hospital coordination, treatment planning, travel support, and personalised care for a smooth medical tourism journey',
+	description: rawDescription = 'AlisPro MediTours helps international patients get trusted treatment in India: hospital coordination, treatment planning, travel support and personal care.',
 	ogImage = '/images/Alis_Logo.png',
 	locale = 'en',
 	alternates,
 } = Astro.props;
 
+// Search results show about 160 characters; longer page descriptions lose whole trailing sentences/clauses.
+const description = trimDescription(rawDescription);
 const siteUrl = 'https://alispromeditours.com';
 const searchHeroBg = await getSearchHeroBackgrounds();
 const fontsHref =

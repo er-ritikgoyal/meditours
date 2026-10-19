@@ -86,7 +86,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 
 <Layout
 	title={`${doctor.name} — ${doctor.specialty} in India | AlisPro MediTours`}
-	description={`${doctor.name}, ${doctor.title} at ${doctor.hospital}. ${doctor.experienceYears}+ years of experience. ${doctor.about.slice(0, 110)}...`}
+	description={`${doctor.name}, ${doctor.title} at ${doctor.hospital}. ${doctor.experienceYears}+ years of experience. ${doctor.about}`}
 	alternates={[
 		{ locale: 'en', href: `/doctors/${doctor.slug}` },
 		{ locale: 'fr', href: `/fr/doctors/${doctor.slug}` },
