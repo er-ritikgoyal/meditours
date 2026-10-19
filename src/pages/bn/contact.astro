@@ -1,4 +1,6 @@
 ---
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
+import { siteUi } from '../../i18n/siteUi';
 import ConsentCheckbox from '../../components/ConsentCheckbox.astro';
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
@@ -21,6 +23,7 @@ const quickOptions = [
 ];
 
 const { form, info } = bnContact;
+const contactFormUi = siteUi(Astro.url.pathname).form;
 ---
 
 <Layout
@@ -124,6 +127,7 @@ const { form, info } = bnContact;
 									placeholder="+91"
 									inputmode="tel"
 									data-phone-code-field
+									aria-label={contactFormUi.countryCode}
 								/>
 								<input
 									type="tel"
@@ -132,6 +136,7 @@ const { form, info } = bnContact;
 									autocomplete="tel"
 									required
 									data-phone-field
+									aria-label={form.phoneWhatsapp}
 								/>
 							</div>
 						</label>
@@ -160,6 +165,7 @@ const { form, info } = bnContact;
 							{form.submit}
 							<span set:html={iconSend} aria-hidden="true" />
 						</button>
+						<MedicalDisclaimer />
 
 						<p class="contact-form__success" data-contact-success hidden>
 							{form.successMessage}
@@ -423,7 +429,7 @@ const { form, info } = bnContact;
 
 	.contact-form__phone-group {
 		display: grid;
-		grid-template-columns: 84px 1fr;
+		grid-template-columns: 84px minmax(0, 1fr);
 		gap: 10px;
 	}
 
@@ -585,7 +591,7 @@ const { form, info } = bnContact;
 		flex-shrink: 0;
 		width: 20px;
 		height: 20px;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.contact-info__note span :global(svg) {
@@ -602,11 +608,11 @@ const { form, info } = bnContact;
 
 	@media screen and (max-width: 900px) {
 		.contact__quick {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 
@@ -621,11 +627,11 @@ const { form, info } = bnContact;
 		}
 
 		.contact-form__row {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-group {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-code {

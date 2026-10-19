@@ -2,6 +2,8 @@
 	/* Primary colors */
 	--color-primary: #0f4c81;
 	--color-teal: #14b8a6;
+	/* Teal for text and white-on-teal buttons: #14b8a6 is only 2.5:1 on white (WCAG AA needs 4.5:1). */
+	--color-teal-text: #0f766e;
 	--color-green: #22c55e;
 
 	/* Backgrounds */
@@ -13,7 +15,7 @@
 	/* Text */
 	--color-text-primary: #1e293b;
 	--color-text-secondary: #475569;
-	--color-text-muted: #64748b;
+	--color-text-muted: #5b6b80;
 	--color-text-light: #94a3b8;
 
 	/* Borders */
@@ -27,9 +29,9 @@
 	--color-danger: #ef4444;
 
 	/* Buttons */
-	--btn-primary-bg: var(--color-teal);
+	--btn-primary-bg: var(--color-teal-text);
 	--btn-primary-text: #ffffff;
-	--btn-primary-hover: #0f766e;
+	--btn-primary-hover: #115e59;
 
 	--btn-secondary-bg: #ffffff;
 	--btn-secondary-border: var(--color-primary);

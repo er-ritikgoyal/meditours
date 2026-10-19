@@ -1,4 +1,5 @@
 ---
+import MedicalDisclaimer from './MedicalDisclaimer.astro';
 import ConsentCheckbox from './ConsentCheckbox.astro';
 import { Image } from 'astro:assets';
 import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
@@ -10,16 +11,15 @@ import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
 import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
 import { countries } from '../data/countries';
-import { getDoctorBySlug } from '../data/doctors';
+import { siteUi, nameFromPlaceholder } from '../i18n/siteUi';
+import heroPhoto from '../assets/hospitals/topright_max.png';
 import { treatments } from '../data/treatments';
 
 const defaultTreatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
-// The before/after showcase is tied to whichever doctor actually has a
-// before/after result photo on file — currently only Dr. Anika Bhasin Arora
-// (src/assets/hospitals/before after shining smile.png, set as her
-// `bannerPhoto`). Swap this slug once more before/after pairs exist.
-const spotlightDoctor = getDoctorBySlug('anika-bhasin-arora')!;
+// Hero photo: a hospital building already in the repo. The earlier dental
+// before/after collage was replaced because ad platforms restrict before/after
+// imagery on health landing pages.
 
 export interface TrustItem {
 	value: string;
@@ -68,6 +68,9 @@ const {
 		successMessage: 'Thanks! A patient coordinator will reach out shortly.',
 	},
 } = Astro.props;
+
+const formUi = siteUi(Astro.url.pathname).form;
+const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 ---
 
 <section class="hero">
@@ -88,19 +91,22 @@ const {
 			</div>
 
 			<div class="hero-showcase__inner">
-				{
-					spotlightDoctor.bannerPhoto && (
-						<div class="hero-showcase__frame">
-							<Image src={spotlightDoctor.bannerPhoto} alt={`${spotlightDoctor.name} — patient results`} width={720} />
-						</div>
-					)
-				}
+				<div class="hero-showcase__frame">
+					<Image
+						src={heroPhoto}
+						alt={heroAlt}
+						widths={[480, 720, 960]}
+						sizes="(max-width: 768px) calc(100vw - 32px), 560px"
+						loading="eager"
+						decoding="async"
+					/>
+				</div>
 			</div>
 		</div>
 
 		<div class="hero-enquiry">
 			<div class="hero-enquiry__header">
-				<h1>{enquiry.title}</h1>
+				<h2>{enquiry.title}</h2>
 				<p>{enquiry.subtitle}</p>
 			</div>
 
@@ -118,7 +124,7 @@ const {
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconTreatment} aria-hidden="true" />
-					<select name="category" data-treatment-field required>
+					<select name="category" data-treatment-field required aria-label={formUi.treatment}>
 						<option value="" selected disabled>
 							{enquiry.treatmentPlaceholder}
 						</option>
@@ -130,17 +136,17 @@ const {
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconPerson} aria-hidden="true" />
-					<input type="text" name="name" placeholder={enquiry.namePlaceholder} autocomplete="name" required />
+					<input type="text" name="name" placeholder={enquiry.namePlaceholder} aria-label={nameFromPlaceholder(enquiry.namePlaceholder)} autocomplete="name" required />
 				</label>
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconEmail} aria-hidden="true" />
-					<input type="email" name="email" placeholder={enquiry.emailPlaceholder} autocomplete="email" required />
+					<input type="email" name="email" placeholder={enquiry.emailPlaceholder} aria-label={nameFromPlaceholder(enquiry.emailPlaceholder)} autocomplete="email" required />
 				</label>
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconGlobe} aria-hidden="true" />
-					<select name="country" id="hero-country">
+					<select name="country" id="hero-country" aria-label={formUi.country}>
 						<option value="" selected disabled>{enquiry.countryPlaceholder}</option>
 						{countries.map((country) => (
 							<option value={country.name} data-dial={country.dial}>{country.name}</option>
@@ -151,11 +157,11 @@ const {
 				<div class="hero-enquiry__row">
 					<label class="hero-enquiry__field hero-enquiry__field--code">
 						<span set:html={iconPhone} aria-hidden="true" />
-						<input type="text" name="phoneCode" id="hero-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+						<input type="text" name="phoneCode" id="hero-phone-code" value="+91" placeholder="+91" inputmode="tel" aria-label={formUi.countryCode} />
 					</label>
 
 					<label class="hero-enquiry__field hero-enquiry__field--phone">
-						<input type="tel" name="phone" placeholder={enquiry.phonePlaceholder} autocomplete="tel" required data-phone-field />
+						<input type="tel" name="phone" placeholder={enquiry.phonePlaceholder} aria-label={nameFromPlaceholder(enquiry.phonePlaceholder)} autocomplete="tel" required data-phone-field />
 					</label>
 				</div>
 
@@ -175,6 +181,7 @@ const {
 					<span set:html={iconShield} aria-hidden="true" />
 					{enquiry.privacyNote}
 				</p>
+				<MedicalDisclaimer />
 
 				<p class="hero-enquiry__success" data-enquiry-success hidden>
 					{enquiry.successMessage}
@@ -332,7 +339,7 @@ const {
 		box-shadow: var(--shadow-card);
 	}
 
-	.hero-enquiry__header h1 {
+	.hero-enquiry__header h2 {
 		font-family: var(--font-heading);
 		font-size: 19px;
 		font-weight: 700;
@@ -394,7 +401,7 @@ const {
 
 	.hero-enquiry__row {
 		display: grid;
-		grid-template-columns: 96px 1fr;
+		grid-template-columns: 96px minmax(0, 1fr);
 		gap: 10px;
 	}
 
@@ -542,14 +549,43 @@ const {
 		pointer-events: none;
 	}
 
+	/* Desktop: photo and form side by side in normal flow, so a taller form (consent text,
+	   disclaimer) grows the section instead of spilling over the search banner. The
+	   inline-end padding leaves a gutter for the floating WhatsApp / callback buttons. */
 	@media screen and (min-width: 1180px) {
-		.hero-enquiry {
-			position: absolute;
-			top: 50%;
-			inset-inline-end: 5%;
-			transform: translateY(-50%);
+		.hero-stage {
+			display: flex;
+			align-items: stretch;
+			justify-content: space-between;
+			gap: 48px;
+			padding-block: 48px;
+			padding-inline: max(24px, calc((100% - 1200px) / 2)) max(96px, calc((100% - 1200px) / 2));
+		}
+
+		.hero-showcase {
+			flex: 1 1 auto;
+			min-width: 0;
+			max-width: 720px;
 			margin: 0;
+			padding: 0;
+		}
+
+		/* The photo fills the column to the form's height, so no empty band sits above it. */
+		.hero-showcase__inner,
+		.hero-showcase__frame {
+			max-width: none;
+			height: 100%;
+		}
+
+		.hero-showcase__frame :global(img) {
+			height: 100%;
+			object-fit: cover;
+		}
+
+		.hero-enquiry {
+			flex: 0 0 360px;
 			width: 360px;
+			margin: 0;
 		}
 	}
 

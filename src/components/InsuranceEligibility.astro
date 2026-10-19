@@ -1,4 +1,5 @@
 ---
+import MedicalDisclaimer from './MedicalDisclaimer.astro';
 import ConsentCheckbox from './ConsentCheckbox.astro';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
 import iconCalendar from 'bootstrap-icons/icons/calendar3.svg?raw';
@@ -12,6 +13,7 @@ import iconMessage from 'bootstrap-icons/icons/chat-left-text-fill.svg?raw';
 import iconClose from 'bootstrap-icons/icons/x-lg.svg?raw';
 import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import { countries } from '../data/countries';
+import { siteUi, nameFromPlaceholder } from '../i18n/siteUi';
 
 export interface Props {
 	closeLabel?: string;
@@ -57,6 +59,8 @@ const {
 	submitLabel = 'Check Eligibility',
 	successMessage = 'Thanks! Our team will review your insurance details and get back to you shortly.',
 } = Astro.props;
+
+const formUi = siteUi(Astro.url.pathname).form;
 ---
 
 <div class="insurance-modal" id="insurance-modal" role="dialog" aria-modal="true" aria-labelledby="insurance-modal-title" hidden>
@@ -79,18 +83,18 @@ const {
 
 			<label class="insurance-form__field">
 				<span set:html={iconPerson} aria-hidden="true" />
-				<input type="text" name="name" data-patient-name placeholder={patientNamePlaceholder} autocomplete="name" required />
+				<input type="text" name="name" data-patient-name placeholder={patientNamePlaceholder} aria-label={nameFromPlaceholder(patientNamePlaceholder)} autocomplete="name" required />
 			</label>
 
 			<div class="insurance-form__row">
 				<label class="insurance-form__field">
 					<span set:html={iconCalendar} aria-hidden="true" />
-					<input type="number" name="patientAge" placeholder={patientAgePlaceholder} min="0" max="120" required />
+					<input type="number" name="patientAge" placeholder={patientAgePlaceholder} aria-label={nameFromPlaceholder(patientAgePlaceholder)} min="0" max="120" required />
 				</label>
 
 				<label class="insurance-form__field">
 					<span set:html={iconGender} aria-hidden="true" />
-					<select name="gender" required>
+					<select name="gender" required aria-label={nameFromPlaceholder(genderPlaceholder)}>
 						<option value="" selected disabled>{genderPlaceholder}</option>
 						<option value="Male">{genderMale}</option>
 						<option value="Female">{genderFemale}</option>
@@ -101,7 +105,7 @@ const {
 
 			<label class="insurance-form__field">
 				<span set:html={iconGlobe} aria-hidden="true" />
-				<select name="country" id="insurance-country" required>
+				<select name="country" id="insurance-country" required aria-label={formUi.country}>
 					<option value="" selected disabled>{countryPlaceholder}</option>
 					{countries.map((country) => (
 						<option value={country.name} data-dial={country.dial}>{country.name}</option>
@@ -112,22 +116,22 @@ const {
 			<div class="insurance-form__row insurance-form__row--phone">
 				<label class="insurance-form__field insurance-form__field--code">
 					<span set:html={iconPhone} aria-hidden="true" />
-					<input type="text" name="phoneCode" id="insurance-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+					<input type="text" name="phoneCode" id="insurance-phone-code" value="+91" placeholder="+91" inputmode="tel" aria-label={formUi.countryCode} />
 				</label>
 
 				<label class="insurance-form__field insurance-form__field--phone">
-					<input type="tel" name="phone" placeholder={phonePlaceholder} autocomplete="tel" required />
+					<input type="tel" name="phone" placeholder={phonePlaceholder} aria-label={nameFromPlaceholder(phonePlaceholder)} autocomplete="tel" required />
 				</label>
 			</div>
 
 			<label class="insurance-form__field">
 				<span set:html={iconEmail} aria-hidden="true" />
-				<input type="email" name="email" placeholder={emailPlaceholder} autocomplete="email" />
+				<input type="email" name="email" placeholder={emailPlaceholder} aria-label={nameFromPlaceholder(emailPlaceholder)} autocomplete="email" />
 			</label>
 
 			<label class="insurance-form__field">
 				<span set:html={iconShield} aria-hidden="true" />
-				<select name="hasInsurance" id="insurance-has-insurance" required>
+				<select name="hasInsurance" id="insurance-has-insurance" required aria-label={nameFromPlaceholder(hasInsurancePlaceholder)}>
 					<option value="" selected disabled>{hasInsurancePlaceholder}</option>
 					<option value="Yes">{yes}</option>
 					<option value="No">{no}</option>
@@ -142,7 +146,7 @@ const {
 
 			<label class="insurance-form__field insurance-form__field--textarea">
 				<span set:html={iconMessage} aria-hidden="true" />
-				<textarea name="additionalMessage" data-message-input placeholder={messagePlaceholder} rows="3"></textarea>
+				<textarea name="additionalMessage" data-message-input placeholder={messagePlaceholder} aria-label={nameFromPlaceholder(messagePlaceholder)} rows="3"></textarea>
 			</label>
 
 			<ConsentCheckbox />
@@ -150,6 +154,7 @@ const {
 				{submitLabel}
 				<span set:html={iconArrow} aria-hidden="true" />
 			</button>
+			<MedicalDisclaimer />
 
 			<p class="insurance-form__success" data-enquiry-success hidden>
 				{successMessage}
@@ -333,7 +338,7 @@ const {
 	}
 
 	.insurance-form__row--phone {
-		grid-template-columns: 96px 1fr;
+		grid-template-columns: 96px minmax(0, 1fr);
 	}
 
 	.insurance-form__field {
@@ -525,7 +530,7 @@ const {
 
 		.insurance-form__row,
 		.insurance-form__row--phone {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.insurance-form__field--code input {

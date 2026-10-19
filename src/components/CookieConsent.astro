@@ -1,12 +1,18 @@
 ---
 /**
- * Cookie consent banner + the site's only analytics/tracking entry point.
+ * Cookie consent bar: a compact bottom bar (Accept All / Reject Non-Essential /
+ * Customize) until the visitor decides, then the choice is kept in a `cc_consent`
+ * cookie: {"v":2,"analytics":bool,"advertising":bool,"decidedAt":ISO}.
  *
- * - Shows a banner (Accept All / Reject Non-Essential / Customize) until the
- *   visitor decides, then remembers the choice in a `cc_consent` cookie.
- * - Google Analytics (GA4) and the Google Ads conversion tag are only loaded
- *   if the visitor opts into "Analytics". Nothing is ever loaded before a
- *   decision is made.
+ * - Google consent mode v2: GoogleAdsTag.astro sets the defaults from this cookie
+ *   before gtag.js loads (everything "denied" until a decision). This component sends
+ *   the `consent update` when the visitor decides:
+ *     analytics_storage                            <- Analytics choice
+ *     ad_storage, ad_user_data, ad_personalization <- Advertising choice
+ * - GA4 is configured only when Analytics is granted and a real Measurement ID is set
+ *   below. gtag.js itself is loaded once, by GoogleAdsTag.astro.
+ * - A cookie from before v2 (one "analytics" switch that also covered ads) keeps its
+ *   Analytics answer, treats Advertising as not granted, and asks again.
  * - Locale preference (the language the visitor picked in the navbar) is
  *   treated as strictly necessary — it's not tracking, just remembering an
  *   explicit choice — so it's stored in `site_locale` regardless of the
@@ -20,11 +26,10 @@
  *
  * TODO before GA4 does anything useful: replace GA_MEASUREMENT_ID below with
  * your real GA4 Measurement ID (GA4 Admin -> Data Streams -> your stream).
- * Until then only the Google Ads tag below loads (with a console warning
- * about the missing GA4 ID) so nothing breaks, but GA4 data isn't collected.
  */
+import { siteUi } from '../i18n/siteUi';
+
 const GA_MEASUREMENT_ID = 'G-XXXXXXXXXX';
-const GOOGLE_ADS_ID = 'AW-18512504526';
 
 export interface Props {
 	locale?: string;
@@ -35,6 +40,8 @@ export interface Props {
 	necessaryDescription?: string;
 	analyticsLabel?: string;
 	analyticsDescription?: string;
+	advertisingLabel?: string;
+	advertisingDescription?: string;
 	acceptAllLabel?: string;
 	rejectLabel?: string;
 	customizeLabel?: string;
@@ -52,6 +59,8 @@ const {
 	necessaryDescription = 'Required for the site to work, such as remembering your selected language. Always on.',
 	analyticsLabel = 'Analytics',
 	analyticsDescription = 'Helps us understand how visitors use the site so we can improve it. Optional.',
+	advertisingLabel,
+	advertisingDescription,
 	acceptAllLabel = 'Accept All',
 	rejectLabel = 'Reject Non-Essential',
 	customizeLabel = 'Customize',
@@ -59,38 +68,54 @@ const {
 	policyLinkLabel = 'Cookie Policy',
 	closeLabel = 'Close',
 } = Astro.props;
+
+const ui = siteUi(locale).cookies;
+// The compact bar shows one short sentence that also names advertising cookies; the older
+// `description` prop (language + analytics only) is no longer shown.
+const adLabel = advertisingLabel ?? ui.advertisingLabel;
+const adDescription = advertisingDescription ?? ui.advertisingDescription;
 ---
 
-<div class="cc-banner" id="cc-banner" role="dialog" aria-modal="false" aria-labelledby="cc-title" hidden>
+<div class="cc-banner" id="cc-banner" role="dialog" aria-modal="false" aria-labelledby="cc-title" aria-describedby="cc-desc" hidden>
 	<div class="cc-banner__inner">
 		<div class="cc-banner__main">
 			<h2 id="cc-title" class="cc-banner__title">{title}</h2>
-			<p class="cc-banner__desc">
-				{description}
+			<p class="cc-banner__desc" id="cc-desc">
+				{ui.shortDescription}
 				{' '}
 				<a href={cookiePolicyHref} class="cc-banner__link">{policyLinkLabel}</a>
 			</p>
 
 			<div class="cc-banner__categories" id="cc-categories" hidden>
 				<div class="cc-category">
-					<div class="cc-category__row">
+					<label class="cc-category__row">
 						<span class="cc-category__label">{necessaryLabel}</span>
-						<label class="cc-switch cc-switch--disabled">
+						<span class="cc-switch cc-switch--disabled">
 							<input type="checkbox" checked disabled />
 							<span class="cc-switch__track"><span class="cc-switch__thumb"></span></span>
-						</label>
-					</div>
+						</span>
+					</label>
 					<p class="cc-category__desc">{necessaryDescription}</p>
 				</div>
 				<div class="cc-category">
-					<div class="cc-category__row">
+					<label class="cc-category__row">
 						<span class="cc-category__label">{analyticsLabel}</span>
-						<label class="cc-switch">
+						<span class="cc-switch">
 							<input type="checkbox" id="cc-analytics-toggle" />
 							<span class="cc-switch__track"><span class="cc-switch__thumb"></span></span>
-						</label>
-					</div>
+						</span>
+					</label>
 					<p class="cc-category__desc">{analyticsDescription}</p>
+				</div>
+				<div class="cc-category">
+					<label class="cc-category__row">
+						<span class="cc-category__label">{adLabel}</span>
+						<span class="cc-switch">
+							<input type="checkbox" id="cc-advertising-toggle" />
+							<span class="cc-switch__track"><span class="cc-switch__thumb"></span></span>
+						</span>
+					</label>
+					<p class="cc-category__desc">{adDescription}</p>
 				</div>
 			</div>
 		</div>
@@ -108,9 +133,10 @@ const {
 	</div>
 </div>
 
-<script define:vars={{ GA_MEASUREMENT_ID, GOOGLE_ADS_ID, locale }}>
+<script define:vars={{ GA_MEASUREMENT_ID, locale }}>
 	const COOKIE_NAME = 'cc_consent';
 	const COOKIE_DAYS = 365;
+	const CONSENT_VERSION = 2;
 
 	function setCookie(name, value, days) {
 		const d = new Date();
@@ -127,50 +153,47 @@ const {
 		const raw = getCookie(COOKIE_NAME);
 		if (!raw) return null;
 		try {
-			return JSON.parse(raw);
+			const c = JSON.parse(raw);
+			return { v: c.v || 1, analytics: c.analytics === true, advertising: c.v >= 2 && c.advertising === true };
 		} catch {
 			return null;
 		}
 	}
 
-	function saveConsent(analytics) {
-		setCookie(COOKIE_NAME, JSON.stringify({ analytics, decidedAt: new Date().toISOString() }), COOKIE_DAYS);
+	function saveConsent(consent) {
+		setCookie(
+			COOKIE_NAME,
+			JSON.stringify({ v: CONSENT_VERSION, analytics: consent.analytics, advertising: consent.advertising, decidedAt: new Date().toISOString() }),
+			COOKIE_DAYS,
+		);
 	}
 
-	window.__gaLoaded = window.__gaLoaded || false;
+	window.dataLayer = window.dataLayer || [];
+	window.gtag = window.gtag || function gtag() { window.dataLayer.push(arguments); };
 
-	function loadGA4() {
-		if (window.__gaLoaded) return;
-
-		const hasGA4 = GA_MEASUREMENT_ID && GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX';
-		const hasGoogleAds = GOOGLE_ADS_ID && !GOOGLE_ADS_ID.includes('XXXXXXXXXX');
-		if (!hasGA4) {
-			console.warn('[analytics] No real GA4 Measurement ID configured in CookieConsent.astro — skipping GA4 load.');
-		}
-		if (!hasGA4 && !hasGoogleAds) return;
-
-		window.__gaLoaded = true;
-		const script = document.createElement('script');
-		script.async = true;
-		script.src = `https://www.googletagmanager.com/gtag/js?id=${hasGA4 ? GA_MEASUREMENT_ID : GOOGLE_ADS_ID}`;
-		document.head.appendChild(script);
-
-		window.dataLayer = window.dataLayer || [];
-		window.gtag = function gtag() {
-			window.dataLayer.push(arguments);
-		};
-		window.gtag('js', new Date());
-		if (hasGA4) window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
-		if (hasGoogleAds) window.gtag('config', GOOGLE_ADS_ID);
+	function updateGoogleConsent(consent) {
+		const ad = consent.advertising ? 'granted' : 'denied';
+		window.gtag('consent', 'update', {
+			analytics_storage: consent.analytics ? 'granted' : 'denied',
+			ad_storage: ad,
+			ad_user_data: ad,
+			ad_personalization: ad,
+		});
+		window.gtag('set', 'ads_data_redaction', !consent.advertising);
 	}
 
+	let ga4Configured = false;
 	function applyConsent(consent) {
-		if (consent?.analytics) loadGA4();
+		if (consent.analytics && !ga4Configured && GA_MEASUREMENT_ID && GA_MEASUREMENT_ID !== 'G-XXXXXXXXXX') {
+			ga4Configured = true;
+			window.gtag('config', GA_MEASUREMENT_ID, { anonymize_ip: true });
+		}
 	}
 
 	const banner = document.getElementById('cc-banner');
 	const categories = document.getElementById('cc-categories');
 	const analyticsToggle = document.getElementById('cc-analytics-toggle');
+	const advertisingToggle = document.getElementById('cc-advertising-toggle');
 	const saveBtn = document.getElementById('cc-save');
 	const rejectBtn = document.getElementById('cc-reject');
 	const acceptBtn = document.getElementById('cc-accept');
@@ -179,55 +202,59 @@ const {
 
 	function showBanner(prefill) {
 		if (!banner) return;
-		if (analyticsToggle instanceof HTMLInputElement) {
-			analyticsToggle.checked = !!prefill?.analytics;
-		}
+		if (analyticsToggle instanceof HTMLInputElement) analyticsToggle.checked = !!prefill?.analytics;
+		if (advertisingToggle instanceof HTMLInputElement) advertisingToggle.checked = !!prefill?.advertising;
 		banner.hidden = false;
+		document.documentElement.classList.add('cc-open');
 	}
 
 	function hideBanner() {
 		if (banner) banner.hidden = true;
+		document.documentElement.classList.remove('cc-open');
 	}
 
-	function decide(analytics) {
-		saveConsent(analytics);
-		applyConsent({ analytics });
-		hideBanner();
-	}
-
-	acceptBtn?.addEventListener('click', () => decide(true));
-	rejectBtn?.addEventListener('click', () => decide(false));
-	closeBtn?.addEventListener('click', () => decide(false));
-	customizeBtn?.addEventListener('click', () => {
-		categories?.removeAttribute('hidden');
-		saveBtn?.removeAttribute('hidden');
-		customizeBtn.setAttribute('hidden', '');
-	});
-	saveBtn?.addEventListener('click', () => {
-		const wantsAnalytics = analyticsToggle instanceof HTMLInputElement && analyticsToggle.checked;
-		decide(wantsAnalytics);
-	});
-
-	// Reopen the banner on request (e.g. a "Manage Cookie Preferences" footer link).
-	document.addEventListener('cc:open', () => {
+	function expand() {
 		categories?.removeAttribute('hidden');
 		saveBtn?.removeAttribute('hidden');
 		customizeBtn?.setAttribute('hidden', '');
+		banner?.classList.add('cc-banner--expanded');
+	}
+
+	function decide(consent) {
+		saveConsent(consent);
+		updateGoogleConsent(consent);
+		applyConsent(consent);
+		hideBanner();
+		document.dispatchEvent(new CustomEvent('cc:change', { detail: consent }));
+	}
+
+	acceptBtn?.addEventListener('click', () => decide({ analytics: true, advertising: true }));
+	rejectBtn?.addEventListener('click', () => decide({ analytics: false, advertising: false }));
+	closeBtn?.addEventListener('click', () => decide({ analytics: false, advertising: false }));
+	customizeBtn?.addEventListener('click', expand);
+	saveBtn?.addEventListener('click', () =>
+		decide({
+			analytics: analyticsToggle instanceof HTMLInputElement && analyticsToggle.checked,
+			advertising: advertisingToggle instanceof HTMLInputElement && advertisingToggle.checked,
+		}),
+	);
+
+	// Reopen the banner on request (e.g. a "Manage Cookie Preferences" footer link).
+	document.addEventListener('cc:open', () => {
+		expand();
 		showBanner(readConsent());
 	});
 
 	// Conversion tracking: fired by src/scripts/enquiryForm.ts on a successful submit.
 	document.addEventListener('enquiry:success', () => {
-		if (typeof window.gtag === 'function') {
-			window.gtag('event', 'generate_lead', { event_category: 'enquiry' });
-		}
+		if (ga4Configured) window.gtag('event', 'generate_lead', { event_category: 'enquiry', send_to: GA_MEASUREMENT_ID });
 	});
 
 	const existing = readConsent();
-	if (existing) {
-		applyConsent(existing);
-	} else {
-		showBanner(null);
+	if (existing) applyConsent(existing);
+	if (!existing || existing.v < CONSENT_VERSION) {
+		if (existing) expand();
+		showBanner(existing);
 	}
 
 	// Locale preference redirect: only on the bare English homepage, and only
@@ -242,16 +269,25 @@ const {
 </script>
 
 <style>
+	/* Compact bottom bar: one sentence and three buttons, about 15% of a phone screen.
+	   "Customize" expands it into the category switches. */
 	.cc-banner {
 		position: fixed;
 		z-index: 9999;
 		left: 0;
 		right: 0;
 		bottom: 0;
-		padding: 16px;
+		max-height: 85vh;
+		overflow-y: auto;
+		padding: 10px 16px;
 		background: var(--color-bg-white);
 		border-top: 1px solid var(--color-border-card);
-		box-shadow: var(--shadow-card);
+		box-shadow: 0 -4px 18px rgba(15, 23, 42, 0.12);
+		font-family: var(--font-body);
+	}
+
+	.cc-banner[hidden] {
+		display: none;
 	}
 
 	.cc-banner__inner {
@@ -259,27 +295,44 @@ const {
 		max-width: 1120px;
 		margin: 0 auto;
 		display: flex;
-		align-items: flex-end;
-		gap: 24px;
-		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px 20px;
+		padding-inline-end: 30px;
 	}
 
 	.cc-banner__main {
 		flex: 1;
-		min-width: 260px;
+		min-width: 0;
 	}
 
 	.cc-banner__title {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		padding: 0;
+		margin: -1px;
+		overflow: hidden;
+		clip: rect(0 0 0 0);
+		white-space: nowrap;
+		border: 0;
+	}
+
+	.cc-banner--expanded .cc-banner__title {
+		position: static;
+		width: auto;
+		height: auto;
+		margin: 0 0 4px;
+		clip: auto;
+		white-space: normal;
 		font-family: var(--font-heading);
-		font-size: 17px;
+		font-size: 15px;
 		font-weight: 700;
 		color: var(--color-text-primary);
-		margin: 0 0 6px;
 	}
 
 	.cc-banner__desc {
-		font-size: 13.5px;
-		line-height: 1.6;
+		font-size: 13px;
+		line-height: 1.45;
 		color: var(--color-text-secondary);
 		margin: 0;
 	}
@@ -288,15 +341,25 @@ const {
 		color: var(--color-primary);
 		font-weight: 600;
 		text-decoration: underline;
+		white-space: nowrap;
 	}
 
 	.cc-banner__categories {
 		display: flex;
 		flex-direction: column;
-		gap: 12px;
-		margin-top: 16px;
-		padding-top: 16px;
+		gap: 10px;
+		margin-top: 10px;
+		padding-top: 10px;
 		border-top: 1px solid var(--color-border-light);
+	}
+
+	.cc-banner__categories[hidden] {
+		display: none;
+	}
+
+	.cc-banner--expanded .cc-banner__inner {
+		flex-direction: column;
+		align-items: stretch;
 	}
 
 	.cc-category__row {
@@ -304,6 +367,7 @@ const {
 		align-items: center;
 		justify-content: space-between;
 		gap: 16px;
+		cursor: pointer;
 	}
 
 	.cc-category__label {
@@ -314,14 +378,13 @@ const {
 
 	.cc-category__desc {
 		font-size: 12.5px;
-		color: var(--color-text-muted);
+		color: var(--color-text-secondary);
 		margin: 2px 0 0;
 	}
 
 	.cc-switch {
 		position: relative;
 		display: inline-flex;
-		cursor: pointer;
 	}
 
 	.cc-switch--disabled {
@@ -331,16 +394,19 @@ const {
 
 	.cc-switch input {
 		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		margin: 0;
 		opacity: 0;
-		width: 0;
-		height: 0;
+		cursor: inherit;
 	}
 
 	.cc-switch__track {
 		width: 38px;
 		height: 22px;
 		border-radius: 999px;
-		background: var(--color-border-light);
+		background: #9aa5b4;
 		display: inline-flex;
 		align-items: center;
 		padding: 2px;
@@ -361,31 +427,39 @@ const {
 		background: var(--color-teal);
 	}
 
+	.cc-switch input:focus-visible + .cc-switch__track {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
 	.cc-switch input:checked + .cc-switch__track .cc-switch__thumb {
 		transform: translateX(16px);
+	}
+
+	:global([dir='rtl']) .cc-switch input:checked + .cc-switch__track .cc-switch__thumb {
+		transform: translateX(-16px);
 	}
 
 	.cc-banner__actions {
 		display: flex;
 		align-items: center;
-		gap: 10px;
-		flex-wrap: wrap;
+		gap: 8px;
+		flex-shrink: 0;
 	}
 
 	.cc-btn {
 		font-family: var(--font-body);
 		font-size: 13px;
 		font-weight: 700;
-		padding: 10px 18px;
+		padding: 8px 16px;
 		border-radius: 999px;
 		border: none;
 		cursor: pointer;
 		white-space: nowrap;
-		transition: transform 0.15s ease, opacity 0.15s ease;
 	}
 
-	.cc-btn:hover {
-		transform: translateY(-1px);
+	.cc-btn[hidden] {
+		display: none;
 	}
 
 	.cc-btn--primary {
@@ -403,37 +477,67 @@ const {
 		background: transparent;
 		color: var(--color-text-secondary);
 		text-decoration: underline;
-		padding: 10px 6px;
+		padding: 8px 4px;
 	}
 
 	.cc-banner__close {
 		position: absolute;
-		top: -6px;
-		right: -6px;
+		top: 50%;
+		inset-inline-end: 0;
+		transform: translateY(-50%);
 		width: 26px;
 		height: 26px;
 		border-radius: 50%;
 		border: 1px solid var(--color-border-light);
 		background: var(--color-bg-white);
-		color: var(--color-text-muted);
+		color: var(--color-text-secondary);
 		font-size: 16px;
 		line-height: 1;
 		cursor: pointer;
 	}
 
-	@media screen and (max-width: 640px) {
+	.cc-banner--expanded .cc-banner__close {
+		top: 0;
+		transform: none;
+	}
+
+	@media screen and (max-width: 760px) {
+		.cc-banner {
+			padding: 8px 12px 10px;
+		}
+
 		.cc-banner__inner {
 			flex-direction: column;
 			align-items: stretch;
+			gap: 6px;
+		}
+
+		.cc-banner__close {
+			top: 0;
+			transform: none;
+		}
+
+		.cc-banner__desc {
+			font-size: 12px;
 		}
 
 		.cc-banner__actions {
-			justify-content: flex-start;
+			flex-wrap: nowrap;
+			gap: 6px;
 		}
 
 		.cc-btn {
-			flex: 1;
+			flex: 1 1 auto;
+			min-width: 0;
+			padding: 8px 6px;
+			font-size: 12px;
+			white-space: normal;
+			line-height: 1.2;
 			text-align: center;
+		}
+
+		.cc-btn--text {
+			flex: 0 0 auto;
 		}
 	}
 </style>

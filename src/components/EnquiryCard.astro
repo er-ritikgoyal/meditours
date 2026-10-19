@@ -1,4 +1,5 @@
 ---
+import MedicalDisclaimer from './MedicalDisclaimer.astro';
 import ConsentCheckbox from './ConsentCheckbox.astro';
 import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
@@ -9,6 +10,7 @@ import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
 import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
 import { countries } from '../data/countries';
+import { siteUi, nameFromPlaceholder } from '../i18n/siteUi';
 import { treatments } from '../data/treatments';
 
 const defaultTreatmentOptions = [...treatments.map((t) => t.name), 'Other'];
@@ -45,6 +47,8 @@ const {
 	successMessage = 'Thanks! A patient coordinator will reach out shortly.',
 } = Astro.props;
 
+const formUi = siteUi(Astro.url.pathname).form;
+
 // `defaultTreatment` is sometimes a specific procedure (e.g. "Coronary
 // Angioplasty" from an individual procedure page) rather than one of the
 // broader category names in `treatmentOptions` — add it as its own option
@@ -58,7 +62,7 @@ const selectOptions =
 
 <div class="enquiry-card">
 	<div class="enquiry-card__header">
-		<h3>{title}</h3>
+		<h2>{title}</h2>
 		<p>{subtitle}</p>
 	</div>
 
@@ -76,7 +80,7 @@ const selectOptions =
 
 		<label class="enquiry-card__field">
 			<span set:html={iconTreatment} aria-hidden="true" />
-			<select name="category" data-treatment-field required>
+			<select name="category" data-treatment-field required aria-label={formUi.treatment}>
 				<option value="" disabled selected={!defaultTreatment}>
 					{treatmentPlaceholder}
 				</option>
@@ -88,17 +92,17 @@ const selectOptions =
 
 		<label class="enquiry-card__field">
 			<span set:html={iconPerson} aria-hidden="true" />
-			<input type="text" name="name" placeholder={namePlaceholder} autocomplete="name" required />
+			<input type="text" name="name" placeholder={namePlaceholder} aria-label={nameFromPlaceholder(namePlaceholder)} autocomplete="name" required />
 		</label>
 
 		<label class="enquiry-card__field">
 			<span set:html={iconEmail} aria-hidden="true" />
-			<input type="email" name="email" placeholder={emailPlaceholder} autocomplete="email" required />
+			<input type="email" name="email" placeholder={emailPlaceholder} aria-label={nameFromPlaceholder(emailPlaceholder)} autocomplete="email" required />
 		</label>
 
 		<label class="enquiry-card__field">
 			<span set:html={iconGlobe} aria-hidden="true" />
-			<select name="country" data-country-field>
+			<select name="country" data-country-field aria-label={formUi.country}>
 				<option value="" selected disabled>{countryPlaceholder}</option>
 				{countries.map((country) => (
 					<option value={country.name} data-dial={country.dial}>{country.name}</option>
@@ -109,11 +113,11 @@ const selectOptions =
 		<div class="enquiry-card__row">
 			<label class="enquiry-card__field enquiry-card__field--code">
 				<span set:html={iconPhone} aria-hidden="true" />
-				<input type="text" name="phoneCode" value="+91" placeholder="+91" inputmode="tel" data-phone-code-field />
+				<input type="text" name="phoneCode" value="+91" placeholder="+91" inputmode="tel" data-phone-code-field aria-label={formUi.countryCode} />
 			</label>
 
 			<label class="enquiry-card__field enquiry-card__field--phone">
-				<input type="tel" name="phone" placeholder="WhatsApp / phone number" autocomplete="tel" required data-phone-field />
+				<input type="tel" name="phone" placeholder={phonePlaceholder} aria-label={nameFromPlaceholder(phonePlaceholder)} autocomplete="tel" required data-phone-field />
 			</label>
 		</div>
 
@@ -133,6 +137,7 @@ const selectOptions =
 			<span set:html={iconShield} aria-hidden="true" />
 			{privacyNote}
 		</p>
+		<MedicalDisclaimer />
 
 		<p class="enquiry-card__success" data-enquiry-success hidden>
 			{successMessage}
@@ -204,7 +209,7 @@ const selectOptions =
 		font-family: var(--font-body);
 	}
 
-	.enquiry-card__header h3 {
+	.enquiry-card__header h2 {
 		font-family: var(--font-heading);
 		font-size: 18px;
 		font-weight: 700;
@@ -276,7 +281,7 @@ const selectOptions =
 
 	.enquiry-card__row {
 		display: grid;
-		grid-template-columns: 88px 1fr;
+		grid-template-columns: 88px minmax(0, 1fr);
 		gap: 10px;
 	}
 

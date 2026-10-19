@@ -172,7 +172,7 @@ const services = servicesProp.map((service, i) => ({ ...service, icon: serviceIc
 	}
 
 	.flight-services__title span {
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.flight-services__subtitle {
@@ -307,7 +307,7 @@ const services = servicesProp.map((service, i) => ({ ...service, icon: serviceIc
 
 	@media screen and (max-width: 900px) {
 		.flight-services__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			max-width: 460px;
 			margin: 0 auto;
 		}
