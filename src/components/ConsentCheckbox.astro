@@ -2,6 +2,7 @@
 /**
  * Consent checkbox for every enquiry form (DPDP Act 2023: consent before we store personal data).
  * send-enquiry.php refuses a submission without `consent=yes`, so keep the name and value in step with it.
+ * When the wording changes, change the notice_version in send-enquiry.php too (it goes to the CRM with each lead).
  * The language follows the page URL; legal pages are English-only, so the link always goes to /privacy-policy.
  */
 interface Props {

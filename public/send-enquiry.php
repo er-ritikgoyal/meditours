@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+require __DIR__ . '/lead-hub.php';
+
 $toEmail   = 'website@alisprofessional.com';
 $toName    = 'Alis Pro Sales';
 $fromEmail = 'website@alisprofessional.com';
@@ -121,6 +123,21 @@ if ($hasFile) {
     $body = $mailBody;
 }
 
+// Copy of the contact details for the CRM. Medical details stay in the email only:
+// no message, treatment area or attachment is sent to the lead hub.
+$hubAccepted = lead_hub_send([
+    'site'           => 'alispromeditours.com',
+    'brand'          => 'meditours',
+    'submission_id'  => bin2hex(random_bytes(16)),
+    'submitted_at'   => gmdate(DATE_ATOM),
+    'name'           => $name,
+    'email'          => $email,
+    'phone'          => $phone,
+    'country'        => clean_input($_POST['country'] ?? null),
+    'page_url'       => clean_input($_SERVER['HTTP_REFERER'] ?? ''),
+    'consent'        => ['granted' => true, 'notice_version' => 'meditours-enquiry-2026-10'],
+]);
+
 $sent = mail(
     '"' . $toName . '" <' . $toEmail . '>',
     $mailSubject,
@@ -128,7 +145,7 @@ $sent = mail(
     $headers
 );
 
-if (!$sent) {
+if (!$sent && !$hubAccepted) {
     redirect_with_status('mailer');
 }
 
