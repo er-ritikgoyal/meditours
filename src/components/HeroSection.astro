@@ -10,6 +10,7 @@ import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
 import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
 import { countries } from '../data/countries';
+import { siteUi, nameFromPlaceholder } from '../i18n/siteUi';
 import { getDoctorBySlug } from '../data/doctors';
 import { treatments } from '../data/treatments';
 
@@ -68,6 +69,8 @@ const {
 		successMessage: 'Thanks! A patient coordinator will reach out shortly.',
 	},
 } = Astro.props;
+
+const formUi = siteUi(Astro.url.pathname).form;
 ---
 
 <section class="hero">
@@ -118,7 +121,7 @@ const {
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconTreatment} aria-hidden="true" />
-					<select name="category" data-treatment-field required>
+					<select name="category" data-treatment-field required aria-label={formUi.treatment}>
 						<option value="" selected disabled>
 							{enquiry.treatmentPlaceholder}
 						</option>
@@ -130,17 +133,17 @@ const {
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconPerson} aria-hidden="true" />
-					<input type="text" name="name" placeholder={enquiry.namePlaceholder} autocomplete="name" required />
+					<input type="text" name="name" placeholder={enquiry.namePlaceholder} aria-label={nameFromPlaceholder(enquiry.namePlaceholder)} autocomplete="name" required />
 				</label>
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconEmail} aria-hidden="true" />
-					<input type="email" name="email" placeholder={enquiry.emailPlaceholder} autocomplete="email" required />
+					<input type="email" name="email" placeholder={enquiry.emailPlaceholder} aria-label={nameFromPlaceholder(enquiry.emailPlaceholder)} autocomplete="email" required />
 				</label>
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconGlobe} aria-hidden="true" />
-					<select name="country" id="hero-country">
+					<select name="country" id="hero-country" aria-label={formUi.country}>
 						<option value="" selected disabled>{enquiry.countryPlaceholder}</option>
 						{countries.map((country) => (
 							<option value={country.name} data-dial={country.dial}>{country.name}</option>
@@ -151,11 +154,11 @@ const {
 				<div class="hero-enquiry__row">
 					<label class="hero-enquiry__field hero-enquiry__field--code">
 						<span set:html={iconPhone} aria-hidden="true" />
-						<input type="text" name="phoneCode" id="hero-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+						<input type="text" name="phoneCode" id="hero-phone-code" value="+91" placeholder="+91" inputmode="tel" aria-label={formUi.countryCode} />
 					</label>
 
 					<label class="hero-enquiry__field hero-enquiry__field--phone">
-						<input type="tel" name="phone" placeholder={enquiry.phonePlaceholder} autocomplete="tel" required data-phone-field />
+						<input type="tel" name="phone" placeholder={enquiry.phonePlaceholder} aria-label={nameFromPlaceholder(enquiry.phonePlaceholder)} autocomplete="tel" required data-phone-field />
 					</label>
 				</div>
 
@@ -546,7 +549,8 @@ const {
 		.hero-enquiry {
 			position: absolute;
 			top: 50%;
-			inset-inline-end: 5%;
+			/* Leave the right-hand gutter for the floating WhatsApp / callback buttons. */
+			inset-inline-end: max(5%, 96px);
 			transform: translateY(-50%);
 			margin: 0;
 			width: 360px;

@@ -10,6 +10,7 @@ import iconShield from 'bootstrap-icons/icons/shield-check.svg?raw';
 import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import iconClose from 'bootstrap-icons/icons/x-lg.svg?raw';
 import { countries } from '../data/countries';
+import { siteUi, nameFromPlaceholder } from '../i18n/siteUi';
 
 export interface Props {
 	whatsappNumber?: string;
@@ -51,6 +52,8 @@ const {
 	successMessage = 'Thanks! A patient coordinator will call you back shortly.',
 } = Astro.props;
 
+const formUi = siteUi(Astro.url.pathname).form;
+
 const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(whatsappMessage)}`;
 ---
 
@@ -61,6 +64,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 		target="_blank"
 		rel="noopener noreferrer"
 		aria-label={whatsappAriaLabel}
+		title={whatsappAriaLabel}
 	>
 		<span set:html={iconWhatsapp} aria-hidden="true" />
 		<span class="floating-contact__label">{whatsappLabel}</span>
@@ -72,6 +76,8 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 		id="floating-callback-open"
 		aria-haspopup="dialog"
 		aria-controls="floating-callback-modal"
+		aria-label={callbackLabel}
+		title={callbackLabel}
 	>
 		<span set:html={iconTelephone} aria-hidden="true" />
 		<span class="floating-contact__label">{callbackLabel}</span>
@@ -95,12 +101,12 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
 			<label class="callback-form__field">
 				<span set:html={iconPerson} aria-hidden="true" />
-				<input type="text" name="name" placeholder={namePlaceholder} autocomplete="name" required />
+				<input type="text" name="name" placeholder={namePlaceholder} aria-label={nameFromPlaceholder(namePlaceholder)} autocomplete="name" required />
 			</label>
 
 			<label class="callback-form__field">
 				<span set:html={iconGlobe} aria-hidden="true" />
-				<select name="country" id="callback-country">
+				<select name="country" id="callback-country" aria-label={formUi.country}>
 					<option value="" selected disabled>{countryPlaceholder}</option>
 					{countries.map((country) => (
 						<option value={country.name} data-dial={country.dial}>{country.name}</option>
@@ -111,22 +117,22 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 			<div class="callback-form__row">
 				<label class="callback-form__field callback-form__field--code">
 					<span set:html={iconTelephone} aria-hidden="true" />
-					<input type="text" name="phoneCode" id="callback-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+					<input type="text" name="phoneCode" id="callback-phone-code" value="+91" placeholder="+91" inputmode="tel" aria-label={formUi.countryCode} />
 				</label>
 
 				<label class="callback-form__field callback-form__field--phone">
-					<input type="tel" name="phone" placeholder={phonePlaceholder} autocomplete="tel" required data-phone-field />
+					<input type="tel" name="phone" placeholder={phonePlaceholder} aria-label={nameFromPlaceholder(phonePlaceholder)} autocomplete="tel" required data-phone-field />
 				</label>
 			</div>
 
 			<label class="callback-form__field">
 				<span set:html={iconEmail} aria-hidden="true" />
-				<input type="email" name="email" placeholder={emailPlaceholder} autocomplete="email" required />
+				<input type="email" name="email" placeholder={emailPlaceholder} aria-label={nameFromPlaceholder(emailPlaceholder)} autocomplete="email" required />
 			</label>
 
 			<label class="callback-form__field">
 				<span set:html={iconClock} aria-hidden="true" />
-				<input type="text" name="preferredTime" placeholder={preferredTimePlaceholder} data-time-field />
+				<input type="text" name="preferredTime" placeholder={preferredTimePlaceholder} aria-label={nameFromPlaceholder(preferredTimePlaceholder)} data-time-field />
 			</label>
 
 			<ConsentCheckbox />
@@ -185,6 +191,35 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 			phoneCodeInput.value = `+${dial}`;
 		}
 	});
+
+	// Keep the floating buttons off form controls (consent text, submit button, fields):
+	// when they would cover one, drop the text labels; if the round buttons alone still
+	// cover it, fade them out until the visitor scrolls past the form.
+	const widget = document.querySelector<HTMLElement>('.floating-contact');
+	const controlSelector = 'form input:not([type="hidden"]), form select, form textarea, form button, form label, form a';
+	const controls = Array.from(document.querySelectorAll<HTMLElement>(controlSelector)).filter(
+		(el) => !el.closest('.floating-contact, .callback-modal, .insurance-modal, .cc-banner') && !el.matches('[tabindex="-1"]'),
+	);
+	const overlaps = (a: DOMRect, b: DOMRect) => a.left < b.right && a.right > b.left && a.top < b.bottom && a.bottom > b.top;
+	let frame = 0;
+	const placeWidget = () => {
+		frame = 0;
+		if (!widget) return;
+		widget.classList.remove('floating-contact--compact', 'floating-contact--away');
+		const visible = controls
+			.map((el) => el.getBoundingClientRect())
+			.filter((r) => r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < window.innerHeight);
+		if (!visible.some((r) => overlaps(widget.getBoundingClientRect(), r))) return;
+		widget.classList.add('floating-contact--compact');
+		if (visible.some((r) => overlaps(widget.getBoundingClientRect(), r))) widget.classList.add('floating-contact--away');
+	};
+	const schedule = () => {
+		if (!frame) frame = requestAnimationFrame(placeWidget);
+	};
+	window.addEventListener('scroll', schedule, { passive: true });
+	window.addEventListener('resize', schedule);
+	window.addEventListener('load', schedule);
+	schedule();
 
 	bindEnquiryForm(form ?? null, {
 		successEl,
@@ -326,6 +361,28 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
 	.floating-contact__label {
 		padding-inline-start: 2px;
+	}
+
+	.floating-contact {
+		transition:
+			opacity 0.2s ease,
+			visibility 0.2s ease;
+	}
+
+	.floating-contact--compact .floating-contact__btn {
+		padding: 0;
+		width: auto;
+		justify-content: center;
+	}
+
+	.floating-contact--compact .floating-contact__label {
+		display: none;
+	}
+
+	.floating-contact--away {
+		opacity: 0;
+		visibility: hidden;
+		pointer-events: none;
 	}
 
 	.callback-modal {
