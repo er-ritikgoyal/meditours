@@ -1,4 +1,5 @@
 ---
+import ConsentCheckbox from './ConsentCheckbox.astro';
 import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
 import iconEmail from 'bootstrap-icons/icons/envelope-fill.svg?raw';
@@ -122,6 +123,7 @@ const selectOptions =
 			<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg" data-file-input />
 		</label>
 
+		<ConsentCheckbox />
 		<button type="submit" class="enquiry-card__submit">
 			{submitLabel}
 			<span set:html={iconArrow} aria-hidden="true" />

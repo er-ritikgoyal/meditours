@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import OurStory from '../../components/OurStory.astro';
 import OurJourney from '../../components/OurJourney.astro';
-import Testimonials from '../../components/Testimonials.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import { arAbout } from '../../i18n/ar-pages';
@@ -50,13 +49,6 @@ import { arAbout } from '../../i18n/ar-pages';
 		titleHighlight={arAbout.journey.titleHighlight}
 		subtitle={arAbout.journey.subtitle}
 		milestones={arAbout.journey.milestones}
-	/>
-	<Testimonials
-		badge={arAbout.testimonials.badge}
-		title={arAbout.testimonials.title}
-		highlight={arAbout.testimonials.highlight}
-		subtitle={arAbout.testimonials.subtitle}
-		testimonials={arAbout.testimonials.items}
 	/>
 	<FaqAccordion badge={arAbout.faq.badge} title={arAbout.faq.title} highlight={arAbout.faq.highlight} subtitle={arAbout.faq.subtitle} />
 

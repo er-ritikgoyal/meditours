@@ -1,4 +1,5 @@
 ---
+import ConsentCheckbox from './ConsentCheckbox.astro';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
 import iconCalendar from 'bootstrap-icons/icons/calendar3.svg?raw';
 import iconGender from 'bootstrap-icons/icons/gender-ambiguous.svg?raw';
@@ -144,6 +145,7 @@ const {
 				<textarea name="additionalMessage" data-message-input placeholder={messagePlaceholder} rows="3"></textarea>
 			</label>
 
+			<ConsentCheckbox />
 			<button type="submit" class="insurance-form__submit">
 				{submitLabel}
 				<span set:html={iconArrow} aria-hidden="true" />

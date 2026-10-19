@@ -1,4 +1,5 @@
 ---
+import ConsentCheckbox from './ConsentCheckbox.astro';
 import { Image } from 'astro:assets';
 import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
@@ -99,7 +100,7 @@ const {
 
 		<div class="hero-enquiry">
 			<div class="hero-enquiry__header">
-				<h2>{enquiry.title}</h2>
+				<h1>{enquiry.title}</h1>
 				<p>{enquiry.subtitle}</p>
 			</div>
 
@@ -164,6 +165,7 @@ const {
 					<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg" data-file-input />
 				</label>
 
+				<ConsentCheckbox />
 				<button type="submit" class="hero-enquiry__submit">
 					{enquiry.submit}
 					<span set:html={iconArrow} aria-hidden="true" />
@@ -330,7 +332,7 @@ const {
 		box-shadow: var(--shadow-card);
 	}
 
-	.hero-enquiry__header h2 {
+	.hero-enquiry__header h1 {
 		font-family: var(--font-heading);
 		font-size: 19px;
 		font-weight: 700;

@@ -1,4 +1,5 @@
 ---
+import ConsentCheckbox from './ConsentCheckbox.astro';
 import iconWhatsapp from 'bootstrap-icons/icons/whatsapp.svg?raw';
 import iconTelephone from 'bootstrap-icons/icons/telephone-fill.svg?raw';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
@@ -128,6 +129,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 				<input type="text" name="preferredTime" placeholder={preferredTimePlaceholder} data-time-field />
 			</label>
 
+			<ConsentCheckbox />
 			<button type="submit" class="callback-form__submit">
 				{submitLabel}
 				<span set:html={iconArrow} aria-hidden="true" />

@@ -1,0 +1,100 @@
+---
+/**
+ * Consent checkbox for every enquiry form (DPDP Act 2023: consent before we store personal data).
+ * send-enquiry.php refuses a submission without `consent=yes`, so keep the name and value in step with it.
+ * The language follows the page URL; legal pages are English-only, so the link always goes to /privacy-policy.
+ */
+interface Props {
+	/** Extra class for spacing inside a particular form. */
+	class?: string;
+	/** Text colour scheme: `light` for forms on dark backgrounds. */
+	tone?: 'dark' | 'light';
+}
+
+const { class: className = '', tone = 'dark' } = Astro.props;
+
+const TEXT: Record<string, { before: string; link: string; after: string }> = {
+	en: {
+		before: 'I agree that AlisPro MediTours may use these details, and any file I attach, to reply to my enquiry and arrange my treatment, as described in the ',
+		link: 'Privacy Policy',
+		after: '.',
+	},
+	ar: {
+		before: 'أوافق على أن تستخدم AlisPro MediTours هذه البيانات وأي ملف أرفقه للرد على استفساري وترتيب علاجي، كما هو موضح في ',
+		link: 'سياسة الخصوصية',
+		after: '.',
+	},
+	bn: {
+		before: 'আমি সম্মত যে AlisPro MediTours আমার প্রশ্নের উত্তর দিতে এবং চিকিৎসার ব্যবস্থা করতে এই তথ্য ও সংযুক্ত যেকোনো ফাইল ব্যবহার করতে পারে, যেমনটি বলা আছে ',
+		link: 'গোপনীয়তা নীতিতে',
+		after: '।',
+	},
+	es: {
+		before: 'Acepto que AlisPro MediTours use estos datos, y cualquier archivo que adjunte, para responder a mi consulta y organizar mi tratamiento, según se describe en la ',
+		link: 'Política de privacidad',
+		after: '.',
+	},
+	fr: {
+		before: "J'accepte qu'AlisPro MediTours utilise ces informations, et tout fichier joint, pour répondre à ma demande et organiser mon traitement, comme décrit dans la ",
+		link: 'Politique de confidentialité',
+		after: '.',
+	},
+	pt: {
+		before: 'Concordo que a AlisPro MediTours use estes dados, e qualquer arquivo que eu anexar, para responder ao meu pedido e organizar o meu tratamento, conforme descrito na ',
+		link: 'Política de Privacidade',
+		after: '.',
+	},
+	ro: {
+		before: 'Sunt de acord ca AlisPro MediTours să folosească aceste date, și orice fișier atașat, pentru a răspunde solicitării mele și a organiza tratamentul, așa cum este descris în ',
+		link: 'Politica de confidențialitate',
+		after: '.',
+	},
+	ru: {
+		before: 'Я согласен(на), что AlisPro MediTours может использовать эти данные и прикреплённые файлы, чтобы ответить на мой запрос и организовать лечение, как описано в ',
+		link: 'Политике конфиденциальности',
+		after: '.',
+	},
+	vi: {
+		before: 'Tôi đồng ý để AlisPro MediTours sử dụng các thông tin này, cùng mọi tệp tôi đính kèm, để trả lời yêu cầu và sắp xếp việc điều trị của tôi, như được mô tả trong ',
+		link: 'Chính sách quyền riêng tư',
+		after: '.',
+	},
+};
+
+const locale = Astro.url.pathname.split('/')[1] ?? '';
+const t = TEXT[locale] ?? TEXT.en;
+---
+
+<label class:list={['consent', `consent--${tone}`, className]}>
+	<input type="checkbox" name="consent" value="yes" required />
+	<span>{t.before}<a href="/privacy-policy" target="_blank" rel="noopener">{t.link}</a>{t.after}</span>
+</label>
+
+<style>
+	.consent {
+		display: flex;
+		gap: 10px;
+		align-items: flex-start;
+		font-size: 0.8rem;
+		line-height: 1.45;
+		text-align: start;
+		cursor: pointer;
+	}
+	.consent input {
+		flex: 0 0 auto;
+		width: 18px;
+		height: 18px;
+		margin: 2px 0 0;
+		accent-color: currentColor;
+	}
+	.consent a {
+		color: inherit;
+		text-decoration: underline;
+	}
+	.consent--dark {
+		color: #4b5563;
+	}
+	.consent--light {
+		color: rgba(255, 255, 255, 0.85);
+	}
+</style>
