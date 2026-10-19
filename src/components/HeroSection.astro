@@ -11,16 +11,14 @@ import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
 import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
 import { countries } from '../data/countries';
 import { siteUi, nameFromPlaceholder } from '../i18n/siteUi';
-import { getDoctorBySlug } from '../data/doctors';
+import heroPhoto from '../assets/hospitals/topright_max.png';
 import { treatments } from '../data/treatments';
 
 const defaultTreatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
-// The before/after showcase is tied to whichever doctor actually has a
-// before/after result photo on file — currently only Dr. Anika Bhasin Arora
-// (src/assets/hospitals/before after shining smile.png, set as her
-// `bannerPhoto`). Swap this slug once more before/after pairs exist.
-const spotlightDoctor = getDoctorBySlug('anika-bhasin-arora')!;
+// Hero photo: a hospital building already in the repo. The earlier dental
+// before/after collage was replaced because ad platforms restrict before/after
+// imagery on health landing pages.
 
 export interface TrustItem {
 	value: string;
@@ -71,6 +69,7 @@ const {
 } = Astro.props;
 
 const formUi = siteUi(Astro.url.pathname).form;
+const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 ---
 
 <section class="hero">
@@ -91,19 +90,22 @@ const formUi = siteUi(Astro.url.pathname).form;
 			</div>
 
 			<div class="hero-showcase__inner">
-				{
-					spotlightDoctor.bannerPhoto && (
-						<div class="hero-showcase__frame">
-							<Image src={spotlightDoctor.bannerPhoto} alt={`${spotlightDoctor.name} — patient results`} width={720} />
-						</div>
-					)
-				}
+				<div class="hero-showcase__frame">
+					<Image
+						src={heroPhoto}
+						alt={heroAlt}
+						widths={[480, 720, 960]}
+						sizes="(max-width: 768px) calc(100vw - 32px), 560px"
+						loading="eager"
+						decoding="async"
+					/>
+				</div>
 			</div>
 		</div>
 
 		<div class="hero-enquiry">
 			<div class="hero-enquiry__header">
-				<h1>{enquiry.title}</h1>
+				<h2>{enquiry.title}</h2>
 				<p>{enquiry.subtitle}</p>
 			</div>
 
@@ -335,7 +337,7 @@ const formUi = siteUi(Astro.url.pathname).form;
 		box-shadow: var(--shadow-card);
 	}
 
-	.hero-enquiry__header h1 {
+	.hero-enquiry__header h2 {
 		font-family: var(--font-heading);
 		font-size: 19px;
 		font-weight: 700;

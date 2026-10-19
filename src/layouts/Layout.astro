@@ -18,6 +18,7 @@ import { ar } from '../i18n/ar';
 import { treatments } from '../data/treatments';
 import { treatmentIcons } from '../utils/treatmentIcons';
 import iconGrid from 'bootstrap-icons/icons/grid-fill.svg?raw';
+import { getSearchHeroBackgrounds, SEARCH_HERO_MOBILE_MAX } from '../utils/searchHeroBackground';
 
 export interface Alternate {
 	locale: string;
@@ -41,6 +42,9 @@ const {
 } = Astro.props;
 
 const siteUrl = 'https://alispromeditours.com';
+const searchHeroBg = await getSearchHeroBackgrounds();
+const fontsHref =
+	'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Cairo:wght@500;600;700;800&family=Tajawal:wght@400;500;700&display=swap';
 const canonicalUrl = new URL(Astro.url.pathname, siteUrl).toString();
 
 const ogLocaleMap: Record<string, string> = { en: 'en_IN', fr: 'fr_FR', ru: 'ru_RU', bn: 'bn_IN', ro: 'ro_RO', es: 'es_ES', pt: 'pt_PT', vi: 'vi_VN', ar: 'ar_SA' };
@@ -58,6 +62,7 @@ const prefix = `/${locale}/`;
 // Arabic is the only RTL locale live today; this flips document direction and
 // text-align sitewide so Navbar/Footer/widgets/pages don't need per-locale markup.
 const rtlLocales = new Set(['ar']);
+const isHomePage = /^\/(?:(?:fr|ru|bn|ro|es|pt|vi|ar)\/?)?$/.test(Astro.url.pathname);
 const dir = rtlLocales.has(locale) ? 'rtl' : 'ltr';
 
 const navbarProps = t
@@ -196,10 +201,13 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 		<meta name="theme-color" content="#0f4c81" />
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-		<link
-			href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Cairo:wght@500;600;700;800&family=Tajawal:wght@400;500;700&display=swap"
-			rel="stylesheet"
-		/>
+		<!-- LCP: the search banner background on every page. -->
+		<link rel="preload" as="image" href={searchHeroBg.mobile.src} media={`(max-width: ${SEARCH_HERO_MOBILE_MAX}px)`} fetchpriority="high" />
+		<link rel="preload" as="image" href={searchHeroBg.desktop.src} media={`(min-width: ${SEARCH_HERO_MOBILE_MAX + 1}px)`} fetchpriority="high" />
+		<!-- Web fonts load without blocking first paint (font-display: swap). -->
+		<link rel="preload" as="style" href={fontsHref} />
+		<link rel="stylesheet" href={fontsHref} media="print" onload="this.media='all'" />
+		<noscript><link rel="stylesheet" href={fontsHref} /></noscript>
 		<title>{title}</title>
 		<meta name="description" content={description} />
 		<link rel="canonical" href={canonicalUrl} />
@@ -226,7 +234,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 	<body>
 		<Navbar {...navbarProps} />
 		<div class="site-search-bar">
-			<SearchBar locale={locale} />
+			<SearchBar locale={locale} asHeading={isHomePage} />
 		</div>
 		<slot />
 		<Footer {...footerProps} />
