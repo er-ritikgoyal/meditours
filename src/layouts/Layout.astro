@@ -108,6 +108,7 @@ const footerProps = t
 			allRightsReservedLabel: t.footer.allRightsReserved,
 			cookiePolicyLabel: t.footer.cookiePolicy,
 			manageCookiesLabel: t.footer.manageCookies,
+			backToTopLabel: t.footer.backToTop,
 			// Legal pages are English-only sitewide for now (same pattern as Hotels/Flights/Tourism above).
 			privacyPolicyHref: '/privacy-policy',
 			termsOfServiceHref: '/terms-of-service',
@@ -244,6 +245,9 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 		<FloatingContactWidget {...floatingWidgetProps} />
 		<InsuranceEligibility {...insuranceModalProps} />
 		<CookieConsent locale={locale} cookiePolicyHref="/cookie-policy" {...cookieBannerProps} />
+		<script>
+			import '../scripts/attribution';
+		</script>
 	</body>
 </html>
 

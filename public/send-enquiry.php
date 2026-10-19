@@ -41,6 +41,29 @@ $consent  = clean_input($_POST['consent']  ?? null);
 
 $resolvedSubject = $subject !== '' ? $subject : ($category !== '' ? $category : 'General enquiry');
 
+// First-touch campaign attribution, captured in the browser by src/scripts/attribution.ts
+// (UTM tags, click IDs, landing page). Keys match what the lead hub's normaliser reads from
+// body.attribution (alis-platform n8n/workflows/intake-web-form.json).
+function clean_attr(?string $value, int $max = 500): string
+{
+    $value = preg_replace('/[\x00-\x1F\x7F]+/', '', (string) $value) ?? '';
+    $value = trim($value);
+    return function_exists('mb_substr') ? mb_substr($value, 0, $max) : substr($value, 0, $max);
+}
+$attribution = [];
+foreach (['utm_source', 'utm_medium', 'utm_campaign', 'utm_term', 'utm_content', 'gclid', 'gbraid', 'wbraid', 'fbclid'] as $key) {
+    $v = clean_attr($_POST[$key] ?? null);
+    if ($v !== '') {
+        $attribution[$key] = $v;
+    }
+}
+$landingPage = clean_attr($_POST['landing_page'] ?? null, 1000);
+if ($landingPage !== '' && !preg_match('#^https?://#i', $landingPage)) {
+    $landingPage = '';
+}
+$firstReferrer = clean_attr($_POST['first_referrer'] ?? null);
+$pageUrl = clean_input($_SERVER['HTTP_REFERER'] ?? '');
+
 if (
     $name === '' ||
     $message === '' ||
@@ -68,7 +91,10 @@ $mailBody    = "New Website Enquiry\r\n"
     . "Message:\r\n{$message}\r\n"
     . "\r\n"
     . "Consent:             given on the website form, " . gmdate('Y-m-d H:i') . " UTC\r\n"
-    . "Page:                " . clean_input($_SERVER['HTTP_REFERER'] ?? '') . "\r\n";
+    . "Page:                " . $pageUrl . "\r\n"
+    . "Landing page:        " . $landingPage . "\r\n"
+    . "First referrer:      " . $firstReferrer . "\r\n"
+    . "Campaign:            " . implode(', ', array_map(static fn ($k, $v) => "{$k}={$v}", array_keys($attribution), $attribution)) . "\r\n";
 
 // ── File attachment ────────────────────────────────────────
 $att       = $_FILES['attachment'] ?? null;
@@ -134,8 +160,13 @@ $hubAccepted = lead_hub_send([
     'email'          => $email,
     'phone'          => $phone,
     'country'        => clean_input($_POST['country'] ?? null),
-    'page_url'       => clean_input($_SERVER['HTTP_REFERER'] ?? ''),
-    'consent'        => ['granted' => true, 'notice_version' => 'meditours-enquiry-2026-10'],
+    // page_url is the page the form (and its consent notice) was on; the first-touch
+    // landing page and campaign tags travel separately.
+    'page_url'         => $pageUrl,
+    'landing_page_url' => $landingPage,
+    'first_referrer'   => $firstReferrer,
+    'attribution'      => (object) $attribution,
+    'consent'          => ['granted' => true, 'notice_version' => 'meditours-enquiry-2026-10'],
 ]);
 
 $sent = mail(
