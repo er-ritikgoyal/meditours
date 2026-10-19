@@ -549,15 +549,30 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 		pointer-events: none;
 	}
 
+	/* Desktop: photo and form side by side in normal flow, so a taller form (consent text,
+	   disclaimer) grows the section instead of spilling over the search banner. The
+	   inline-end padding leaves a gutter for the floating WhatsApp / callback buttons. */
 	@media screen and (min-width: 1180px) {
-		.hero-enquiry {
-			position: absolute;
-			top: 50%;
-			/* Leave the right-hand gutter for the floating WhatsApp / callback buttons. */
-			inset-inline-end: max(5%, 96px);
-			transform: translateY(-50%);
+		.hero-stage {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			gap: 48px;
+			padding-block: 48px;
+			padding-inline: max(24px, calc((100% - 1200px) / 2)) max(96px, calc((100% - 1200px) / 2));
+		}
+
+		.hero-showcase {
+			flex: 1 1 auto;
+			max-width: 620px;
 			margin: 0;
+			padding: 0;
+		}
+
+		.hero-enquiry {
+			flex: 0 0 360px;
 			width: 360px;
+			margin: 0;
 		}
 	}
 
