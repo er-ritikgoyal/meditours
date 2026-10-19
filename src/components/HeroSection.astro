@@ -555,7 +555,7 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 	@media screen and (min-width: 1180px) {
 		.hero-stage {
 			display: flex;
-			align-items: center;
+			align-items: stretch;
 			justify-content: space-between;
 			gap: 48px;
 			padding-block: 48px;
@@ -564,9 +564,22 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 
 		.hero-showcase {
 			flex: 1 1 auto;
-			max-width: 620px;
+			min-width: 0;
+			max-width: 720px;
 			margin: 0;
 			padding: 0;
+		}
+
+		/* The photo fills the column to the form's height, so no empty band sits above it. */
+		.hero-showcase__inner,
+		.hero-showcase__frame {
+			max-width: none;
+			height: 100%;
+		}
+
+		.hero-showcase__frame :global(img) {
+			height: 100%;
+			object-fit: cover;
 		}
 
 		.hero-enquiry {

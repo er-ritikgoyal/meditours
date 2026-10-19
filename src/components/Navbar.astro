@@ -599,6 +599,48 @@ const langOptions = [
 		transform: translateY(-7px) rotate(-45deg);
 	}
 
+	/* Laptops: icon-only insurance button so the links and the quote button fit (no sideways scroll at 1280 px). */
+	@media screen and (max-width: 1439px) {
+		.navbar__insurance {
+			padding: 9px;
+			width: 38px;
+			justify-content: center;
+		}
+
+		.navbar__insurance-label {
+			display: none;
+		}
+	}
+
+	/* Small laptops and tablets in landscape: the quote form is on the page, so drop the header button. */
+	@media screen and (max-width: 1279px) {
+		.navbar__cta {
+			display: none;
+		}
+	}
+
+	/* Narrow desktops: open the wide treatments menu leftwards so it stays on screen. */
+	@media screen and (max-width: 1100px) {
+		.navbar__dropdown-menu--wide {
+			inset-inline-start: auto;
+			inset-inline-end: 0;
+		}
+
+		.navbar__links {
+			gap: 16px;
+		}
+
+		.navbar__lang {
+			max-width: 96px;
+		}
+	}
+
+	@media screen and (max-width: 920px) {
+		.navbar__links {
+			gap: 10px;
+		}
+	}
+
 	@media screen and (max-width: 860px) {
 		.navbar__links {
 			position: absolute;
