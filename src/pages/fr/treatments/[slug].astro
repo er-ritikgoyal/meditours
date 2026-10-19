@@ -131,6 +131,9 @@ const year = new Date().getFullYear();
 							alt={treatment.name}
 							width={1200}
 							height={480}
+							widths={[480, 800, 1200]}
+							sizes="(max-width: 900px) calc(100vw - 32px), 760px"
+							loading="eager"
 							class="treatment-detail__hero-image"
 						/>
 					) : (
@@ -371,7 +374,7 @@ const year = new Date().getFullYear();
 								return (
 									<a class="treatment-related-card" href={`/fr/treatments/${item.slug}`}>
 										{item.imageKey ? (
-											<Image src={IMAGES[item.imageKey]} alt={itemName} width={320} height={180} loading="lazy" />
+											<Image src={IMAGES[item.imageKey]} alt="" width={320} height={180} loading="lazy" />
 										) : (
 											<div class={`treatment-related-card__fallback treatment-related-card__fallback--${item.theme}`}>
 												<span set:html={ICONS[item.icon]} aria-hidden="true" />
@@ -681,7 +684,7 @@ const year = new Date().getFullYear();
 		padding-top: 8px;
 		font-size: 13px;
 		font-weight: 700;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.procedure-detail-card__cta span {

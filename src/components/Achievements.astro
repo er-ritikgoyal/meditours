@@ -72,7 +72,7 @@ const cards = [
 				cards.map((card, i) => (
 					<div class="achievement-card" data-animate style={`transition-delay: ${i * 90}ms`}>
 						{card.type === 'image' && (
-							<Image src={card.image} alt="" width={420} height={520} class="achievement-card__bg-img" />
+							<Image src={card.image} alt="" width={420} height={520} widths={[200, 300, 420]} sizes="(max-width: 860px) calc(50vw - 24px), 280px" class="achievement-card__bg-img" />
 						)}
 
 						{card.type === 'swiper' && (
@@ -80,7 +80,7 @@ const cards = [
 								<div class="swiper-wrapper">
 									{card.images.map((img) => (
 										<div class="swiper-slide">
-											<Image src={img} alt="" width={420} height={520} class="achievement-card__bg-img" />
+											<Image src={img} alt="" width={420} height={520} widths={[200, 300, 420]} sizes="(max-width: 860px) calc(50vw - 24px), 280px" class="achievement-card__bg-img" />
 										</div>
 									))}
 								</div>
@@ -172,7 +172,7 @@ const cards = [
 		display: inline-block;
 		font-size: 13px;
 		font-weight: 700;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 		background: var(--color-bg-soft-blue);
 		padding: 6px 16px;
 		border-radius: 999px;
