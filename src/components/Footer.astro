@@ -1,4 +1,5 @@
 ---
+import MedicalDisclaimer from './MedicalDisclaimer.astro';
 import iconFacebook from 'bootstrap-icons/icons/facebook.svg?raw';
 import iconTwitter from 'bootstrap-icons/icons/twitter-x.svg?raw';
 import iconInstagram from 'bootstrap-icons/icons/instagram.svg?raw';
@@ -31,6 +32,7 @@ export interface Props {
 	allRightsReservedLabel?: string;
 	cookiePolicyLabel?: string;
 	manageCookiesLabel?: string;
+	backToTopLabel?: string;
 	/** Legal pages (privacy/terms/cookies) are English-only sitewide for now, so every locale points here by default. */
 	privacyPolicyHref?: string;
 	termsOfServiceHref?: string;
@@ -69,6 +71,7 @@ const {
 	allRightsReservedLabel = 'All rights reserved.',
 	cookiePolicyLabel = 'Cookie Policy',
 	manageCookiesLabel = 'Manage Cookie Preferences',
+	backToTopLabel = 'Back to top',
 	privacyPolicyHref = '/privacy-policy',
 	termsOfServiceHref = '/terms-of-service',
 	cookiePolicyHref = '/cookie-policy',
@@ -211,6 +214,12 @@ const socials = [
 		</div>
 	</div>
 
+	<div class="footer__disclaimer">
+		<div class="footer__inner">
+			<MedicalDisclaimer variant="footer" />
+		</div>
+	</div>
+
 	<div class="footer__bottom">
 		<div class="footer__inner footer__bottom-inner">
 			<p class="footer__copyright">&copy; {year} {brand}. {allRightsReservedLabel}</p>
@@ -221,9 +230,9 @@ const socials = [
 				<li>
 					<button type="button" class="footer__cookie-settings" id="footer-cookie-settings">{manageCookiesLabel}</button>
 				</li>
-				<li><a href="/">{sitemapLabel}</a></li>
+				<li><a href="/sitemap.xml">{sitemapLabel}</a></li>
 			</ul>
-			<button class="footer__back-to-top" data-back-to-top aria-label="Back to top">
+			<button class="footer__back-to-top" data-back-to-top aria-label={backToTopLabel}>
 				<span set:html={iconArrowUp} />
 			</button>
 		</div>
@@ -249,6 +258,11 @@ const socials = [
 </script>
 
 <style>
+	.footer__disclaimer {
+		padding: 14px 0;
+		border-top: 1px solid rgba(255, 255, 255, 0.12);
+	}
+
 	.footer {
 		background: var(--gradient-premium);
 		color: rgba(255, 255, 255, 0.75);

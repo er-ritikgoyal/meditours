@@ -1,4 +1,5 @@
 ---
+import MedicalDisclaimer from './MedicalDisclaimer.astro';
 import ConsentCheckbox from './ConsentCheckbox.astro';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
 import iconCalendar from 'bootstrap-icons/icons/calendar3.svg?raw';
@@ -153,6 +154,7 @@ const formUi = siteUi(Astro.url.pathname).form;
 				{submitLabel}
 				<span set:html={iconArrow} aria-hidden="true" />
 			</button>
+			<MedicalDisclaimer />
 
 			<p class="insurance-form__success" data-enquiry-success hidden>
 				{successMessage}

@@ -1,4 +1,5 @@
 ---
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
 import { siteUi } from '../../i18n/siteUi';
 import ConsentCheckbox from '../../components/ConsentCheckbox.astro';
 import Layout from '../../layouts/Layout.astro';
@@ -164,6 +165,7 @@ const contactFormUi = siteUi(Astro.url.pathname).form;
 							{form.submit}
 							<span set:html={iconSend} aria-hidden="true" />
 						</button>
+						<MedicalDisclaimer />
 
 						<p class="contact-form__success" data-contact-success hidden>
 							{form.successMessage}

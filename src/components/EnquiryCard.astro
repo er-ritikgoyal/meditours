@@ -1,4 +1,5 @@
 ---
+import MedicalDisclaimer from './MedicalDisclaimer.astro';
 import ConsentCheckbox from './ConsentCheckbox.astro';
 import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
@@ -136,6 +137,7 @@ const selectOptions =
 			<span set:html={iconShield} aria-hidden="true" />
 			{privacyNote}
 		</p>
+		<MedicalDisclaimer />
 
 		<p class="enquiry-card__success" data-enquiry-success hidden>
 			{successMessage}
