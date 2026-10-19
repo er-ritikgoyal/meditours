@@ -291,7 +291,7 @@ const year = new Date().getFullYear();
 						}
 					</div>
 
-					<div class="cost-table-wrap">
+					<div class="cost-table-wrap" tabindex="0">
 						<table class="cost-table" dir="ltr">
 							<thead>
 								<tr>
@@ -411,7 +411,7 @@ const year = new Date().getFullYear();
 
 	.treatment-detail__hero-row {
 		display: grid;
-		grid-template-columns: 1fr 380px;
+		grid-template-columns: minmax(0, 1fr) 380px;
 		align-items: start;
 		gap: 32px;
 	}
@@ -956,7 +956,7 @@ const year = new Date().getFullYear();
 		}
 
 		.inclusions-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			gap: 24px;
 		}
 	}
@@ -1113,7 +1113,7 @@ const year = new Date().getFullYear();
 
 	@media screen and (max-width: 860px) {
 		.treatment-detail__hero-row {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.treatment-detail__hero-image {
@@ -1121,7 +1121,7 @@ const year = new Date().getFullYear();
 		}
 
 		.treatment-detail__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.treatment-detail__aside {
@@ -1139,16 +1139,16 @@ const year = new Date().getFullYear();
 		}
 
 		.treatment-detail__stats {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			margin-top: 24px;
 		}
 
 		.procedure-cards {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.treatment-detail__related-grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 </style>

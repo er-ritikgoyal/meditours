@@ -310,7 +310,7 @@ const related = Array.from({ length: 4 }, (_, i) => destinations[(currentDestina
 
 	@media screen and (max-width: 640px) {
 		.city-detail__stats {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 </style>

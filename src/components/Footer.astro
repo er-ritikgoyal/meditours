@@ -115,7 +115,7 @@ const socials = [
 		<div class="footer__inner footer__grid">
 			<div class="footer__brand">
 				<a href="/" class="footer__logo">
-					<img src="/images/Alis_Logo.png" alt={brand} class="footer__logo-image" />
+					<img src="/images/Alis_Logo.png" alt={brand} class="footer__logo-image" width="300" height="90" loading="lazy" />
 				</a>
 				<p class="footer__description">{description}</p>
 				<ul class="footer__socials">
@@ -587,7 +587,7 @@ const socials = [
 		}
 
 		.footer__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			gap: 32px;
 			text-align: center;
 		}

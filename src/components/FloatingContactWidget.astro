@@ -464,7 +464,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
 	.callback-form__row {
 		display: grid;
-		grid-template-columns: 96px 1fr;
+		grid-template-columns: 96px minmax(0, 1fr);
 		gap: 10px;
 	}
 
@@ -598,7 +598,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 		}
 
 		.callback-form__row {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.callback-form__field--code input {

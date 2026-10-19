@@ -333,7 +333,7 @@ const {
 	}
 
 	.insurance-form__row--phone {
-		grid-template-columns: 96px 1fr;
+		grid-template-columns: 96px minmax(0, 1fr);
 	}
 
 	.insurance-form__field {
@@ -525,7 +525,7 @@ const {
 
 		.insurance-form__row,
 		.insurance-form__row--phone {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.insurance-form__field--code input {

@@ -423,7 +423,7 @@ const { form, info } = ruContact;
 
 	.contact-form__phone-group {
 		display: grid;
-		grid-template-columns: 84px 1fr;
+		grid-template-columns: 84px minmax(0, 1fr);
 		gap: 10px;
 	}
 
@@ -602,11 +602,11 @@ const { form, info } = ruContact;
 
 	@media screen and (max-width: 900px) {
 		.contact__quick {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 
@@ -621,11 +621,11 @@ const { form, info } = ruContact;
 		}
 
 		.contact-form__row {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-group {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-code {

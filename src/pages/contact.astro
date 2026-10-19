@@ -440,7 +440,7 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
 	.contact-form__phone-group {
 		display: grid;
-		grid-template-columns: 84px 1fr;
+		grid-template-columns: 84px minmax(0, 1fr);
 		gap: 10px;
 	}
 
@@ -619,11 +619,11 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
 	@media screen and (max-width: 900px) {
 		.contact__quick {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 
@@ -638,11 +638,11 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 		}
 
 		.contact-form__row {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-group {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-code {

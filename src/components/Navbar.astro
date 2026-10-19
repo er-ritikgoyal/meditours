@@ -64,8 +64,8 @@ const langOptions = [
 
 <header class="navbar" id="site-navbar">
 	<nav class="navbar__inner">
-		<a href="/" class="navbar__brand" aria-label={`${brand} home`}>
-			<img src="/images/Alis_Logo.png" alt={brand} class="navbar__brand-logo" />
+		<a href="/" class="navbar__brand">
+			<img src="/images/Alis_Logo.png" alt={brand} class="navbar__brand-logo" width="300" height="90" />
 			<span class="navbar__brand-tagline">{tagline}</span>
 		</a>
 
@@ -696,6 +696,43 @@ const langOptions = [
 
 		.navbar__toggle {
 			display: inline-flex;
+		}
+	}
+
+	/* Phones: keep logo + language + insurance + menu inside the viewport (no sideways scroll at 360-390 px). */
+	@media screen and (max-width: 640px) {
+		.navbar__inner {
+			gap: 10px;
+			padding: 10px 16px;
+		}
+
+		.navbar__brand {
+			flex-shrink: 1;
+			min-width: 0;
+		}
+
+		.navbar__brand-logo {
+			height: 32px;
+			max-width: 100%;
+			object-fit: contain;
+		}
+
+		.navbar__brand-tagline {
+			max-width: 100%;
+			font-size: 9px;
+			letter-spacing: 0.06em;
+			white-space: nowrap;
+			overflow: hidden;
+			text-overflow: ellipsis;
+		}
+
+		.navbar__actions {
+			gap: 8px;
+			min-width: 0;
+		}
+
+		.navbar__lang {
+			max-width: 72px;
 		}
 	}
 </style>
