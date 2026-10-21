@@ -2,6 +2,8 @@
 import MedicalDisclaimer from './MedicalDisclaimer.astro';
 import ConsentCheckbox from './ConsentCheckbox.astro';
 import { Image } from 'astro:assets';
+import 'swiper/css';
+import 'swiper/css/pagination';
 import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
 import iconEmail from 'bootstrap-icons/icons/envelope-fill.svg?raw';
@@ -13,6 +15,11 @@ import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
 import { countries } from '../data/countries';
 import { siteUi, nameFromPlaceholder } from '../i18n/siteUi';
 import heroPhoto from '../assets/hospitals/topright_max.png';
+import heroKauvery from '../assets/hospitals/kauvery.webp';
+import heroApollo from '../assets/hospitals/IndraprasthaApollo.webp';
+import heroFortisMumbai from '../assets/hospitals/Fortis-Mumbai.webp';
+import heroManipal from '../assets/hospitals/manipalbanglore.webp';
+import heroSakra from '../assets/hospitals/sakraworld.jpg';
 import { treatments } from '../data/treatments';
 
 const defaultTreatmentOptions = [...treatments.map((t) => t.name), 'Other'];
@@ -71,6 +78,18 @@ const {
 
 const formUi = siteUi(Astro.url.pathname).form;
 const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
+
+// Hero slideshow: partner hospital buildings only (no before/after imagery,
+// which ad platforms restrict on health landing pages). Each photo is at least
+// 1200px wide so it stays sharp at the hero's largest size.
+const heroSlides = [
+	{ image: heroPhoto, alt: heroAlt },
+	{ image: heroKauvery, alt: 'Kauvery Hospital, Chennai' },
+	{ image: heroApollo, alt: 'Indraprastha Apollo Hospitals, New Delhi' },
+	{ image: heroFortisMumbai, alt: 'Fortis Hospital, Mumbai' },
+	{ image: heroManipal, alt: 'Manipal Hospital, Bangalore' },
+	{ image: heroSakra, alt: 'Sakra World Hospital, Bangalore' },
+];
 ---
 
 <section class="hero">
@@ -92,14 +111,24 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 
 			<div class="hero-showcase__inner">
 				<div class="hero-showcase__frame">
-					<Image
-						src={heroPhoto}
-						alt={heroAlt}
-						widths={[480, 720, 960]}
-						sizes="(max-width: 768px) calc(100vw - 32px), 560px"
-						loading="eager"
-						decoding="async"
-					/>
+					<div class="hero-showcase__swiper swiper" role="region" aria-roledescription="carousel" aria-label="Partner hospitals">
+						<div class="swiper-wrapper">
+							{heroSlides.map((slide, index) => (
+								<div class="swiper-slide">
+									<Image
+										src={slide.image}
+										alt={slide.alt}
+										widths={[480, 720, 960]}
+										sizes="(max-width: 768px) calc(100vw - 32px), 720px"
+										loading={index === 0 ? 'eager' : 'lazy'}
+										fetchpriority={index === 0 ? 'high' : 'auto'}
+										decoding="async"
+									/>
+								</div>
+							))}
+						</div>
+						<div class="hero-showcase__pagination swiper-pagination" />
+					</div>
 				</div>
 			</div>
 		</div>
@@ -203,7 +232,19 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 </section>
 
 <script>
+	import Swiper from 'swiper';
+	import { Autoplay, Pagination } from 'swiper/modules';
 	import { bindEnquiryForm } from '../scripts/enquiryForm';
+
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	new Swiper('.hero-showcase__swiper', {
+		modules: [Autoplay, Pagination],
+		loop: true,
+		speed: 700,
+		grabCursor: true,
+		autoplay: prefersReducedMotion ? false : { delay: 4000, disableOnInteraction: false, pauseOnMouseEnter: true },
+		pagination: { el: '.hero-showcase__pagination', clickable: true },
+	});
 
 	const enquiryForm = document.querySelector<HTMLFormElement>('[data-enquiry-form]');
 	const enquirySuccess = document.querySelector('[data-enquiry-success]');
@@ -291,7 +332,14 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 		z-index: 0;
 	}
 
+	/* The photo must be fully visible on the first screen. Its height follows its
+	   width (1500×1049 ≈ 1.43:1), so cap the width at whatever height is left
+	   under the navbar + search banner (--hero-photo-offset ≈ their height plus
+	   the gap above the photo and a small margin below). */
 	.hero-showcase__frame {
+		--hero-photo-offset: 370px;
+		max-width: max(240px, calc((100svh - var(--hero-photo-offset)) * 1.43));
+		margin-inline: auto;
 		position: relative;
 		z-index: 1;
 		border-radius: var(--radius-lg);
@@ -300,10 +348,41 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 		border: 1px solid rgba(255, 255, 255, 0.6);
 	}
 
-	.hero-showcase__frame :global(img) {
+	/* Every slide keeps the original hero photo's shape (1500×1049), so the
+	   slideshow is exactly the size the single photo was; other photos are
+	   cropped to fit rather than changing the box. */
+	.hero-showcase__swiper {
+		aspect-ratio: 1500 / 1049;
+		width: 100%;
+	}
+
+	.hero-showcase__swiper :global(img) {
 		display: block;
 		width: 100%;
-		height: auto;
+		height: 100%;
+		object-fit: cover;
+	}
+
+	.hero-showcase__pagination {
+		bottom: 12px !important;
+	}
+
+	.hero-showcase__pagination :global(.swiper-pagination-bullet) {
+		width: 9px;
+		height: 9px;
+		background: #ffffff;
+		opacity: 0.65;
+		box-shadow: 0 1px 4px rgba(15, 23, 42, 0.35);
+		transition:
+			width 0.25s ease,
+			opacity 0.25s ease;
+	}
+
+	.hero-showcase__pagination :global(.swiper-pagination-bullet-active) {
+		width: 26px;
+		border-radius: 999px;
+		background: var(--color-teal);
+		opacity: 1;
 	}
 
 	.hero-trust {
@@ -555,7 +634,7 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 	@media screen and (min-width: 1180px) {
 		.hero-stage {
 			display: flex;
-			align-items: stretch;
+			align-items: flex-start;
 			justify-content: space-between;
 			gap: 48px;
 			padding-block: 48px;
@@ -570,16 +649,8 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 			padding: 0;
 		}
 
-		/* The photo fills the column to the form's height, so no empty band sits above it. */
-		.hero-showcase__inner,
-		.hero-showcase__frame {
+		.hero-showcase__inner {
 			max-width: none;
-			height: 100%;
-		}
-
-		.hero-showcase__frame :global(img) {
-			height: 100%;
-			object-fit: cover;
 		}
 
 		.hero-enquiry {
@@ -591,7 +662,11 @@ const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 
 	@media screen and (max-width: 768px) {
 		.hero-stage {
-			padding: 40px 16px 64px;
+			padding: 20px 16px 64px;
+		}
+
+		.hero-showcase__frame {
+			--hero-photo-offset: 440px;
 		}
 
 		.hero-showcase {
