@@ -1067,6 +1067,9 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 	   as navigation rather than plain text. Wraps instead of hiding tabs in a
 	   sideways scroll; on phones it becomes a grid of icon tiles. */
 	.doctor-tabs {
+		position: sticky;
+		top: 0;
+		z-index: 110;
 		display: flex;
 		flex-wrap: wrap;
 		justify-content: center;
@@ -1076,6 +1079,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 		background: var(--color-bg-alt);
 		border: 1px solid var(--color-border-card);
 		border-radius: 14px;
+		box-shadow: var(--shadow-soft);
 	}
 
 	.doctor-tabs__btn {
