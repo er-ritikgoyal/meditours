@@ -3,6 +3,7 @@ import iconChevron from 'bootstrap-icons/icons/chevron-down.svg?raw';
 import iconShield from 'bootstrap-icons/icons/shield-fill-check.svg?raw';
 import iconGrid from 'bootstrap-icons/icons/grid-fill.svg?raw';
 import { treatments } from '../data/treatments';
+import { getNavMenus } from '../utils/navMenus';
 import { treatmentIcons } from '../utils/treatmentIcons';
 
 export interface NavLink {
@@ -29,8 +30,8 @@ const treatmentChildren = [
 const {
 	links = [
 		{ label: 'Home', href: '/' },
-		{ label: 'Doctors', href: '/doctors' },
-		{ label: 'Destinations', href: '/destinations' },
+		getNavMenus('en').doctors,
+		getNavMenus('en').hospitals,
 		{ label: 'Treatments', href: '/treatments', children: treatmentChildren },
 		{ label: 'About', href: '/about' },
 		{ label: 'Contact', href: '/contact' },
@@ -617,8 +618,11 @@ const langOptions = [
 			transition: max-height 0.25s ease;
 		}
 
+		/* Fit the screen and scroll, so an open Doctors/Hospitals/Treatments list
+		   never pushes the last links out of reach on short phones. */
 		.navbar__links--open {
-			max-height: 600px;
+			max-height: calc(100vh - 120px);
+			overflow-y: auto;
 		}
 
 		.navbar__links a {

@@ -1,4 +1,6 @@
 ---
+import { Image } from 'astro:assets';
+import { doctors } from '../data/doctors';
 import iconJoints from 'healthicons/public/icons/svg/outline/body/joints.svg?raw';
 import iconOrthopaedics from 'healthicons/public/icons/svg/outline/specialties/orthopaedics.svg?raw';
 import iconNeurology from 'healthicons/public/icons/svg/outline/body/neurology.svg?raw';
@@ -15,6 +17,7 @@ export interface QuoteTreatment {
 	name: string;
 	startingPrice: number;
 	icon: string;
+	doctorSlug: string;
 }
 
 export interface Props {
@@ -30,18 +33,18 @@ export interface Props {
 }
 
 const defaultTreatments: QuoteTreatment[] = [
-	{ name: 'Knee Replacement', startingPrice: 4000, icon: iconJoints },
-	{ name: 'Hip Replacement', startingPrice: 5500, icon: iconOrthopaedics },
-	{ name: 'Brain Tumor', startingPrice: 5000, icon: iconNeurology },
-	{ name: 'Heart Bypass Surgery', startingPrice: 4500, icon: iconHeartOrgan },
-	{ name: 'Valve Replacement', startingPrice: 9500, icon: iconCardiology },
-	{ name: 'Breast Cancer', startingPrice: 5000, icon: iconBreasts },
-	{ name: 'Lung Cancer', startingPrice: 5500, icon: iconLungs },
-	{ name: 'Rhinoplasty', startingPrice: 1800, icon: iconNose },
-	{ name: 'Breast Implants', startingPrice: 2750, icon: iconBreasts },
-	{ name: 'Hair Transplant', startingPrice: 1400, icon: iconScissors },
-	{ name: 'IVF Treatment', startingPrice: 3500, icon: iconGynecology },
-	{ name: 'Hysterectomy', startingPrice: 3000, icon: iconGynecology },
+	{ name: 'Knee Replacement', startingPrice: 4000, icon: iconJoints, doctorSlug: 'saurabh-verma' },
+	{ name: 'Hip Replacement', startingPrice: 5500, icon: iconOrthopaedics, doctorSlug: 'saurabh-verma' },
+	{ name: 'Brain Tumor', startingPrice: 5000, icon: iconNeurology, doctorSlug: 'himanshu-champaneri' },
+	{ name: 'Heart Bypass Surgery', startingPrice: 4500, icon: iconHeartOrgan, doctorSlug: 'deepak-saha' },
+	{ name: 'Valve Replacement', startingPrice: 9500, icon: iconCardiology, doctorSlug: 'deepak-saha' },
+	{ name: 'Breast Cancer', startingPrice: 5000, icon: iconBreasts, doctorSlug: 'neeraj-teotia' },
+	{ name: 'Lung Cancer', startingPrice: 5500, icon: iconLungs, doctorSlug: 'neeraj-teotia' },
+	{ name: 'Rhinoplasty', startingPrice: 1800, icon: iconNose, doctorSlug: 'amitabh-singh' },
+	{ name: 'Breast Implants', startingPrice: 2750, icon: iconBreasts, doctorSlug: 'amitabh-singh' },
+	{ name: 'Hair Transplant', startingPrice: 1400, icon: iconScissors, doctorSlug: 'sunil-sanghi' },
+	{ name: 'IVF Treatment', startingPrice: 3500, icon: iconGynecology, doctorSlug: 'ila-gupta' },
+	{ name: 'Hysterectomy', startingPrice: 3000, icon: iconGynecology, doctorSlug: 's-sudha' },
 ];
 
 const {
@@ -71,18 +74,40 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 		<div class="quotes__grid">
 			{
 				treatments.map((treatment, i) => (
-					<div class="quote-card" data-animate style={`transition-delay: ${Math.min(i, 7) * 50}ms`}>
-						<span class="quote-card__icon" set:html={treatment.icon} aria-hidden="true" />
-						<div class="quote-card__body">
-							<h3 class="quote-card__name">{treatment.name}</h3>
-							<p class="quote-card__price">
-								Starting <strong>{formatPrice(treatment.startingPrice)}</strong>
-							</p>
-							<a class="quote-card__link" href={quoteHref}>
-								{getQuoteLabel}
-							</a>
-						</div>
-					</div>
+					(() => {
+						const doctor = doctors.find((entry) => entry.slug === treatment.doctorSlug);
+						if (!doctor) {
+							throw new Error(`No doctor found for quote treatment "${treatment.name}" (${treatment.doctorSlug})`);
+						}
+
+						return (
+							<div class="quote-card" data-animate style={`transition-delay: ${Math.min(i, 7) * 50}ms`}>
+								<span class="quote-card__icon" set:html={treatment.icon} aria-hidden="true" />
+								<div class="quote-card__body">
+									<h3 class="quote-card__name">{treatment.name}</h3>
+									<p class="quote-card__price">
+										Starting <strong>{formatPrice(treatment.startingPrice)}</strong>
+									</p>
+									<a class="quote-card__doctor" href={`${basePath}/doctors/${doctor.slug}`}>
+										{doctor.photo ? (
+											<Image src={doctor.photo} alt="" width={44} height={44} class="quote-card__doctor-photo" />
+										) : (
+											<span class="quote-card__doctor-photo quote-card__doctor-photo--initials" aria-hidden="true">
+												{doctor.name.replace(/^Dr\.?\s*/i, '').slice(0, 1)}
+											</span>
+										)}
+										<span class="quote-card__doctor-info">
+											<strong>{doctor.name}</strong>
+											<span>{doctor.specialty}</span>
+										</span>
+									</a>
+									<a class="quote-card__link" href={quoteHref}>
+										{getQuoteLabel}
+									</a>
+								</div>
+							</div>
+						);
+					})()
 				))
 			}
 		</div>
@@ -214,6 +239,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
 	.quote-card__body {
 		min-width: 0;
+		flex: 1;
 	}
 
 	.quote-card__name {
@@ -233,6 +259,63 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 	.quote-card__price strong {
 		color: var(--color-text-primary);
 		font-weight: 700;
+	}
+
+	.quote-card__doctor {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin: 14px 0 10px;
+		color: inherit;
+		text-decoration: none;
+	}
+
+	.quote-card__doctor:hover .quote-card__doctor-info strong {
+		text-decoration: underline;
+	}
+
+	.quote-card__doctor:focus-visible,
+	.quote-card__link:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 3px;
+		border-radius: 4px;
+	}
+
+	.quote-card__doctor-photo {
+		display: block;
+		flex: 0 0 44px;
+		width: 44px;
+		height: 44px;
+		border-radius: 50%;
+		object-fit: cover;
+	}
+
+	.quote-card__doctor-photo--initials {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+		font-weight: 700;
+	}
+
+	.quote-card__doctor-info {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+		gap: 2px;
+	}
+
+	.quote-card__doctor-info strong {
+		font-size: 13px;
+		line-height: 1.3;
+		color: var(--color-text-primary);
+	}
+
+	.quote-card__doctor-info > span {
+		font-size: 11.5px;
+		line-height: 1.35;
+		color: var(--color-text-secondary);
 	}
 
 	.quote-card__link {

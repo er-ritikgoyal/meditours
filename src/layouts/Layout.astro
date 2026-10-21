@@ -17,6 +17,7 @@ import { vi } from '../i18n/vi';
 import { ar } from '../i18n/ar';
 import { treatments } from '../data/treatments';
 import { treatmentIcons } from '../utils/treatmentIcons';
+import { getNavMenus } from '../utils/navMenus';
 import iconGrid from 'bootstrap-icons/icons/grid-fill.svg?raw';
 
 export interface Alternate {
@@ -68,7 +69,8 @@ const navbarProps = t
 			ctaLabel: t.nav.cta,
 			links: [
 				{ label: t.nav.home, href: prefix },
-				{ label: t.nav.destinations, href: `${prefix}destinations` },
+				getNavMenus(locale).doctors,
+				getNavMenus(locale).hospitals,
 				{
 						label: t.nav.treatments,
 						href: `${prefix}treatments`,
@@ -81,7 +83,6 @@ const navbarProps = t
 					},
 				{ label: t.nav.about, href: `${prefix}about` },
 				{ label: t.nav.contact, href: `${prefix}contact` },
-				{ label: t.footer.ourDoctors, href: `${prefix}doctors` },
 			],
 		}
 	: { locale };
