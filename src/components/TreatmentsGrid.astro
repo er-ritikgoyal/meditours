@@ -69,7 +69,6 @@ export interface Props {
 	/** Locale URL prefix, e.g. '/fr' — prepended to every card link. Empty for English. */
 	basePath?: string;
 	treatments?: TreatmentData[];
-	searchPlaceholder?: string;
 	searchAriaLabel?: string;
 	clearAriaLabel?: string;
 	noResultsTitle?: string;
@@ -89,7 +88,6 @@ const {
 	subtitle = 'Board-certified specialists across every major specialty, at accredited hospitals worldwide.',
 	basePath = '',
 	treatments = defaultTreatments,
-	searchPlaceholder = 'Search treatments — e.g. cardiac, dental, cosmetic surgery...',
 	searchAriaLabel = 'Search treatments',
 	clearAriaLabel = 'Clear search',
 	noResultsTitle = 'No treatments found',
@@ -110,23 +108,7 @@ const {
 			<p class="treatments-grid__subtitle">{subtitle}</p>
 		</div>
 
-		<div class="treatments-search" data-showing-template={showingCountTemplate}>
-				<div class="treatments-search__box">
-					<span class="treatments-search__icon" set:html={iconSearch} aria-hidden="true" />
-					<input
-						type="search"
-						id="treatment-search-input"
-						class="treatments-search__input"
-						placeholder={searchPlaceholder}
-						aria-label={searchAriaLabel}
-						autocomplete="off"
-					/>
-					<button type="button" class="treatments-search__clear" id="treatment-search-clear" aria-label={clearAriaLabel} hidden>
-						<span set:html={iconX} aria-hidden="true" />
-					</button>
-				</div>
-				<p class="treatments-search__count" id="treatment-search-count" aria-live="polite"></p>
-			</div>
+		
 
 			<div class="treatments-grid__grid" id="treatments-grid">
 			{
