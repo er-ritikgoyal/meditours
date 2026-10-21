@@ -12,23 +12,28 @@ import iconDoctor from 'bootstrap-icons/icons/person-badge-fill.svg?raw';
 import iconHospitalType from 'bootstrap-icons/icons/hospital-fill.svg?raw';
 import iconTreatment from 'bootstrap-icons/icons/heart-pulse-fill.svg?raw';
 import iconClose from 'bootstrap-icons/icons/x-lg.svg?raw';
-import pastelIndia from '../assets/banners/pastel-india.png';
+import { getSearchHeroBackgrounds } from '../utils/searchHeroBackground';
 import { buildSearchIndex } from '../utils/searchIndex';
 import { destinations } from '../data/destinations';
 import { localizeCity, type HospitalLocale } from '../i18n/hospitalNames';
 
 export interface Props {
 	locale?: string;
+	/** Home pages: the banner title is the page's H1 (the main topic), not the form heading. */
+	asHeading?: boolean;
 }
 
-const { locale = 'en' } = Astro.props;
+const { locale = 'en', asHeading = false } = Astro.props;
+const TitleTag = asHeading ? 'h1' : 'p';
 
 const index = buildSearchIndex(locale);
 // Guard against "</script>" appearing inside any title/subtitle breaking out
 // of the inline JSON payload below.
 const indexJson = JSON.stringify(index).replace(/</g, '\\u003c');
 
-const background = await getImage({ src: pastelIndia, format: 'webp', quality: 80 });
+// The banner background is the LCP element on phones. Layout.astro preloads both
+// sizes with fetchpriority="high" using the same helper, so the URLs match.
+const { desktop: background, mobile: backgroundMobile } = await getSearchHeroBackgrounds();
 
 const STRINGS: Record<
 	string,
@@ -50,7 +55,7 @@ const STRINGS: Record<
 	}
 > = {
 	en: {
-		title: 'Organize Your Healthcare Journey with us',
+		title: 'Plan Your Medical Journey to India',
 		tagline: ['Consultation', 'Treatment', 'Coordination'],
 		cityLabel: 'In or around:',
 		anyCity: 'Any City',
@@ -204,9 +209,9 @@ const popularSearches = [
 ];
 ---
 
-<section class="search-hero" style={`--search-hero-bg: url('${background.src}')`}>
+<section class="search-hero" style={`--search-hero-bg: url('${background.src}'); --search-hero-bg-sm: url('${backgroundMobile.src}')`}>
 	<div class="search-hero__inner">
-		<p class="search-hero__title">{s.title}</p>
+		<TitleTag class="search-hero__title">{s.title}</TitleTag>
 		<p class="search-hero__tagline">
 			{s.tagline.map((word, i) => (i === 0 ? <span>{word}</span> : <><span class="search-hero__dot" aria-hidden="true">.</span><span>{word}</span></>))}
 		</p>
@@ -680,7 +685,7 @@ const popularSearches = [
 		flex-shrink: 0;
 		border-radius: 50%;
 		background: var(--color-bg-soft-blue);
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	:global(.search-inline__result-icon svg) {
@@ -723,6 +728,7 @@ const popularSearches = [
 	@media screen and (max-width: 760px) {
 		.search-hero {
 			padding: 8px 16px 10px;
+			background-image: var(--search-hero-bg-sm);
 			/* Keep the skyline's centre, where it's plain sky behind the text. */
 			background-position: center top;
 		}

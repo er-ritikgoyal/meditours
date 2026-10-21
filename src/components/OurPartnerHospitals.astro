@@ -215,7 +215,7 @@ const {
 	}
 
 	.hospitals__title span {
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.hospitals__subtitle {
@@ -432,7 +432,7 @@ const {
 		display: flex;
 		width: 13px;
 		height: 13px;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.hospital-card__beds span :global(svg) {
@@ -510,7 +510,7 @@ const {
 		}
 
 		.hospitals__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 </style>

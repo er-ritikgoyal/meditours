@@ -27,9 +27,9 @@ const {
 	<div class="destinations__inner">
 		<div class="destinations__header">
 			<span class="destinations__badge">{badge}</span>
-			<h2 class="destinations__title">
+			<h1 class="destinations__title">
 				{title} <span>{highlight}</span>
-			</h2>
+			</h1>
 			<p class="destinations__subtitle">{subtitle}</p>
 		</div>
 
@@ -110,7 +110,7 @@ const {
 	}
 
 	.destinations__title span {
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.destinations__subtitle {
@@ -197,7 +197,7 @@ const {
 	}
 
 	.destination-card--teal .destination-card__savings-value {
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.destination-card--green .destination-card__savings-value {
@@ -269,7 +269,7 @@ const {
 		}
 
 		.destinations__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 </style>

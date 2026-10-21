@@ -7,7 +7,9 @@
  *   2) as the FIRST line inside <head>:  <GoogleAdsTag />
  *
  * - Loads on every page for every visitor in Google Consent Mode v2
- *   (cookies stay "denied" until the visitor accepts in the cookie banner).
+ *   (ad_* follow the banner's Advertising choice, analytics_storage its Analytics
+ *   choice; all "denied" until the visitor decides). CookieConsent.astro sends the
+ *   `consent update` when the choice is made.
  * - Counts: WhatsApp clicks, phone (tel:) clicks, enquiry form submits.
  */
 const ADS_ID = 'AW-18512504526';
@@ -20,16 +22,25 @@ const LABELS = {
 <script is:inline define:vars={{ ADS_ID, LABELS }}>
 	window.dataLayer = window.dataLayer || [];
 	window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
-	function __ccGranted() {
+	// Consent mode v2 defaults, read from the cc_consent cookie set by CookieConsent.astro.
+	// Analytics and Advertising are separate choices (cookie v2); a v1 cookie only ever
+	// granted analytics, so ads stay denied until the visitor answers the new banner.
+	function __ccRead() {
 		try {
 			var m = document.cookie.match(/(?:^|; )cc_consent=([^;]*)/);
-			return !!(m && JSON.parse(decodeURIComponent(m[1])).analytics);
-		} catch (e) { return false; }
+			var c = m ? JSON.parse(decodeURIComponent(m[1])) : {};
+			return { analytics: c.analytics === true, advertising: c.v >= 2 && c.advertising === true };
+		} catch (e) { return { analytics: false, advertising: false }; }
 	}
-	var __s = __ccGranted() ? 'granted' : 'denied';
+	var __cc = __ccRead();
+	var __ad = __cc.advertising ? 'granted' : 'denied';
 	window.gtag('consent', 'default', {
-		ad_storage: __s, ad_user_data: __s, ad_personalization: __s, analytics_storage: __s,
+		ad_storage: __ad,
+		ad_user_data: __ad,
+		ad_personalization: __ad,
+		analytics_storage: __cc.analytics ? 'granted' : 'denied',
 	});
+	window.gtag('set', 'ads_data_redaction', !__cc.advertising);
 	window.gtag('js', new Date());
 	window.gtag('config', ADS_ID);
 
@@ -47,14 +58,6 @@ const LABELS = {
 			if (/wa\.me\/|api\.whatsapp\.com|whatsapp:/i.test(href)) __adsConversion('whatsappClick');
 			else if (/^tel:/i.test(href)) __adsConversion('phoneClick');
 		}
-		// Cookie banner buttons: send consent update right after the visitor decides
-		var b = ev.target && ev.target.closest ? ev.target.closest('#cc-accept, #cc-save, #cc-reject') : null;
-		if (b) setTimeout(function () {
-			var s = __ccGranted() ? 'granted' : 'denied';
-			window.gtag('consent', 'update', {
-				ad_storage: s, ad_user_data: s, ad_personalization: s, analytics_storage: s,
-			});
-		}, 300);
 	}, true);
 
 	// Enquiry form success (fired by src/scripts/enquiryForm.ts)

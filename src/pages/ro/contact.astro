@@ -1,4 +1,7 @@
 ---
+import MedicalDisclaimer from '../../components/MedicalDisclaimer.astro';
+import { siteUi } from '../../i18n/siteUi';
+import ConsentCheckbox from '../../components/ConsentCheckbox.astro';
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import iconPhone from 'bootstrap-icons/icons/telephone-fill.svg?raw';
@@ -20,6 +23,7 @@ const quickOptions = [
 ];
 
 const { form, info } = roContact;
+const contactFormUi = siteUi(Astro.url.pathname).form;
 ---
 
 <Layout
@@ -123,6 +127,7 @@ const { form, info } = roContact;
 									placeholder="+91"
 									inputmode="tel"
 									data-phone-code-field
+									aria-label={contactFormUi.countryCode}
 								/>
 								<input
 									type="tel"
@@ -131,6 +136,7 @@ const { form, info } = roContact;
 									autocomplete="tel"
 									required
 									data-phone-field
+									aria-label={form.phoneWhatsapp}
 								/>
 							</div>
 						</label>
@@ -154,10 +160,12 @@ const { form, info } = roContact;
 							<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg" data-file-input />
 						</label>
 
+						<ConsentCheckbox />
 						<button type="submit" class="contact-form__submit">
 							{form.submit}
 							<span set:html={iconSend} aria-hidden="true" />
 						</button>
+						<MedicalDisclaimer />
 
 						<p class="contact-form__success" data-contact-success hidden>
 							{form.successMessage}
@@ -421,7 +429,7 @@ const { form, info } = roContact;
 
 	.contact-form__phone-group {
 		display: grid;
-		grid-template-columns: 84px 1fr;
+		grid-template-columns: 84px minmax(0, 1fr);
 		gap: 10px;
 	}
 
@@ -583,7 +591,7 @@ const { form, info } = roContact;
 		flex-shrink: 0;
 		width: 20px;
 		height: 20px;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.contact-info__note span :global(svg) {
@@ -600,11 +608,11 @@ const { form, info } = roContact;
 
 	@media screen and (max-width: 900px) {
 		.contact__quick {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 
@@ -619,11 +627,11 @@ const { form, info } = roContact;
 		}
 
 		.contact-form__row {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-group {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-code {

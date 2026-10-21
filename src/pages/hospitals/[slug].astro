@@ -330,7 +330,7 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 		width: 15px;
 		height: 15px;
 		flex-shrink: 0;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.hospital-detail__specialties li span:first-child :global(svg) {
@@ -371,7 +371,7 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 		flex-shrink: 0;
 		border-radius: 50%;
 		background: var(--color-bg-soft-blue);
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.hospital-doctor-card__icon :global(svg) {
@@ -459,7 +459,7 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 		display: flex;
 		width: 18px;
 		height: 18px;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.hospital-facts h3 span:first-child :global(svg) {
@@ -488,7 +488,7 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 		height: 16px;
 		margin-top: 2px;
 		flex-shrink: 0;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.hospital-facts li > span:first-child :global(svg) {
@@ -522,11 +522,11 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 		}
 
 		.hospital-detail__inner {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.hospital-detail__specialties {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.hospital-detail__sidebar-sticky {

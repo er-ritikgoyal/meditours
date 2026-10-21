@@ -149,7 +149,7 @@ const {
 	}
 
 	.process__title span {
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.process__subtitle {
@@ -186,7 +186,7 @@ const {
 		justify-content: center;
 		height: clamp(40px, 6vw, 72px);
 		margin-top: 12px;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 		opacity: 0.5;
 	}
 
@@ -306,7 +306,7 @@ const {
 
 	@media screen and (max-width: 420px) {
 		.process__steps {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 			max-width: 320px;
 			margin: 0 auto;
 		}

@@ -1,0 +1,38 @@
+---
+/**
+ * Short medical disclaimer, in the page's language (src/i18n/siteUi.ts). Shown in the
+ * footer of every page and next to every enquiry form. Non-diagnostic by design: the
+ * site never gives medical advice; the treating doctors decide after reviewing reports.
+ */
+import { siteUi } from '../i18n/siteUi';
+
+interface Props {
+	/** `form`: small grey note under a form. `footer`: light text on the dark footer. */
+	variant?: 'form' | 'footer';
+	class?: string;
+}
+
+const { variant = 'form', class: className = '' } = Astro.props;
+const text = siteUi(Astro.url.pathname).medicalDisclaimer;
+---
+
+<p class:list={['medical-disclaimer', `medical-disclaimer--${variant}`, className]}>{text}</p>
+
+<style>
+	.medical-disclaimer {
+		margin: 0;
+		font-size: 11.5px;
+		line-height: 1.5;
+		text-align: start;
+	}
+
+	.medical-disclaimer--form {
+		margin-top: 8px;
+		color: var(--color-text-muted);
+	}
+
+	.medical-disclaimer--footer {
+		color: rgba(255, 255, 255, 0.8);
+		font-size: 12.5px;
+	}
+</style>

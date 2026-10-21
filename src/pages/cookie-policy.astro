@@ -2,7 +2,7 @@
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 
-const lastUpdated = 'October 5, 2026';
+const lastUpdated = 'October 19, 2026';
 ---
 
 <Layout
@@ -28,11 +28,12 @@ const lastUpdated = 'October 5, 2026';
 
 			<h2>2. Cookies We Use</h2>
 			<p>
-				We use two categories of cookies. <strong>Necessary</strong> cookies are required for the Site to work
-				and don't need your consent. <strong>Analytics</strong> cookies are optional and only set if you agree to
-				them in the consent banner.
+				We use three categories of cookies. <strong>Necessary</strong> cookies are required for the Site to work
+				and don't need your consent. <strong>Analytics</strong> and <strong>Advertising</strong> cookies are
+				optional, chosen separately, and only set if you agree to them in the consent banner.
 			</p>
 
+			<div class="legal-page__table-wrap" tabindex="0">
 			<table class="legal-page__table">
 				<thead>
 					<tr>
@@ -64,12 +65,29 @@ const lastUpdated = 'October 5, 2026';
 						</td>
 						<td>Up to 2 years (set by Google)</td>
 					</tr>
+					<tr>
+						<td><code>_gcl_au</code>, <code>_gcl_aw</code>, <code>_gcl_gb</code></td>
+						<td>Advertising</td>
+						<td>
+							Set by Google Ads (only if you accept Advertising cookies) to tell which of our ads led to an enquiry
+							and to show you relevant ads. Without consent, Google Ads only receives cookieless signals.
+						</td>
+						<td>Up to 90 days (set by Google)</td>
+					</tr>
 				</tbody>
 			</table>
+			</div>
 
+			<p>
+				When you arrive from a link with campaign tags (such as <code>utm_source</code> or a Google or Facebook
+				click ID), the Site keeps those tags and the first page you landed on in your browser's session storage
+				(<code>mt_attribution</code>, deleted when you close the tab). They are sent to us only if you submit an
+				enquiry form, so we know which campaign brought your enquiry. No cookie is set for this.
+			</p>
 			<h2>3. Third-Party Cookies</h2>
 			<p>
-				When Analytics cookies are enabled, Google Analytics may set its own cookies as described above. Google's
+				When Analytics or Advertising cookies are enabled, Google Analytics and Google Ads may set their own
+				cookies as described above. Google's
 				use of this data is governed by Google's own privacy policy. We do not control third-party cookies
 				directly and recommend reviewing the relevant provider's policy for full detail.
 			</p>
@@ -143,7 +161,13 @@ const lastUpdated = 'October 5, 2026';
 		font-weight: 600;
 	}
 
+	.legal-page__table-wrap {
+		overflow-x: auto;
+		margin: 0 0 20px;
+	}
+
 	.legal-page__table {
+		min-width: 520px;
 		width: 100%;
 		border-collapse: collapse;
 		margin: 0 0 20px;

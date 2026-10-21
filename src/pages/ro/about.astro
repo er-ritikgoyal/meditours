@@ -3,7 +3,6 @@ import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import OurStory from '../../components/OurStory.astro';
 import OurJourney from '../../components/OurJourney.astro';
-import Testimonials from '../../components/Testimonials.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import { roAbout } from '../../i18n/ro-pages';
@@ -50,13 +49,6 @@ import { roAbout } from '../../i18n/ro-pages';
 		titleHighlight={roAbout.journey.titleHighlight}
 		subtitle={roAbout.journey.subtitle}
 		milestones={roAbout.journey.milestones}
-	/>
-	<Testimonials
-		badge={roAbout.testimonials.badge}
-		title={roAbout.testimonials.title}
-		highlight={roAbout.testimonials.highlight}
-		subtitle={roAbout.testimonials.subtitle}
-		testimonials={roAbout.testimonials.items}
 	/>
 	<FaqAccordion badge={roAbout.faq.badge} title={roAbout.faq.title} highlight={roAbout.faq.highlight} subtitle={roAbout.faq.subtitle} />
 

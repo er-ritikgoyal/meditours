@@ -26,7 +26,7 @@ import imgIlaGupta from '../assets/doctors/Dr_ila_gupta.JPG';
 import imgRahilChaudhary from '../assets/doctors/Dr_Rahil_Chaudhary.JPG';
 import imgDVLNarayanaRao from '../assets/doctors/Dr_DVL_Narayana_Rao.webp';
 import imgDeepakSaha from '../assets/doctors/Dr_Deepak_Saha.webp';
-import imgLokeshRudraMadhav from '../assets/doctors/Dr_lokesh.jpg';
+import imgLokeshRudraMadhav from '../assets/doctors/Dr_lokesh.JPG';
 import imgSSudha from '../assets/doctors/Dr_S_Sudha.webp';
 import imgGaneshDubey from '../assets/doctors/Dr_Ganesh_Dubey.jpg';
 import imgNPavanKumarRao from '../assets/doctors/Dr_N_Pavan_Kumar_Rao.jpg';

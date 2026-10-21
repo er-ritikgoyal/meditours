@@ -1,4 +1,7 @@
 ---
+import MedicalDisclaimer from '../components/MedicalDisclaimer.astro';
+import { siteUi } from '../i18n/siteUi';
+import ConsentCheckbox from '../components/ConsentCheckbox.astro';
 import Layout from '../layouts/Layout.astro';
 import PageHeader from '../components/PageHeader.astro';
 import iconPhone from 'bootstrap-icons/icons/telephone-fill.svg?raw';
@@ -37,11 +40,12 @@ const quickOptions = [
 ];
 
 const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
+const contactFormUi = siteUi(Astro.url.pathname).form;
 ---
 
 <Layout
 	title="Contact AlisPro MediTours | Medical Tourism Support in India"
-	description="Contact AlisPro MediTours for expert medical tourism assistance in India. Get support with treatment consultations, hospital coordination, travel logistics, and personalised care from our patient coordinators."
+	description="Contact AlisPro MediTours for medical tourism help in India: treatment consultations, hospital coordination, travel logistics and personal support."
 	alternates={[
 		{ locale: 'en', href: '/contact' },
 		{ locale: 'fr', href: '/fr/contact' },
@@ -137,6 +141,7 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 									placeholder="+91"
 									inputmode="tel"
 									data-phone-code-field
+									aria-label={contactFormUi.countryCode}
 								/>
 								<input
 									type="tel"
@@ -145,6 +150,7 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 									autocomplete="tel"
 									required
 									data-phone-field
+									aria-label={'Phone / WhatsApp'}
 								/>
 							</div>
 						</label>
@@ -168,10 +174,12 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 							<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg" data-file-input />
 						</label>
 
+						<ConsentCheckbox />
 						<button type="submit" class="contact-form__submit">
 							Send Message
 							<span set:html={iconSend} aria-hidden="true" />
 						</button>
+						<MedicalDisclaimer />
 
 						<p class="contact-form__success" data-contact-success hidden>
 							Thanks for reaching out — a patient coordinator will contact you shortly.
@@ -438,7 +446,7 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
 	.contact-form__phone-group {
 		display: grid;
-		grid-template-columns: 84px 1fr;
+		grid-template-columns: 84px minmax(0, 1fr);
 		gap: 10px;
 	}
 
@@ -600,7 +608,7 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 		flex-shrink: 0;
 		width: 20px;
 		height: 20px;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.contact-info__note span :global(svg) {
@@ -617,11 +625,11 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
 	@media screen and (max-width: 900px) {
 		.contact__quick {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 	}
 
@@ -636,11 +644,11 @@ const treatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 		}
 
 		.contact-form__row {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-group {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.contact-form__phone-code {

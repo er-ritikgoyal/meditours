@@ -1,7 +1,7 @@
 ---
+import MedicalDisclaimer from './MedicalDisclaimer.astro';
+import ConsentCheckbox from './ConsentCheckbox.astro';
 import { Image } from 'astro:assets';
-import 'swiper/css';
-import 'swiper/css/pagination';
 import iconTreatment from 'healthicons/public/icons/svg/outline/specialties/medical_records.svg?raw';
 import iconPerson from 'bootstrap-icons/icons/person-fill.svg?raw';
 import iconEmail from 'bootstrap-icons/icons/envelope-fill.svg?raw';
@@ -11,18 +11,15 @@ import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
 import iconUpload from 'bootstrap-icons/icons/cloud-upload.svg?raw';
 import iconGlobe from 'bootstrap-icons/icons/globe2.svg?raw';
 import { countries } from '../data/countries';
+import { siteUi, nameFromPlaceholder } from '../i18n/siteUi';
+import heroPhoto from '../assets/hospitals/topright_max.png';
 import { treatments } from '../data/treatments';
-import dental1 from '../assets/treatments/dental1.png';
-import dental2 from '../assets/treatments/dental2.png';
-import dental3 from '../assets/treatments/dental3.png';
 
 const defaultTreatmentOptions = [...treatments.map((t) => t.name), 'Other'];
 
-const heroSlides = [
-	{ image: dental1, alt: 'Dental treatment results before and after' },
-	{ image: dental2, alt: 'Dental implant results before and after' },
-	{ image: dental3, alt: 'Dental restoration results before and after' },
-];
+// Hero photo: a hospital building already in the repo. The earlier dental
+// before/after collage was replaced because ad platforms restrict before/after
+// imagery on health landing pages.
 
 export interface TrustItem {
 	value: string;
@@ -71,6 +68,9 @@ const {
 		successMessage: 'Thanks! A patient coordinator will reach out shortly.',
 	},
 } = Astro.props;
+
+const formUi = siteUi(Astro.url.pathname).form;
+const heroAlt = siteUi(Astro.url.pathname).heroImageAlt;
 ---
 
 <section class="hero">
@@ -92,22 +92,14 @@ const {
 
 			<div class="hero-showcase__inner">
 				<div class="hero-showcase__frame">
-					<div class="hero-showcase__swiper swiper" role="region" aria-label="Patient treatment results">
-						<div class="swiper-wrapper">
-							{heroSlides.map((slide, index) => (
-								<div class="swiper-slide hero-showcase__slide">
-									<Image
-										src={slide.image}
-										alt={slide.alt}
-										width={1200}
-										loading={index === 0 ? 'eager' : 'lazy'}
-										fetchpriority={index === 0 ? 'high' : 'auto'}
-									/>
-								</div>
-							))}
-						</div>
-						<div class="hero-showcase__pagination swiper-pagination" />
-					</div>
+					<Image
+						src={heroPhoto}
+						alt={heroAlt}
+						widths={[480, 720, 960]}
+						sizes="(max-width: 768px) calc(100vw - 32px), 560px"
+						loading="eager"
+						decoding="async"
+					/>
 				</div>
 			</div>
 		</div>
@@ -132,7 +124,7 @@ const {
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconTreatment} aria-hidden="true" />
-					<select name="category" data-treatment-field required>
+					<select name="category" data-treatment-field required aria-label={formUi.treatment}>
 						<option value="" selected disabled>
 							{enquiry.treatmentPlaceholder}
 						</option>
@@ -144,17 +136,17 @@ const {
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconPerson} aria-hidden="true" />
-					<input type="text" name="name" placeholder={enquiry.namePlaceholder} autocomplete="name" required />
+					<input type="text" name="name" placeholder={enquiry.namePlaceholder} aria-label={nameFromPlaceholder(enquiry.namePlaceholder)} autocomplete="name" required />
 				</label>
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconEmail} aria-hidden="true" />
-					<input type="email" name="email" placeholder={enquiry.emailPlaceholder} autocomplete="email" required />
+					<input type="email" name="email" placeholder={enquiry.emailPlaceholder} aria-label={nameFromPlaceholder(enquiry.emailPlaceholder)} autocomplete="email" required />
 				</label>
 
 				<label class="hero-enquiry__field">
 					<span set:html={iconGlobe} aria-hidden="true" />
-					<select name="country" id="hero-country">
+					<select name="country" id="hero-country" aria-label={formUi.country}>
 						<option value="" selected disabled>{enquiry.countryPlaceholder}</option>
 						{countries.map((country) => (
 							<option value={country.name} data-dial={country.dial}>{country.name}</option>
@@ -165,11 +157,11 @@ const {
 				<div class="hero-enquiry__row">
 					<label class="hero-enquiry__field hero-enquiry__field--code">
 						<span set:html={iconPhone} aria-hidden="true" />
-						<input type="text" name="phoneCode" id="hero-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+						<input type="text" name="phoneCode" id="hero-phone-code" value="+91" placeholder="+91" inputmode="tel" aria-label={formUi.countryCode} />
 					</label>
 
 					<label class="hero-enquiry__field hero-enquiry__field--phone">
-						<input type="tel" name="phone" placeholder={enquiry.phonePlaceholder} autocomplete="tel" required data-phone-field />
+						<input type="tel" name="phone" placeholder={enquiry.phonePlaceholder} aria-label={nameFromPlaceholder(enquiry.phonePlaceholder)} autocomplete="tel" required data-phone-field />
 					</label>
 				</div>
 
@@ -179,6 +171,7 @@ const {
 					<input type="file" name="attachment" accept=".pdf,.jpg,.jpeg" data-file-input />
 				</label>
 
+				<ConsentCheckbox />
 				<button type="submit" class="hero-enquiry__submit">
 					{enquiry.submit}
 					<span set:html={iconArrow} aria-hidden="true" />
@@ -188,6 +181,7 @@ const {
 					<span set:html={iconShield} aria-hidden="true" />
 					{enquiry.privacyNote}
 				</p>
+				<MedicalDisclaimer />
 
 				<p class="hero-enquiry__success" data-enquiry-success hidden>
 					{enquiry.successMessage}
@@ -209,23 +203,7 @@ const {
 </section>
 
 <script>
-	import Swiper from 'swiper';
-	import { Autoplay, Pagination } from 'swiper/modules';
 	import { bindEnquiryForm } from '../scripts/enquiryForm';
-
-	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-	new Swiper('.hero-showcase__swiper', {
-		modules: [Autoplay, Pagination],
-		loop: true,
-		allowTouchMove: true,
-		grabCursor: true,
-		autoplay: prefersReducedMotion ? false : { delay: 3500, disableOnInteraction: false },
-		pagination: {
-			el: '.hero-showcase__pagination',
-			clickable: true,
-		},
-	});
 
 	const enquiryForm = document.querySelector<HTMLFormElement>('[data-enquiry-form]');
 	const enquirySuccess = document.querySelector('[data-enquiry-success]');
@@ -283,24 +261,22 @@ const {
 	}
 
 	.hero-stage {
-		display: grid;
-		grid-template-columns: minmax(0, 1fr);
-		gap: 28px;
+		position: relative;
 		background: var(--gradient-hero);
-		padding: 48px 24px 56px;
+		padding: 56px 24px 96px;
 	}
 
 	.hero-showcase {
 		position: relative;
-		width: 100%;
-		max-width: 900px;
+		max-width: 1200px;
 		margin: 0 auto;
+		padding: 0 24px;
 	}
 
 	.hero-showcase__inner {
 		position: relative;
 		z-index: 1;
-		max-width: none;
+		max-width: 560px;
 	}
 
 	.hero-showcase__decoration {
@@ -318,53 +294,16 @@ const {
 	.hero-showcase__frame {
 		position: relative;
 		z-index: 1;
-		aspect-ratio: 2 / 1;
 		border-radius: var(--radius-lg);
 		overflow: hidden;
 		box-shadow: var(--shadow-card);
 		border: 1px solid rgba(255, 255, 255, 0.6);
-		background: #ffffff;
-	}
-
-	.hero-showcase__swiper {
-		width: 100%;
-		height: 100%;
-	}
-
-	.hero-showcase__slide {
-		display: flex;
-		align-items: center;
-		justify-content: center;
 	}
 
 	.hero-showcase__frame :global(img) {
 		display: block;
 		width: 100%;
-		height: 100%;
-		object-fit: contain;
-	}
-
-	:global(.hero-showcase__swiper.swiper-horizontal > .hero-showcase__pagination.swiper-pagination-bullets) {
-		top: auto;
-		right: auto;
-		bottom: 12px;
-		left: 50%;
-		width: max-content;
-		padding: 5px 8px;
-		transform: translateX(-50%);
-		border-radius: 999px;
-		background: rgba(15, 76, 129, 0.8);
-	}
-
-	:global(.hero-showcase__pagination .swiper-pagination-bullet) {
-		background: #ffffff;
-		opacity: 0.7;
-		margin: 0 3px;
-	}
-
-	:global(.hero-showcase__pagination .swiper-pagination-bullet-active) {
-		background: #ffffff;
-		opacity: 1;
+		height: auto;
 	}
 
 	.hero-trust {
@@ -388,9 +327,9 @@ const {
 	.hero-enquiry {
 		position: relative;
 		z-index: 6;
-		width: 100%;
-		max-width: 520px;
-		margin: 0 auto;
+		width: calc(100% - 48px);
+		max-width: 420px;
+		margin: -40px auto 0;
 		padding: 28px 26px 26px;
 		border-radius: var(--radius-lg);
 		background: rgba(255, 255, 255, 0.6);
@@ -462,7 +401,7 @@ const {
 
 	.hero-enquiry__row {
 		display: grid;
-		grid-template-columns: 96px 1fr;
+		grid-template-columns: 96px minmax(0, 1fr);
 		gap: 10px;
 	}
 
@@ -610,23 +549,57 @@ const {
 		pointer-events: none;
 	}
 
+	/* Desktop: photo and form side by side in normal flow, so a taller form (consent text,
+	   disclaimer) grows the section instead of spilling over the search banner. The
+	   inline-end padding leaves a gutter for the floating WhatsApp / callback buttons. */
 	@media screen and (min-width: 1180px) {
 		.hero-stage {
-			grid-template-columns: minmax(0, 1.8fr) minmax(320px, 380px);
-			align-items: center;
-			gap: clamp(32px, 4vw, 64px);
-			padding: 56px 5vw 64px;
+			display: flex;
+			align-items: stretch;
+			justify-content: space-between;
+			gap: 48px;
+			padding-block: 48px;
+			padding-inline: max(24px, calc((100% - 1200px) / 2)) max(96px, calc((100% - 1200px) / 2));
+		}
+
+		.hero-showcase {
+			flex: 1 1 auto;
+			min-width: 0;
+			max-width: 720px;
+			margin: 0;
+			padding: 0;
+		}
+
+		/* The photo fills the column to the form's height, so no empty band sits above it. */
+		.hero-showcase__inner,
+		.hero-showcase__frame {
+			max-width: none;
+			height: 100%;
+		}
+
+		.hero-showcase__frame :global(img) {
+			height: 100%;
+			object-fit: cover;
 		}
 
 		.hero-enquiry {
-			max-width: 380px;
+			flex: 0 0 360px;
+			width: 360px;
+			margin: 0;
 		}
 	}
 
 	@media screen and (max-width: 768px) {
 		.hero-stage {
-			gap: 24px;
-			padding: 40px 16px 48px;
+			padding: 40px 16px 64px;
+		}
+
+		.hero-showcase {
+			padding: 0;
+		}
+
+		.hero-showcase__inner {
+			max-width: none;
 		}
 
 		.hero-showcase__decoration {
@@ -642,5 +615,8 @@ const {
 			font-size: 13px;
 		}
 
+		.hero-enquiry {
+			margin-top: 24px;
+		}
 	}
 </style>

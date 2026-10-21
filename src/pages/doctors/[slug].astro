@@ -86,7 +86,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 
 <Layout
 	title={`${doctor.name} — ${doctor.specialty} in India | AlisPro MediTours`}
-	description={`${doctor.name}, ${doctor.title} at ${doctor.hospital}. ${doctor.experienceYears}+ years of experience. ${doctor.about.slice(0, 110)}...`}
+	description={`${doctor.name}, ${doctor.title} at ${doctor.hospital}. ${doctor.experienceYears}+ years of experience. ${doctor.about}`}
 	alternates={[
 		{ locale: 'en', href: `/doctors/${doctor.slug}` },
 		{ locale: 'fr', href: `/fr/doctors/${doctor.slug}` },
@@ -814,7 +814,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 
 	.doctor-hero__grid {
 		display: grid;
-		grid-template-columns: 220px 1fr;
+		grid-template-columns: 220px minmax(0, 1fr);
 		gap: 40px;
 		align-items: start;
 	}
@@ -1042,7 +1042,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 		max-width: 1100px;
 		margin: 0 auto;
 		display: grid;
-		grid-template-columns: 1fr 340px;
+		grid-template-columns: minmax(0, 1fr) 340px;
 		gap: 40px;
 		align-items: start;
 	}
@@ -1107,7 +1107,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 		flex-shrink: 0;
 		width: 16px;
 		height: 16px;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.doctor-tabs__icon :global(svg) {
@@ -1213,7 +1213,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 		width: 16px;
 		height: 16px;
 		margin-top: 2px;
-		color: var(--color-teal);
+		color: var(--color-teal-text);
 	}
 
 	.doctor-tab-list li span:first-child :global(svg) {
@@ -1452,7 +1452,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 
 	@media screen and (max-width: 860px) {
 		.doctor-detail__layout {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.doctor-detail__sidebar-sticky {
@@ -1466,7 +1466,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 		}
 
 		.doctor-hero__grid {
-			grid-template-columns: 1fr;
+			grid-template-columns: minmax(0, 1fr);
 		}
 
 		.doctor-hero__media {
