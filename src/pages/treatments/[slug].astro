@@ -4,6 +4,7 @@ import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
 import FaqAccordion from '../../components/FaqAccordion.astro';
 import EnquiryCard from '../../components/EnquiryCard.astro';
+import TreatmentCta from '../../components/TreatmentCta.astro';
 import RecommendationLayout from '../../components/RecommendationLayout.astro';
 import { treatments, type TreatmentData } from '../../data/treatments';
 import iconTag from 'bootstrap-icons/icons/tag-fill.svg?raw';
@@ -116,22 +117,24 @@ const year = new Date().getFullYear();
 		<section class="treatment-detail">
 			<div class="treatment-detail__inner">
 				<div class="treatment-detail__hero-row">
-					{treatment.imageKey ? (
-						<Image
-							src={IMAGES[treatment.imageKey]}
-							alt={treatment.name}
-							width={1200}
-							height={480}
-							widths={[480, 800, 1200]}
-							sizes="(max-width: 900px) calc(100vw - 32px), 760px"
-							loading="eager"
-							class="treatment-detail__hero-image"
-						/>
-					) : (
-						<div class={`treatment-detail__hero-fallback treatment-detail__hero-fallback--${treatment.theme}`}>
-							<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
-						</div>
-					)}
+					<TreatmentCta variant="media" treatmentName={treatment.name} locale="en">
+						{treatment.imageKey ? (
+							<Image
+								src={IMAGES[treatment.imageKey]}
+								alt={treatment.name}
+								width={1200}
+								height={480}
+								widths={[480, 800, 1200]}
+								sizes="(max-width: 900px) calc(100vw - 32px), 760px"
+								loading="eager"
+								class="treatment-detail__hero-image"
+							/>
+						) : (
+							<div class={`treatment-detail__hero-fallback treatment-detail__hero-fallback--${treatment.theme}`}>
+								<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
+							</div>
+						)}
+					</TreatmentCta>
 
 					<EnquiryCard defaultTreatment={treatment.name} />
 				</div>
@@ -164,6 +167,7 @@ const year = new Date().getFullYear();
 					<div class="treatment-detail__main">
 						<h2>Overview</h2>
 						<p>{treatment.overview}</p>
+						<TreatmentCta variant="steps" treatmentName={treatment.name} locale="en" />
 					</div>
 
 					<aside class="treatment-detail__aside">
@@ -212,6 +216,7 @@ const year = new Date().getFullYear();
 									</div>
 								</a>
 							))}
+							<TreatmentCta variant="card" treatmentName={treatment.name} locale="en" />
 						</div>
 					) : (
 						<div class="procedure-cards">
@@ -221,6 +226,7 @@ const year = new Date().getFullYear();
 									<span class="procedure-card__label">{procedure}</span>
 								</div>
 							))}
+							<TreatmentCta variant="card" treatmentName={treatment.name} locale="en" />
 						</div>
 					)}
 				</div>
