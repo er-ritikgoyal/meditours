@@ -1,0 +1,561 @@
+---
+/**
+ * Quote / WhatsApp calls to action for treatment pages, in three layouts that
+ * fill what used to be empty space:
+ *   - "media": wraps the hero photo (slot) and adds a quote bar under it; the
+ *     column stretches to the enquiry form's height so no gap is left beside it.
+ *   - "steps": a "How it works" card under the short Overview paragraph.
+ *   - "card":  a card inside the procedures grid that fills the rest of the
+ *     last row (or a full row when the row is already complete).
+ * "Get Free Quote" scrolls to the page's enquiry form (falls back to the
+ * contact page without JS); "WhatsApp" opens a chat naming the treatment.
+ */
+import iconWhatsapp from 'bootstrap-icons/icons/whatsapp.svg?raw';
+import iconArrow from 'bootstrap-icons/icons/arrow-right-short.svg?raw';
+import iconCheck from 'bootstrap-icons/icons/check-circle-fill.svg?raw';
+import iconReports from 'bootstrap-icons/icons/file-earmark-medical-fill.svg?raw';
+import iconQuote from 'bootstrap-icons/icons/clipboard2-check-fill.svg?raw';
+import iconTravel from 'bootstrap-icons/icons/airplane-fill.svg?raw';
+import iconChat from 'bootstrap-icons/icons/chat-dots-fill.svg?raw';
+
+export interface Props {
+	variant: 'media' | 'steps' | 'card';
+	/** Treatment name in the page's language. */
+	treatmentName: string;
+	locale?: string;
+}
+
+const { variant, treatmentName, locale = 'en' } = Astro.props;
+
+interface Strings {
+	quote: string;
+	whatsapp: string;
+	barTitle: (name: string) => string;
+	barPoints: [string, string, string];
+	stepsTitle: string;
+	steps: [[string, string], [string, string], [string, string]];
+	cardTitle: string;
+	cardText: string;
+	waMessage: (name: string) => string;
+}
+
+const STRINGS: Record<string, Strings> = {
+	en: {
+		quote: 'Get Free Quote',
+		whatsapp: 'WhatsApp Us',
+		barTitle: (n) => `Get a personalised quote for ${n}`,
+		barPoints: ['Free, no obligation', 'Reply within 24 hours', 'Accredited hospitals'],
+		stepsTitle: 'How it works',
+		steps: [
+			['Share your medical reports', 'Send your scans and reports through the form or on WhatsApp.'],
+			['Get an opinion and estimate', "We share the specialists' opinion and an itemised cost estimate, usually within 24 hours."],
+			['Travel and get treated', 'We help with the visa invitation letter, travel, stay and hospital coordination.'],
+		],
+		cardTitle: 'Not sure which procedure you need?',
+		cardText: 'Share your reports. The treating specialists will advise the right option, and we will send you a cost estimate.',
+		waMessage: (n) => `Hello, I would like a quote for ${n}.`,
+	},
+	fr: {
+		quote: 'Devis gratuit',
+		whatsapp: 'WhatsApp',
+		barTitle: (n) => `Obtenez un devis personnalisé pour ${n}`,
+		barPoints: ['Gratuit, sans engagement', 'Réponse sous 24 heures', 'Hôpitaux accrédités'],
+		stepsTitle: 'Comment ça marche',
+		steps: [
+			['Envoyez vos dossiers médicaux', 'Transmettez vos examens et comptes rendus via le formulaire ou sur WhatsApp.'],
+			['Recevez un avis et une estimation', 'Nous vous transmettons l’avis des spécialistes et une estimation détaillée, généralement sous 24 heures.'],
+			['Voyagez et faites-vous soigner', 'Nous vous aidons pour la lettre d’invitation pour le visa, le voyage, l’hébergement et la coordination avec l’hôpital.'],
+		],
+		cardTitle: 'Vous ne savez pas quelle intervention choisir ?',
+		cardText: 'Envoyez vos examens. Les spécialistes vous conseilleront la bonne option et nous vous enverrons une estimation des coûts.',
+		waMessage: (n) => `Bonjour, je souhaite un devis pour ${n}.`,
+	},
+	es: {
+		quote: 'Presupuesto gratis',
+		whatsapp: 'WhatsApp',
+		barTitle: (n) => `Obtenga un presupuesto personalizado para ${n}`,
+		barPoints: ['Gratis y sin compromiso', 'Respuesta en 24 horas', 'Hospitales acreditados'],
+		stepsTitle: 'Cómo funciona',
+		steps: [
+			['Comparta sus informes médicos', 'Envíe sus estudios e informes mediante el formulario o por WhatsApp.'],
+			['Reciba una opinión y un presupuesto', 'Le enviamos la opinión de los especialistas y un presupuesto detallado, normalmente en 24 horas.'],
+			['Viaje y reciba tratamiento', 'Le ayudamos con la carta de invitación para el visado, el viaje, el alojamiento y la coordinación con el hospital.'],
+		],
+		cardTitle: '¿No sabe qué procedimiento necesita?',
+		cardText: 'Comparta sus informes. Los especialistas le indicarán la opción adecuada y le enviaremos un presupuesto.',
+		waMessage: (n) => `Hola, me gustaría un presupuesto para ${n}.`,
+	},
+	pt: {
+		quote: 'Orçamento grátis',
+		whatsapp: 'WhatsApp',
+		barTitle: (n) => `Receba um orçamento personalizado para ${n}`,
+		barPoints: ['Grátis, sem compromisso', 'Resposta em 24 horas', 'Hospitais credenciados'],
+		stepsTitle: 'Como funciona',
+		steps: [
+			['Envie seus relatórios médicos', 'Envie seus exames e relatórios pelo formulário ou pelo WhatsApp.'],
+			['Receba uma opinião e um orçamento', 'Enviamos a opinião dos especialistas e um orçamento detalhado, normalmente em 24 horas.'],
+			['Viaje e faça o tratamento', 'Ajudamos com a carta-convite para o visto, a viagem, a hospedagem e a coordenação com o hospital.'],
+		],
+		cardTitle: 'Não sabe qual procedimento precisa?',
+		cardText: 'Envie seus exames. Os especialistas indicarão a opção certa e enviaremos um orçamento.',
+		waMessage: (n) => `Olá, gostaria de um orçamento para ${n}.`,
+	},
+	ru: {
+		quote: 'Бесплатный расчёт',
+		whatsapp: 'WhatsApp',
+		barTitle: (n) => `Получите персональный расчёт: ${n}`,
+		barPoints: ['Бесплатно и без обязательств', 'Ответ в течение 24 часов', 'Аккредитованные клиники'],
+		stepsTitle: 'Как это работает',
+		steps: [
+			['Отправьте медицинские документы', 'Пришлите снимки и заключения через форму или в WhatsApp.'],
+			['Получите мнение и расчёт', 'Мы передадим вам мнение специалистов и подробный расчёт стоимости, обычно в течение 24 часов.'],
+			['Приезжайте на лечение', 'Поможем с приглашением для визы, перелётом, проживанием и координацией с клиникой.'],
+		],
+		cardTitle: 'Не знаете, какая процедура вам нужна?',
+		cardText: 'Отправьте документы. Лечащие специалисты подскажут подходящий вариант, а мы пришлём расчёт стоимости.',
+		waMessage: (n) => `Здравствуйте, я хотел(а) бы получить расчёт стоимости: ${n}.`,
+	},
+	bn: {
+		quote: 'বিনামূল্যে কোটেশন',
+		whatsapp: 'হোয়াটসঅ্যাপ',
+		barTitle: (n) => `${n}-এর জন্য ব্যক্তিগত কোটেশন নিন`,
+		barPoints: ['বিনামূল্যে, কোনো বাধ্যবাধকতা নেই', '২৪ ঘণ্টার মধ্যে উত্তর', 'স্বীকৃত হাসপাতাল'],
+		stepsTitle: 'কীভাবে কাজ করে',
+		steps: [
+			['আপনার মেডিকেল রিপোর্ট পাঠান', 'ফর্ম বা হোয়াটসঅ্যাপের মাধ্যমে আপনার স্ক্যান ও রিপোর্ট পাঠান।'],
+			['মতামত ও খরচের হিসাব পান', 'আমরা বিশেষজ্ঞদের মতামত ও বিস্তারিত খরচের হিসাব পাঠাই, সাধারণত ২৪ ঘণ্টার মধ্যে।'],
+			['ভ্রমণ করুন ও চিকিৎসা নিন', 'ভিসার আমন্ত্রণপত্র, ভ্রমণ, থাকা এবং হাসপাতালের সমন্বয়ে আমরা সাহায্য করি।'],
+		],
+		cardTitle: 'কোন পদ্ধতি দরকার নিশ্চিত নন?',
+		cardText: 'আপনার রিপোর্ট পাঠান। চিকিৎসক বিশেষজ্ঞরা সঠিক বিকল্প জানাবেন এবং আমরা খরচের হিসাব পাঠাব।',
+		waMessage: (n) => `নমস্কার, আমি ${n}-এর জন্য একটি কোটেশন চাই।`,
+	},
+	ro: {
+		quote: 'Ofertă gratuită',
+		whatsapp: 'WhatsApp',
+		barTitle: (n) => `Primiți o ofertă personalizată pentru ${n}`,
+		barPoints: ['Gratuit, fără obligații', 'Răspuns în 24 de ore', 'Spitale acreditate'],
+		stepsTitle: 'Cum funcționează',
+		steps: [
+			['Trimiteți documentele medicale', 'Trimiteți investigațiile și rapoartele prin formular sau pe WhatsApp.'],
+			['Primiți o opinie și o estimare', 'Vă transmitem opinia specialiștilor și o estimare detaliată a costurilor, de obicei în 24 de ore.'],
+			['Călătoriți și primiți tratamentul', 'Vă ajutăm cu scrisoarea de invitație pentru viză, călătoria, cazarea și coordonarea cu spitalul.'],
+		],
+		cardTitle: 'Nu știți de ce procedură aveți nevoie?',
+		cardText: 'Trimiteți rapoartele. Specialiștii vă vor recomanda opțiunea potrivită, iar noi vă vom trimite o estimare a costurilor.',
+		waMessage: (n) => `Bună ziua, aș dori o ofertă pentru ${n}.`,
+	},
+	vi: {
+		quote: 'Nhận báo giá miễn phí',
+		whatsapp: 'WhatsApp',
+		barTitle: (n) => `Nhận báo giá riêng cho ${n}`,
+		barPoints: ['Miễn phí, không ràng buộc', 'Phản hồi trong 24 giờ', 'Bệnh viện được công nhận'],
+		stepsTitle: 'Quy trình',
+		steps: [
+			['Gửi hồ sơ y tế', 'Gửi phim chụp và báo cáo qua biểu mẫu hoặc WhatsApp.'],
+			['Nhận ý kiến và dự toán', 'Chúng tôi gửi ý kiến của bác sĩ chuyên khoa và dự toán chi phí chi tiết, thường trong 24 giờ.'],
+			['Di chuyển và điều trị', 'Chúng tôi hỗ trợ thư mời xin thị thực, đi lại, lưu trú và điều phối với bệnh viện.'],
+		],
+		cardTitle: 'Chưa chắc cần thủ thuật nào?',
+		cardText: 'Gửi hồ sơ của bạn. Bác sĩ chuyên khoa sẽ tư vấn lựa chọn phù hợp và chúng tôi sẽ gửi dự toán chi phí.',
+		waMessage: (n) => `Xin chào, tôi muốn nhận báo giá cho ${n}.`,
+	},
+	ar: {
+		quote: 'احصل على عرض سعر مجاني',
+		whatsapp: 'واتساب',
+		barTitle: (n) => `احصل على عرض سعر مخصص لـ ${n}`,
+		barPoints: ['مجاني ودون أي التزام', 'رد خلال 24 ساعة', 'مستشفيات معتمدة'],
+		stepsTitle: 'كيف تعمل الخدمة',
+		steps: [
+			['أرسل تقاريرك الطبية', 'أرسل صور الأشعة والتقارير عبر النموذج أو على واتساب.'],
+			['احصل على رأي وتقدير للتكلفة', 'نرسل لك رأي الأطباء المختصين وتقديرًا مفصلًا للتكلفة، عادةً خلال 24 ساعة.'],
+			['سافر واحصل على العلاج', 'نساعدك في خطاب الدعوة للتأشيرة والسفر والإقامة والتنسيق مع المستشفى.'],
+		],
+		cardTitle: 'لست متأكدًا من الإجراء المناسب لك؟',
+		cardText: 'أرسل تقاريرك. سيرشدك الأطباء المعالجون إلى الخيار المناسب، وسنرسل لك تقديرًا للتكلفة.',
+		waMessage: (n) => `مرحبًا، أرغب في الحصول على عرض سعر لـ ${n}.`,
+	},
+};
+
+const s = STRINGS[locale] ?? STRINGS.en;
+const contactHref = locale === 'en' ? '/contact' : `/${locale}/contact`;
+const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(s.waMessage(treatmentName))}`;
+const stepIcons = [iconReports, iconQuote, iconTravel];
+---
+
+{
+	variant === 'media' && (
+		<div class="tcta-media">
+			<div class="tcta-media__visual">
+				<slot />
+			</div>
+			<div class="tcta-bar">
+				<div class="tcta-bar__text">
+					<p class="tcta-bar__title">{s.barTitle(treatmentName)}</p>
+					<ul class="tcta-bar__points">
+						{s.barPoints.map((point) => (
+							<li>
+								<span set:html={iconCheck} aria-hidden="true" />
+								{point}
+							</li>
+						))}
+					</ul>
+				</div>
+				<div class="tcta-actions">
+					<a class="tcta-btn tcta-btn--quote" href={contactHref} data-quote-scroll>
+						{s.quote}
+						<span set:html={iconArrow} aria-hidden="true" />
+					</a>
+					<a class="tcta-btn tcta-btn--wa" href={whatsappHref} target="_blank" rel="noopener noreferrer">
+						<span set:html={iconWhatsapp} aria-hidden="true" />
+						{s.whatsapp}
+					</a>
+				</div>
+			</div>
+		</div>
+	)
+}
+
+{
+	variant === 'steps' && (
+		<div class="tcta-steps">
+			<h3 class="tcta-steps__title">{s.stepsTitle}</h3>
+			<ol class="tcta-steps__list">
+				{s.steps.map(([title, text], i) => (
+					<li class="tcta-steps__item">
+						<span class="tcta-steps__icon" set:html={stepIcons[i]} aria-hidden="true" />
+						<div>
+							<p class="tcta-steps__item-title">
+								<span class="tcta-steps__num">{i + 1}.</span> {title}
+							</p>
+							<p class="tcta-steps__item-text">{text}</p>
+						</div>
+					</li>
+				))}
+			</ol>
+			<div class="tcta-actions">
+				<a class="tcta-btn tcta-btn--quote" href={contactHref} data-quote-scroll>
+					{s.quote}
+					<span set:html={iconArrow} aria-hidden="true" />
+				</a>
+				<a class="tcta-btn tcta-btn--wa" href={whatsappHref} target="_blank" rel="noopener noreferrer">
+					<span set:html={iconWhatsapp} aria-hidden="true" />
+					{s.whatsapp}
+				</a>
+			</div>
+		</div>
+	)
+}
+
+{
+	variant === 'card' && (
+		<div class="tcta-card">
+			<span class="tcta-card__icon" set:html={iconChat} aria-hidden="true" />
+			<p class="tcta-card__title">{s.cardTitle}</p>
+			<p class="tcta-card__text">{s.cardText}</p>
+			<div class="tcta-actions">
+				<a class="tcta-btn tcta-btn--quote tcta-btn--light" href={contactHref} data-quote-scroll>
+					{s.quote}
+					<span set:html={iconArrow} aria-hidden="true" />
+				</a>
+				<a class="tcta-btn tcta-btn--wa" href={whatsappHref} target="_blank" rel="noopener noreferrer">
+					<span set:html={iconWhatsapp} aria-hidden="true" />
+					{s.whatsapp}
+				</a>
+			</div>
+		</div>
+	)
+}
+
+<script>
+	// "Get Free Quote" -> the enquiry form already on this treatment page: scroll
+	// to it and put the cursor in the name field. Without a form (or without JS)
+	// the link simply goes to the contact page.
+	document.querySelectorAll<HTMLAnchorElement>('a[data-quote-scroll]').forEach((link) => {
+		link.addEventListener('click', (event) => {
+			const form = document.querySelector<HTMLFormElement>('.treatment-detail [data-enquiry-form]');
+			if (!form) return;
+			event.preventDefault();
+			const card = form.closest<HTMLElement>('.enquiry-card') ?? form;
+			// Stop below the sticky navbar so the form's heading isn't hidden under it.
+			const navbarHeight = document.getElementById('site-navbar')?.offsetHeight ?? 80;
+			const top = card.getBoundingClientRect().top + window.scrollY - navbarHeight - 16;
+			window.scrollTo({ top, behavior: 'smooth' });
+			form.querySelector<HTMLInputElement>('input[name="name"]')?.focus({ preventScroll: true });
+		});
+	});
+</script>
+
+<style>
+	/* ---- shared buttons ---- */
+	.tcta-actions {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 10px;
+	}
+
+	.tcta-btn {
+		display: inline-flex;
+		align-items: center;
+		justify-content: center;
+		gap: 6px;
+		padding: 11px 20px;
+		border-radius: 999px;
+		font-size: 14px;
+		font-weight: 700;
+		line-height: 1.2;
+		text-decoration: none;
+		white-space: nowrap;
+		transition:
+			transform 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.tcta-btn:hover {
+		transform: translateY(-2px);
+	}
+
+	.tcta-btn :global(svg) {
+		width: 18px;
+		height: 18px;
+		flex-shrink: 0;
+	}
+
+	.tcta-btn--quote {
+		background: var(--gradient-cta);
+		color: #ffffff;
+		box-shadow: 0 8px 18px -8px rgba(15, 76, 129, 0.55);
+	}
+
+	.tcta-btn--light {
+		background: #ffffff;
+		color: var(--color-primary);
+		box-shadow: none;
+	}
+
+	.tcta-btn--wa {
+		background: #25d366;
+		color: #ffffff;
+		box-shadow: 0 8px 18px -8px rgba(37, 211, 102, 0.6);
+	}
+
+	:global([dir='rtl']) .tcta-btn--quote :global(svg) {
+		transform: scaleX(-1);
+	}
+
+	/* ---- media: photo + quote bar, stretched to the form's height ---- */
+	.tcta-media {
+		align-self: stretch;
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		min-width: 0;
+	}
+
+	.tcta-media__visual {
+		position: relative;
+		flex: 1 1 auto;
+		min-height: 280px;
+		border-radius: var(--radius-lg);
+		overflow: hidden;
+		box-shadow: var(--shadow-card);
+	}
+
+	.tcta-media__visual > :global(img),
+	.tcta-media__visual > :global(div) {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		max-height: none;
+		object-fit: cover;
+		border-radius: 0;
+		box-shadow: none;
+	}
+
+	.tcta-bar {
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		gap: 14px;
+		text-align: center;
+		padding: 18px 20px;
+		background: var(--color-bg-soft-blue);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+	}
+
+	.tcta-bar__title {
+		margin: 0 0 8px;
+		font-family: var(--font-heading);
+		font-size: 16px;
+		font-weight: 700;
+		color: var(--color-primary);
+	}
+
+	.tcta-bar__points {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		gap: 4px 16px;
+		margin: 0;
+		padding: 0;
+		list-style: none;
+		font-size: 13px;
+		color: var(--color-text-secondary);
+	}
+
+	.tcta-bar__points li {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.tcta-bar__points :global(svg) {
+		width: 14px;
+		height: 14px;
+		color: var(--color-teal);
+	}
+
+	/* ---- steps: "How it works" under the Overview ---- */
+	.tcta-steps {
+		margin-top: 28px;
+		padding: 24px;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.tcta-steps__title {
+		margin: 0 0 16px;
+		font-family: var(--font-heading);
+		font-size: 18px;
+		font-weight: 700;
+		color: var(--color-primary);
+	}
+
+	.tcta-steps__list {
+		display: flex;
+		flex-direction: column;
+		gap: 16px;
+		margin: 0 0 20px;
+		padding: 0;
+		list-style: none;
+	}
+
+	.tcta-steps__item {
+		display: flex;
+		align-items: flex-start;
+		gap: 14px;
+	}
+
+	.tcta-steps__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		flex-shrink: 0;
+		width: 40px;
+		height: 40px;
+		border-radius: 12px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-teal);
+	}
+
+	.tcta-steps__icon :global(svg) {
+		width: 18px;
+		height: 18px;
+	}
+
+	.tcta-steps__item-title {
+		margin: 0 0 2px;
+		font-size: 15px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+	}
+
+	.tcta-steps__num {
+		color: var(--color-teal);
+	}
+
+	.tcta-steps__item-text {
+		margin: 0;
+		font-size: 13.5px;
+		line-height: 1.55;
+		color: var(--color-text-secondary);
+	}
+
+	/* ---- card: fills the rest of the procedures grid's last row ---- */
+	.tcta-card {
+		grid-column: auto / -1;
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+		text-align: center;
+		justify-content: center;
+		gap: 10px;
+		min-height: 220px;
+		padding: 28px;
+		background: var(--gradient-cta);
+		border-radius: var(--radius-lg);
+		color: #ffffff;
+		box-shadow: var(--shadow-card);
+	}
+
+	.tcta-card__icon {
+		display: flex;
+		align-items: center;
+		justify-content: center;
+		width: 46px;
+		height: 46px;
+		border-radius: 50%;
+		background: rgba(255, 255, 255, 0.16);
+	}
+
+	.tcta-card__icon :global(svg) {
+		width: 22px;
+		height: 22px;
+	}
+
+	.tcta-card__title {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: 19px;
+		font-weight: 700;
+		line-height: 1.3;
+	}
+
+	.tcta-card__text {
+		margin: 0 0 6px;
+		max-width: 520px;
+		font-size: 14px;
+		line-height: 1.6;
+		color: rgba(255, 255, 255, 0.88);
+	}
+
+	@media screen and (max-width: 860px) {
+		/* Stacked layout: the photo no longer stretches beside the form. */
+		.tcta-media__visual {
+			flex: none;
+			min-height: 0;
+			aspect-ratio: 16 / 9;
+			max-height: 340px;
+		}
+	}
+
+	@media screen and (max-width: 520px) {
+		.tcta-actions {
+			width: 100%;
+		}
+
+		.tcta-btn {
+			flex: 1 1 100%;
+		}
+
+		.tcta-steps,
+		.tcta-card {
+			padding: 20px;
+		}
+	}
+</style>
