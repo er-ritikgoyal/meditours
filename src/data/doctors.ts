@@ -30,6 +30,8 @@ import imgLokeshRudraMadhav from '../assets/doctors/Dr_lokesh.JPG';
 import imgSSudha from '../assets/doctors/Dr_S_Sudha.webp';
 import imgGaneshDubey from '../assets/doctors/Dr_Ganesh_Dubey.jpg';
 import imgNPavanKumarRao from '../assets/doctors/Dr_N_Pavan_Kumar_Rao.jpg';
+import cmsDoctors from './cms/doctors.json';
+import { mergeCms, cmsImage, stripCms, type CmsRecord } from './cms/merge';
 // Note: dr_himanshu_champaneri.mp4 is missing from src/assets/doctors — the
 // video import + videoUrl field were removed below to unblock the build.
 // Re-add the file and restore `videoUrl: videoHimanshuChampaneri` to bring
@@ -87,6 +89,8 @@ export interface DoctorData {
 	 * video file path (played natively).
 	 */
 	videoUrl?: string;
+	/** More videos (same formats as `videoUrl`), shown after it on the profile and in the video carousels. */
+	extraVideoUrls?: string[];
 	about: string;
 	specializations: string[];
 	education: DoctorEducation[];
@@ -96,7 +100,8 @@ export interface DoctorData {
 	testimonials: DoctorTestimonial[];
 }
 
-export const doctors: DoctorData[] = [
+/** Built-in doctors; `doctors` below adds what was saved in the content editor. */
+const baseDoctors: DoctorData[] = [
 
 	
 	{
@@ -1160,6 +1165,7 @@ export const doctors: DoctorData[] = [
 		name: 'Dr. Ila Gupta',
 		photo: imgIlaGupta,
 		videoUrl: 'https://youtu.be/TZ6OrQioenU',
+		extraVideoUrls: ['https://youtu.be/-AYzkXFZO78'],
 		specialty: 'IVF & Infertility Specialist',
 		title: 'Co-Founder & Director — Pristyn Care Ferticity IVF & Fertility Clinics',
 		qualification: 'MBBS, MS — Obstetrics & Gynaecology; Diploma in Reproductive Medicine & ART (Kiel, Germany)',
@@ -1211,4 +1217,20 @@ export const doctors: DoctorData[] = [
 	},
 ];
 
+export const doctors: DoctorData[] = mergeCms(baseDoctors, cmsDoctors as Record<string, CmsRecord>, (record, original) => {
+	const saved = stripCms<DoctorData>(record);
+	return {
+		...original,
+		...saved,
+		photo: cmsImage(record.photo, original?.photo),
+		bannerPhoto: cmsImage(record.bannerPhoto, original?.bannerPhoto),
+		topRightPhoto: cmsImage(record.topRightPhoto, original?.topRightPhoto),
+		testimonials: saved.testimonials ?? original?.testimonials ?? [],
+	} as DoctorData;
+});
+
 export const getDoctorBySlug = (slug: string) => doctors.find((d) => d.slug === slug);
+
+/** Every video for a doctor: the main `videoUrl` first, then any `extraVideoUrls`. */
+export const doctorVideoUrls = (doctor: Pick<DoctorData, 'videoUrl' | 'extraVideoUrls'>): string[] =>
+	[doctor.videoUrl, ...(doctor.extraVideoUrls ?? [])].filter((url): url is string => Boolean(url));

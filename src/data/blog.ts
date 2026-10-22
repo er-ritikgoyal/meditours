@@ -3,6 +3,8 @@ import imgCardiac from '../assets/treatments/cardiac-care.jpg';
 import imgOrtho from '../assets/treatments/orthopedics2.jpg';
 import imgFertility from '../assets/treatments/fertility2.png';
 import imgEye from '../assets/treatments/eye-care2.jpg';
+import cmsBlogs from './cms/blogs.json';
+import { mergeCms, cmsImage, stripCms, type CmsRecord } from './cms/merge';
 
 export interface BlogPost {
 	slug: string;
@@ -17,7 +19,8 @@ export interface BlogPost {
 }
 
 // Sample posts — replace with real articles.
-export const blogPosts: BlogPost[] = [
+/** Built-in posts; `blogPosts` below adds what was saved in the content editor. */
+const basePosts: BlogPost[] = [
 	{
 		slug: 'how-to-plan-medical-treatment-in-india',
 		title: 'How to Plan Medical Treatment in India: A Step-by-Step Guide',
@@ -91,6 +94,13 @@ export const blogPosts: BlogPost[] = [
 		],
 	},
 ];
+
+export const blogPosts: BlogPost[] = mergeCms(basePosts, cmsBlogs as Record<string, CmsRecord>, (record, original) => ({
+	...original,
+	...stripCms<BlogPost>(record),
+	// Posts always need a cover; fall back to the first built-in one.
+	image: cmsImage(record.image, original?.image) ?? basePosts[0].image,
+}));
 
 export const getBlogPost = (slug: string) => blogPosts.find((p) => p.slug === slug);
 

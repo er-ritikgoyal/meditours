@@ -1,0 +1,70 @@
+---
+/**
+ * Page shell for content rendered live by PHP (public/cms/render.php).
+ *
+ * When an editor saves a blog post, doctor, hospital or treatment in the admin
+ * (/editor/), PHP shows the change straight away by loading this built page —
+ * which carries the real navbar, search banner, footer, cookie bar, Google Ads
+ * tag and enquiry form — and swapping the %%CMS_…%% markers for the content.
+ * After the next build, the regular static page takes over again.
+ *
+ * Not linked anywhere, kept out of the sitemap, and blocked from direct access
+ * in public/.htaccess.
+ */
+import Layout from '../layouts/Layout.astro';
+import EnquiryCard from '../components/EnquiryCard.astro';
+---
+
+<Layout title="%%CMS_TITLE%%" description="%%CMS_DESCRIPTION%%">
+	<Fragment set:html="<!--CMS_HEADER-->" />
+	<section class="cms-shell">
+		<div class="cms-shell__inner">
+			<div class="cms-shell__main">
+				<!--CMS_CONTENT-->
+			</div>
+			<aside class="cms-shell__aside" id="cms-enquiry">
+				<EnquiryCard />
+			</aside>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.cms-shell {
+		padding: 48px 24px 72px;
+		font-family: var(--font-body);
+	}
+
+	.cms-shell__inner {
+		max-width: 1180px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) 360px;
+		gap: 40px;
+		align-items: start;
+	}
+
+	.cms-shell__main {
+		min-width: 0;
+	}
+
+	.cms-shell__aside {
+		position: sticky;
+		top: 96px;
+		scroll-margin-top: 96px;
+	}
+
+	@media screen and (max-width: 960px) {
+		.cms-shell {
+			padding: 32px 16px 56px;
+		}
+
+		.cms-shell__inner {
+			grid-template-columns: minmax(0, 1fr);
+		}
+
+		.cms-shell__aside {
+			position: static;
+		}
+	}
+</style>

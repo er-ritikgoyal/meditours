@@ -1,4 +1,5 @@
 import type { DoctorTranslations } from './doctorsTranslate';
+import { cmsTranslations } from '../data/cms/i18n';
 
 export const esDoctorsTr: DoctorTranslations = {
 	'vijay-gupta': {
@@ -919,3 +920,8 @@ export const esDoctorsTr: DoctorTranslations = {
 		]
 	},
 };
+
+// Translations saved in the content editor (/editor/) take priority.
+for (const [slug, tr] of Object.entries(cmsTranslations('doctors', 'es'))) {
+	esDoctorsTr[slug] = { ...esDoctorsTr[slug], ...tr };
+}

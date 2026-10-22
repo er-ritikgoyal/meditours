@@ -34,7 +34,7 @@ const DEFAULT_LOCALE = 'en'; // prefixDefaultLocale: false -> no /en/ prefix
 
 // Static routes that exist under every locale (see src/pages/<locale>/*.astro).
 // '' means the locale's home page.
-const STATIC_ROUTES = ['', 'about', 'contact', 'destinations', 'treatments', 'doctors', 'hotel', 'flights', 'tourism'];
+const STATIC_ROUTES = ['', 'about', 'contact', 'destinations', 'treatments', 'doctors', 'blog', 'hotel', 'flights', 'tourism'];
 
 function extractSlugs(relativePath) {
 	const text = readFileSync(join(root, relativePath), 'utf8');
@@ -48,10 +48,27 @@ function extractSlugs(relativePath) {
 	return slugs;
 }
 
-const treatmentSlugs = extractSlugs('src/data/treatments.ts');
+/**
+ * Records saved in the content editor (/editor/), pulled into src/data/cms/
+ * by scripts/pull-cms-data.mjs. Returns live (not deleted) records.
+ */
+function cmsRecords(type) {
+	try {
+		const data = JSON.parse(readFileSync(join(root, `src/data/cms/${type}.json`), 'utf8'));
+		return Object.values(data).filter((r) => r && r.slug && !r._cms?.deleted);
+	} catch {
+		return [];
+	}
+}
+
+/** Built-in slugs plus any created in the content editor. */
+const withCms = (slugs, type) => [...new Set([...slugs, ...cmsRecords(type).map((r) => r.slug)])];
+
+const treatmentSlugs = withCms(extractSlugs('src/data/treatments.ts'), 'treatments');
 const destinationSlugs = extractSlugs('src/data/destinations.ts');
-const doctorSlugs = extractSlugs('src/data/doctors.ts');
-const hospitalSlugs = extractSlugs('src/data/hospitals.ts');
+const doctorSlugs = withCms(extractSlugs('src/data/doctors.ts'), 'doctors');
+const hospitalSlugs = withCms(extractSlugs('src/data/hospitals.ts'), 'hospitals');
+const blogSlugs = withCms(extractSlugs('src/data/blog.ts'), 'blogs');
 
 /** Mirrors src/utils/slugify.ts -> slugifyProcedure, so sitemap URLs match the live routes exactly. */
 function slugifyProcedure(name) {
@@ -92,7 +109,12 @@ function extractProcedurePaths(relativePath) {
 	return paths;
 }
 
-const procedurePaths = extractProcedurePaths('src/data/treatments.ts');
+// Treatments saved in the content editor replace their built-in sub-treatment list.
+const cmsTreatments = cmsRecords('treatments').filter((t) => Array.isArray(t.detailedProcedures));
+const procedurePaths = [
+	...extractProcedurePaths('src/data/treatments.ts').filter((p) => !cmsTreatments.some((t) => p.startsWith(`/treatments/${t.slug}/`))),
+	...cmsTreatments.flatMap((t) => t.detailedProcedures.filter((p) => p?.name).map((p) => `/treatments/${t.slug}/${slugifyProcedure(p.name)}`)),
+];
 
 function localePrefix(locale) {
 	return locale === DEFAULT_LOCALE ? '' : `/${locale}`;
@@ -137,6 +159,12 @@ function buildGroups() {
 		groups.push(group);
 	}
 
+	for (const slug of blogSlugs) {
+		const group = {};
+		for (const locale of LOCALES) group[locale] = `${localePrefix(locale)}/blog/${slug}`;
+		groups.push(group);
+	}
+
 	return groups;
 }
 
@@ -173,7 +201,8 @@ function generateSitemap(groups, standalonePaths) {
 }
 
 function generateRobots() {
-	return `User-agent: *\nAllow: /\n\nSitemap: ${SITE_URL}/sitemap.xml\n`;
+	// The content editor and its helper pages stay out of search results.
+	return `User-agent: *\nAllow: /\nDisallow: /editor/\nDisallow: /cms/\nDisallow: /cms-shell/\nDisallow: /editor-seed/\n\nSitemap: ${SITE_URL}/sitemap.xml\n`;
 }
 
 const groups = buildGroups();

@@ -6,7 +6,7 @@ import FaqAccordion from '../../components/FaqAccordion.astro';
 import EnquiryCard from '../../components/EnquiryCard.astro';
 import TreatmentCta from '../../components/TreatmentCta.astro';
 import RecommendationLayout from '../../components/RecommendationLayout.astro';
-import { treatments, type TreatmentData } from '../../data/treatments';
+import { treatments, procedureImage, type TreatmentData } from '../../data/treatments';
 import iconTag from 'bootstrap-icons/icons/tag-fill.svg?raw';
 import iconPiggyBank from 'bootstrap-icons/icons/piggy-bank-fill.svg?raw';
 import iconHospital from 'healthicons/public/icons/svg/outline/places/hospital.svg?raw';
@@ -191,11 +191,11 @@ const year = new Date().getFullYear();
 					<h2>Procedures We Offer</h2>
 					{treatment.detailedProcedures ? (
 						<div class="procedure-detail-cards">
-							{treatment.detailedProcedures.map((proc) => (
+							{treatment.detailedProcedures.map((proc, procI) => (
 								<a class="procedure-detail-card" href={`/treatments/${treatment.slug}/${slugifyProcedure(proc.name)}`}>
-									{treatment.imageKey ? (
+									{(procedureImage(treatment.slug, procI) || treatment.imageKey) ? (
 										<Image
-											src={IMAGES[treatment.imageKey]}
+											src={procedureImage(treatment.slug, procI) ?? IMAGES[treatment.imageKey!]}
 											alt={proc.name}
 											width={400}
 											height={220}

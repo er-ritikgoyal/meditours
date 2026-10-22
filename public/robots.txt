@@ -1,4 +1,8 @@
 User-agent: *
 Allow: /
+Disallow: /editor/
+Disallow: /cms/
+Disallow: /cms-shell/
+Disallow: /editor-seed/
 
 Sitemap: https://alispromeditours.com/sitemap.xml

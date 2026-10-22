@@ -1,5 +1,6 @@
 import type { HospitalData } from '../data/hospitals';
 import { localizeCity, localizeHospitalName } from './hospitalNames';
+import { cmsTranslations } from '../data/cms/i18n';
 
 /**
  * Field-level Romanian translations for hospital cards (OurPartnerHospitals).
@@ -307,7 +308,7 @@ function translateBeds(beds: string): string {
 	return beds.replace(/\bBeds\b/, 'paturi').replace(/\bBed\b/, 'pat').replace(/\bLocations\b/, 'locații').replace(/\bLocation\b/, 'locație');
 }
 
-export const translateHospital = (hospital: HospitalData): HospitalData => {
+const baseTranslateHospital = (hospital: HospitalData): HospitalData => {
 	const name = localizeHospitalName(hospital, 'ro');
 	const about = (aboutMap[hospital.slug] ?? hospital.about).split(hospital.name).join(name);
 	return {
@@ -323,3 +324,9 @@ export const translateHospital = (hospital: HospitalData): HospitalData => {
 };
 
 export const translateHospitals = (list: HospitalData[]): HospitalData[] => list.map(translateHospital);
+
+/** Hospital in ro, with translations saved in the content editor (/editor/) on top. */
+export const translateHospital = (hospital: HospitalData): HospitalData => {
+	const tr = cmsTranslations('hospitals', 'ro')[hospital.slug];
+	return tr ? ({ ...baseTranslateHospital(hospital), ...tr } as HospitalData) : baseTranslateHospital(hospital);
+};

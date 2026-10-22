@@ -1,4 +1,5 @@
 ---
+import { doctorVideoUrls } from '../data/doctors';
 import HeroSection from '../components/HeroSection.astro';
 import TravelProcess from '../components/TravelProcess.astro';
 import OurDoctors from '../components/OurDoctors.astro';
@@ -15,8 +16,7 @@ import { doctors } from '../data/doctors';
 
 
 const videoEntries = doctors
-	.filter((doctor) => doctor.videoUrl)
-	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl as string }));
+	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
 <Layout

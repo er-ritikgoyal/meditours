@@ -1,5 +1,6 @@
 import type { HospitalData } from '../data/hospitals';
 import { localizeCity, localizeHospitalName } from './hospitalNames';
+import { cmsTranslations } from '../data/cms/i18n';
 
 /**
  * Field-level Arabic translations for hospital cards (OurPartnerHospitals).
@@ -307,7 +308,7 @@ function translateBeds(beds: string): string {
 	return beds.replace(/\bBeds\b/, 'سرير').replace(/\bBed\b/, 'سرير').replace(/\bLocations\b/, 'فروع').replace(/\bLocation\b/, 'فرع');
 }
 
-export const translateHospital = (hospital: HospitalData): HospitalData => {
+const baseTranslateHospital = (hospital: HospitalData): HospitalData => {
 	const name = localizeHospitalName(hospital, 'ar');
 	const about = (aboutMap[hospital.slug] ?? hospital.about).split(hospital.name).join(name);
 	return {
@@ -323,3 +324,9 @@ export const translateHospital = (hospital: HospitalData): HospitalData => {
 };
 
 export const translateHospitals = (list: HospitalData[]): HospitalData[] => list.map(translateHospital);
+
+/** Hospital in ar, with translations saved in the content editor (/editor/) on top. */
+export const translateHospital = (hospital: HospitalData): HospitalData => {
+	const tr = cmsTranslations('hospitals', 'ar')[hospital.slug];
+	return tr ? ({ ...baseTranslateHospital(hospital), ...tr } as HospitalData) : baseTranslateHospital(hospital);
+};

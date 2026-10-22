@@ -1,5 +1,6 @@
 import type { HospitalData } from '../data/hospitals';
 import { localizeCity, localizeHospitalName } from './hospitalNames';
+import { cmsTranslations } from '../data/cms/i18n';
 
 /**
  * Field-level Bengali translations for hospital cards (OurPartnerHospitals).
@@ -307,7 +308,7 @@ function translateBeds(beds: string): string {
 	return beds.replace(/\bBeds\b/, 'শয্যা').replace(/\bBed\b/, 'শয্যা').replace(/\bLocations\b/, 'শাখা').replace(/\bLocation\b/, 'শাখা');
 }
 
-export const translateHospital = (hospital: HospitalData): HospitalData => {
+const baseTranslateHospital = (hospital: HospitalData): HospitalData => {
 	const name = localizeHospitalName(hospital, 'bn');
 	const about = (aboutMap[hospital.slug] ?? hospital.about).split(hospital.name).join(name);
 	return {
@@ -323,3 +324,9 @@ export const translateHospital = (hospital: HospitalData): HospitalData => {
 };
 
 export const translateHospitals = (list: HospitalData[]): HospitalData[] => list.map(translateHospital);
+
+/** Hospital in bn, with translations saved in the content editor (/editor/) on top. */
+export const translateHospital = (hospital: HospitalData): HospitalData => {
+	const tr = cmsTranslations('hospitals', 'bn')[hospital.slug];
+	return tr ? ({ ...baseTranslateHospital(hospital), ...tr } as HospitalData) : baseTranslateHospital(hospital);
+};

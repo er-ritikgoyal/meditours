@@ -1,3 +1,7 @@
+import cmsTreatments from './cms/treatments.json';
+import type { ImageMetadata } from 'astro';
+import { mergeCms, cmsImage, stripCms, type CmsRecord } from './cms/merge';
+
 export interface StayBreakdown {
 	icuDays: number;
 	roomDays: number;
@@ -58,7 +62,8 @@ export interface TreatmentData {
 	/** Full catalog of specific procedures under this specialty, shown on the treatment detail page. Falls back to `procedures` when omitted. */
 	allProcedures?: string[];
 	/** Richer procedure cards (parent image + long-form description) shown instead of `allProcedures` when present. Populated per category as write-ups are completed. */
-	detailedProcedures?: { name: string; description: string }[];
+	/** Optional `image` is the sub-treatment's own photo (uploaded in the content editor); pages fall back to the treatment photo. */
+	detailedProcedures?: { name: string; description: string; image?: ImageMetadata }[];
 	benefits: string[];
 	/** The flagship procedure this cost/package breakdown is built around, e.g. "Liver Transplant". */
 	flagshipProcedure: string;
@@ -74,7 +79,8 @@ export interface TreatmentData {
 	faqs: FaqItem[];
 }
 
-export const treatments: TreatmentData[] = [
+/** Built-in treatments; `treatments` below adds what was saved in the content editor. */
+const baseTreatments: TreatmentData[] = [
 	{
 		slug: 'cardiac-care',
 		name: 'Cardiac Care',
@@ -2281,4 +2287,25 @@ export const treatments: TreatmentData[] = [
 	},
 ];
 
+export const treatments: TreatmentData[] = mergeCms(baseTreatments, cmsTreatments as Record<string, CmsRecord>, (record, original) => {
+	const merged = { ...original, ...stripCms<TreatmentData>(record) } as TreatmentData;
+	if (!merged.imageKey) delete merged.imageKey;
+	// Sub-treatment photos: uploads become optimisable images; others are dropped.
+	if (merged.detailedProcedures) {
+		merged.detailedProcedures = merged.detailedProcedures.map((proc) => {
+			const image = cmsImage((proc as { image?: unknown }).image, undefined);
+			const { image: _drop, ...rest } = proc;
+			return image && typeof image !== 'string' ? { ...rest, image } : rest;
+		});
+	}
+	return merged;
+});
+
 export const getTreatmentBySlug = (slug: string) => treatments.find((t) => t.slug === slug);
+
+/**
+ * A sub-treatment's own photo, looked up by position (translated sub-treatments
+ * don't carry it). Undefined → use the treatment's photo.
+ */
+export const procedureImage = (treatmentSlug: string, index: number): ImageMetadata | undefined =>
+	getTreatmentBySlug(treatmentSlug)?.detailedProcedures?.[index]?.image;

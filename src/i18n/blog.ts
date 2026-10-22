@@ -1,3 +1,5 @@
+import { cmsTranslations } from '../data/cms/i18n';
+import { blogPosts } from '../data/blog';
 /**
  * Blog UI strings and per-locale post translations. Post text is keyed by the
  * post slug from data/blog.ts; body arrays keep the same order/length as the
@@ -682,3 +684,18 @@ export const blogCta: Record<BlogLocale, BlogCta> = {
 		"secondaryLabel": "ارفع التقارير الطبية"
 	}
 };
+
+// Translations saved in the content editor (/editor/) take priority; missing
+// fields fall back to the existing translation, then to English.
+for (const locale of Object.keys(blogPostTr) as Exclude<BlogLocale, 'en'>[]) {
+	for (const [slug, tr] of Object.entries(cmsTranslations('blogs', locale))) {
+		const english = blogPosts.find((p) => p.slug === slug);
+		const current = blogPostTr[locale][slug];
+		blogPostTr[locale][slug] = {
+			title: tr.title ?? current?.title ?? english?.title ?? '',
+			excerpt: tr.excerpt ?? current?.excerpt ?? english?.excerpt ?? '',
+			category: tr.category ?? current?.category ?? english?.category ?? '',
+			body: tr.body ?? current?.body ?? english?.body ?? [],
+		};
+	}
+}

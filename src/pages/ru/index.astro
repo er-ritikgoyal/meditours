@@ -1,4 +1,5 @@
 ---
+import { doctorVideoUrls } from '../../data/doctors';
 import HeroSection from '../../components/HeroSection.astro';
 import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
@@ -23,8 +24,7 @@ const russianHospitals = translateHospitals(hospitals.slice(0, 4));
 const russianDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...ruDoctors.doctors[i] }));
 
 const videoEntries = defaultDoctors
-	.filter((doctor) => doctor.videoUrl)
-	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl }));
+	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
 <Layout

@@ -50,6 +50,8 @@ import sterlingAhmedabad from '../assets/hospitals/sterlingahmedabad.jpg';
 import shalbyAhmedabad from '../assets/hospitals/shalby ahmedabad.webp';
 import shiningsmiles from '../assets/hospitals/shining_smiles.webp';
 import spruceDental from '../assets/doctors/spruce-dental.jpg';
+import cmsHospitals from './cms/hospitals.json';
+import { mergeCms, cmsImage, stripCms, type CmsRecord } from './cms/merge';
 
 // Delhi NCR — newer hospitals (eye care, additional multi-specialty, IVF & fertility)
 // images live in /public/images and are referenced by URL string, not import
@@ -76,7 +78,8 @@ export interface HospitalData {
 	about: string;
 }
 
-export const hospitals: HospitalData[] = [
+/** Built-in hospitals; `hospitals` below adds what was saved in the content editor. */
+const baseHospitals: HospitalData[] = [
 	{
 		name: 'Moolchand Hospital',
 		slug: 'moolchand-hospital',
@@ -1444,6 +1447,12 @@ export const hospitals: HospitalData[] = [
 		about: "Shalby Hospitals in Ahmedabad is a 300-bed super specialty hospital known for orthopaedics, cardiology and oncology, part of the wider Shalby group known nationally for joint replacement.",
 	},
 ];
+
+export const hospitals: HospitalData[] = mergeCms(baseHospitals, cmsHospitals as Record<string, CmsRecord>, (record, original) => {
+	// address / established / certs are merged into hospitalDetails (see hospitalDetails.ts).
+	const { address, established, certs, ...saved } = stripCms<HospitalData & { address?: string; established?: number; certs?: string[] }>(record);
+	return { ...original, ...saved, image: cmsImage(record.image, original?.image) } as HospitalData;
+});
 
 export const getHospitalsByCity = (citySlug: string) => hospitals.filter((h) => h.citySlug === citySlug);
 

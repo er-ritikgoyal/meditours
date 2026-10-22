@@ -1,3 +1,6 @@
+import cmsHospitals from './cms/hospitals.json';
+import type { CmsRecord } from './cms/merge';
+
 export interface HospitalDetails {
 	address: string;
 	established?: number;
@@ -6,7 +9,7 @@ export interface HospitalDetails {
 }
 
 // Compiled from public web sources; figures that sources disagreed on are omitted.
-export const hospitalDetails: Record<string, HospitalDetails> = {
+const baseHospitalDetails: Record<string, HospitalDetails> = {
 	'moolchand-hospital': { address: 'Lajpat Nagar III, near Moolchand Metro Station, New Delhi 110024', certs: ['JCI', 'NABH', 'NABL'] },
 	'fortis-c-doc-hospital': { address: 'B-16, Nehru Place Flyover, Chirag Enclave, New Delhi 110048', established: 2012, certs: [] },
 	'fortis-escorts-heart-institute': { address: 'Okhla Road, opposite Sukhdev Vihar Metro Station, New Delhi', established: 1988, certs: ['JCI', 'NABH', 'NABL'] },
@@ -110,3 +113,16 @@ export const hospitalDetails: Record<string, HospitalDetails> = {
 	'global-hospitals-hyderabad': { address: '6-1-1040/1 to 4, Lakdi-ka-pul, Hyderabad 500004', established: 1998, certs: ['NABH', 'NABL'] },
 	'kims-hospitals-secunderabad': { address: '1-8-31/1, Minister Road, Krishna Nagar, Secunderabad 500003', established: 2004, certs: ['NABH', 'ISO'] },
 };
+
+/** Built-in details overlaid with address / established / certifications saved in the content editor. */
+export const hospitalDetails: Record<string, HospitalDetails> = { ...baseHospitalDetails };
+for (const record of Object.values(cmsHospitals as Record<string, CmsRecord>)) {
+	if (!record?.slug || record._cms?.deleted) continue;
+	const base = baseHospitalDetails[record.slug];
+	const established = Number(record.established) || undefined;
+	hospitalDetails[record.slug] = {
+		address: typeof record.address === 'string' ? record.address : base?.address ?? '',
+		...(established ? { established } : {}),
+		certs: Array.isArray(record.certs) ? (record.certs as string[]) : base?.certs ?? [],
+	};
+}
