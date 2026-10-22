@@ -68,6 +68,31 @@
 		});
 	}
 
+	// Language tabs: English (main) + translations.
+	var tabs = document.querySelector('[data-lang-tabs]');
+	if (tabs) {
+		var showLang = function (lang) {
+			tabs.querySelectorAll('[data-lang]').forEach(function (t) {
+				t.classList.toggle('active', t.getAttribute('data-lang') === lang);
+			});
+			document.querySelectorAll('[data-lang-panel]').forEach(function (p) {
+				p.hidden = p.getAttribute('data-lang-panel') !== lang;
+			});
+		};
+		tabs.addEventListener('click', function (e) {
+			var btn = e.target.closest('[data-lang]');
+			if (btn) showLang(btn.getAttribute('data-lang'));
+		});
+		// A required field on a hidden tab would block saving silently: show its tab.
+		var editForm = document.querySelector('.edit-form');
+		if (editForm) {
+			editForm.addEventListener('invalid', function (e) {
+				var panel = e.target.closest('[data-lang-panel]');
+				if (panel && panel.hidden) showLang(panel.getAttribute('data-lang-panel'));
+			}, true);
+		}
+	}
+
 	// Warn before leaving a form with unsaved changes.
 	var form = document.querySelector('.edit-form');
 	if (form) {

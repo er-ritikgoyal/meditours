@@ -7,6 +7,7 @@ import { ruOverviews } from './ru';
 import { bnOverviews } from './bn';
 import { viOverviews } from './vi';
 import { arOverviews } from './ar';
+import { cmsTranslations } from '../../data/cms/i18n';
 
 const byLocale: Record<string, Record<string, string>> = {
 	en: hospitalOverviews,
@@ -26,6 +27,7 @@ const byLocale: Record<string, Record<string, string>> = {
  * swapped for the localised one so names stay consistent on the page.
  */
 export function getOverview(slug: string, locale: string, baseName: string, localName: string): string | undefined {
+	if (locale !== 'en' && cmsTranslations('hospitals', locale)[slug]?.about) return undefined;
 	const text = byLocale[locale]?.[slug];
 	return text ? text.split(baseName).join(localName) : undefined;
 }

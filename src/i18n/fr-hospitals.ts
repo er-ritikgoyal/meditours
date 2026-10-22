@@ -1,5 +1,6 @@
 import type { HospitalData } from '../data/hospitals';
 import { localizeCity, localizeHospitalName } from './hospitalNames';
+import { cmsTranslations } from '../data/cms/i18n';
 
 /**
  * Field-level French translations for hospital cards (OurPartnerHospitals)
@@ -314,7 +315,7 @@ function translateBeds(beds: string): string {
 		.replace(/\bLocation\b/, unitsMap.Location);
 }
 
-export const translateHospital = (hospital: HospitalData): HospitalData => {
+const baseTranslateHospital = (hospital: HospitalData): HospitalData => {
 	const name = localizeHospitalName(hospital, 'fr');
 	const about = (aboutMap[hospital.slug] ?? hospital.about).split(hospital.name).join(name);
 	return {
@@ -330,3 +331,9 @@ export const translateHospital = (hospital: HospitalData): HospitalData => {
 };
 
 export const translateHospitals = (list: HospitalData[]): HospitalData[] => list.map(translateHospital);
+
+/** Hospital in fr, with translations saved in the content editor (/editor/) on top. */
+export const translateHospital = (hospital: HospitalData): HospitalData => {
+	const tr = cmsTranslations('hospitals', 'fr')[hospital.slug];
+	return tr ? ({ ...baseTranslateHospital(hospital), ...tr } as HospitalData) : baseTranslateHospital(hospital);
+};

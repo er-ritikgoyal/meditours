@@ -1,3 +1,4 @@
+import { cmsTranslations } from '../data/cms/i18n';
 /**
  * Spanish translations for the deep treatment content in src/data/treatments.ts.
  *
@@ -1195,3 +1196,8 @@ export const esTreatments: Record<string, TreatmentDataEs> = {
 };
 
 export const getEsTreatment = (slug: string) => esTreatments[slug];
+
+// Translations saved in the content editor (/editor/) take priority.
+for (const [slug, tr] of Object.entries(cmsTranslations('treatments', 'es'))) {
+	esTreatments[slug] = { ...esTreatments[slug], ...tr } as TreatmentDataEs;
+}

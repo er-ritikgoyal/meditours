@@ -273,7 +273,7 @@ const stepIcons = [iconReports, iconQuote, iconTravel];
 	// the link simply goes to the contact page.
 	document.querySelectorAll<HTMLAnchorElement>('a[data-quote-scroll]').forEach((link) => {
 		link.addEventListener('click', (event) => {
-			const form = document.querySelector<HTMLFormElement>('.treatment-detail [data-enquiry-form]');
+			const form = document.querySelector<HTMLFormElement>('.treatment-detail [data-enquiry-form], .procedure-detail [data-enquiry-form]');
 			if (!form) return;
 			event.preventDefault();
 			const card = form.closest<HTMLElement>('.enquiry-card') ?? form;

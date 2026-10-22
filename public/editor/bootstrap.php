@@ -67,6 +67,27 @@ define('MAX_UPLOAD_BYTES', 5 * 1024 * 1024);
 
 const CMS_TYPES = ['blogs', 'treatments', 'doctors', 'hospitals'];
 
+/** Languages editors can translate into (English is the main version). */
+const CMS_LOCALES = [
+    'fr' => 'Français', 'es' => 'Español', 'pt' => 'Português', 'ro' => 'Română',
+    'ru' => 'Русский', 'bn' => 'বাংলা', 'vi' => 'Tiếng Việt', 'ar' => 'العربية',
+];
+
+/**
+ * Fields editors can translate, per type. A list of keys marks a repeating
+ * group: only those sub-fields are translated, row by row.
+ */
+const CMS_TRANSLATABLE = [
+    'blogs' => ['title' => true, 'excerpt' => true, 'category' => true, 'body' => true],
+    'treatments' => ['name' => true, 'shortDescription' => true, 'overview' => true, 'procedures' => true, 'benefits' => true,
+        'detailedProcedures' => ['name', 'description'], 'flagshipProcedure' => true, 'inclusions' => true, 'exclusions' => true,
+        'faqs' => ['question', 'answer']],
+    'doctors' => ['name' => true, 'specialty' => true, 'title' => true, 'qualification' => true, 'hospital' => true, 'city' => true,
+        'languages' => true, 'about' => true, 'specializations' => true, 'education' => ['degree', 'institution'],
+        'experience' => ['role', 'place', 'period'], 'awards' => ['title'], 'memberships' => true],
+    'hospitals' => ['name' => true, 'city' => true, 'accreditation' => true, 'specialties' => true, 'beds' => true, 'about' => true],
+];
+
 function h(?string $str): string {
     return htmlspecialchars((string)$str, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8');
 }
@@ -203,19 +224,34 @@ function write_saved(string $type, array $records): bool {
     if (!is_dir(DATA_DIR)) mkdir(DATA_DIR, 0755, true);
     $path = DATA_DIR . '/' . $type . '.json';
     $tmp = $path . '.' . bin2hex(random_bytes(4)) . '.tmp';
-    $json = json_encode($records, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);
-    if ($json === false || file_put_contents($tmp, $json, LOCK_EX) === false) return false;
-    return rename($tmp, $path);
+    $json = json_encode($records, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES | JSON_INVALID_UTF8_SUBSTITUTE);
+    if ($json === false) { $GLOBALS['cms_write_error'] = 'could not encode the data (' . json_last_error_msg() . ')'; return false; }
+    if (file_put_contents($tmp, $json, LOCK_EX) === false) { $GLOBALS['cms_write_error'] = 'could not write ' . $tmp . ' (' . (error_get_last()['message'] ?? 'unknown') . ')'; return false; }
+    if (@rename($tmp, $path)) return true; // atomic replace (Linux hosting)
+    // Windows (local preview) can refuse to rename over an existing file: write in place instead.
+    $ok = file_put_contents($path, $json, LOCK_EX) !== false;
+    @unlink($tmp);
+    return $ok;
 }
 
 /**
  * Everything the admin lists: snapshot overlaid with saved records.
  * Each entry: ['record' => [...], 'builtIn' => bool, 'edited' => bool, 'live' => bool, 'updatedAt' => int]
  */
+/**
+ * True when a saved record is newer than the version baked into the deployed
+ * build (the snapshot records each item's saved version as `_cmsVersion`).
+ * Comparing versions rather than times means a build that didn't pull the
+ * latest saves (a failed pull, a local preview) never hides them.
+ */
+function newer_than_build(string $type, string $slug, array $rec): bool {
+    $built = (int)(seed_by_slug($type)[$slug]['_cmsVersion'] ?? 0);
+    return (int)($rec['_cms']['updatedAt'] ?? 0) > $built;
+}
+
 function all_entries(string $type): array {
     $seed = seed_by_slug($type);
     $saved = saved($type);
-    $built = build_time();
     $out = [];
     foreach ($seed as $slug => $rec) {
         $out[$slug] = ['record' => $rec, 'builtIn' => true, 'edited' => false, 'live' => false, 'updatedAt' => 0];
@@ -232,8 +268,8 @@ function all_entries(string $type): array {
             // "Built in" = came with the site (not created in the admin): editable, not deletable.
             'builtIn' => isset($seed[$slug]) && ($meta['source'] ?? 'site') !== 'admin',
             'edited' => true,
-            // Saved after the deployed build → PHP is serving it live until the next build.
-            'live' => $updated > $built,
+            // Newer than the deployed build → PHP is serving it live until the next build.
+            'live' => newer_than_build($type, (string)$slug, $rec),
             'updatedAt' => $updated,
         ];
     }
@@ -245,17 +281,17 @@ function get_entry(string $type, string $slug): ?array {
     return all_entries($type)[$slug] ?? null;
 }
 
-/** A saved record that PHP must render live (saved after the deployed build), or null. */
+/** A saved record that PHP must render live (newer than the deployed build), or null. */
 function live_record(string $type, string $slug): ?array {
     $rec = saved($type)[$slug] ?? null;
     if (!$rec || !empty($rec['_cms']['deleted'])) return null;
-    return ((int)($rec['_cms']['updatedAt'] ?? 0)) > build_time() ? $rec : null;
+    return newer_than_build($type, $slug, $rec) ? $rec : null;
 }
 
-/** True when an admin-created record was deleted after the build (its static page must 404). */
+/** True when an admin-created record was deleted but the deployed build still has its page (which must 404). */
 function deleted_after_build(string $type, string $slug): bool {
     $rec = saved($type)[$slug] ?? null;
-    return $rec && !empty($rec['_cms']['deleted']) && ((int)($rec['_cms']['updatedAt'] ?? 0)) > build_time();
+    return $rec && !empty($rec['_cms']['deleted']) && isset(seed_by_slug($type)[$slug]);
 }
 
 function slugify(string $text): string {
@@ -296,6 +332,21 @@ function themes(): array {
 }
 
 function cms_types(): array {
+    static $types = null;
+    if ($types !== null) return $types;
+    $types = cms_type_defs();
+    foreach ($types as $type => &$def) {
+        foreach ($def['fields'] as &$field) {
+            $tr = CMS_TRANSLATABLE[$type][$field['key']] ?? null;
+            if ($tr) $field['tr'] = $tr;
+        }
+        unset($field);
+    }
+    unset($def);
+    return $types;
+}
+
+function cms_type_defs(): array {
     $destinations = [];
     foreach (seed('meta')['destinations'] ?? [] as $d) $destinations[$d['slug']] = $d['city'];
     $imageKeys = ['' => '— No photo (icon tile) —'];
@@ -340,6 +391,7 @@ function cms_types(): array {
                     'help' => 'Each sub-treatment gets its own page at /treatments/{treatment}/{sub-treatment}.',
                     'fields' => [
                         ['key' => 'name', 'label' => 'Name', 'type' => 'text'],
+                        ['key' => 'image', 'label' => 'Photo (optional — uses the treatment photo if empty)', 'type' => 'image'],
                         ['key' => 'description', 'label' => 'Description', 'type' => 'longtext'],
                     ]],
                 ['key' => 'flagshipProcedure', 'label' => 'Sample package procedure', 'type' => 'text'],

@@ -7,6 +7,9 @@ RewriteRule ^editor/(bootstrap|ui)\.php$ - [F,L]
 RewriteRule ^cms/templates\.php$ - [F,L]
 RewriteRule ^cms-shell(/.*)?$ - [R=404,L]
 
+# ── Sitemap: the built one plus pages added/changed in the content editor since ──
+RewriteRule ^sitemap\.xml$ cms/sitemap.php [L]
+
 # ── Images uploaded in the content editor (stored outside the web root) ──
 RewriteRule ^media/(blogs|treatments|doctors|hospitals)/([a-f0-9]{20}\.(?:jpg|png|webp|gif))$ cms/media.php?type=$1&f=$2 [L,QSA]
 

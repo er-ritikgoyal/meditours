@@ -6,7 +6,7 @@ import FaqAccordion from '../../../components/FaqAccordion.astro';
 import EnquiryCard from '../../../components/EnquiryCard.astro';
 import TreatmentCta from '../../../components/TreatmentCta.astro';
 import RecommendationLayout from '../../../components/RecommendationLayout.astro';
-import { treatments, type TreatmentData } from '../../../data/treatments';
+import { treatments, procedureImage, type TreatmentData } from '../../../data/treatments';
 import { ruTreatments } from '../../../i18n/ru-treatments';
 import { ruTreatmentsPage } from '../../../i18n/ru-pages';
 import { ru } from '../../../i18n/ru';
@@ -213,11 +213,11 @@ const year = new Date().getFullYear();
 						<h2>{d.proceduresHeading}</h2>
 						{treatment.detailedProcedures ? (
 							<div class="procedure-detail-cards">
-								{treatment.detailedProcedures.map((proc) => (
+								{treatment.detailedProcedures.map((proc, procI) => (
 									<a class="procedure-detail-card" href={`/ru/treatments/${treatment.slug}/${slugifyProcedure(baseTreatment.detailedProcedures![treatment.detailedProcedures!.indexOf(proc)].name)}`}>
-										{treatment.imageKey ? (
+										{(procedureImage(treatment.slug, procI) || treatment.imageKey) ? (
 											<Image
-												src={IMAGES[treatment.imageKey]}
+												src={procedureImage(treatment.slug, procI) ?? IMAGES[treatment.imageKey!]}
 												alt={proc.name}
 												width={400}
 												height={220}

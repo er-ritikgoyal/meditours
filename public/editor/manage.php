@@ -37,7 +37,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
     if ($action === 'save') {
         $existing = $slug !== '' ? get_entry($type, $slug) : null;
-        [$record, $errors] = build_record($def, $type, $existing, $_POST['f'] ?? [], $_FILES, $_POST['rm'] ?? []);
+        [$record, $errors] = build_record($def, $type, $existing, $_POST['f'] ?? [], $_FILES, $_POST['rm'] ?? [], $_POST['t'] ?? []);
 
         if (!$errors) {
             $saved = saved($type);
@@ -48,7 +48,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 'updatedAt' => time(),
             ];
             $saved[$record['slug']] = $record;
-            if (!write_saved($type, $saved)) $errors[] = 'Could not save on the server. Check folder permissions.';
+            if (!write_saved($type, $saved)) $errors[] = 'Could not save on the server: ' . ($GLOBALS['cms_write_error'] ?? 'check folder permissions') . '.';
         }
 
         if (!$errors) {
@@ -67,9 +67,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
  * Turns posted form values into a record. Starts from the existing record so
  * fields the admin doesn't show are kept. Returns [record, errors].
  */
-function build_record(array $def, string $type, ?array $existing, array $in, array $files, array $remove): array {
+function build_record(array $def, string $type, ?array $existing, array $in, array $files, array $remove, array $translations = []): array {
     $record = $existing ? $existing['record'] : [];
-    unset($record['_cms']);
+    // Translations stored by earlier saves (built-in items carry the site's own ones, which aren't "saved").
+    $prevI18n = ($existing && $existing['edited']) ? (array)($record['i18n'] ?? []) : [];
+    unset($record['_cms'], $record['i18n']);
     $errors = [];
 
     foreach ($def['fields'] as $field) {
@@ -85,21 +87,34 @@ function build_record(array $def, string $type, ?array $existing, array $in, arr
                 $record[$key] = str_contains($v, '.') ? (float)$v : (int)$v;
                 break;
             case 'list':
-                $record[$key] = array_values(array_filter(array_map('trim', preg_split('/\R/', (string)$raw) ?: []), fn($s) => $s !== ''));
+                $record[$key] = array_values(array_filter(array_map('trim', preg_split('/\R/u', (string)$raw) ?: []), fn($s) => $s !== ''));
                 break;
             case 'longtext':
                 $text = trim(str_replace("\r\n", "\n", (string)$raw));
                 $record[$key] = ($field['as'] ?? '') === 'paragraphs'
-                    ? array_values(array_filter(array_map('trim', preg_split('/\n\s*\n/', $text) ?: []), fn($s) => $s !== ''))
+                    ? array_values(array_filter(array_map('trim', preg_split('/\n\s*\n/u', $text) ?: []), fn($s) => $s !== ''))
                     : $text;
                 break;
             case 'repeater':
                 $rows = [];
-                foreach ((array)$raw as $row) {
+                $rowFiles = $files['img_' . $key] ?? null; // nested: [name|tmp_name|…][row][sub]
+                foreach ((array)$raw as $i => $row) {
                     $clean = [];
                     foreach ($field['fields'] as $sub) {
-                        $sv = trim(str_replace("\r\n", "\n", (string)($row[$sub['key']] ?? '')));
-                        if ($sv !== '') $clean[$sub['key']] = $sv;
+                        $sk = $sub['key'];
+                        if ($sub['type'] === 'image') {
+                            $upload = $rowFiles ? save_upload([
+                                'name' => $rowFiles['name'][$i][$sk] ?? '',
+                                'tmp_name' => $rowFiles['tmp_name'][$i][$sk] ?? '',
+                                'error' => $rowFiles['error'][$i][$sk] ?? UPLOAD_ERR_NO_FILE,
+                                'size' => $rowFiles['size'][$i][$sk] ?? 0,
+                            ], $type) : '';
+                            if (str_starts_with($upload, '!')) { $errors[] = $field['label'] . ' (row ' . (count($rows) + 1) . '): ' . substr($upload, 1); continue; }
+                            $sv = $upload !== '' ? $upload : (!empty($remove[$key][$i][$sk]) ? '' : trim((string)($row[$sk] ?? '')));
+                        } else {
+                            $sv = trim(str_replace("\r\n", "\n", (string)($row[$sk] ?? '')));
+                        }
+                        if ($sv !== '') $clean[$sk] = $sv;
                     }
                     if ($clean) $rows[] = $clean;
                 }
@@ -159,7 +174,60 @@ function build_record(array $def, string $type, ?array $existing, array $in, arr
         $record['specialties'] = $record['specialties'] ?? [];
         $record['beds'] = $record['beds'] ?? '';
     }
+
+    // Translations: keep a field when it differs from the site's current
+    // translation, or when it was already saved here before (so re-saving
+    // never drops it). Empty fields fall back to the existing translation/English.
+    $siteI18n = (array)(seed_by_slug($type)[$record['slug']]['i18n'] ?? []);
+    $i18n = [];
+    foreach (CMS_LOCALES as $loc => $_) {
+        $posted = $translations[$loc] ?? null;
+        if (!is_array($posted)) {
+            if (!empty($prevI18n[$loc])) $i18n[$loc] = $prevI18n[$loc];
+            continue;
+        }
+        foreach ($def['fields'] as $field) {
+            if (empty($field['tr'])) continue;
+            $k = $field['key'];
+            $value = parse_translation($field, $posted[$k] ?? null);
+            if ($value === null) continue;
+            $site = $siteI18n[$loc][$k] ?? null;
+            if (json_encode($value) !== json_encode($site) || isset($prevI18n[$loc][$k])) $i18n[$loc][$k] = $value;
+        }
+    }
+    if ($i18n) $record['i18n'] = $i18n;
     return [$record, $errors];
+}
+
+/** One translated field from the form, or null when left empty. */
+function parse_translation(array $field, $raw) {
+    switch ($field['type']) {
+        case 'list':
+            $items = array_values(array_filter(array_map('trim', preg_split('/\R/u', (string)$raw) ?: []), fn($s) => $s !== ''));
+            return $items ?: null;
+        case 'longtext':
+            $text = trim(str_replace("\r\n", "\n", (string)$raw));
+            if ($text === '') return null;
+            return ($field['as'] ?? '') === 'paragraphs'
+                ? array_values(array_filter(array_map('trim', preg_split('/\n\s*\n/u', $text) ?: []), fn($s) => $s !== ''))
+                : $text;
+        case 'repeater':
+            // Rows line up with the English rows by position; keep blanks so later rows stay aligned.
+            $rows = [];
+            $any = false;
+            foreach ((array)$raw as $row) {
+                $clean = [];
+                foreach ((array)$field['tr'] as $sk) {
+                    $sv = trim(str_replace("\r\n", "\n", (string)($row[$sk] ?? '')));
+                    if ($sv !== '') { $clean[$sk] = $sv; $any = true; }
+                }
+                $rows[] = $clean ?: new stdClass();
+            }
+            return $any ? $rows : null;
+        default:
+            $text = trim(str_replace("\r\n", "\n", (string)$raw));
+            return $text === '' ? null : $text;
+    }
 }
 
 // ── Form field rendering ────────────────────────────────────
@@ -251,9 +319,20 @@ function render_repeater_row(array $field, array $row, string $index, bool $isNe
     echo '<div class="repeater-row">';
     echo '<div class="repeater-fields">';
     foreach ($field['fields'] as $sub) {
-        echo '<div class="field">';
+        $sk = $sub['key'];
+        echo '<div class="field' . ($sub['type'] === 'image' ? ' field-image' : '') . '">';
         echo '<label>' . h($sub['label']) . '</label>';
-        render_input($sub, $row[$sub['key']] ?? '', 'f[' . $field['key'] . '][' . $index . '][' . $sub['key'] . ']', $isNew);
+        if ($sub['type'] === 'image') {
+            $src = (string)($row[$sk] ?? '');
+            echo '<div class="image-field">';
+            echo '<img class="image-preview" src="' . h($src) . '" alt=""' . ($src === '' ? ' hidden' : '') . '>';
+            echo '<input type="hidden" name="f[' . h($field['key']) . '][' . h($index) . '][' . h($sk) . ']" value="' . h($src) . '">';
+            echo '<input type="file" name="img_' . h($field['key']) . '[' . h($index) . '][' . h($sk) . ']" accept="image/jpeg,image/png,image/webp,image/gif" data-preview>';
+            if ($src !== '') echo '<label class="check"><input type="checkbox" name="rm[' . h($field['key']) . '][' . h($index) . '][' . h($sk) . ']" value="1"> Remove this photo</label>';
+            echo '</div>';
+        } else {
+            render_input($sub, $row[$sk] ?? '', 'f[' . $field['key'] . '][' . $index . '][' . $sk . ']', $isNew);
+        }
         echo '</div>';
     }
     echo '</div>';
@@ -262,6 +341,52 @@ function render_repeater_row(array $field, array $row, string $index, bool $isNe
     echo '<button type="button" class="icon-btn" data-repeater-down title="Move down">↓</button>';
     echo '<button type="button" class="icon-btn danger" data-repeater-remove title="Remove">✕</button>';
     echo '</div>';
+    echo '</div>';
+}
+
+/** Short English text shown under a translation field as a reference. */
+function english_hint($value): string {
+    if (is_array($value)) $value = implode(' / ', array_map(fn($v) => is_array($v) ? implode(' — ', $v) : (string)$v, $value));
+    $value = trim(preg_replace('/\s+/u', ' ', (string)$value) ?? '');
+    return $value === '' ? '' : '<p class="help en-hint"><span>English:</span> ' . h(mb_strimwidth($value, 0, 160, '…')) . '</p>';
+}
+
+/** One language tab: the translatable fields, pre-filled with the current translation. */
+function render_translation_panel(array $def, array $record, array $current, string $loc, string $label): void {
+    $rtl = $loc === 'ar' ? ' dir="rtl"' : '';
+    echo '<div class="card form-card lang-panel" data-lang-panel="' . h($loc) . '" hidden>';
+    echo '<p class="help lang-intro">Translate into ' . h($label) . '. Leave a field empty to keep the current text (or English if there is none). Translations appear on the ' . h($label) . ' pages after the next site build.</p>';
+    foreach ($def['fields'] as $field) {
+        if (empty($field['tr'])) continue;
+        $k = $field['key'];
+        $value = $current[$k] ?? null;
+        $english = $record[$k] ?? '';
+        echo '<div class="field field-' . h($field['type']) . '"' . $rtl . '>';
+        echo '<label>' . h($field['label']) . '</label>';
+        if ($field['type'] === 'repeater') {
+            $rows = array_values((array)$english);
+            if (!$rows) {
+                echo '<p class="help">Add rows in the English tab first (and save) to translate them here.</p>';
+            }
+            foreach ($rows as $i => $enRow) {
+                $trRow = (array)(array_values((array)$value)[$i] ?? []);
+                echo '<div class="repeater-row tr-row"><div class="repeater-fields">';
+                foreach ($field['fields'] as $sub) {
+                    if (!in_array($sub['key'], (array)$field['tr'], true)) continue;
+                    echo '<div class="field"><label>' . h($sub['label']) . ' ' . ($i + 1) . '</label>';
+                    render_input($sub, $trRow[$sub['key']] ?? '', 't[' . $loc . '][' . $k . '][' . $i . '][' . $sub['key'] . ']', false);
+                    echo english_hint($enRow[$sub['key']] ?? '') . '</div>';
+                }
+                echo '</div></div>';
+            }
+        } else {
+            $display = $value ?? '';
+            if ($field['type'] === 'list') $display = (array)$display;
+            render_input(array_merge($field, ['required' => false]), $display, 't[' . $loc . '][' . $k . ']', false);
+            echo english_hint($english);
+        }
+        echo '</div>';
+    }
     echo '</div>';
 }
 
@@ -297,9 +422,24 @@ if ($action === 'new' || $action === 'edit') {
 
     <form method="POST" action="/editor/manage.php?type=<?= h($type) ?>&action=save&slug=<?= urlencode($postSlug) ?>" enctype="multipart/form-data" class="edit-form">
       <input type="hidden" name="csrf" value="<?= h(csrf_token()) ?>">
-      <div class="card form-card">
+      <?php
+        // Current translations: the site's own, overlaid with any saved here.
+        $siteI18n = (array)(seed_by_slug($type)[$record['slug'] ?? '']['i18n'] ?? []);
+        $savedI18n = (array)($record['i18n'] ?? []);
+      ?>
+      <div class="lang-tabs" role="tablist" data-lang-tabs>
+        <button type="button" class="lang-tab active" data-lang="en">English</button>
+        <?php foreach (CMS_LOCALES as $loc => $label): $has = !empty($savedI18n[$loc]) || !empty($siteI18n[$loc]); ?>
+          <button type="button" class="lang-tab" data-lang="<?= h($loc) ?>"><?= h($label) ?><?= $has ? ' <span class="dot" title="Has translations"></span>' : '' ?></button>
+        <?php endforeach; ?>
+      </div>
+      <div class="card form-card" data-lang-panel="en">
         <?php foreach ($def['fields'] as $field) render_field($field, $record, $isNew, !$isNew); ?>
       </div>
+      <?php foreach (CMS_LOCALES as $loc => $label) {
+          $current = array_merge((array)($siteI18n[$loc] ?? []), (array)($savedI18n[$loc] ?? []));
+          render_translation_panel($def, $record, $current, $loc, $label);
+      } ?>
       <div class="form-footer">
         <button type="submit" class="btn btn-primary">Save &amp; publish</button>
         <a class="btn btn-light" href="<?= h($listUrl) ?>">Cancel</a>

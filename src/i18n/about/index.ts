@@ -17,6 +17,7 @@ import { ruAbout } from './ru';
 import { bnAbout } from './bn';
 import { viAbout } from './vi';
 import { arAbout } from './ar';
+import { cmsTranslations } from '../../data/cms/i18n';
 
 const texts: Record<string, Record<string, string>> = {
 	en: hospitalAbout,
@@ -69,6 +70,7 @@ export function getHospitalAbout(
 	citySlug: string,
 	city: string,
 ): AboutSection[] | undefined {
+	if (locale !== 'en' && cmsTranslations('hospitals', locale)[slug]?.about) return undefined;
 	const raw = texts[locale]?.[slug];
 	const s = shared[locale];
 	if (!raw || !s) return undefined;

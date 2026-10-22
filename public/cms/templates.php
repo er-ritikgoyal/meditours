@@ -10,7 +10,7 @@ declare(strict_types=1);
 const CMS_WHATSAPP = '919821701155';
 
 function cms_paragraphs($text): string {
-    $parts = is_array($text) ? $text : preg_split('/\n\s*\n/', trim((string)$text));
+    $parts = is_array($text) ? $text : preg_split('/\n\s*\n/u', trim((string)$text));
     $html = '';
     foreach ($parts ?: [] as $p) {
         $p = trim((string)$p);
@@ -53,7 +53,7 @@ function cms_chips(array $items): string {
 function cms_initials(string $name): string {
     $name = preg_replace('/^(Dr\.?|Prof\.?)\s+/i', '', $name) ?? $name;
     $out = '';
-    foreach (array_slice(preg_split('/\s+/', trim($name)) ?: [], 0, 2) as $w) $out .= mb_substr($w, 0, 1);
+    foreach (array_slice(preg_split('/\s+/u', trim($name)) ?: [], 0, 2) as $w) $out .= mb_substr($w, 0, 1);
     return mb_strtoupper($out);
 }
 
@@ -217,9 +217,12 @@ function render_treatment(array $t): void {
     if ($procs) {
         $cards = '<div class="cms-cards">';
         foreach ($procs as $p) {
-            $teaser = (string)(preg_split('/(?<=\.)\s/', trim((string)($p['description'] ?? '')))[0] ?? '');
+            $teaser = (string)(preg_split('/(?<=\.)\s/u', trim((string)($p['description'] ?? '')))[0] ?? '');
             if (mb_strlen($teaser) > 170) $teaser = mb_substr($teaser, 0, 167) . '…';
-            $cards .= '<a class="cms-card" href="/treatments/' . h($t['slug']) . '/' . h(slugify((string)$p['name'])) . '/"><strong>' . h((string)$p['name']) . '</strong><small>' . h($teaser) . '</small><span class="cms-more">View more →</span></a>';
+            $img = (string)($p['image'] ?? '') ?: treatment_image($t);
+            $cards .= '<a class="cms-card cms-card--post" href="/treatments/' . h($t['slug']) . '/' . h(slugify((string)$p['name'])) . '/">'
+                . ($img !== '' ? '<img src="' . h($img) . '" alt="" width="400" height="220" loading="lazy">' : '')
+                . '<strong>' . h((string)$p['name']) . '</strong><small>' . h($teaser) . '</small><span class="cms-more">View more →</span></a>';
         }
         echo cms_section('Procedures We Offer', $cards . '</div>');
     } else {
@@ -264,7 +267,7 @@ function render_procedure(array $t, array $proc): void {
         if (($p['name'] ?? '') === $name) continue;
         $others .= '<li><a href="/treatments/' . h($t['slug']) . '/' . h(slugify((string)$p['name'])) . '/">' . h((string)$p['name']) . '</a></li>';
     }
-    $image = treatment_image($t);
+    $image = (string)($proc['image'] ?? '') ?: treatment_image($t);
     ob_start(); ?>
     <?php if ($image !== ''): ?><img class="cms-hero-image" src="<?= h($image) ?>" alt="<?= h($name) ?>" width="1200" height="480"><?php endif; ?>
     <?= cms_section('About ' . $name, cms_paragraphs($proc['description'] ?? '')) ?>
@@ -273,7 +276,7 @@ function render_procedure(array $t, array $proc): void {
     <p><a class="cms-back" href="/treatments/<?= h($t['slug']) ?>/">← Back to <?= h($tName) ?></a></p>
     <?php
     $content = (string)ob_get_clean();
-    $first = (string)(preg_split('/(?<=\.)\s/', trim((string)($proc['description'] ?? '')))[0] ?? '');
+    $first = (string)(preg_split('/(?<=\.)\s/u', trim((string)($proc['description'] ?? '')))[0] ?? '');
     cms_page(
         $name . ' in India | ' . $tName . ' | Alis Pro Med Tour',
         $first,

@@ -12,7 +12,8 @@
     "seo:generate": "node scripts/generate-seo-files.mjs",
     "preview": "astro preview",
     "astro": "astro",
-    "cms:pull": "node scripts/pull-cms-data.mjs"
+    "cms:pull": "node scripts/pull-cms-data.mjs",
+    "preview:editor": "npm run build && php -S 127.0.0.1:8080 -t dist scripts/php-preview-router.php"
   },
   "dependencies": {
     "astro": "^7.0.4",

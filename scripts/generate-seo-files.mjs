@@ -34,7 +34,7 @@ const DEFAULT_LOCALE = 'en'; // prefixDefaultLocale: false -> no /en/ prefix
 
 // Static routes that exist under every locale (see src/pages/<locale>/*.astro).
 // '' means the locale's home page.
-const STATIC_ROUTES = ['', 'about', 'contact', 'destinations', 'treatments', 'doctors', 'hotel', 'flights', 'tourism'];
+const STATIC_ROUTES = ['', 'about', 'contact', 'destinations', 'treatments', 'doctors', 'blog', 'hotel', 'flights', 'tourism'];
 
 function extractSlugs(relativePath) {
 	const text = readFileSync(join(root, relativePath), 'utf8');
@@ -68,6 +68,7 @@ const treatmentSlugs = withCms(extractSlugs('src/data/treatments.ts'), 'treatmen
 const destinationSlugs = extractSlugs('src/data/destinations.ts');
 const doctorSlugs = withCms(extractSlugs('src/data/doctors.ts'), 'doctors');
 const hospitalSlugs = withCms(extractSlugs('src/data/hospitals.ts'), 'hospitals');
+const blogSlugs = withCms(extractSlugs('src/data/blog.ts'), 'blogs');
 
 /** Mirrors src/utils/slugify.ts -> slugifyProcedure, so sitemap URLs match the live routes exactly. */
 function slugifyProcedure(name) {
@@ -155,6 +156,12 @@ function buildGroups() {
 	for (const slug of hospitalSlugs) {
 		const group = {};
 		for (const locale of LOCALES) group[locale] = `${localePrefix(locale)}/hospitals/${slug}`;
+		groups.push(group);
+	}
+
+	for (const slug of blogSlugs) {
+		const group = {};
+		for (const locale of LOCALES) group[locale] = `${localePrefix(locale)}/blog/${slug}`;
 		groups.push(group);
 	}
 
