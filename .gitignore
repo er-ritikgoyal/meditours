@@ -25,3 +25,6 @@ pnpm-debug.log*
 
 # local scratch files
 .scratch_tmp/
+
+# content editor data when testing locally
+cms-data/

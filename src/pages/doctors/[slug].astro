@@ -28,6 +28,7 @@ import iconTabQualifications from 'bootstrap-icons/icons/mortarboard-fill.svg?ra
 import iconTabExperience from 'bootstrap-icons/icons/briefcase-fill.svg?raw';
 import iconTabAwards from 'bootstrap-icons/icons/award-fill.svg?raw';
 import iconTabMemberships from 'bootstrap-icons/icons/people-fill.svg?raw';
+import { doctorVideoUrls } from '../../data/doctors';
 import { doctors, type DoctorData } from '../../data/doctors';
 import { doctorCornerPhoto } from '../../utils/doctorHospital';
 
@@ -42,6 +43,8 @@ const { doctor } = Astro.props as { doctor: DoctorData };
 
 // Doctor's own clinic photo, falling back to their hospital's photo.
 const cornerPhoto = doctorCornerPhoto(doctors.find((d) => d.slug === Astro.params.slug)!);
+
+const videoUrls = doctorVideoUrls(doctor);
 
 const currentIndex = doctors.findIndex((d) => d.slug === doctor.slug);
 const related = Array.from({ length: 3 }, (_, i) => doctors[(currentIndex + 1 + i) % doctors.length]);
@@ -227,25 +230,27 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 							)}
 							{doctor.about.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
 
-							{doctor.videoUrl && (
+							{videoUrls.map((videoUrl, i) => (
 								<div class="doctor-video-section">
 									<button
 										type="button"
 										class="doctor-video-trigger"
 										data-video-trigger
-										data-video-url={doctor.videoUrl}
-										aria-label={`Play video introduction — ${doctor.name}`}
+										data-video-url={videoUrl}
+										aria-label={`Play video — ${doctor.name}`}
 									>
-										{youTubeThumbnail(doctor.videoUrl) ? (
-										<img src={youTubeThumbnail(doctor.videoUrl)!} alt={`${doctor.name} video introduction`} class="doctor-video-thumb" loading="lazy" />
-									) : (
-										<video src={doctor.videoUrl} class="doctor-video-thumb" muted playsinline preload="metadata" />
-									)}
+										{youTubeThumbnail(videoUrl) ? (
+											<img src={youTubeThumbnail(videoUrl)!} alt={`${doctor.name} video`} class="doctor-video-thumb" loading="lazy" />
+										) : (
+											<video src={videoUrl} class="doctor-video-thumb" muted playsinline preload="metadata" />
+										)}
 										<span class="doctor-video-play" set:html={iconPlay} aria-hidden="true" />
 									</button>
-									<p class="doctor-video-section__caption">Watch {doctor.name}'s video introduction</p>
+									<p class="doctor-video-section__caption">
+										{i === 0 ? `Watch ${doctor.name}'s video introduction` : `More from ${doctor.name}`}
+									</p>
 								</div>
-							)}
+							))}
 						</div>
 
 						<div class="doctor-tab-panel" data-tab-panel="specializations" hidden>
@@ -388,7 +393,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 	<CostEstimateCta />
 
 	{
-		doctor.videoUrl && (
+		videoUrls.length > 0 && (
 			<div class="doctor-video-modal" data-video-modal hidden>
 				<div class="doctor-video-modal__backdrop" data-video-modal-close />
 				<div class="doctor-video-modal__panel">

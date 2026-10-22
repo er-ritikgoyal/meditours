@@ -1,4 +1,5 @@
 ---
+import { doctorVideoUrls } from '../../data/doctors';
 import Layout from '../../layouts/Layout.astro';
 import OurDoctors from '../../components/OurDoctors.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
@@ -8,8 +9,7 @@ import { doctors } from '../../data/doctors';
 // Sourced from each doctor's own `videoUrl` (src/data/doctors.ts) — add a
 // videoUrl to a doctor there and their card appears here automatically.
 const videoEntries = doctors
-	.filter((doctor) => doctor.videoUrl)
-	.map((doctor) => ({ doctor, videoUrl: doctor.videoUrl as string }));
+	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
 <Layout

@@ -1,0 +1,22 @@
+Options -Indexes
+RewriteEngine On
+
+# ── Private files: config, internal PHP, the page shell used by the renderer ──
+RewriteRule ^\.env$ - [F,L]
+RewriteRule ^editor/(bootstrap|ui)\.php$ - [F,L]
+RewriteRule ^cms/templates\.php$ - [F,L]
+RewriteRule ^cms-shell(/.*)?$ - [R=404,L]
+
+# ── Images uploaded in the content editor (stored outside the web root) ──
+RewriteRule ^media/(blogs|treatments|doctors|hospitals)/([a-f0-9]{20}\.(?:jpg|png|webp|gif))$ cms/media.php?type=$1&f=$2 [L,QSA]
+
+# ── Content pages: live edits from /editor/ first, otherwise the static page ──
+# (English only; other languages update with the next site build.)
+RewriteRule ^blog/?$ cms/render.php?r=blog-index [L,QSA]
+RewriteRule ^blog/([a-z0-9-]+)/?$ cms/render.php?r=blog&slug=$1 [L,QSA]
+RewriteRule ^doctors/([a-z0-9-]+)/?$ cms/render.php?r=doctor&slug=$1 [L,QSA]
+RewriteRule ^hospitals/([a-z0-9-]+)/?$ cms/render.php?r=hospital&slug=$1 [L,QSA]
+RewriteRule ^treatments/([a-z0-9-]+)/?$ cms/render.php?r=treatment&slug=$1 [L,QSA]
+RewriteRule ^treatments/([a-z0-9-]+)/([a-z0-9-]+)/?$ cms/render.php?r=procedure&slug=$1&sub=$2 [L,QSA]
+
+ErrorDocument 404 /404.html

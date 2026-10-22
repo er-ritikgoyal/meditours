@@ -7,11 +7,12 @@
   },
   "scripts": {
     "dev": "astro dev",
-    "prebuild": "node scripts/generate-seo-files.mjs",
+    "prebuild": "node scripts/pull-cms-data.mjs && node scripts/generate-seo-files.mjs",
     "build": "astro build",
     "seo:generate": "node scripts/generate-seo-files.mjs",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "cms:pull": "node scripts/pull-cms-data.mjs"
   },
   "dependencies": {
     "astro": "^7.0.4",

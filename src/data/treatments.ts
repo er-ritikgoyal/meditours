@@ -1,3 +1,6 @@
+import cmsTreatments from './cms/treatments.json';
+import { mergeCms, stripCms, type CmsRecord } from './cms/merge';
+
 export interface StayBreakdown {
 	icuDays: number;
 	roomDays: number;
@@ -74,7 +77,8 @@ export interface TreatmentData {
 	faqs: FaqItem[];
 }
 
-export const treatments: TreatmentData[] = [
+/** Built-in treatments; `treatments` below adds what was saved in the content editor. */
+const baseTreatments: TreatmentData[] = [
 	{
 		slug: 'cardiac-care',
 		name: 'Cardiac Care',
@@ -2280,5 +2284,11 @@ export const treatments: TreatmentData[] = [
 		],
 	},
 ];
+
+export const treatments: TreatmentData[] = mergeCms(baseTreatments, cmsTreatments as Record<string, CmsRecord>, (record, original) => {
+	const merged = { ...original, ...stripCms<TreatmentData>(record) } as TreatmentData;
+	if (!merged.imageKey) delete merged.imageKey;
+	return merged;
+});
 
 export const getTreatmentBySlug = (slug: string) => treatments.find((t) => t.slug === slug);
