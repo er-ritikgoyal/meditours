@@ -1,5 +1,6 @@
 ---
 import MedicalDisclaimer from './MedicalDisclaimer.astro';
+import { siteUi } from '../i18n/siteUi';
 import iconFacebook from 'bootstrap-icons/icons/facebook.svg?raw';
 import iconTwitter from 'bootstrap-icons/icons/twitter-x.svg?raw';
 import iconInstagram from 'bootstrap-icons/icons/instagram.svg?raw';
@@ -227,6 +228,7 @@ const socials = [
 				<li><a href={privacyPolicyHref}>{privacyPolicyLabel}</a></li>
 				<li><a href={termsOfServiceHref}>{termsOfServiceLabel}</a></li>
 				<li><a href={cookiePolicyHref}>{cookiePolicyLabel}</a></li>
+				<li><a href="/medical-disclaimer">{siteUi(Astro.url.pathname).medicalDisclaimerLink}</a></li>
 				<li>
 					<button type="button" class="footer__cookie-settings" id="footer-cookie-settings">{manageCookiesLabel}</button>
 				</li>

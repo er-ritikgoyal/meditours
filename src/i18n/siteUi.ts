@@ -14,6 +14,8 @@ export type SiteLocale = (typeof SITE_LOCALES)[number];
 export interface SiteUi {
 	/** Short, non-diagnostic notice shown in the footer and next to every enquiry form. */
 	medicalDisclaimer: string;
+	/** Footer link to the full English medical disclaimer page. */
+	medicalDisclaimerLink: string;
 	/** Alt text for the home page hero photo. */
 	heroImageAlt: string;
 	form: {
@@ -32,6 +34,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	en: {
 		medicalDisclaimer:
 			'Information on this site is general and is not medical advice. Treatment decisions are made by the treating doctors after reviewing your reports.',
+		medicalDisclaimerLink: 'Medical Disclaimer',
 		heroImageAlt: 'Hospital building in India',
 		form: { treatment: 'Treatment', country: 'Country', countryCode: 'Country code' },
 		cookies: {
@@ -44,6 +47,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	fr: {
 		medicalDisclaimer:
 			'Les informations de ce site sont générales et ne constituent pas un avis médical. Les décisions de traitement sont prises par les médecins traitants après examen de vos rapports.',
+		medicalDisclaimerLink: 'Avertissement médical',
 		heroImageAlt: 'Bâtiment hospitalier en Inde',
 		form: { treatment: 'Traitement', country: 'Pays', countryCode: 'Indicatif du pays' },
 		cookies: {
@@ -57,6 +61,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	ru: {
 		medicalDisclaimer:
 			'Информация на этом сайте носит общий характер и не является медицинской консультацией. Решения о лечении принимают лечащие врачи после изучения ваших медицинских документов.',
+		medicalDisclaimerLink: 'Медицинская оговорка',
 		heroImageAlt: 'Здание больницы в Индии',
 		form: { treatment: 'Лечение', country: 'Страна', countryCode: 'Код страны' },
 		cookies: {
@@ -70,6 +75,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	bn: {
 		medicalDisclaimer:
 			'এই সাইটের তথ্য সাধারণ প্রকৃতির এবং এটি চিকিৎসা পরামর্শ নয়। আপনার রিপোর্ট পর্যালোচনার পর চিকিৎসার সিদ্ধান্ত নেন সংশ্লিষ্ট চিকিৎসকরা।',
+		medicalDisclaimerLink: 'চিকিৎসা সংক্রান্ত দাবিত্যাগ',
 		heroImageAlt: 'ভারতের একটি হাসপাতাল ভবন',
 		form: { treatment: 'চিকিৎসা', country: 'দেশ', countryCode: 'দেশের কোড' },
 		cookies: {
@@ -83,6 +89,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	ro: {
 		medicalDisclaimer:
 			'Informațiile de pe acest site sunt generale și nu reprezintă sfaturi medicale. Deciziile privind tratamentul sunt luate de medicii curanți după analizarea rapoartelor dumneavoastră.',
+		medicalDisclaimerLink: 'Avertisment medical',
 		heroImageAlt: 'Clădire de spital din India',
 		form: { treatment: 'Tratament', country: 'Țara', countryCode: 'Prefixul țării' },
 		cookies: {
@@ -96,6 +103,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	es: {
 		medicalDisclaimer:
 			'La información de este sitio es general y no constituye consejo médico. Las decisiones sobre el tratamiento las toman los médicos tratantes tras revisar sus informes.',
+		medicalDisclaimerLink: 'Aviso médico',
 		heroImageAlt: 'Edificio hospitalario en la India',
 		form: { treatment: 'Tratamiento', country: 'País', countryCode: 'Código de país' },
 		cookies: {
@@ -109,6 +117,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	pt: {
 		medicalDisclaimer:
 			'As informações deste site são gerais e não constituem aconselhamento médico. As decisões de tratamento são tomadas pelos médicos responsáveis após analisarem os seus relatórios.',
+		medicalDisclaimerLink: 'Aviso médico',
 		heroImageAlt: 'Edifício hospitalar na Índia',
 		form: { treatment: 'Tratamento', country: 'País', countryCode: 'Código do país' },
 		cookies: {
@@ -122,6 +131,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	vi: {
 		medicalDisclaimer:
 			'Thông tin trên trang web này mang tính chung và không phải là lời khuyên y tế. Quyết định điều trị do các bác sĩ điều trị đưa ra sau khi xem xét hồ sơ của bạn.',
+		medicalDisclaimerLink: 'Tuyên bố miễn trừ y tế',
 		heroImageAlt: 'Tòa nhà bệnh viện tại Ấn Độ',
 		form: { treatment: 'Phương pháp điều trị', country: 'Quốc gia', countryCode: 'Mã quốc gia' },
 		cookies: {
@@ -135,6 +145,7 @@ const UI: Record<SiteLocale, SiteUi> = {
 	ar: {
 		medicalDisclaimer:
 			'المعلومات الواردة في هذا الموقع عامة وليست استشارة طبية. يتخذ الأطباء المعالجون قرارات العلاج بعد مراجعة تقاريرك.',
+		medicalDisclaimerLink: 'إخلاء المسؤولية الطبية',
 		heroImageAlt: 'مبنى مستشفى في الهند',
 		form: { treatment: 'العلاج', country: 'الدولة', countryCode: 'رمز الدولة' },
 		cookies: {
