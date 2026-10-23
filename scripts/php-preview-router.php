@@ -27,7 +27,7 @@ if (!getenv('CMS_DATA_DIR')) putenv('CMS_DATA_DIR=' . $projectRoot . '/cms-data'
 $path = (string)parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
 
 // Same private paths as .htaccess.
-if (preg_match('#^/(\.env|editor/(bootstrap|ui)\.php|cms/templates\.php)$#', $path)) {
+if (preg_match('#^/(\.env|editor/(bootstrap|ui)\.php|cms/(templates|patch|pages)\.php)$#', $path)) {
     http_response_code(403);
     return true;
 }

@@ -35,7 +35,7 @@ const isEmpty = (v: unknown) => v === undefined || v === null || v === '' || (Ar
 export function cmsTranslations(type: CmsType, locale: string): Record<string, Record<string, any>> {
 	const out: Record<string, Record<string, any>> = {};
 	for (const record of Object.values(byType[type])) {
-		if (!record?.slug || record._cms?.deleted) continue;
+		if (!record?.slug || record._cms?.deleted || record._cms?.imported) continue;
 		const tr = record.i18n?.[locale];
 		if (!tr || typeof tr !== 'object') continue;
 		const clean: Record<string, any> = {};

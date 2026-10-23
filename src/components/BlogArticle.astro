@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import PageHeader from './PageHeader.astro';
+import CmsMark from './CmsMark.astro';
+import Rich from './Rich.astro';
 import CostEstimateCta from './CostEstimateCta.astro';
 import { formatBlogDate, type BlogPost } from '../data/blog';
 import { blogCta, blogPostTr, blogUi, type BlogLocale } from '../i18n/blog';
@@ -36,12 +38,16 @@ const alternates = (Object.keys(blogUi) as BlogLocale[]).map((l) => ({
 	/>
 
 	<article class="post">
-		<Image src={post.image} alt={post.title} width={900} class="post__img" />
-		{
+		<CmsMark kind="img" k="cover"><Image src={post.image} alt={post.title} width={900} class="post__img" /></CmsMark>
+		<CmsMark kind="l" k="body">{
 			post.body.map((block) =>
-				block.startsWith('## ') ? <h2>{block.slice(3)}</h2> : <p>{block}</p>
+				block.startsWith('## ') ? (
+					<CmsMark kind="i" k="body-h"><h2><CmsMark kind="v" k="_">{block.slice(3)}</CmsMark></h2></CmsMark>
+				) : (
+					<CmsMark kind="i" k="body-p"><p><CmsMark kind="v" k="_"><Rich text={block} /></CmsMark></p></CmsMark>
+				),
 			)
-		}
+		}</CmsMark>
 		<a class="post__back" href={`${prefix}/blog`}>{ui.allArticles}</a>
 	</article>
 

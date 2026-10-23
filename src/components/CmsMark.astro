@@ -1,0 +1,25 @@
+---
+/**
+ * Invisible markers around content the editor (/editor/) can change, so the
+ * PHP live renderer (public/cms/patch.php) can update a built page in place
+ * and keep its structure identical. Renders the slot unchanged between two
+ * HTML comments — no wrapper element, so markup and styles are untouched.
+ *
+ *   kind "t" text value      <CmsMark k="name">{hospital.name}</CmsMark>
+ *   kind "l" list            <CmsMark kind="l" k="specialties"> …items… </CmsMark>
+ *   kind "i" one list item   <CmsMark kind="i" k="specialties"> … </CmsMark>
+ *   kind "v" value in item   <CmsMark kind="v" k="_">{specialty}</CmsMark>   ("_" = the item itself)
+ *   kind "s" optional block  <CmsMark kind="s" k="videoUrl">{x && …}</CmsMark>
+ *   kind "img" image(s)      <CmsMark kind="img" k="image"><Image … /></CmsMark>
+ */
+export interface Props {
+	k: string;
+	kind?: 't' | 'l' | 'i' | 'v' | 's' | 'img';
+}
+
+const { k, kind = 't' } = Astro.props;
+const open = `<!--cms-${kind}:${k}-->`;
+const close = `<!--/cms-${kind}:${k}-->`;
+---
+
+<Fragment set:html={open} /><slot /><Fragment set:html={close} />

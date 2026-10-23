@@ -2,6 +2,7 @@
 import { Image } from 'astro:assets';
 import Layout from '../layouts/Layout.astro';
 import PageHeader from './PageHeader.astro';
+import CmsMark from './CmsMark.astro';
 import CostEstimateCta from './CostEstimateCta.astro';
 import { blogPosts, formatBlogDate } from '../data/blog';
 import { blogCta, blogPostTr, blogUi, type BlogLocale } from '../i18n/blog';
@@ -38,20 +39,20 @@ const alternates = (Object.keys(blogUi) as BlogLocale[]).map((l) => ({ locale: l
 
 	<section class="blog">
 		<div class="blog__grid">
-			{
+			<CmsMark kind="l" k="posts">{
 				posts.map((post) => (
-					<a class="blog-card" href={`${prefix}/blog/${post.slug}`}>
+					<CmsMark kind="i" k="posts"><a class="blog-card" href={`${prefix}/blog/${post.slug}`}>
 						<Image src={post.image} alt={post.title} width={480} height={260} class="blog-card__img" />
 						<div class="blog-card__body">
 							<span class="blog-card__meta">
-								{post.category} · {formatBlogDate(post.date, ui.dateLocale)} · {ui.minRead.replace('{n}', String(post.readMinutes))}
+								<CmsMark kind="v" k="meta">{post.category} · {formatBlogDate(post.date, ui.dateLocale)} · {ui.minRead.replace('{n}', String(post.readMinutes))}</CmsMark>
 							</span>
-							<h2>{post.title}</h2>
-							<p>{post.excerpt}</p>
+							<h2><CmsMark kind="v" k="title">{post.title}</CmsMark></h2>
+							<p><CmsMark kind="v" k="excerpt">{post.excerpt}</CmsMark></p>
 						</div>
-					</a>
+					</a></CmsMark>
 				))
-			}
+			}</CmsMark>
 		</div>
 	</section>
 

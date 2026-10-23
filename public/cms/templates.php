@@ -17,7 +17,7 @@ function cms_paragraphs($text): string {
         if ($p === '') continue;
         $html .= str_starts_with($p, '## ')
             ? '<h2>' . h(substr($p, 3)) . '</h2>'
-            : '<p>' . nl2br(h($p), false) . '</p>';
+            : '<p>' . cms_clean_html($p) . '</p>';
     }
     return $html;
 }

@@ -3,6 +3,8 @@ import { Image } from 'astro:assets';
 import 'flag-icons/css/flag-icons.min.css';
 import Layout from '../../../layouts/Layout.astro';
 import EnquiryCard from '../../../components/EnquiryCard.astro';
+import Rich from '../../../components/Rich.astro';
+import { stripTags } from '../../../utils/richText';
 import RecommendationLayout from '../../../components/RecommendationLayout.astro';
 import CostEstimateCta from '../../../components/CostEstimateCta.astro';
 import iconHome from 'bootstrap-icons/icons/house-door-fill.svg?raw';
@@ -86,7 +88,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.wha
 
 <Layout
 	title={`${doctor.name} — ${doctor.specialty} na Índia | AlisPro MediTours`}
-	description={`${doctor.name}, ${doctor.title} — ${doctor.hospital}. ${doctor.experienceYears}+ ${d.yearsExperienceSuffix}. ${doctor.about}`}
+	description={`${doctor.name}, ${doctor.title} — ${doctor.hospital}. ${doctor.experienceYears}+ ${d.yearsExperienceSuffix}. ${stripTags(doctor.about)}`}
 	locale="pt"
 	alternates={[
 		{ locale: 'en', href: `/doctors/${doctor.slug}` },
@@ -226,7 +228,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(d.wha
 									class="doctor-tab-panel__banner"
 								/>
 							)}
-							{doctor.about.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
+							{doctor.about.split('\n\n').map((paragraph) => <p><Rich text={paragraph} /></p>)}
 						</div>
 
 						<div class="doctor-tab-panel" data-tab-panel="specializations" hidden>

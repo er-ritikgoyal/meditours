@@ -45,6 +45,8 @@ import { translateHospital as translateHospitalPt } from '../../i18n/pt-hospital
 import { translateHospital as translateHospitalVi } from '../../i18n/vi-hospitals';
 import { translateHospital as translateHospitalAr } from '../../i18n/ar-hospitals';
 import { blogPostTr } from '../../i18n/blog';
+import { hospitalAboutFields } from '../../i18n/about';
+import { getOverview } from '../../i18n/overviews';
 import cmsBlogs from '../../data/cms/blogs.json';
 import cmsDoctors from '../../data/cms/doctors.json';
 import cmsHospitals from '../../data/cms/hospitals.json';
@@ -85,6 +87,12 @@ function translationsFor(english: Record<string, any>, perLocale: (locale: strin
 }
 
 
+/** A hospital's write-up sections and overview as editor fields, in one language. */
+const writeUpFields = (slug: string, locale: string, name: string) => {
+	const overview = getOverview(slug, locale, name, name);
+	return { ...hospitalAboutFields(slug, locale), ...(overview ? { overview } : {}) };
+};
+
 const url = (image: ImageMetadata | string | undefined) => (typeof image === 'string' ? image : image?.src ?? '');
 
 const files: Record<string, () => unknown> = {
@@ -123,8 +131,13 @@ const files: Record<string, () => unknown> = {
 				address: details?.address ?? '',
 				established: details?.established ?? null,
 				certs: details?.certs ?? [],
-				// "about" is left out: a translated "about" saved in the editor replaces the long per-language write-up.
-				i18n: translationsFor(hospital, (l) => hospitalTr[l as keyof typeof hospitalTr](hospital), ['name', 'city', 'accreditation', 'specialties', 'beds']),
+				...writeUpFields(hospital.slug, 'en', hospital.name),
+				// The short "about" is left out: a translated one saved in the editor replaces the long per-language write-up.
+				i18n: translationsFor(
+					{ ...hospital, ...writeUpFields(hospital.slug, 'en', hospital.name) },
+					(l) => ({ ...hospitalTr[l as keyof typeof hospitalTr](hospital), ...writeUpFields(hospital.slug, l, hospital.name) }),
+					['name', 'city', 'accreditation', 'specialties', 'beds', 'aboutHistory', 'aboutSpecialities', 'aboutTechnology', 'aboutInternational', 'overview'],
+				),
 			};
 		}),
 	treatments: () =>

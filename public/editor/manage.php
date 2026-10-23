@@ -9,6 +9,9 @@ $type = (string)($_GET['type'] ?? '');
 $def = cms_type($type);
 if (!$def) redirect('/editor/', 'Unknown section.', 'error');
 
+// Keep a full copy of the site's content in cms-data.
+sync_site_content($type);
+
 $action = (string)($_GET['action'] ?? 'list');
 $slug = (string)($_GET['slug'] ?? '');
 $listUrl = '/editor/manage.php?type=' . urlencode($type);
@@ -90,8 +93,8 @@ function build_record(array $def, string $type, ?array $existing, array $in, arr
                 $record[$key] = array_values(array_filter(array_map('trim', preg_split('/\R/u', (string)$raw) ?: []), fn($s) => $s !== ''));
                 break;
             case 'longtext':
-                $text = trim(str_replace("\r\n", "\n", (string)$raw));
-                $record[$key] = ($field['as'] ?? '') === 'paragraphs'
+                $text = cms_store_rich(trim(str_replace("\r\n", "\n", (string)$raw)));
+                $record[$key] =($field['as'] ?? '') === 'paragraphs'
                     ? array_values(array_filter(array_map('trim', preg_split('/\n\s*\n/u', $text) ?: []), fn($s) => $s !== ''))
                     : $text;
                 break;
@@ -113,6 +116,7 @@ function build_record(array $def, string $type, ?array $existing, array $in, arr
                             $sv = $upload !== '' ? $upload : (!empty($remove[$key][$i][$sk]) ? '' : trim((string)($row[$sk] ?? '')));
                         } else {
                             $sv = trim(str_replace("\r\n", "\n", (string)($row[$sk] ?? '')));
+                            if (cms_is_rich($sub)) $sv = cms_store_rich($sv);
                         }
                         if ($sv !== '') $clean[$sk] = $sv;
                     }
@@ -206,7 +210,7 @@ function parse_translation(array $field, $raw) {
             $items = array_values(array_filter(array_map('trim', preg_split('/\R/u', (string)$raw) ?: []), fn($s) => $s !== ''));
             return $items ?: null;
         case 'longtext':
-            $text = trim(str_replace("\r\n", "\n", (string)$raw));
+            $text = cms_store_rich(trim(str_replace("\r\n", "\n", (string)$raw)));
             if ($text === '') return null;
             return ($field['as'] ?? '') === 'paragraphs'
                 ? array_values(array_filter(array_map('trim', preg_split('/\n\s*\n/u', $text) ?: []), fn($s) => $s !== ''))
@@ -219,6 +223,8 @@ function parse_translation(array $field, $raw) {
                 $clean = [];
                 foreach ((array)$field['tr'] as $sk) {
                     $sv = trim(str_replace("\r\n", "\n", (string)($row[$sk] ?? '')));
+                    $subDef = current(array_filter($field['fields'], fn($x) => $x['key'] === $sk)) ?: [];
+                    if (cms_is_rich($subDef)) $sv = cms_store_rich($sv);
                     if ($sv !== '') { $clean[$sk] = $sv; $any = true; }
                 }
                 $rows[] = $clean ?: new stdClass();
@@ -247,6 +253,7 @@ function render_input(array $field, $value, string $name, bool $isNew): void {
         case 'longtext':
             $text = is_array($value) ? implode("\n\n", $value) : (string)$value;
             echo '<textarea id="' . h($id) . '" name="' . h($name) . '" rows="' . (is_array($value) || strlen($text) > 400 ? 12 : 6) . '"' . $req . '>' . h($text) . '</textarea>';
+            echo '<p class="help">HTML allowed: &lt;strong&gt;, &lt;em&gt;, &lt;u&gt;, &lt;a href=&quot;…&quot;&gt;, &lt;ul&gt;/&lt;ol&gt;&lt;li&gt;, &lt;h3&gt;, &lt;br&gt;, &lt;blockquote&gt;. Scripts and styles are removed.</p>';
             break;
         case 'list':
             echo '<textarea id="' . h($id) . '" name="' . h($name) . '" rows="' . max(3, min(10, count((array)$value) + 1)) . '">' . h(implode("\n", (array)$value)) . '</textarea>';

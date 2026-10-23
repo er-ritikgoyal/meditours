@@ -1,1 +1,32 @@
-{}
+{
+	"the-sight-avenue": {
+		"name": "The Sight Avenue",
+		"slug": "the-sight-avenue",
+		"citySlug": "delhi-ncr",
+		"city": "Greater Kailash, Delhi / Sector 38, Gurugram",
+		"country": "India",
+		"accreditation": "Multi Specialty Eye Hospital",
+		"specialties": [
+			"Retina",
+			"Cornea",
+			"Cataract",
+			"LASIK/SMILE",
+			"ICL",
+			"Glaucoma"
+		],
+		"beds": "2 Locations",
+		"theme": "blue",
+		"image": "/media/hospitals/5e8c150b023abf9a58b4.jpg",
+		"profileUrl": "/destinations/delhi-ncr/profiles/The_Sight_Avenue_Company.pdf",
+		"about": "The Sight Avenue operates across Greater Kailash, Delhi and Sector 38, Gurugram, offering comprehensive eye care spanning retina, cornea, cataract, LASIK/SMILE, ICL and glaucoma treatment under one ophthalmology-focused team.",
+		"_cmsVersion": 0,
+		"address": "Greater Kailash, New Delhi; and 243 P, near Bakhtawar Chowk, Sector 38, Gurugram 122001",
+		"certs": [],
+		"videoUrl": "",
+		"_cms": {
+			"source": "site",
+			"createdAt": 1792669809,
+			"updatedAt": 1792669809
+		}
+	}
+}

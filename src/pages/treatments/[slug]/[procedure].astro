@@ -2,8 +2,11 @@
 import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import PageHeader from '../../../components/PageHeader.astro';
+import Rich from '../../../components/Rich.astro';
+import { stripTags } from '../../../utils/richText';
 import EnquiryCard from '../../../components/EnquiryCard.astro';
 import TreatmentCta from '../../../components/TreatmentCta.astro';
+import CmsMark from '../../../components/CmsMark.astro';
 import RecommendationLayout from '../../../components/RecommendationLayout.astro';
 import { treatments, procedureImage, type TreatmentData } from '../../../data/treatments';
 import { slugifyProcedure } from '../../../utils/slugify';
@@ -84,7 +87,7 @@ const { treatment, proc } = Astro.props as { treatment: TreatmentData; proc: Pro
 const procIndex = (treatment.detailedProcedures ?? []).findIndex((p) => p.name === proc.name);
 const otherProcedures = (treatment.detailedProcedures ?? []).filter((p) => p.name !== proc.name);
 const metaDescription = (() => {
-	const sentence = proc.description.split('. ')[0].trim();
+	const sentence = stripTags(proc.description).split('. ')[0].trim();
 	const withPeriod = sentence.endsWith('.') ? sentence : `${sentence}.`;
 	return withPeriod.length > 155 ? `${withPeriod.slice(0, 152).trimEnd()}…` : withPeriod;
 })();
@@ -123,17 +126,17 @@ const year = new Date().getFullYear();
 				<div class="procedure-detail__hero-row">
 					<TreatmentCta variant="media" treatmentName={proc.name} locale="en">
 						{(procedureImage(treatment.slug, procIndex) || treatment.imageKey) ? (
-							<Image
+							<><CmsMark kind="s" k="hero-photo"><CmsMark kind="img" k="hero"><Image
 								src={procedureImage(treatment.slug, procIndex) ?? IMAGES[treatment.imageKey!]}
 								alt={proc.name}
 								width={1200}
 								height={480}
 								class="procedure-detail__hero-image"
-							/>
+							/></CmsMark></CmsMark><CmsMark kind="s" k="hero-tile" /></>
 						) : (
-							<div class={`procedure-detail__hero-fallback procedure-detail__hero-fallback--${treatment.theme}`}>
+							<><CmsMark kind="s" k="hero-photo" /><CmsMark kind="s" k="hero-tile"><div class={`procedure-detail__hero-fallback procedure-detail__hero-fallback--${treatment.theme}`}>
 								<span set:html={ICONS[treatment.icon]} aria-hidden="true" />
-							</div>
+							</div></CmsMark></>
 						)}
 					</TreatmentCta>
 
@@ -142,8 +145,8 @@ const year = new Date().getFullYear();
 
 				<div class="procedure-detail__grid">
 					<div class="procedure-detail__main">
-						<h2>About {proc.name}</h2>
-						<p>{proc.description}</p>
+						<h2>About <CmsMark k="name">{proc.name}</CmsMark></h2>
+						<p><CmsMark k="description"><Rich text={proc.description} /></CmsMark></p>
 
 						<TreatmentCta variant="steps" treatmentName={proc.name} locale="en" />
 
@@ -158,11 +161,11 @@ const year = new Date().getFullYear();
 							<div class="procedure-detail__related-card">
 								<h2>Other Procedures in {treatment.name}</h2>
 								<ul class="procedure-detail__related-list">
-									{otherProcedures.map((p) => (
-										<li>
-											<a href={`/treatments/${treatment.slug}/${slugifyProcedure(p.name)}`}>{p.name}</a>
-										</li>
-									))}
+									<CmsMark kind="l" k="others">{otherProcedures.map((p) => (
+										<CmsMark kind="i" k="others"><li>
+											<a href={`/treatments/${treatment.slug}/${slugifyProcedure(p.name)}`}><CmsMark kind="v" k="name">{p.name}</CmsMark></a>
+										</li></CmsMark>
+									))}</CmsMark>
 								</ul>
 							</div>
 						</aside>
@@ -170,7 +173,7 @@ const year = new Date().getFullYear();
 				</div>
 
 				<div class="procedure-detail__cta">
-					<h3>Ready to get started with {proc.name.toLowerCase()}?</h3>
+					<h3>Ready to get started with <CmsMark k="name-lc">{proc.name.toLowerCase()}</CmsMark>?</h3>
 					<p>Share your medical reports and receive a personalized treatment plan within 24 hours.</p>
 					<div class="procedure-detail__cta-actions">
 						<a class="procedure-detail__btn procedure-detail__btn--primary" href="/contact">

@@ -22,7 +22,8 @@ if (strlen($key) < 24 || !hash_equals($key, $given)) {
 }
 
 $out = [];
-foreach (CMS_TYPES as $type) $out[$type] = (object)saved($type);
+// Only editor changes: imported copies of the site's own content must never override the build.
+foreach (CMS_TYPES as $type) $out[$type] = (object)array_filter(saved($type), fn($r) => !is_imported($r));
 header('Content-Type: application/json; charset=utf-8');
 header('Cache-Control: no-store');
 echo json_encode($out, JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES);

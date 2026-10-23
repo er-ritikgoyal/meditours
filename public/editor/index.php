@@ -5,6 +5,9 @@ require_once __DIR__ . '/bootstrap.php';
 require_once __DIR__ . '/ui.php';
 require_auth();
 
+// Keep a full copy of the site's content in cms-data.
+foreach (CMS_TYPES as $t) sync_site_content($t);
+
 $recent = [];
 $stats = [];
 foreach (cms_types() as $type => $t) {

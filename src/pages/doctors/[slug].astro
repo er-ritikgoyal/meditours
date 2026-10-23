@@ -3,6 +3,9 @@ import { Image } from 'astro:assets';
 import 'flag-icons/css/flag-icons.min.css';
 import Layout from '../../layouts/Layout.astro';
 import EnquiryCard from '../../components/EnquiryCard.astro';
+import Rich from '../../components/Rich.astro';
+import { stripTags } from '../../utils/richText';
+import CmsMark from '../../components/CmsMark.astro';
 import RecommendationLayout from '../../components/RecommendationLayout.astro';
 import CostEstimateCta from '../../components/CostEstimateCta.astro';
 import iconHome from 'bootstrap-icons/icons/house-door-fill.svg?raw';
@@ -66,13 +69,13 @@ function youTubeThumbnail(url: string): string | null {
 }
 
 const tabs = [
-	{ id: 'about', label: 'About Doctor' },
-	{ id: 'specializations', label: 'Specializations' },
-	{ id: 'qualifications', label: 'Qualifications' },
-	{ id: 'experience', label: 'Experience' },
-	// Omit tabs with no data instead of showing an empty panel.
-	...(doctor.awards.length > 0 ? [{ id: 'awards', label: 'Awards & Achievements' }] : []),
-	...(doctor.memberships.length > 0 ? [{ id: 'memberships', label: 'Memberships' }] : []),
+	{ id: 'about', label: 'About Doctor', show: true },
+	{ id: 'specializations', label: 'Specializations', show: true },
+	{ id: 'qualifications', label: 'Qualifications', show: true },
+	{ id: 'experience', label: 'Experience', show: true },
+	// Tabs with no data are left out instead of showing an empty panel.
+	{ id: 'awards', label: 'Awards & Achievements', show: doctor.awards.length > 0 },
+	{ id: 'memberships', label: 'Memberships', show: doctor.memberships.length > 0 },
 ];
 
 const TAB_ICONS: Record<string, string> = {
@@ -89,7 +92,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 
 <Layout
 	title={`${doctor.name} — ${doctor.specialty} in India | AlisPro MediTours`}
-	description={`${doctor.name}, ${doctor.title} at ${doctor.hospital}. ${doctor.experienceYears}+ years of experience. ${doctor.about}`}
+	description={`${doctor.name}, ${doctor.title} at ${doctor.hospital}. ${doctor.experienceYears}+ years of experience. ${stripTags(doctor.about)}`}
 	alternates={[
 		{ locale: 'en', href: `/doctors/${doctor.slug}` },
 		{ locale: 'fr', href: `/fr/doctors/${doctor.slug}` },
@@ -112,28 +115,38 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 				<span class="doctor-hero__crumb-sep" set:html={iconChevron} aria-hidden="true" />
 				<a href="/doctors">Our Doctors</a>
 				<span class="doctor-hero__crumb-sep" set:html={iconChevron} aria-hidden="true" />
-				<span aria-current="page">{doctor.name}</span>
+				<span aria-current="page"><CmsMark k="name">{doctor.name}</CmsMark></span>
 			</nav>
 
 			<div class="doctor-hero__corner-photo">
 				{
 					cornerPhoto ? (
 						<>
-							{typeof cornerPhoto === 'string' ? (
-								<img src={cornerPhoto} alt={`${doctor.name} — ${doctor.hospital}`} width="320" height="220" />
-							) : (
-								<Image src={cornerPhoto} alt={`${doctor.name} — ${doctor.hospital}`} width={320} height={220} />
-							)}
-							<div class="doctor-hero__corner-caption">
-								<span set:html={iconHospital} aria-hidden="true" />
-								<span>{doctor.hospital}</span>
-							</div>
+							<CmsMark kind="s" k="corner-photo">
+								<CmsMark kind="img" k="corner">
+									{typeof cornerPhoto === 'string' ? (
+										<img src={cornerPhoto} alt={`${doctor.name} — ${doctor.hospital}`} width="320" height="220" />
+									) : (
+										<Image src={cornerPhoto} alt={`${doctor.name} — ${doctor.hospital}`} width={320} height={220} />
+									)}
+								</CmsMark>
+								<div class="doctor-hero__corner-caption">
+									<span set:html={iconHospital} aria-hidden="true" />
+									<span><CmsMark k="hospital">{doctor.hospital}</CmsMark></span>
+								</div>
+							</CmsMark>
+							<CmsMark kind="s" k="corner-empty" />
 						</>
 					) : (
-						<div class="doctor-hero__corner-photo-placeholder">
-							<span set:html={iconImage} aria-hidden="true" />
-							<span>Photo</span>
-						</div>
+						<>
+							<CmsMark kind="s" k="corner-photo" />
+							<CmsMark kind="s" k="corner-empty">
+								<div class="doctor-hero__corner-photo-placeholder">
+									<span set:html={iconImage} aria-hidden="true" />
+									<span>Photo</span>
+								</div>
+							</CmsMark>
+						</>
 					)
 				}
 			</div>
@@ -142,18 +155,24 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 				<div class={`doctor-hero__media doctor-hero__media--${doctor.theme}`}>
 					{
 						doctor.photo ? (
-							<Image src={doctor.photo} alt={doctor.name} width={280} height={280} class="doctor-hero__photo" />
+							<>
+								<CmsMark kind="s" k="photo"><CmsMark kind="img" k="photo"><Image src={doctor.photo} alt={doctor.name} width={280} height={280} class="doctor-hero__photo" /></CmsMark></CmsMark>
+								<CmsMark kind="s" k="avatar" />
+							</>
 						) : (
-							<span class="doctor-hero__avatar">{initials(doctor.name)}</span>
+							<>
+								<CmsMark kind="s" k="photo" />
+								<CmsMark kind="s" k="avatar"><span class="doctor-hero__avatar"><CmsMark k="initials">{initials(doctor.name)}</CmsMark></span></CmsMark>
+							</>
 						)
 					}
 					<span class="doctor-hero__verified" set:html={iconVerified} title="Verified specialist" />
 				</div>
 
 				<div class="doctor-hero__content">
-					<span class={`doctor-hero__specialty doctor-hero__specialty--${doctor.theme}`}>{doctor.specialty}</span>
-					<h1 class="doctor-hero__name">{doctor.name}</h1>
-					<p class="doctor-hero__title">{doctor.title}</p>
+					<span class={`doctor-hero__specialty doctor-hero__specialty--${doctor.theme}`}><CmsMark k="specialty">{doctor.specialty}</CmsMark></span>
+					<h1 class="doctor-hero__name"><CmsMark k="name">{doctor.name}</CmsMark></h1>
+					<p class="doctor-hero__title"><CmsMark k="title">{doctor.title}</CmsMark></p>
 
 					<div class="doctor-hero__rating">
 						<div class="doctor-hero__stars" aria-label={`${doctor.rating} out of 5 stars`}>
@@ -161,22 +180,22 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 								<span class={`doctor-hero__star ${i < Math.round(doctor.rating) ? 'is-filled' : ''}`} set:html={iconStar} />
 							))}
 						</div>
-						<strong>{doctor.rating.toFixed(1)}</strong>
-						<span>({doctor.reviews} reviews)</span>
+						<strong><CmsMark k="rating">{doctor.rating.toFixed(1)}</CmsMark></strong>
+						<span>(<CmsMark k="reviews">{doctor.reviews}</CmsMark> reviews)</span>
 					</div>
 
 					<div class="doctor-hero__meta">
 						<span class="doctor-hero__meta-row">
 							<span set:html={iconExperience} aria-hidden="true" />
-							{doctor.experienceYears}+ years experience
+							<CmsMark k="experienceYears">{doctor.experienceYears}</CmsMark>+ years experience
 						</span>
 						<span class="doctor-hero__meta-row">
 							<span set:html={iconHospital} aria-hidden="true" />
-							{doctor.hospital}, {doctor.city}
+							<CmsMark k="hospital">{doctor.hospital}</CmsMark>, <CmsMark k="city">{doctor.city}</CmsMark>
 						</span>
 						<span class="doctor-hero__meta-row">
 							<span set:html={iconLanguage} aria-hidden="true" />
-							{doctor.languages.join(', ')}
+							<CmsMark k="languages">{doctor.languages.join(', ')}</CmsMark>
 						</span>
 					</div>
 
@@ -202,7 +221,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 					<div class="doctor-tabs" role="tablist">
 						{
 							tabs.map((tab, i) => (
-								<button
+								<CmsMark kind="s" k={`tab-${tab.id}`}>{tab.show && (<button
 									type="button"
 									class={`doctor-tabs__btn ${i === 0 ? 'is-active' : ''}`}
 									data-tab-trigger
@@ -212,7 +231,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 								>
 									<span class="doctor-tabs__icon" set:html={TAB_ICONS[tab.id]} aria-hidden="true" />
 									<span>{tab.label}</span>
-								</button>
+								</button>)}</CmsMark>
 							))
 						}
 					</div>
@@ -220,18 +239,18 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 					<div class="doctor-tabs__panels">
 						<div class="doctor-tab-panel" data-tab-panel="about">
 							<h2>About {doctor.name}</h2>
-							{doctor.bannerPhoto && (
+							<CmsMark kind="s" k="banner">{doctor.bannerPhoto && (
 								<Image
 									src={doctor.bannerPhoto}
 									alt={`${doctor.name} — ${doctor.specialty}`}
 									width={860}
 									class="doctor-tab-panel__banner"
 								/>
-							)}
-							{doctor.about.split('\n\n').map((paragraph) => <p>{paragraph}</p>)}
+							)}</CmsMark>
+							<CmsMark kind="l" k="about">{doctor.about.split('\n\n').map((paragraph) => <CmsMark kind="i" k="about"><p><CmsMark kind="v" k="_"><Rich text={paragraph} /></CmsMark></p></CmsMark>)}</CmsMark>
 
-							{videoUrls.map((videoUrl, i) => (
-								<div class="doctor-video-section">
+							<CmsMark kind="l" k="videos">{videoUrls.map((videoUrl, i) => (
+								<CmsMark kind="i" k="videos"><div class="doctor-video-section">
 									<button
 										type="button"
 										class="doctor-video-trigger"
@@ -247,93 +266,103 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 										<span class="doctor-video-play" set:html={iconPlay} aria-hidden="true" />
 									</button>
 									<p class="doctor-video-section__caption">
-										{i === 0 ? `Watch ${doctor.name}'s video introduction` : `More from ${doctor.name}`}
+										<CmsMark kind="v" k="caption">{i === 0 ? `Watch ${doctor.name}'s video introduction` : `More from ${doctor.name}`}</CmsMark>
 									</p>
-								</div>
-							))}
+								</div></CmsMark>
+							))}</CmsMark>
 						</div>
 
 						<div class="doctor-tab-panel" data-tab-panel="specializations" hidden>
 							<h2>Specializations</h2>
 							<ul class="doctor-tab-list">
+								<CmsMark kind="l" k="specializations">
 								{
 									doctor.specializations.map((item) => (
-										<li>
+										<CmsMark kind="i" k="specializations"><li>
 											<span set:html={iconCheck} aria-hidden="true" />
-											{item}
-										</li>
+											<CmsMark kind="v" k="_">{item}</CmsMark>
+										</li></CmsMark>
 									))
 								}
+								</CmsMark>
 							</ul>
 						</div>
 
 						<div class="doctor-tab-panel" data-tab-panel="qualifications" hidden>
 							<h2>Qualifications</h2>
 							<ul class="doctor-timeline">
+								<CmsMark kind="l" k="education">
 								{
 									doctor.education.map((edu) => (
-										<li>
+										<CmsMark kind="i" k="education"><li>
 											<span class="doctor-timeline__icon" set:html={iconMortarboard} aria-hidden="true" />
 											<div>
-												<strong>{edu.degree}</strong>
-												<span>{edu.institution}</span>
-												{edu.year && <span class="doctor-timeline__year">{edu.year}</span>}
+												<strong><CmsMark kind="v" k="degree">{edu.degree}</CmsMark></strong>
+												<span><CmsMark kind="v" k="institution">{edu.institution}</CmsMark></span>
+												<CmsMark kind="s" k="year">{edu.year && <span class="doctor-timeline__year"><CmsMark kind="v" k="year">{edu.year}</CmsMark></span>}</CmsMark>
 											</div>
-										</li>
+										</li></CmsMark>
 									))
 								}
+								</CmsMark>
 							</ul>
 						</div>
 
 						<div class="doctor-tab-panel" data-tab-panel="experience" hidden>
 							<h2>Experience</h2>
 							<ul class="doctor-timeline">
+								<CmsMark kind="l" k="experience">
 								{
 									doctor.experience.map((exp) => (
-										<li>
+										<CmsMark kind="i" k="experience"><li>
 											<span class="doctor-timeline__icon" set:html={iconExperience} aria-hidden="true" />
 											<div>
-												<strong>{exp.role}</strong>
-												<span>{exp.place}</span>
-												<span class="doctor-timeline__year">{exp.period}</span>
+												<strong><CmsMark kind="v" k="role">{exp.role}</CmsMark></strong>
+												<span><CmsMark kind="v" k="place">{exp.place}</CmsMark></span>
+												<span class="doctor-timeline__year"><CmsMark kind="v" k="period">{exp.period}</CmsMark></span>
 											</div>
-										</li>
+										</li></CmsMark>
 									))
 								}
+								</CmsMark>
 							</ul>
 						</div>
 
 						<div class="doctor-tab-panel" data-tab-panel="awards" hidden>
 							<h2>Awards & Achievements</h2>
 							<ul class="doctor-tab-list">
+								<CmsMark kind="l" k="awards">
 								{
 									doctor.awards.map((award) => (
-										<li>
+										<CmsMark kind="i" k="awards"><li>
 											<span set:html={iconAward} aria-hidden="true" />
-											{award.title}
-											{award.year && ` (${award.year})`}
-										</li>
+											<CmsMark kind="v" k="title">{award.title}</CmsMark>
+											<CmsMark kind="s" k="year">{award.year && <CmsMark kind="v" k="yearText">{` (${award.year})`}</CmsMark>}</CmsMark>
+										</li></CmsMark>
 									))
 								}
+								</CmsMark>
 							</ul>
 						</div>
 
 						<div class="doctor-tab-panel" data-tab-panel="memberships" hidden>
 							<h2>Memberships</h2>
 							<ul class="doctor-tab-list">
+								<CmsMark kind="l" k="memberships">
 								{
 									doctor.memberships.map((membership) => (
-										<li>
+										<CmsMark kind="i" k="memberships"><li>
 											<span set:html={iconPeople} aria-hidden="true" />
-											{membership}
-										</li>
+											<CmsMark kind="v" k="_">{membership}</CmsMark>
+										</li></CmsMark>
 									))
 								}
+								</CmsMark>
 							</ul>
 						</div>
 					</div>
 
-					{
+					<CmsMark kind="s" k="testimonials">{
 						doctor.testimonials.length > 0 && (
 							<div class="doctor-reviews">
 								<h2>Patient Reviews</h2>
@@ -359,7 +388,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 								</div>
 							</div>
 						)
-					}
+					}</CmsMark>
 
 					<div class="doctor-related">
 						<h2>Other Specialists</h2>
@@ -392,7 +421,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 
 	<CostEstimateCta />
 
-	{
+	<CmsMark kind="s" k="video-modal">{
 		videoUrls.length > 0 && (
 			<div class="doctor-video-modal" data-video-modal hidden>
 				<div class="doctor-video-modal__backdrop" data-video-modal-close />
@@ -404,7 +433,7 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 				</div>
 			</div>
 		)
-	}
+	}</CmsMark>
 </Layout>
 
 <script>

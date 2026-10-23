@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Layout from '../../../../layouts/Layout.astro';
 import PageHeader from '../../../../components/PageHeader.astro';
+import Rich from '../../../../components/Rich.astro';
+import { stripTags } from '../../../../utils/richText';
 import EnquiryCard from '../../../../components/EnquiryCard.astro';
 import TreatmentCta from '../../../../components/TreatmentCta.astro';
 import RecommendationLayout from '../../../../components/RecommendationLayout.astro';
@@ -104,7 +106,7 @@ const otherProcedures = (treatment.detailedProcedures ?? [])
 	.filter((_, i) => i !== procIndex);
 
 const metaDescription = (() => {
-	const sentence = proc.description.split('. ')[0].trim();
+	const sentence = stripTags(proc.description).split('. ')[0].trim();
 	const withPeriod = sentence.endsWith('.') ? sentence : `${sentence}.`;
 	return withPeriod.length > 155 ? `${withPeriod.slice(0, 152).trimEnd()}…` : withPeriod;
 })();
@@ -179,7 +181,7 @@ const year = new Date().getFullYear();
 				<div class="procedure-detail__grid">
 					<div class="procedure-detail__main">
 						<h2>Despre {proc.name}</h2>
-						<p>{proc.description}</p>
+						<p><Rich text={proc.description} /></p>
 
 						<TreatmentCta variant="steps" treatmentName={proc.name} locale="ro" />
 

@@ -1,6 +1,7 @@
 ---
 import iconHome from 'bootstrap-icons/icons/house-door-fill.svg?raw';
 import iconChevron from 'bootstrap-icons/icons/chevron-right.svg?raw';
+import CmsMark from './CmsMark.astro';
 
 export interface Crumb {
 	label: string;
@@ -32,20 +33,20 @@ const { badge, title, highlight, subtitle, breadcrumbs = [], homeHref = '/', hom
 					{breadcrumbs.map((crumb) => (
 						<>
 							<span class="page-header__crumb-sep" set:html={iconChevron} aria-hidden="true" />
-							{crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page">{crumb.label}</span>}
+							{crumb.href ? <a href={crumb.href}>{crumb.label}</a> : <span aria-current="page"><CmsMark k="ph-crumb">{crumb.label}</CmsMark></span>}
 						</>
 					))}
 				</nav>
 			)
 		}
 
-		{badge && <span class="page-header__badge">{badge}</span>}
+		<CmsMark kind="s" k="ph-badge">{badge && <span class="page-header__badge"><CmsMark k="ph-badge">{badge}</CmsMark></span>}</CmsMark>
 
 		<h1 class="page-header__title">
-			{title} {highlight && <span>{highlight}</span>}
+			<CmsMark k="ph-title">{title}</CmsMark> {highlight && <span>{highlight}</span>}
 		</h1>
 
-		{subtitle && <p class="page-header__subtitle">{subtitle}</p>}
+		<CmsMark kind="s" k="ph-subtitle">{subtitle && <p class="page-header__subtitle"><CmsMark k="ph-subtitle">{subtitle}</CmsMark></p>}</CmsMark>
 	</div>
 </section>
 

@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import PageHeader from '../../../components/PageHeader.astro';
+import Rich from '../../../components/Rich.astro';
+import { stripTags } from '../../../utils/richText';
 import EnquiryCard from '../../../components/EnquiryCard.astro';
 import RecommendationLayout from '../../../components/RecommendationLayout.astro';
 import VideoEmbed from '../../../components/VideoEmbed.astro';
@@ -56,7 +58,7 @@ const aboutSections = getHospitalAbout(baseHospital.slug, 'pt', baseHospital.nam
 
 <Layout
 	title={`${hospital.name}, ${hospital.city} | Perfil do hospital | AlisPro MediTours`}
-	description={`${hospital.name} em ${hospital.city}, ${hospital.country} — ${hospital.accreditation}. ${hospital.about}`.slice(0, 155)}
+	description={`${hospital.name} em ${hospital.city}, ${hospital.country} — ${hospital.accreditation}. ${stripTags(hospital.about)}`.slice(0, 155)}
 	locale="pt"
 	alternates={[
 			{ locale: 'en', href: `/hospitals/${hospital.slug}` },
@@ -97,7 +99,7 @@ const aboutSections = getHospitalAbout(baseHospital.slug, 'pt', baseHospital.nam
 
 					<div class="hospital-detail__section">
 						<h2>Sobre {hospital.name}</h2>
-						<p>{hospital.about}</p>
+						<p><Rich text={hospital.about} /></p>
 						{
 							aboutSections ? (
 								<div class="hospital-detail__long">
@@ -105,13 +107,13 @@ const aboutSections = getHospitalAbout(baseHospital.slug, 'pt', baseHospital.nam
 										<>
 											<h3>{s.title}</h3>
 											{s.paragraphs.map((p) => (
-												<p>{p}</p>
+												<p><Rich text={p} /></p>
 											))}
 										</>
 									))}
 								</div>
 							) : (
-								overview && <p>{overview}</p>
+								overview && <p><Rich text={overview} /></p>
 							)
 						}
 						{baseHospital.videoUrl && <VideoEmbed url={baseHospital.videoUrl} title={hospital.name} />}

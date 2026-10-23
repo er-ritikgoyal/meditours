@@ -1,0 +1,16 @@
+---
+/**
+ * Renders a long text field that may contain HTML typed in the content editor
+ * (bold, links, lists…), through the same allowlist the editor enforces.
+ * Plain text renders exactly as before.
+ */
+import { richHtml } from '../utils/richText';
+
+export interface Props {
+	text: string | undefined | null;
+}
+
+const { text } = Astro.props;
+---
+
+<Fragment set:html={richHtml(text)} />

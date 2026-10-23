@@ -13,6 +13,8 @@ declare(strict_types=1);
 define('CMS_BOOT', true);
 require_once dirname(__DIR__) . '/editor/bootstrap.php';
 require_once __DIR__ . '/templates.php';
+require_once __DIR__ . '/patch.php';
+require_once __DIR__ . '/pages.php';
 
 $route = (string)($_GET['r'] ?? '');
 $slug = (string)($_GET['slug'] ?? '');
@@ -23,32 +25,33 @@ foreach ([$slug, $sub] as $part) {
 
 switch ($route) {
     case 'blog-index':
-        foreach (all_entries('blogs') as $e) {
-            if ($e['live']) { render_blog_index(); exit; }
-        }
-        // Also re-render the list when an admin-created post was deleted since the build.
-        foreach (saved('blogs') as $s => $rec) {
-            if (deleted_after_build('blogs', (string)$s)) { render_blog_index(); exit; }
-        }
+        // Every page keeps the built page's structure; the simple templates are only a
+        // fallback for when no built page exists.
+        $listChanged = false;
+        foreach (all_entries('blogs') as $e) if ($e['live']) $listChanged = true;
+        // Also when an admin-created post was deleted since the build.
+        foreach (saved('blogs') as $s => $rec) if (deleted_after_build('blogs', (string)$s)) $listChanged = true;
+        if ($listChanged) { render_blog_index_live() || render_blog_index(); exit; }
         serve_static('/blog/');
 
     case 'blog':
-        serve_record('blogs', $slug, 'render_blog_post', '/blog/' . $slug . '/');
+        serve_record('blogs', $slug, fn($r) => render_blog_post_live($r) || render_blog_post($r), '/blog/' . $slug . '/');
 
     case 'doctor':
-        serve_record('doctors', $slug, 'render_doctor', '/doctors/' . $slug . '/');
+        serve_record('doctors', $slug, fn($r) => render_doctor_live($r) || render_doctor($r), '/doctors/' . $slug . '/');
 
     case 'hospital':
-        serve_record('hospitals', $slug, 'render_hospital', '/hospitals/' . $slug . '/');
+        // Same structure as the built page; the simple template only if no built page exists.
+        serve_record('hospitals', $slug, fn($r) => render_hospital_live($r) || render_hospital($r), '/hospitals/' . $slug . '/');
 
     case 'treatment':
-        serve_record('treatments', $slug, 'render_treatment', '/treatments/' . $slug . '/');
+        serve_record('treatments', $slug, fn($r) => render_treatment_live($r) || render_treatment($r), '/treatments/' . $slug . '/');
 
     case 'procedure':
         $t = live_record('treatments', $slug);
         if ($t) {
             foreach ((array)($t['detailedProcedures'] ?? []) as $proc) {
-                if (slugify((string)($proc['name'] ?? '')) === $sub) { render_procedure($t, $proc); exit; }
+                if (slugify((string)($proc['name'] ?? '')) === $sub) { render_procedure_live($t, $proc) || render_procedure($t, $proc); exit; }
             }
             not_found();
         }

@@ -13,14 +13,16 @@ import { cmsMedia } from './media';
 
 export type CmsRecord = Record<string, unknown> & {
 	slug: string;
-	_cms?: { deleted?: boolean; source?: string; updatedAt?: number };
+	_cms?: { deleted?: boolean; source?: string; updatedAt?: number; imported?: boolean };
 };
 
 export function mergeCms<T extends { slug: string }>(
 	base: T[],
-	saved: Record<string, CmsRecord>,
+	allSaved: Record<string, CmsRecord>,
 	toItem: (record: CmsRecord, original: T | undefined) => T,
 ): T[] {
+	// Imported copies of the site's own content are not edits: the code stays the source.
+	const saved = Object.fromEntries(Object.entries(allSaved).filter(([, r]) => !r?._cms?.imported));
 	const merged = base.map((item) => {
 		const record = saved[item.slug];
 		return record && !record._cms?.deleted ? toItem(record, item) : item;

@@ -85,7 +85,8 @@ const CMS_TRANSLATABLE = [
     'doctors' => ['name' => true, 'specialty' => true, 'title' => true, 'qualification' => true, 'hospital' => true, 'city' => true,
         'languages' => true, 'about' => true, 'specializations' => true, 'education' => ['degree', 'institution'],
         'experience' => ['role', 'place', 'period'], 'awards' => ['title'], 'memberships' => true],
-    'hospitals' => ['name' => true, 'city' => true, 'accreditation' => true, 'specialties' => true, 'beds' => true, 'about' => true],
+    'hospitals' => ['name' => true, 'city' => true, 'accreditation' => true, 'specialties' => true, 'beds' => true, 'about' => true,
+        'aboutHistory' => true, 'aboutSpecialities' => true, 'aboutTechnology' => true, 'aboutInternational' => true, 'overview' => true],
 ];
 
 function h(?string $str): string {
@@ -249,6 +250,72 @@ function newer_than_build(string $type, string $slug, array $rec): bool {
     return (int)($rec['_cms']['updatedAt'] ?? 0) > $built;
 }
 
+/** A copy of the site's own content kept in cms-data (not an editor change). */
+function is_imported(?array $rec): bool {
+    return !empty($rec['_cms']['imported']);
+}
+
+/** The cms-data copy of a site item: the build snapshot's record, marked as imported. */
+function site_copy(array $seedRecord): array {
+    unset($seedRecord['_cmsVersion']);
+    $seedRecord['_cms'] = ['source' => 'site', 'imported' => true, 'updatedAt' => 0];
+    return $seedRecord;
+}
+
+/**
+ * Keeps a full copy of every site item in cms-data/{type}.json, so the data
+ * folder holds all blogs, treatments, doctors and hospitals — not only the
+ * ones editors changed. Copies nobody has edited follow the latest build
+ * (so developer changes to src/data are never frozen); edited items are left
+ * alone. Imported copies are never shown live and never override the build.
+ */
+function sync_site_content(string $type): void {
+    $seed = seed_by_slug($type);
+    if (!$seed) return; // no snapshot uploaded: nothing to copy (and nothing to prune)
+    $saved = saved($type);
+    $changed = false;
+    foreach ($seed as $slug => $rec) {
+        if (isset($saved[$slug]) && !is_imported($saved[$slug])) continue; // edited, created or deleted here
+        $copy = site_copy($rec);
+        if (($saved[$slug] ?? null) != $copy) {
+            $saved[$slug] = $copy;
+            $changed = true;
+        }
+    }
+    foreach ($saved as $slug => $rec) {
+        // A site item the developer removed from the code: drop its copy too.
+        if (is_imported($rec) && !isset($seed[$slug])) {
+            unset($saved[$slug]);
+            $changed = true;
+        }
+    }
+    if ($changed) write_saved($type, $saved);
+}
+
+/**
+ * Built image URLs (/_astro/…) change with every build. For an edited item
+ * still using the site's own photo, use the current build's URL so live pages
+ * never point at an old file. Uploaded photos (/media/…) are kept as they are.
+ */
+function refresh_built_images(array $rec, ?array $seedRec): array {
+    if (!$seedRec) return $rec;
+    // Fields added to the editor after this item was saved (e.g. the hospital write-up):
+    // take them from the current build so they're neither shown empty nor treated as removed.
+    foreach ($seedRec as $k => $v) {
+        if ($k !== '_cmsVersion' && $k !== 'i18n' && !array_key_exists($k, $rec)) $rec[$k] = $v;
+    }
+    foreach (['photo', 'bannerPhoto', 'topRightPhoto', 'image'] as $k) {
+        if (isset($rec[$k]) && is_string($rec[$k]) && str_starts_with($rec[$k], '/_astro/')) $rec[$k] = $seedRec[$k] ?? '';
+    }
+    foreach ((array)($rec['detailedProcedures'] ?? []) as $i => $proc) {
+        $img = $proc['image'] ?? '';
+        if (is_string($img) && str_starts_with($img, '/_astro/')) {
+            $rec['detailedProcedures'][$i]['image'] = $seedRec['detailedProcedures'][$i]['image'] ?? '';
+        }
+    }
+    return $rec;
+}
+
 function all_entries(string $type): array {
     $seed = seed_by_slug($type);
     $saved = saved($type);
@@ -263,6 +330,8 @@ function all_entries(string $type): array {
             unset($out[$slug]);
             continue;
         }
+        if (is_imported($rec)) continue; // the snapshot entry above is the current version
+        $rec = refresh_built_images($rec, $seed[$slug] ?? null);
         $out[$slug] = [
             'record' => $rec,
             // "Built in" = came with the site (not created in the admin): editable, not deletable.
@@ -284,8 +353,8 @@ function get_entry(string $type, string $slug): ?array {
 /** A saved record that PHP must render live (newer than the deployed build), or null. */
 function live_record(string $type, string $slug): ?array {
     $rec = saved($type)[$slug] ?? null;
-    if (!$rec || !empty($rec['_cms']['deleted'])) return null;
-    return newer_than_build($type, $slug, $rec) ? $rec : null;
+    if (!$rec || !empty($rec['_cms']['deleted']) || is_imported($rec)) return null;
+    return newer_than_build($type, $slug, $rec) ? refresh_built_images($rec, seed_by_slug($type)[$slug] ?? null) : null;
 }
 
 /** True when an admin-created record was deleted but the deployed build still has its page (which must 404). */
@@ -462,7 +531,12 @@ function cms_type_defs(): array {
                 ['key' => 'beds', 'label' => 'Scale', 'type' => 'text', 'help' => 'e.g. 500 Beds'],
                 ['key' => 'theme', 'label' => 'Colour theme', 'type' => 'select', 'options' => themes(), 'default' => 'blue'],
                 ['key' => 'image', 'label' => 'Photo', 'type' => 'image'],
-                ['key' => 'about', 'label' => 'About', 'type' => 'longtext', 'required' => true],
+                ['key' => 'about', 'label' => 'About (short introduction)', 'type' => 'longtext', 'required' => true],
+                ['key' => 'aboutHistory', 'label' => 'History and background', 'type' => 'longtext', 'help' => 'Part of the hospital write-up. Leave a blank line between paragraphs; leave empty to hide this part.'],
+                ['key' => 'aboutSpecialities', 'label' => 'Specialities and centres of excellence', 'type' => 'longtext'],
+                ['key' => 'aboutTechnology', 'label' => 'Technology and facilities', 'type' => 'longtext'],
+                ['key' => 'aboutInternational', 'label' => 'International patients', 'type' => 'longtext'],
+                ['key' => 'overview', 'label' => 'Overview (shown only when the write-up above is empty)', 'type' => 'longtext'],
                 ['key' => 'address', 'label' => 'Address', 'type' => 'text'],
                 ['key' => 'established', 'label' => 'Year established', 'type' => 'number'],
                 ['key' => 'certs', 'label' => 'Certifications (one per line, e.g. JCI)', 'type' => 'list'],
@@ -474,4 +548,49 @@ function cms_type_defs(): array {
 
 function cms_type(string $type): ?array {
     return cms_types()[$type] ?? null;
+}
+
+// ── Rich text ───────────────────────────────────────────────
+//
+// Long text fields (about, write-ups, overviews, descriptions, FAQ answers,
+// blog paragraphs) may contain a little HTML. Same allowlist as
+// src/utils/richText.ts: formatting, links, lists, subheadings — never
+// scripts, styles, event handlers or javascript: links.
+
+const CMS_ALLOWED_TAGS = ['b', 'strong', 'i', 'em', 'u', 'a', 'br', 'ul', 'ol', 'li', 'p', 'h2', 'h3', 'h4', 'span', 'sub', 'sup', 'blockquote', 'small'];
+
+/** Text that may contain HTML → safe HTML. Plain text (no tags) is escaped. */
+function cms_clean_html(string $text): string {
+    if (!preg_match('/<\/?[a-zA-Z]/', $text)) return htmlspecialchars($text, ENT_QUOTES | ENT_SUBSTITUTE, 'UTF-8', false);
+    $text = preg_replace('~<(script|style|iframe|object|embed|template|svg|math)\b[\s\S]*?</\1\s*>~i', '', $text) ?? '';
+    $text = preg_replace('/<!--[\s\S]*?-->/', '', $text) ?? '';
+    return preg_replace_callback('~<(/?)([a-zA-Z][a-zA-Z0-9]*)\b([^>]*)>~', function ($m) {
+        $name = strtolower($m[2]);
+        if (!in_array($name, CMS_ALLOWED_TAGS, true)) return '';
+        if ($m[1] === '/') return '</' . $name . '>';
+        if ($name === 'br') return '<br>';
+        if ($name !== 'a') return '<' . $name . '>';
+        $href = preg_match('/\shref\s*=\s*("([^"]*)"|\'([^\']*)\'|([^\s>]+))/i', $m[3], $hm) ? ($hm[2] ?? '') . ($hm[3] ?? '') . ($hm[4] ?? '') : '';
+        $href = trim($href);
+        $ok = $href !== '' && preg_match('/^(https?:|mailto:|tel:|\/|#)/i', $href);
+        $blank = (bool)preg_match('/\starget\s*=\s*["\']?_blank/i', $m[3]);
+        return '<a' . ($ok ? ' href="' . htmlspecialchars($href, ENT_QUOTES, 'UTF-8') . '"' : '') . ($blank ? ' target="_blank" rel="noopener noreferrer"' : '') . '>';
+    }, $text) ?? '';
+}
+
+/** What a rich-text field stores: cleaned HTML when it has tags, otherwise the text exactly as typed. */
+function cms_store_rich(string $text): string {
+    return preg_match('~</?[a-zA-Z]~', $text) ? cms_clean_html($text) : $text;
+}
+
+/** Fields that accept HTML: long texts, and FAQ answers. */
+function cms_is_rich(array $field): bool {
+    return ($field['type'] ?? '') === 'longtext' || ($field['key'] ?? '') === 'answer';
+}
+
+/** The text without tags (titles, descriptions, teasers, structured data). */
+function cms_plain(string $text): string {
+    $text = preg_replace('~<(script|style)\b[\s\S]*?</\1\s*>~i', '', $text) ?? $text;
+    $text = preg_replace('/<br\s*\/?>/i', ' ', $text) ?? $text;
+    return trim(preg_replace('/[ \t]+/u', ' ', html_entity_decode(strip_tags($text), ENT_QUOTES | ENT_HTML5, 'UTF-8')) ?? '');
 }

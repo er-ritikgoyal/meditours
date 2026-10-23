@@ -4,7 +4,7 @@ RewriteEngine On
 # ── Private files: config, internal PHP, the page shell used by the renderer ──
 RewriteRule ^\.env$ - [F,L]
 RewriteRule ^editor/(bootstrap|ui)\.php$ - [F,L]
-RewriteRule ^cms/templates\.php$ - [F,L]
+RewriteRule ^cms/(templates|patch|pages)\.php$ - [F,L]
 RewriteRule ^cms-shell(/.*)?$ - [R=404,L]
 
 # ── Sitemap: the built one plus pages added/changed in the content editor since ──

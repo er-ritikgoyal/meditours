@@ -117,7 +117,7 @@ const baseHospitalDetails: Record<string, HospitalDetails> = {
 /** Built-in details overlaid with address / established / certifications saved in the content editor. */
 export const hospitalDetails: Record<string, HospitalDetails> = { ...baseHospitalDetails };
 for (const record of Object.values(cmsHospitals as Record<string, CmsRecord>)) {
-	if (!record?.slug || record._cms?.deleted) continue;
+	if (!record?.slug || record._cms?.deleted || record._cms?.imported) continue;
 	const base = baseHospitalDetails[record.slug];
 	const established = Number(record.established) || undefined;
 	hospitalDetails[record.slug] = {

@@ -2,6 +2,8 @@
 import { Image } from 'astro:assets';
 import Layout from '../../../layouts/Layout.astro';
 import PageHeader from '../../../components/PageHeader.astro';
+import Rich from '../../../components/Rich.astro';
+import { stripTags } from '../../../utils/richText';
 import FaqAccordion from '../../../components/FaqAccordion.astro';
 import EnquiryCard from '../../../components/EnquiryCard.astro';
 import TreatmentCta from '../../../components/TreatmentCta.astro';
@@ -188,7 +190,7 @@ const year = new Date().getFullYear();
 				<div class="treatment-detail__grid">
 					<div class="treatment-detail__main">
 						<h2>{d.overviewHeading}</h2>
-						<p>{treatment.overview}</p>
+						<p><Rich text={treatment.overview} /></p>
 							<TreatmentCta variant="steps" treatmentName={treatment.name} locale="ar" />
 					</div>
 
@@ -230,7 +232,7 @@ const year = new Date().getFullYear();
 										)}
 										<div class="procedure-detail-card__body">
 											<h3>{proc.name}</h3>
-											<p>{procedureTeaser(proc.description)}</p>
+											<p>{procedureTeaser(stripTags(proc.description))}</p>
 											<span class="procedure-detail-card__cta">
 												View More
 												<span set:html={iconArrowRight} aria-hidden="true" />

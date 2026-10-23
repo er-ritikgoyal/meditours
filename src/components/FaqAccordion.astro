@@ -1,5 +1,8 @@
 ---
 import iconChevron from 'bootstrap-icons/icons/chevron-down.svg?raw';
+import CmsMark from './CmsMark.astro';
+import Rich from './Rich.astro';
+import { stripTags } from '../utils/richText';
 
 export interface FaqItem {
 	question: string;
@@ -61,7 +64,7 @@ const PERCENT = /[%٪]|\b(?:percent|per cent|pour cent|por ciento|por cento)\b|l
 const COUNT_CLAIM = /\d\s*\+|\b\d{1,3}(?:[,.\u00a0\u202f ]\d{3})+\b/u;
 const BOARD_CLAIM = /\bboard\b|comité|conseil|junta|conselho|comisi|consiliu|консилиум|совет|комисси|hội đồng|বোর্ড|মেডিকেল বোর্ড|مجلس|لجنة/iu;
 const schemaFaqs = faqs.filter(
-	(faq) => !PERCENT.test(faq.answer) && !COUNT_CLAIM.test(faq.answer) && !BOARD_CLAIM.test(faq.answer),
+	(faq) => !PERCENT.test(stripTags(faq.answer)) && !COUNT_CLAIM.test(stripTags(faq.answer)) && !BOARD_CLAIM.test(stripTags(faq.answer)),
 );
 const faqJsonLd =
 	schemaFaqs.length > 0
@@ -71,13 +74,13 @@ const faqJsonLd =
 				mainEntity: schemaFaqs.map((faq) => ({
 					'@type': 'Question',
 					name: faq.question,
-					acceptedAnswer: { '@type': 'Answer', text: faq.answer },
+					acceptedAnswer: { '@type': 'Answer', text: stripTags(faq.answer) },
 				})),
 			}).replace(/<\//g, '<\\/')
 		: null;
 ---
 
-{faqJsonLd && <script type="application/ld+json" is:inline set:html={faqJsonLd} />}
+<CmsMark kind="s" k="faq-schema">{faqJsonLd && <script type="application/ld+json" is:inline set:html={faqJsonLd} />}</CmsMark>
 
 <section class="faq">
 	<div class="faq__inner">
@@ -86,25 +89,25 @@ const faqJsonLd =
 			<h2 class="faq__title">
 				{title} <span>{highlight}</span>
 			</h2>
-			<p class="faq__subtitle">{subtitle}</p>
+			<p class="faq__subtitle"><CmsMark k="faq-subtitle">{subtitle}</CmsMark></p>
 		</div>
 
 		<div class="faq__list">
-			{
+			<CmsMark kind="l" k="faqs">{
 				faqs.map((faq, i) => (
-					<div class="faq-item" data-animate style={`transition-delay: ${(i % 4) * 60}ms`}>
+					<CmsMark kind="i" k="faqs"><div class="faq-item" data-animate style={`transition-delay: ${(i % 4) * 60}ms`}>
 						<button class="faq-item__question" data-faq-trigger aria-expanded="false">
-							{faq.question}
+							<CmsMark kind="v" k="question">{faq.question}</CmsMark>
 							<span class="faq-item__icon" set:html={iconChevron} aria-hidden="true" />
 						</button>
 						<div class="faq-item__answer-wrap">
 							<div class="faq-item__answer-inner">
-								<p class="faq-item__answer">{faq.answer}</p>
+								<p class="faq-item__answer"><CmsMark kind="v" k="answer"><Rich text={faq.answer} /></CmsMark></p>
 							</div>
 						</div>
-					</div>
+					</div></CmsMark>
 				))
-			}
+			}</CmsMark>
 		</div>
 	</div>
 </section>

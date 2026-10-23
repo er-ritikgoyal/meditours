@@ -55,7 +55,7 @@ function extractSlugs(relativePath) {
 function cmsRecords(type) {
 	try {
 		const data = JSON.parse(readFileSync(join(root, `src/data/cms/${type}.json`), 'utf8'));
-		return Object.values(data).filter((r) => r && r.slug && !r._cms?.deleted);
+		return Object.values(data).filter((r) => r && r.slug && !r._cms?.deleted && !r._cms?.imported);
 	} catch {
 		return [];
 	}

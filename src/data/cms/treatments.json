@@ -1,1 +1,187 @@
-{}
+{
+	"cardiac-care": {
+		"slug": "cardiac-care",
+		"name": "Cardiac Care",
+		"icon": "heart",
+		"imageKey": "cardiacCare",
+		"theme": "blue",
+		"shortDescription": "Bypass surgery, valve repair, and angioplasty from surgeons trained at leading cardiac centers.",
+		"overview": "India's cardiac programs combine internationally trained surgeons with some of the highest surgical volumes in the world, giving patients access to advanced procedures like off-pump bypass and minimally invasive valve repair at a fraction of Western pricing — without waitlists.",
+		"startingPrice": 8000,
+		"avgSavings": 93,
+		"hospitalsCount": 150,
+		"procedures": [
+			"Bypass Surgery",
+			"Valve Replacement",
+			"Angioplasty"
+		],
+		"allProcedures": [
+			"Coronary Angioplasty",
+			"Coronary Artery Bypass Graft (CABG)",
+			"Mitral Valve Replacement Surgery",
+			"Aortic Valve Replacement",
+			"Transcatheter Aortic Valve Replacement (TAVR)",
+			"Cardiac Catheterization",
+			"Balloon Pulmonary Valvotomy",
+			"Cardiac Pacemaker Installation",
+			"Pediatric Heart Surgery",
+			"Artificial Heart / LVAD Implant",
+			"Endovascular Aortic Aneurysm Repair",
+			"Open Heart Surgery",
+			"Congenital Heart Disease Treatment"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Coronary Angioplasty",
+				"description": "Coronary angioplasty is a minimally invasive procedure used to widen a narrowed or blocked coronary artery and restore blood flow to the heart muscle in patients with coronary artery disease. Under local anesthesia, a cardiologist threads a thin catheter through an artery in the wrist or groin up to the site of blockage, guided by live X-ray imaging, and inflates a small balloon to compress the plaque against the artery wall; in most cases a metal mesh stent is then left in place to keep the vessel open and reduce the chance of re-narrowing. It is typically recommended for patients with angina, reduced blood flow on a stress test, or as an emergency treatment during a heart attack to quickly reopen a blocked vessel. The procedure is done in a catheterization laboratory and usually takes under an hour, with most patients observed overnight and discharged within a day or two. India's cardiac centers perform high volumes of angioplasty using modern imaging and a wide range of stent options, and patients typically resume light activity within a week, with a cardiologist advising on medication and follow-up before returning home."
+			},
+			{
+				"name": "Coronary Artery Bypass Graft (CABG)",
+				"description": "Coronary artery bypass graft, commonly known as CABG or bypass surgery, is performed when one or more coronary arteries are severely narrowed or blocked and angioplasty is not suitable, often in patients with multi-vessel or complex coronary artery disease. During the operation, a cardiac surgeon takes a healthy blood vessel from elsewhere in the body, usually the internal mammary artery from the chest or a vein from the leg, and grafts it to reroute blood flow around the blocked segment. Traditional CABG is performed through an incision in the breastbone with the patient on a heart-lung bypass machine, though off-pump and minimally invasive approaches are used in selected cases. The goal is to relieve angina, reduce the risk of heart attack, and improve long-term heart function. Recovery involves several days in hospital, including time in intensive care immediately after surgery, followed by a structured period of activity restriction and cardiac rehabilitation. India's cardiac surgery programs combine experienced surgical teams with well-equipped intensive care units, and international patients typically plan for a hospital stay of about a week followed by a few weeks of local recovery before flying home, with wound checks and rehabilitation guidance provided throughout."
+			},
+			{
+				"name": "Mitral Valve Replacement Surgery",
+				"description": "Mitral valve replacement is performed when the mitral valve, which controls blood flow between the heart's left atrium and left ventricle, becomes too narrow (stenosis) or leaky (regurgitation) to function properly and cannot be adequately repaired. Under general anesthesia and with the patient on a heart-lung bypass machine, the surgeon opens the heart, removes the damaged valve, and sews in a replacement — either a mechanical valve, which is durable but requires lifelong blood-thinning medication, or a biological tissue valve, which avoids long-term anticoagulation but may wear out sooner. The choice between valve types depends on the patient's age, lifestyle, and overall health, and is discussed with the surgical team beforehand. The procedure can be done through a traditional sternotomy or, in select patients, through smaller minimally invasive incisions. Patients typically spend a day or two in intensive care followed by several more days on the ward before discharge. India's cardiac centers offer both mechanical and tissue valve options along with experienced post-operative cardiac care, and international patients generally plan for a hospital stay of about a week, with follow-up echocardiograms arranged before travel home to confirm the valve is functioning well."
+			},
+			{
+				"name": "Aortic Valve Replacement",
+				"description": "Aortic valve replacement treats a diseased aortic valve — the valve controlling blood flow from the heart into the body's main artery — that has become narrowed (stenosis) or leaky (regurgitation), causing symptoms such as breathlessness, chest pain, or fainting. In conventional open-heart surgery, the chest is opened, the heart is temporarily stopped and supported by a heart-lung bypass machine, and the surgeon removes the diseased valve and sews in a mechanical or biological replacement sized to the patient's anatomy. Mechanical valves last longer but require lifelong anticoagulant medication, while tissue valves avoid this but may need replacement after ten to twenty years, and the surgical team helps patients weigh these trade-offs based on age and health. The operation generally takes a few hours, with patients spending time in intensive care afterward before moving to a regular ward. It is one of the most established cardiac surgeries performed in India, with centers offering a full range of valve types and experienced perioperative monitoring. International patients typically stay in India for around two to three weeks in total to allow for surgery, initial recovery, and a follow-up assessment before flying home."
+			},
+			{
+				"name": "Transcatheter Aortic Valve Replacement (TAVR)",
+				"description": "Transcatheter aortic valve replacement, or TAVR, is a minimally invasive alternative to open-heart surgery for treating severe aortic valve stenosis, particularly in patients who are elderly or considered higher-risk for conventional surgery. Instead of opening the chest, an interventional cardiologist threads a catheter carrying a collapsible replacement valve through a blood vessel, most often in the groin, up to the heart, where it is expanded and positioned inside the patient's existing diseased valve, pushing it aside and immediately taking over its function. The procedure is usually performed under sedation or light general anesthesia and guided by live imaging, without the need to stop the heart or use a heart-lung bypass machine. Because it avoids a large chest incision, recovery is generally faster than with surgical valve replacement, with many patients mobilizing within a day and leaving hospital within a few days. TAVR is increasingly offered in India's advanced cardiac centers for patients who meet appropriate anatomical criteria, following careful imaging assessment to confirm suitability. International patients typically plan for one to two weeks in India to allow for pre-procedure evaluation, the procedure itself, and a short recovery period before follow-up and travel home."
+			},
+			{
+				"name": "Cardiac Catheterization",
+				"description": "Cardiac catheterization is a diagnostic and sometimes therapeutic procedure in which a thin, flexible catheter is guided through a blood vessel, usually in the wrist or groin, into the chambers and arteries of the heart to directly assess how it is functioning. Using X-ray guidance and contrast dye, the cardiologist can visualize the coronary arteries for blockages, measure pressures within the heart chambers, assess valve function, and take tissue samples in some cases. It is commonly used to investigate chest pain, abnormal stress test results, heart failure of unclear cause, or suspected valve or congenital heart disease, and often serves as the first step before deciding whether angioplasty, stenting, or surgery is needed. The procedure is performed under local anesthesia with light sedation, usually takes thirty minutes to an hour, and most patients can go home the same day or after an overnight stay. India's catheterization laboratories are equipped with modern imaging systems that allow precise diagnosis and, where appropriate, immediate treatment in the same sitting. International patients typically need only a short visit for the procedure itself, with results and next steps discussed directly with the cardiology team."
+			},
+			{
+				"name": "Balloon Pulmonary Valvotomy",
+				"description": "Balloon pulmonary valvotomy is a catheter-based procedure used to treat pulmonary valve stenosis, a condition in which the valve controlling blood flow from the heart's right ventricle to the lungs is abnormally narrowed, forcing the heart to work harder and reducing blood flow to the lungs. It is often diagnosed in infants, children, or young adults, sometimes as part of a congenital heart condition present from birth. During the procedure, a cardiologist guides a catheter with a deflated balloon at its tip through a vein, usually in the groin, into the narrowed valve, then inflates the balloon to stretch it open and relieve the obstruction. The procedure is performed under sedation or general anesthesia in a catheterization laboratory, guided by X-ray and echocardiographic imaging, and typically takes one to two hours. Because it avoids open-heart surgery, recovery is usually quick, with most patients observed overnight and discharged within a day or two. India's pediatric and structural cardiology centers routinely perform balloon valvotomy for both children and adults, with careful pre-procedure imaging to confirm suitability. Families traveling for this procedure typically plan for a short stay of about a week, including pre-procedure assessment and follow-up echocardiography."
+			},
+			{
+				"name": "Cardiac Pacemaker Installation",
+				"description": "A cardiac pacemaker is a small electronic device implanted to help regulate an abnormally slow or irregular heartbeat, commonly used to treat conditions such as bradycardia, heart block, or certain arrhythmias where the heart's natural electrical system is not functioning reliably. The device consists of a pulse generator, implanted just under the skin near the collarbone, connected to one or more thin wires that are guided through a vein into the heart chambers, where they sense the heart's rhythm and deliver small electrical impulses when needed to maintain a regular beat. The implantation is usually performed under local anesthesia with sedation, takes around one to two hours, and is done through a small incision rather than open surgery. Most patients stay in hospital overnight for monitoring and have the device's settings checked before discharge. India's electrophysiology and cardiology centers offer a range of single-chamber, dual-chamber, and more advanced pacemaker devices suited to different rhythm disorders. International patients typically plan for about a week in India to allow for pre-procedure evaluation, implantation, and an initial device check, with guidance on remote monitoring and follow-up with their home physician afterward."
+			},
+			{
+				"name": "Pediatric Heart Surgery",
+				"description": "Pediatric heart surgery covers a range of operations performed on infants and children to correct congenital heart defects — structural problems with the heart present from birth, such as holes between heart chambers, malformed valves, or abnormal connections of the major blood vessels. The specific procedure depends on the defect: some conditions can be closed with a patch during open-heart surgery using a heart-lung bypass machine sized for a small patient, while others involve rebuilding or rerouting blood vessels to establish normal circulation. Diagnosis typically relies on echocardiography, and sometimes CT or MRI imaging, to map the exact anatomy before planning the operation. Because children's hearts and blood vessels are small and still developing, these procedures require pediatric cardiac surgeons and anesthesiologists experienced in congenital heart conditions, along with dedicated pediatric intensive care support afterward. Recovery time varies widely with the complexity of the defect and the child's age, ranging from about a week to several weeks in hospital. India's pediatric cardiac programs treat a broad spectrum of congenital defects, often for children from other countries, with family accommodation and coordinated pre- and post-operative care built around the needs of young patients and their parents."
+			},
+			{
+				"name": "Artificial Heart / LVAD Implant",
+				"description": "A left ventricular assist device, or LVAD, is a mechanical pump implanted to help a severely weakened heart circulate blood, used in patients with advanced heart failure who have not responded adequately to medication. The device is surgically connected to the left ventricle and the aorta, drawing blood from the weakened chamber and pumping it into the body's main artery in place of the failing heart muscle; a cable exits through the skin to an external controller and battery pack worn by the patient. LVADs may serve as a bridge to heart transplant while a patient awaits a donor organ, or as a longer-term therapy for those who are not transplant candidates. Implantation requires open-heart surgery with cardiopulmonary bypass, followed by an extended hospital stay that includes intensive care monitoring and training for the patient and caregivers on operating the device. The term artificial heart is sometimes used loosely for LVADs, though total artificial hearts that fully replace the heart are a separate, rarer technology. India's advanced heart failure centers offer LVAD implantation and the specialized follow-up care it requires, and patients should expect an extended stay of several weeks for surgery, recovery, and device training before travel."
+			},
+			{
+				"name": "Endovascular Aortic Aneurysm Repair",
+				"description": "Endovascular aortic aneurysm repair, or EVAR, is a minimally invasive procedure used to treat an aortic aneurysm — a bulging, weakened section of the body's main artery that carries a risk of rupture if left untreated. Rather than opening the abdomen or chest to replace the affected segment directly, a vascular surgeon accesses the femoral arteries in the groin and threads a fabric-covered metal stent graft through the blood vessels to the aneurysm site, where it is expanded to line the artery from the inside and redirect blood flow away from the weakened wall. The procedure is performed under regional or general anesthesia, guided by continuous X-ray imaging, and typically takes one to three hours depending on the aneurysm's location and complexity. Because it avoids a large surgical incision, recovery is generally faster than with open repair, with many patients mobilizing within a day or two and leaving hospital within about a week. Careful CT imaging beforehand confirms the aneurysm's shape and size are suitable for a stent graft. India's vascular surgery centers offer EVAR with a range of stent graft devices, and international patients typically plan for about two weeks to allow for evaluation, the procedure, and post-procedure imaging follow-up."
+			},
+			{
+				"name": "Open Heart Surgery",
+				"description": "Open heart surgery is a broad term for any cardiac operation in which the chest is surgically opened, usually through an incision in the breastbone, to give the surgical team direct access to the heart and its major vessels. Many such operations are performed with the heart temporarily stopped and a heart-lung bypass machine taking over circulation and breathing, allowing the surgeon to work on a still, bloodless heart before it is restarted. Common reasons for open heart surgery include bypassing blocked coronary arteries, repairing or replacing damaged heart valves, correcting congenital defects, and repairing aneurysms involving the heart or major vessels. The technique and duration depend on the underlying condition, but most operations take several hours and are followed by time in intensive care while the patient is weaned off ventilator support and monitored for bleeding, infection, and rhythm changes. A longer hospital stay of one to two weeks typically follows, along with structured cardiac rehabilitation to rebuild strength and stamina. India's cardiac surgery centers perform a high volume of open heart procedures across these categories, supported by dedicated cardiac intensive care units, and international patients generally plan for several weeks in-country to cover surgery and initial recovery."
+			},
+			{
+				"name": "Congenital Heart Disease Treatment",
+				"description": "Congenital heart disease refers to structural abnormalities of the heart or major blood vessels present from birth, ranging from small holes between heart chambers that may close on their own to complex malformations requiring staged surgical correction. Treatment is highly individualized and begins with detailed diagnostic imaging, typically echocardiography and sometimes cardiac CT or MRI, to map the exact defect before a pediatric or adult congenital cardiologist and surgical team decide on the best approach. Some defects, such as small atrial or ventricular septal defects, can be closed using catheter-based devices without open surgery, while more complex conditions require open-heart surgery, sometimes performed in stages over months or years as the patient grows. Many patients are diagnosed and treated in childhood, but a growing number of adults with congenital heart disease also need ongoing or corrective care as defects that were mild in childhood progress over time. India's congenital heart programs manage the full spectrum of these conditions, from straightforward device closures to complex staged reconstructions, with dedicated teams for both pediatric and adult patients. Because treatment plans vary so much by defect, international families typically begin with a detailed remote or in-person evaluation before a treatment timeline and length of stay are confirmed."
+			}
+		],
+		"benefits": [
+			"Surgeons trained and certified in the US, UK, and Europe",
+			"Some of the highest cardiac surgery volumes globally, meaning deeper hands-on expertise",
+			"Dedicated cardiac ICU and step-down recovery units",
+			"No waitlists — most surgeries scheduled within days of your first opinion"
+		],
+		"flagshipProcedure": "Coronary Artery Bypass Graft (CABG)",
+		"packagePrice": 8000,
+		"totalTripDays": 21,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 3,
+				"roomDays": 6,
+				"totalDays": 9
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 120,000 – 180,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "95–97%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 40,000 – 60,000",
+				"waitTime": "3–12 months (NHS)",
+				"successRate": "95–97%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 35,000 – 50,000",
+				"waitTime": "4–10 weeks",
+				"successRate": "94–96%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 18,000 – 25,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "93–95%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 8,000 – 11,000",
+				"waitTime": "1–2 weeks",
+				"successRate": "96%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-operative cardiac evaluation, ECG, echo, and angiography review",
+			"Surgeon's fees for the bypass or valve procedure",
+			"Operation theatre and anesthesia charges",
+			"Cardiac ICU stay (3 days) plus step-down single room (6 days)",
+			"Nursing care, monitoring, and physiotherapy during hospitalization",
+			"Standard cardiac medication and consumables during the inpatient stay",
+			"Laboratory and radiology charges tied to the procedure",
+			"Discharge summary and a written post-operative care plan"
+		],
+		"exclusions": [
+			"Pre-admission stay to stabilize a patient before surgery clears for the OT",
+			"Hospital or ICU stay beyond the package duration",
+			"Advanced interventions such as a second bypass graft or valve repair beyond scope",
+			"Implantable devices such as pacemakers unless specified upfront",
+			"Take-home medication beyond the standard discharge kit",
+			"Treatment for pre-existing, unrelated conditions found during evaluation",
+			"Re-operation for complications unrelated to the original procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of bypass surgery in India?",
+				"answer": "A coronary bypass (CABG) package in India starts from USD 8,000, roughly 90% less than the USD 120,000+ typically charged in the US. The package covers pre-operative evaluation, the surgery itself, ICU and room stay, nursing, and standard medication."
+			},
+			{
+				"question": "What is the success rate of cardiac surgery in India?",
+				"answer": "India's leading cardiac centers report bypass and valve surgery success rates of 96% and above, on par with top programs in the US and Europe, backed by dedicated cardiac ICUs and high annual surgical volumes."
+			},
+			{
+				"question": "How long do I need to stay in India for cardiac surgery?",
+				"answer": "Most patients stay around 9 days in hospital (3 in ICU, 6 in a step-down room) and are advised to remain in India for about 3 weeks in total, so the cardiac team can monitor recovery before travel."
+			},
+			{
+				"question": "Do I need a full body check-up before the surgery is confirmed?",
+				"answer": "Yes. Your reports (ECG, echocardiogram, angiography if available) are reviewed by our cardiac board before your treatment plan and quote are finalized, and a tele-consultation with the surgeon is arranged if needed."
+			},
+			{
+				"question": "Is minimally invasive or off-pump bypass available?",
+				"answer": "Yes, many of our partner hospitals offer off-pump (beating heart) bypass and minimally invasive valve repair, which can shorten ICU stay and recovery time depending on your case."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your latest cardiac reports through our contact form or WhatsApp, and a coordinator will arrange a free specialist review and transparent cost estimate within 24 hours."
+			}
+		],
+		"_cms": {
+			"source": "site",
+			"createdAt": 1792659721,
+			"updatedAt": 1792659723
+		}
+	}
+}

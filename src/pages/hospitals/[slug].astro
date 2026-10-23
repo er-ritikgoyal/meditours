@@ -2,7 +2,10 @@
 import { Image } from 'astro:assets';
 import Layout from '../../layouts/Layout.astro';
 import PageHeader from '../../components/PageHeader.astro';
+import Rich from '../../components/Rich.astro';
+import { stripTags } from '../../utils/richText';
 import EnquiryCard from '../../components/EnquiryCard.astro';
+import CmsMark from '../../components/CmsMark.astro';
 import RecommendationLayout from '../../components/RecommendationLayout.astro';
 import VideoEmbed from '../../components/VideoEmbed.astro';
 import CostEstimateCta from '../../components/CostEstimateCta.astro';
@@ -22,7 +25,7 @@ import { destinations } from '../../data/destinations';
 import { hospitalDetails } from '../../data/hospitalDetails';
 import { detailLabels } from '../../i18n/hospitalNames';
 import { getOverview } from '../../i18n/overviews';
-import { getHospitalAbout } from '../../i18n/about';
+import { getHospitalAbout, ABOUT_KEYS } from '../../i18n/about';
 
 export function getStaticPaths() {
 	return hospitals.map((hospital) => ({
@@ -52,7 +55,7 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 
 <Layout
 	title={`${hospital.name}, ${hospital.city} | Hospital Profile | AlisPro MediTours`}
-	description={`${hospital.name} in ${hospital.city}, ${hospital.country} — ${hospital.accreditation}. ${hospital.about}`.slice(0, 155)}
+	description={`${hospital.name} in ${hospital.city}, ${hospital.country} — ${hospital.accreditation}. ${stripTags(hospital.about)}`.slice(0, 155)}
 	alternates={[
 			{ locale: 'en', href: `/hospitals/${hospital.slug}` },
 			{ locale: 'fr', href: `/fr/hospitals/${hospital.slug}` },
@@ -80,10 +83,11 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 		<section class="hospital-detail">
 			<div class="hospital-detail__inner">
 				<div class="hospital-detail__main">
+					<CmsMark kind="s" k="image">
 					{
 						hospital.image && (
 							<div class="hospital-detail__banner">
-								<Image src={hospital.image} alt={hospital.name} width={960} height={420} />
+								<CmsMark kind="img" k="image"><Image src={hospital.image} alt={hospital.name} width={960} height={420} /></CmsMark>
 								
 							</div>
 							<div class="mdiv"> <a class="quotes__btn quotes__btn--chat" href="https://wa.me/919821701155?text=Hello%2C%20I%20am%20interested%20in%20the%20services%20listed%20on%20your%20website" target="_blank" rel="noopener noreferrer" data-astro-cid-h4ecvy3w=""><span aria-hidden="true" data-astro-cid-h4ecvy3w=""><svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-whatsapp" viewBox="0 0 16 16">
@@ -93,14 +97,34 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 
 						)
 					}
+					</CmsMark>
 
 					<div class="hospital-detail__section">
 						<h2>About {hospital.name}</h2>
-						<p>{hospital.about}</p>
+						<p><CmsMark k="about"><Rich text={hospital.about} /></CmsMark></p>
+						<CmsMark kind="s" k="about-long">
 						{
 							aboutSections ? (
 								<div class="hospital-detail__long">
-									{aboutSections.map((s) => (
+									{/* Hospital-specific parts (editable in /editor/): always marked, even when empty, so a live edit can add one. */}
+									{ABOUT_KEYS.map((key) => {
+										const s = aboutSections.find((x) => x.key === key);
+										return (
+											<CmsMark kind="s" k={`about-${key}`}>
+												{s && (
+													<>
+														<h3>{s.title}</h3>
+														<CmsMark kind="l" k={`about-${key}`}>
+															{s.paragraphs.map((p) => (
+																<CmsMark kind="i" k={`about-${key}`}><p><CmsMark kind="v" k="_"><Rich text={p} /></CmsMark></p></CmsMark>
+															))}
+														</CmsMark>
+													</>
+												)}
+											</CmsMark>
+										);
+									})}
+									{aboutSections.filter((s) => !s.key).map((s) => (
 										<>
 											<h3>{s.title}</h3>
 											{s.paragraphs.map((p) => (
@@ -110,44 +134,53 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 									))}
 								</div>
 							) : (
-								overview && <p>{overview}</p>
+								<CmsMark kind="s" k="overview">{overview && <p><CmsMark k="overview"><Rich text={overview} /></CmsMark></p>}</CmsMark>
 							)
 						}
-						{hospital.videoUrl && <VideoEmbed url={hospital.videoUrl} title={hospital.name} />}
+						</CmsMark>
+						<CmsMark kind="s" k="videoUrl">{hospital.videoUrl && <VideoEmbed url={hospital.videoUrl} title={hospital.name} />}</CmsMark>
 					</div>
 
 					<div class="hospital-detail__section">
 						<h2>Specialties &amp; Departments</h2>
 						<ul class="hospital-detail__specialties">
-							{
-								hospital.specialties.map((specialty) => (
-									<li>
-										<span set:html={iconCheck} aria-hidden="true" />
-										{specialty}
-									</li>
-								))
-							}
+							<CmsMark kind="l" k="specialties">
+								{hospital.specialties.map((specialty) => (
+									<CmsMark kind="i" k="specialties">
+										<li>
+											<span set:html={iconCheck} aria-hidden="true" />
+											<CmsMark kind="v" k="_">{specialty}</CmsMark>
+										</li>
+									</CmsMark>
+								))}
+							</CmsMark>
 						</ul>
 					</div>
 
+					<CmsMark kind="s" k="doctors">
 					{
 						affiliatedDoctors.length > 0 && (
 							<div class="hospital-detail__section">
 								<h2>Doctors at {hospital.name}</h2>
 								<div class="hospital-detail__doctors">
-									{affiliatedDoctors.map((doc) => (
-										<a class="hospital-doctor-card" href={`/doctors/${doc.slug}`}>
-											<span class="hospital-doctor-card__icon" set:html={iconPersonBadge} aria-hidden="true" />
-											<span class="hospital-doctor-card__text">
-												<strong>{doc.name}</strong>
-												<span>{doc.specialty}</span>
-											</span>
-										</a>
-									))}
+									<CmsMark kind="l" k="doctors">
+										{affiliatedDoctors.map((doc) => (
+											<CmsMark kind="i" k="doctors">
+												<a class="hospital-doctor-card" href={`/doctors/${doc.slug}`}>
+													<span class="hospital-doctor-card__icon" set:html={iconPersonBadge} aria-hidden="true" />
+													<span class="hospital-doctor-card__text">
+														<strong><CmsMark kind="v" k="name">{doc.name}</CmsMark></strong>
+														<span><CmsMark kind="v" k="specialty">{doc.specialty}</CmsMark></span>
+													</span>
+												</a>
+											</CmsMark>
+										))}
+									</CmsMark>
 								</div>
 							</div>
 						)
 					}
+					</CmsMark>
 
 					{
 						
@@ -166,14 +199,14 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 									<span set:html={iconAward} aria-hidden="true" />
 									<span>
 										<strong>Accreditation</strong>
-										<span>{hospital.accreditation}</span>
+										<span><CmsMark k="accreditation">{hospital.accreditation}</CmsMark></span>
 									</span>
 								</li>
 								<li>
 									<span set:html={iconBed} aria-hidden="true" />
 									<span>
 										<strong>Scale</strong>
-										<span>{hospital.beds}</span>
+										<span><CmsMark k="beds">{hospital.beds}</CmsMark></span>
 									</span>
 								</li>
 								<li>
@@ -181,43 +214,49 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 									<span>
 										<strong>Location</strong>
 										<span>
-											{hospital.city}, {hospital.country}
+											<CmsMark k="city">{hospital.city}</CmsMark>, <CmsMark k="country">{hospital.country}</CmsMark>
 										</span>
 									</span>
 								</li>
+								<CmsMark kind="s" k="established">
 								{
 									details?.established && (
 										<li>
 											<span set:html={iconCalendar} aria-hidden="true" />
 											<span>
 												<strong>{labels.established}</strong>
-												<span>{details.established}</span>
+												<span><CmsMark k="established">{details.established}</CmsMark></span>
 											</span>
 										</li>
 									)
 								}
+								</CmsMark>
+								<CmsMark kind="s" k="address">
 								{
 									details?.address && (
 										<li>
 											<span set:html={iconGeo} aria-hidden="true" />
 											<span>
 												<strong>{labels.address}</strong>
-												<span>{details.address}</span>
+												<span><CmsMark k="address">{details.address}</CmsMark></span>
 											</span>
 										</li>
 									)
 								}
+								</CmsMark>
+								<CmsMark kind="s" k="certs">
 								{
 									details && details.certs.length > 0 && (
 										<li>
 											<span set:html={iconCert} aria-hidden="true" />
 											<span>
 												<strong>{labels.certifications}</strong>
-												<span>{details.certs.join(' · ')}</span>
+												<span><CmsMark k="certs">{details.certs.join(' · ')}</CmsMark></span>
 											</span>
 										</li>
 									)
 								}
+								</CmsMark>
 							</ul>
 						</div>
 						<EnquiryCard title="Plan Your Treatment" subtitle={`Send your case to our coordination team for ${hospital.name}`} />
