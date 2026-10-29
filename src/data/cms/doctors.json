@@ -1,1 +1,85 @@
-{}
+{
+	"javed-rizwan": {
+		"slug": "javed-rizwan",
+		"name": "Dr. Javed Rizwan",
+		"specialty": "Implantologist & Orthodontist",
+		"title": "Director & Head — Dental Implantology & Orthodontics",
+		"qualification": "BDS, MDS — Orthodontics & Dentofacial Orthopedics; MS — Strategic Implantology (Munich)",
+		"hospital": "Spruce Dental Chain of Clinics, Gurugram",
+		"city": "Gurugram, India",
+		"experienceYears": 20,
+		"languages": [
+			"English",
+			"Hindi"
+		],
+		"photo": "/_astro/Dr_Javed.B-ednkiM.jpg",
+		"bannerPhoto": "/_astro/Dr_Javed_Banner.B__LPA_s.jpg",
+		"topRightPhoto": "/_astro/spruce-dental.DC5_wXcs.jpg",
+		"rating": 4.9,
+		"reviews": 198,
+		"theme": "teal",
+		"about": "Dr. Javed Rizwan is a dental implantologist and orthodontist with over 20 years of clinical practice, having placed more than 15,000 conventional and immediate dental implants and completed over 500 full-mouth rehabilitation cases using immediate strategic implant techniques. He trained in strategic implantology in Munich, Germany, and leads Spruce Dental Chain of Clinics in Gurugram, where he focuses on minimally invasive implant placement and same-visit full-mouth restoration for international patients.\n\nDr. Javed Rizwan is one of the eminent dental implantologists and is among the top orthodontists in Delhi NCR. He has been the director & head at Spruce Dental chain of clinics in Delhi for the last 20+ years. Dr. Rizwan has done 500+ full-mouth dental implants using Immediate strategic implants. He completed his BDS from the prestigious CCS University Meerut U.P India. After that, he completed an MDS (Orthodontics and Dentofacial Orthopedics) from the same university. Then, he pursued a PGCE from Dr R Ahmad Dental College Kolkata, West Bengal, India.\n\nWith his rich professionalism and experience of more than a decade, Dr. Javed Rizwan has cured many patients till 2023. He has done 15000 plus dental implants including conventional and Immediate Implants. He is an expert in treating complex and challenging dental implant procedures like no bone complex atrophic cases, immediate dental implants, etc. Dr. Javed Rizwan is privileged to pursue an MS in strategic implantology from Munich, Germany.\n\nDr. Javed Rizwan has efficiency in immediate strategic implant and no bone complex atrophic cases. He has also mastered procedures like full mouth dental implant, implant without suture, bone graft, or using flap. Dr. Javed Rizwan, an orthodontist and dental implantologist in Delhi, is well-versed in placing implants for people of any age group and of their ethnicity.\n\nHe is interested in dental implantology and diverse strategic implant designs using minimally invasive techniques. Dr. Javed Rizwan is a member of the International Implant Foundation Germany. He has a membership in the Member of ortho and Orthopedic Society of India. He is associated with many renowned institutions and is a member of the Dental Council of .",
+		"specializations": [
+			"Conventional & immediate dental implants",
+			"Strategic implant designs",
+			"Full-mouth implant rehabilitation",
+			"Minimally invasive implant surgery",
+			"Orthodontics & dentofacial orthopedics"
+		],
+		"education": [
+			{
+				"degree": "BDS",
+				"institution": "CCS University, Meerut, Uttar Pradesh"
+			},
+			{
+				"degree": "MDS — Orthodontics & Dentofacial Orthopedics",
+				"institution": "CCS University, Meerut, Uttar Pradesh"
+			},
+			{
+				"degree": "PGCE",
+				"institution": "Dr. R. Ahmad Dental College, Kolkata"
+			},
+			{
+				"degree": "MS — Strategic Implantology",
+				"institution": "Munich, Germany"
+			}
+		],
+		"experience": [
+			{
+				"role": "Director & Head",
+				"place": "Spruce Dental Chain of Clinics (Smile Garden Clinic), Gurugram",
+				"period": "20+ years in practice"
+			}
+		],
+		"awards": [
+			{
+				"title": "15,000+ conventional & immediate dental implants placed"
+			},
+			{
+				"title": "500+ full-mouth cases completed using immediate strategic implant technique"
+			}
+		],
+		"memberships": [
+			"International Implant Foundation, Germany",
+			"Ortho and Orthopedic Society of India",
+			"Dental Council of India"
+		],
+		"testimonials": [
+			{
+				"name": "Amina Yusuf",
+				"country": "Saudi Arabia",
+				"countryCode": "sa",
+				"rating": 4.5,
+				"text": "Excellent experience from consultation to recovery. Dr. Rizwan explained the strategic implant plan clearly before we started, and there were no surprises along the way."
+			}
+		],
+		"_cmsVersion": 0,
+		"videoUrl": "",
+		"extraVideoUrls": [],
+		"_cms": {
+			"source": "site",
+			"createdAt": 1792840749,
+			"updatedAt": 1792840789
+		}
+	}
+}

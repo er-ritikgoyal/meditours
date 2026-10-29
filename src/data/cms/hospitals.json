@@ -16,7 +16,7 @@
 		],
 		"beds": "2 Locations",
 		"theme": "blue",
-		"image": "/media/hospitals/5e8c150b023abf9a58b4.jpg",
+		"image": "/media/hospitals/309e6a0e58ab5b36969c.jpg",
 		"profileUrl": "/destinations/delhi-ncr/profiles/The_Sight_Avenue_Company.pdf",
 		"about": "The Sight Avenue operates across Greater Kailash, Delhi and Sector 38, Gurugram, offering comprehensive eye care spanning retina, cornea, cataract, LASIK/SMILE, ICL and glaucoma treatment under one ophthalmology-focused team.",
 		"_cmsVersion": 0,
@@ -25,8 +25,40 @@
 		"videoUrl": "",
 		"_cms": {
 			"source": "site",
-			"createdAt": 1792669809,
-			"updatedAt": 1792669809
+			"createdAt": 1792669343,
+			"updatedAt": 1792673654
+		}
+	},
+	"fortis-c-doc-hospital": {
+		"name": "Fortis C-DOC Hospital",
+		"slug": "fortis-c-doc-hospital",
+		"citySlug": "delhi-ncr",
+		"city": "Delhi",
+		"country": "India",
+		"accreditation": "Multi Specialty Hospital",
+		"specialties": [
+			"Cardiology",
+			"Neurology",
+			"Oncology"
+		],
+		"beds": "24 Beds",
+		"theme": "teal",
+		"image": "/_astro/fortis-cdoc.BkgS4cnm.webp",
+		"about": "Fortis C-DOC Hospital is a specialised centre for diabetes and allied cardiac and neurological care in Delhi, part of the Fortis network, focused on long-term metabolic disease management alongside cardiology and neurology.",
+		"_cmsVersion": 0,
+		"address": "B-16, Nehru Place Flyover, Chirag Enclave, New Delhi 110048",
+		"established": 2012,
+		"certs": [],
+		"aboutHistory": "Fortis C-DOC Hospital for Diabetes and Allied Sciences has operated since 2011–2012 as a centre of excellence for diabetes, metabolic diseases and endocrine disorders. It is led by Prof. (Dr.) Anoop Misra, a former professor of medicine at AIIMS, recipient of the Dr. B. C. Roy Award and the Padma Shri, and the director of the National Diabetes, Obesity and Cholesterol Foundation. The hospital was named Best Hospital in India in Diabetes Care at the CIMS Healthcare Excellence Awards for several consecutive years between 2014 and 2018....",
+		"aboutSpecialities": "The hospital focuses on comprehensive management of diabetes and its complications, along with obesity, thyroid and other endocrine conditions. It runs an advanced centre for diabetic foot and wound care, scientific weight-loss and weight-management programmes, and bariatric and minimal-access surgery. It also provides expertise in general surgery, orthopaedics, gastroenterology, ENT, pain management and urology.",
+		"aboutTechnology": "The facility is a compact 23-bed hospital spread over about 20,000 square feet, with two operating suites, a diabetic eye lab and a dialysis centre. Clinicians are supported by a diagnostic laboratory, radiology and pharmacy services that operate around the clock.",
+		"aboutInternational": "Fortis C-DOC states that it is keen to work with foreign institutions and scientists on exchange of ideas, education and collaborative research. For international patients, it offers a focused, single-specialty setting for long-term diabetes and metabolic care, including foot care and weight management. Located in Chirag Enclave opposite Nehru Place, it is easily reached from South Delhi hotels.",
+		"overview": "Fortis C-DOC is a compact, 23-bed centre of excellence for diabetes, metabolic disease and endocrinology, led by Prof. Anoop Misra and operating in this field since 2011. Its facilities include two operating suites, a diabetic foot and wound care centre, a diabetic eye lab and a dialysis centre. It also runs weight-management programmes with bariatric and minimal access surgery, backed by a 24/7 diagnostic laboratory, radiology and pharmacy..",
+		"videoUrl": "",
+		"_cms": {
+			"source": "site",
+			"createdAt": 1792674824,
+			"updatedAt": 1792840860
 		}
 	}
 }

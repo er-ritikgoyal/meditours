@@ -1,0 +1,351 @@
+---
+import Layout from '../layouts/Layout.astro';
+import PageHeader from '../components/PageHeader.astro';
+import CostEstimateCta from '../components/CostEstimateCta.astro';
+import { successStories } from '../data/successStories';
+import 'flag-icons/css/flag-icons.min.css';
+import iconQuote from 'bootstrap-icons/icons/quote.svg?raw';
+import iconStar from 'bootstrap-icons/icons/star-fill.svg?raw';
+import iconHeart from 'bootstrap-icons/icons/heart-pulse-fill.svg?raw';
+
+const stories = successStories;
+
+const stats = [
+	{ value: '12,000+', label: 'Patients treated' },
+	{ value: '40+', label: 'Countries reached' },
+	{ value: '4.8/5', label: 'Average patient rating' },
+	{ value: '80%', label: 'Average savings vs. home' },
+];
+---
+
+<Layout
+	title="Patient Success Stories | AlisPro MediTours"
+	description="Real stories from international patients who travelled to India for treatment with AlisPro MediTours — their journeys, outcomes, and why they'd recommend it."
+	alternates={[
+		{ locale: 'en', href: '/success-stories' },
+		{ locale: 'fr', href: '/fr/success-stories' },
+		{ locale: 'ru', href: '/ru/success-stories' },
+		{ locale: 'bn', href: '/bn/success-stories' },
+		{ locale: 'ro', href: '/ro/success-stories' },
+		{ locale: 'es', href: '/es/success-stories' },
+		{ locale: 'pt', href: '/pt/success-stories' },
+		{ locale: 'vi', href: '/vi/success-stories' },
+		{ locale: 'ar', href: '/ar/success-stories' },
+	]}
+>
+	<PageHeader
+		badge="Real Patients, Real Outcomes"
+		title="Successful Treatment"
+		highlight="Stories"
+		subtitle="Every case is different, but the outcome is the same: world-class care, a smoother journey, and real savings. Here's what that looked like for some of our patients."
+		breadcrumbs={[{ label: 'Success Stories' }]}
+	/>
+
+	<section class="stories-stats">
+		<div class="stories-stats__inner">
+			{
+				stats.map((s) => (
+					<div class="stories-stats__card">
+						<strong>{s.value}</strong>
+						<span>{s.label}</span>
+					</div>
+				))
+			}
+		</div>
+	</section>
+
+	<section class="stories-grid-section">
+		<div class="stories-grid-section__inner">
+			<div class="stories-grid">
+				{
+					stories.map((s, i) => (
+						<a class={`story-card story-card--${s.theme}`} href={`/success-stories/${s.slug}`} data-animate style={`transition-delay: ${Math.min(i, 5) * 60}ms`}>
+							<span class="story-card__quote-icon" set:html={iconQuote} aria-hidden="true" />
+
+							<div class="story-card__stars" aria-label={`${s.rating} out of 5 stars`}>
+								{Array.from({ length: 5 }).map((_, j) => (
+									<span class={`story-card__star ${j < Math.round(s.rating) ? 'is-filled' : ''}`} set:html={iconStar} />
+								))}
+							</div>
+
+							<p class="story-card__quote">{s.quote}</p>
+
+							<div class="story-card__meta">
+								<span class={`fi fi-${s.countryCode}`} aria-hidden="true" />
+								<div>
+									<strong>{s.name}</strong>
+									<span>{s.country}</span>
+								</div>
+							</div>
+
+							<div class="story-card__tags">
+								<span class="story-card__tag">
+									<span set:html={iconHeart} aria-hidden="true" />
+									{s.treatment}
+								</span>
+								<span class="story-card__read-more">Read full story →</span>
+							</div>
+						</a>
+					))
+				}
+			</div>
+		</div>
+	</section>
+
+	<CostEstimateCta
+		title="Ready to write your own success story?"
+		text="Share your medical reports and receive a personalized treatment plan with a transparent cost estimate from our specialists within 24 hours."
+	/>
+</Layout>
+
+<script>
+	const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+	const animated = document.querySelectorAll('.stories-grid [data-animate]');
+
+	if (prefersReducedMotion) {
+		animated.forEach((el) => el.classList.add('is-visible'));
+	} else {
+		const observer = new IntersectionObserver(
+			(entries) => {
+				entries.forEach((entry) => {
+					if (entry.isIntersecting) {
+						entry.target.classList.add('is-visible');
+						observer.unobserve(entry.target);
+					}
+				});
+			},
+			{ threshold: 0.12 },
+		);
+		animated.forEach((el) => observer.observe(el));
+	}
+</script>
+
+<style>
+	.stories-stats {
+		background: var(--color-bg-alt);
+		padding: 40px 24px;
+	}
+
+	.stories-stats__inner {
+		max-width: 1000px;
+		margin: 0 auto;
+		display: grid;
+		grid-template-columns: repeat(4, 1fr);
+		gap: 20px;
+		text-align: center;
+	}
+
+	.stories-stats__card strong {
+		display: block;
+		font-family: var(--font-heading);
+		font-size: clamp(1.4rem, 3vw, 1.9rem);
+		font-weight: 800;
+		color: var(--color-primary);
+	}
+
+	.stories-stats__card span {
+		font-size: 13px;
+		color: var(--color-text-muted);
+	}
+
+	.stories-grid-section {
+		background: var(--color-bg-white);
+		padding: 72px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.stories-grid-section__inner {
+		max-width: 1200px;
+		margin: 0 auto;
+	}
+
+	.stories-grid {
+		display: grid;
+		grid-template-columns: repeat(3, 1fr);
+		gap: 24px;
+	}
+
+	.story-card {
+		opacity: 0;
+		transform: translateY(20px);
+		transition:
+			opacity 0.6s ease,
+			transform 0.6s ease;
+		display: flex;
+		flex-direction: column;
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		padding: 28px;
+		box-shadow: var(--shadow-soft);
+		text-decoration: none;
+		color: inherit;
+		transition:
+			opacity 0.6s ease,
+			transform 0.3s ease,
+			box-shadow 0.3s ease;
+	}
+
+	.story-card:hover {
+		transform: translateY(-4px);
+		box-shadow: var(--shadow-card);
+	}
+
+	.story-card.is-visible {
+		opacity: 1;
+		transform: translateY(0);
+	}
+
+	.story-card.is-visible:hover {
+		transform: translateY(-4px);
+	}
+
+	.story-card__quote-icon {
+		display: flex;
+		width: 26px;
+		height: 26px;
+		margin-bottom: 12px;
+	}
+
+	.story-card--blue .story-card__quote-icon {
+		color: var(--color-primary);
+	}
+
+	.story-card--teal .story-card__quote-icon {
+		color: var(--color-teal);
+	}
+
+	.story-card--green .story-card__quote-icon {
+		color: var(--color-green);
+	}
+
+	.story-card__quote-icon :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.story-card__stars {
+		display: inline-flex;
+		gap: 2px;
+		margin-bottom: 12px;
+	}
+
+	.story-card__star {
+		display: flex;
+		width: 14px;
+		height: 14px;
+		color: var(--color-border-card);
+	}
+
+	.story-card__star.is-filled {
+		color: var(--color-gold);
+	}
+
+	.story-card__star :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.story-card__quote {
+		font-size: 14.5px;
+		line-height: 1.7;
+		color: var(--color-text-secondary);
+		margin: 0 0 20px;
+		flex: 1;
+	}
+
+	.story-card__meta {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 16px;
+	}
+
+	.story-card__meta .fi {
+		flex-shrink: 0;
+		width: 26px;
+		height: 19px;
+		border-radius: 3px;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+	}
+
+	.story-card__meta div {
+		display: flex;
+		flex-direction: column;
+	}
+
+	.story-card__meta strong {
+		font-size: 13.5px;
+		color: var(--color-text-primary);
+	}
+
+	.story-card__meta span {
+		font-size: 11.5px;
+		color: var(--color-text-muted);
+	}
+
+	.story-card__tags {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 8px;
+		padding-top: 16px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.story-card__tag {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+		padding: 5px 12px;
+		border-radius: 999px;
+		background: var(--color-bg-soft-blue);
+		color: var(--color-primary);
+		font-size: 11.5px;
+		font-weight: 700;
+		text-decoration: none;
+	}
+
+	.story-card__tag span {
+		display: flex;
+		width: 12px;
+		height: 12px;
+	}
+
+	.story-card__tag span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.story-card__read-more {
+		margin-inline-start: auto;
+		font-size: 12px;
+		font-weight: 700;
+		color: var(--color-teal);
+	}
+
+	@media screen and (max-width: 980px) {
+		.stories-stats__inner {
+			grid-template-columns: repeat(2, 1fr);
+		}
+
+		.stories-grid {
+			grid-template-columns: repeat(2, 1fr);
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.stories-grid-section {
+			padding: 48px 16px 64px;
+		}
+
+		.stories-grid {
+			grid-template-columns: 1fr;
+		}
+
+		.stories-stats__inner {
+			grid-template-columns: 1fr 1fr;
+			gap: 16px;
+		}
+	}
+</style>

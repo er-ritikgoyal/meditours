@@ -6,7 +6,7 @@
 		"imageKey": "cardiacCare",
 		"theme": "blue",
 		"shortDescription": "Bypass surgery, valve repair, and angioplasty from surgeons trained at leading cardiac centers.",
-		"overview": "India's cardiac programs combine internationally trained surgeons with some of the highest surgical volumes in the world, giving patients access to advanced procedures like off-pump bypass and minimally invasive valve repair at a fraction of Western pricing — without waitlists.",
+		"overview": "India's cardiac programs combine internationally trained surgeons with some of the highest surgical volumes in the world, giving patients access to advanced procedures like off-pump bypass and minimally invasive valve repair at a fraction of Western pricing — without waitlists-.",
 		"startingPrice": 8000,
 		"avgSavings": 93,
 		"hospitalsCount": 150,
@@ -33,54 +33,67 @@
 		"detailedProcedures": [
 			{
 				"name": "Coronary Angioplasty",
+				"image": "/media/treatments/5e17b81ee9c9b3f54baf.png",
 				"description": "Coronary angioplasty is a minimally invasive procedure used to widen a narrowed or blocked coronary artery and restore blood flow to the heart muscle in patients with coronary artery disease. Under local anesthesia, a cardiologist threads a thin catheter through an artery in the wrist or groin up to the site of blockage, guided by live X-ray imaging, and inflates a small balloon to compress the plaque against the artery wall; in most cases a metal mesh stent is then left in place to keep the vessel open and reduce the chance of re-narrowing. It is typically recommended for patients with angina, reduced blood flow on a stress test, or as an emergency treatment during a heart attack to quickly reopen a blocked vessel. The procedure is done in a catheterization laboratory and usually takes under an hour, with most patients observed overnight and discharged within a day or two. India's cardiac centers perform high volumes of angioplasty using modern imaging and a wide range of stent options, and patients typically resume light activity within a week, with a cardiologist advising on medication and follow-up before returning home."
 			},
 			{
 				"name": "Coronary Artery Bypass Graft (CABG)",
+				"image": "/media/treatments/50949c29b5ef7a8f6d93.png",
 				"description": "Coronary artery bypass graft, commonly known as CABG or bypass surgery, is performed when one or more coronary arteries are severely narrowed or blocked and angioplasty is not suitable, often in patients with multi-vessel or complex coronary artery disease. During the operation, a cardiac surgeon takes a healthy blood vessel from elsewhere in the body, usually the internal mammary artery from the chest or a vein from the leg, and grafts it to reroute blood flow around the blocked segment. Traditional CABG is performed through an incision in the breastbone with the patient on a heart-lung bypass machine, though off-pump and minimally invasive approaches are used in selected cases. The goal is to relieve angina, reduce the risk of heart attack, and improve long-term heart function. Recovery involves several days in hospital, including time in intensive care immediately after surgery, followed by a structured period of activity restriction and cardiac rehabilitation. India's cardiac surgery programs combine experienced surgical teams with well-equipped intensive care units, and international patients typically plan for a hospital stay of about a week followed by a few weeks of local recovery before flying home, with wound checks and rehabilitation guidance provided throughout."
 			},
 			{
 				"name": "Mitral Valve Replacement Surgery",
+				"image": "/media/treatments/9430a5ee720682033c05.png",
 				"description": "Mitral valve replacement is performed when the mitral valve, which controls blood flow between the heart's left atrium and left ventricle, becomes too narrow (stenosis) or leaky (regurgitation) to function properly and cannot be adequately repaired. Under general anesthesia and with the patient on a heart-lung bypass machine, the surgeon opens the heart, removes the damaged valve, and sews in a replacement — either a mechanical valve, which is durable but requires lifelong blood-thinning medication, or a biological tissue valve, which avoids long-term anticoagulation but may wear out sooner. The choice between valve types depends on the patient's age, lifestyle, and overall health, and is discussed with the surgical team beforehand. The procedure can be done through a traditional sternotomy or, in select patients, through smaller minimally invasive incisions. Patients typically spend a day or two in intensive care followed by several more days on the ward before discharge. India's cardiac centers offer both mechanical and tissue valve options along with experienced post-operative cardiac care, and international patients generally plan for a hospital stay of about a week, with follow-up echocardiograms arranged before travel home to confirm the valve is functioning well."
 			},
 			{
 				"name": "Aortic Valve Replacement",
+				"image": "/media/treatments/cd7be87909d1106038a2.png",
 				"description": "Aortic valve replacement treats a diseased aortic valve — the valve controlling blood flow from the heart into the body's main artery — that has become narrowed (stenosis) or leaky (regurgitation), causing symptoms such as breathlessness, chest pain, or fainting. In conventional open-heart surgery, the chest is opened, the heart is temporarily stopped and supported by a heart-lung bypass machine, and the surgeon removes the diseased valve and sews in a mechanical or biological replacement sized to the patient's anatomy. Mechanical valves last longer but require lifelong anticoagulant medication, while tissue valves avoid this but may need replacement after ten to twenty years, and the surgical team helps patients weigh these trade-offs based on age and health. The operation generally takes a few hours, with patients spending time in intensive care afterward before moving to a regular ward. It is one of the most established cardiac surgeries performed in India, with centers offering a full range of valve types and experienced perioperative monitoring. International patients typically stay in India for around two to three weeks in total to allow for surgery, initial recovery, and a follow-up assessment before flying home."
 			},
 			{
 				"name": "Transcatheter Aortic Valve Replacement (TAVR)",
+				"image": "/media/treatments/a44a500ad4f230c7aa27.png",
 				"description": "Transcatheter aortic valve replacement, or TAVR, is a minimally invasive alternative to open-heart surgery for treating severe aortic valve stenosis, particularly in patients who are elderly or considered higher-risk for conventional surgery. Instead of opening the chest, an interventional cardiologist threads a catheter carrying a collapsible replacement valve through a blood vessel, most often in the groin, up to the heart, where it is expanded and positioned inside the patient's existing diseased valve, pushing it aside and immediately taking over its function. The procedure is usually performed under sedation or light general anesthesia and guided by live imaging, without the need to stop the heart or use a heart-lung bypass machine. Because it avoids a large chest incision, recovery is generally faster than with surgical valve replacement, with many patients mobilizing within a day and leaving hospital within a few days. TAVR is increasingly offered in India's advanced cardiac centers for patients who meet appropriate anatomical criteria, following careful imaging assessment to confirm suitability. International patients typically plan for one to two weeks in India to allow for pre-procedure evaluation, the procedure itself, and a short recovery period before follow-up and travel home."
 			},
 			{
 				"name": "Cardiac Catheterization",
+				"image": "/media/treatments/9837a583983d32d62878.png",
 				"description": "Cardiac catheterization is a diagnostic and sometimes therapeutic procedure in which a thin, flexible catheter is guided through a blood vessel, usually in the wrist or groin, into the chambers and arteries of the heart to directly assess how it is functioning. Using X-ray guidance and contrast dye, the cardiologist can visualize the coronary arteries for blockages, measure pressures within the heart chambers, assess valve function, and take tissue samples in some cases. It is commonly used to investigate chest pain, abnormal stress test results, heart failure of unclear cause, or suspected valve or congenital heart disease, and often serves as the first step before deciding whether angioplasty, stenting, or surgery is needed. The procedure is performed under local anesthesia with light sedation, usually takes thirty minutes to an hour, and most patients can go home the same day or after an overnight stay. India's catheterization laboratories are equipped with modern imaging systems that allow precise diagnosis and, where appropriate, immediate treatment in the same sitting. International patients typically need only a short visit for the procedure itself, with results and next steps discussed directly with the cardiology team."
 			},
 			{
 				"name": "Balloon Pulmonary Valvotomy",
+				"image": "/media/treatments/e2fe45f11ffcbbfb64a5.png",
 				"description": "Balloon pulmonary valvotomy is a catheter-based procedure used to treat pulmonary valve stenosis, a condition in which the valve controlling blood flow from the heart's right ventricle to the lungs is abnormally narrowed, forcing the heart to work harder and reducing blood flow to the lungs. It is often diagnosed in infants, children, or young adults, sometimes as part of a congenital heart condition present from birth. During the procedure, a cardiologist guides a catheter with a deflated balloon at its tip through a vein, usually in the groin, into the narrowed valve, then inflates the balloon to stretch it open and relieve the obstruction. The procedure is performed under sedation or general anesthesia in a catheterization laboratory, guided by X-ray and echocardiographic imaging, and typically takes one to two hours. Because it avoids open-heart surgery, recovery is usually quick, with most patients observed overnight and discharged within a day or two. India's pediatric and structural cardiology centers routinely perform balloon valvotomy for both children and adults, with careful pre-procedure imaging to confirm suitability. Families traveling for this procedure typically plan for a short stay of about a week, including pre-procedure assessment and follow-up echocardiography."
 			},
 			{
 				"name": "Cardiac Pacemaker Installation",
+				"image": "/media/treatments/eb8bff843407a55305d1.png",
 				"description": "A cardiac pacemaker is a small electronic device implanted to help regulate an abnormally slow or irregular heartbeat, commonly used to treat conditions such as bradycardia, heart block, or certain arrhythmias where the heart's natural electrical system is not functioning reliably. The device consists of a pulse generator, implanted just under the skin near the collarbone, connected to one or more thin wires that are guided through a vein into the heart chambers, where they sense the heart's rhythm and deliver small electrical impulses when needed to maintain a regular beat. The implantation is usually performed under local anesthesia with sedation, takes around one to two hours, and is done through a small incision rather than open surgery. Most patients stay in hospital overnight for monitoring and have the device's settings checked before discharge. India's electrophysiology and cardiology centers offer a range of single-chamber, dual-chamber, and more advanced pacemaker devices suited to different rhythm disorders. International patients typically plan for about a week in India to allow for pre-procedure evaluation, implantation, and an initial device check, with guidance on remote monitoring and follow-up with their home physician afterward."
 			},
 			{
 				"name": "Pediatric Heart Surgery",
+				"image": "/media/treatments/0ff5eca9034f504eec27.png",
 				"description": "Pediatric heart surgery covers a range of operations performed on infants and children to correct congenital heart defects — structural problems with the heart present from birth, such as holes between heart chambers, malformed valves, or abnormal connections of the major blood vessels. The specific procedure depends on the defect: some conditions can be closed with a patch during open-heart surgery using a heart-lung bypass machine sized for a small patient, while others involve rebuilding or rerouting blood vessels to establish normal circulation. Diagnosis typically relies on echocardiography, and sometimes CT or MRI imaging, to map the exact anatomy before planning the operation. Because children's hearts and blood vessels are small and still developing, these procedures require pediatric cardiac surgeons and anesthesiologists experienced in congenital heart conditions, along with dedicated pediatric intensive care support afterward. Recovery time varies widely with the complexity of the defect and the child's age, ranging from about a week to several weeks in hospital. India's pediatric cardiac programs treat a broad spectrum of congenital defects, often for children from other countries, with family accommodation and coordinated pre- and post-operative care built around the needs of young patients and their parents."
 			},
 			{
 				"name": "Artificial Heart / LVAD Implant",
+				"image": "/media/treatments/0ff778cbb83f5b0e556a.png",
 				"description": "A left ventricular assist device, or LVAD, is a mechanical pump implanted to help a severely weakened heart circulate blood, used in patients with advanced heart failure who have not responded adequately to medication. The device is surgically connected to the left ventricle and the aorta, drawing blood from the weakened chamber and pumping it into the body's main artery in place of the failing heart muscle; a cable exits through the skin to an external controller and battery pack worn by the patient. LVADs may serve as a bridge to heart transplant while a patient awaits a donor organ, or as a longer-term therapy for those who are not transplant candidates. Implantation requires open-heart surgery with cardiopulmonary bypass, followed by an extended hospital stay that includes intensive care monitoring and training for the patient and caregivers on operating the device. The term artificial heart is sometimes used loosely for LVADs, though total artificial hearts that fully replace the heart are a separate, rarer technology. India's advanced heart failure centers offer LVAD implantation and the specialized follow-up care it requires, and patients should expect an extended stay of several weeks for surgery, recovery, and device training before travel."
 			},
 			{
 				"name": "Endovascular Aortic Aneurysm Repair",
+				"image": "/media/treatments/55f3710cca40eae1c267.png",
 				"description": "Endovascular aortic aneurysm repair, or EVAR, is a minimally invasive procedure used to treat an aortic aneurysm — a bulging, weakened section of the body's main artery that carries a risk of rupture if left untreated. Rather than opening the abdomen or chest to replace the affected segment directly, a vascular surgeon accesses the femoral arteries in the groin and threads a fabric-covered metal stent graft through the blood vessels to the aneurysm site, where it is expanded to line the artery from the inside and redirect blood flow away from the weakened wall. The procedure is performed under regional or general anesthesia, guided by continuous X-ray imaging, and typically takes one to three hours depending on the aneurysm's location and complexity. Because it avoids a large surgical incision, recovery is generally faster than with open repair, with many patients mobilizing within a day or two and leaving hospital within about a week. Careful CT imaging beforehand confirms the aneurysm's shape and size are suitable for a stent graft. India's vascular surgery centers offer EVAR with a range of stent graft devices, and international patients typically plan for about two weeks to allow for evaluation, the procedure, and post-procedure imaging follow-up."
 			},
 			{
 				"name": "Open Heart Surgery",
+				"image": "/media/treatments/1a22b53384d8a92aea0a.png",
 				"description": "Open heart surgery is a broad term for any cardiac operation in which the chest is surgically opened, usually through an incision in the breastbone, to give the surgical team direct access to the heart and its major vessels. Many such operations are performed with the heart temporarily stopped and a heart-lung bypass machine taking over circulation and breathing, allowing the surgeon to work on a still, bloodless heart before it is restarted. Common reasons for open heart surgery include bypassing blocked coronary arteries, repairing or replacing damaged heart valves, correcting congenital defects, and repairing aneurysms involving the heart or major vessels. The technique and duration depend on the underlying condition, but most operations take several hours and are followed by time in intensive care while the patient is weaned off ventilator support and monitored for bleeding, infection, and rhythm changes. A longer hospital stay of one to two weeks typically follows, along with structured cardiac rehabilitation to rebuild strength and stamina. India's cardiac surgery centers perform a high volume of open heart procedures across these categories, supported by dedicated cardiac intensive care units, and international patients generally plan for several weeks in-country to cover surgery and initial recovery."
 			},
 			{
 				"name": "Congenital Heart Disease Treatment",
+				"image": "/media/treatments/193ffe086d1f817f8b92.png",
 				"description": "Congenital heart disease refers to structural abnormalities of the heart or major blood vessels present from birth, ranging from small holes between heart chambers that may close on their own to complex malformations requiring staged surgical correction. Treatment is highly individualized and begins with detailed diagnostic imaging, typically echocardiography and sometimes cardiac CT or MRI, to map the exact defect before a pediatric or adult congenital cardiologist and surgical team decide on the best approach. Some defects, such as small atrial or ventricular septal defects, can be closed using catheter-based devices without open surgery, while more complex conditions require open-heart surgery, sometimes performed in stages over months or years as the patient grows. Many patients are diagnosed and treated in childhood, but a growing number of adults with congenital heart disease also need ongoing or corrective care as defects that were mild in childhood progress over time. India's congenital heart programs manage the full spectrum of these conditions, from straightforward device closures to complex staged reconstructions, with dedicated teams for both pediatric and adult patients. Because treatment plans vary so much by defect, international families typically begin with a detailed remote or in-person evaluation before a treatment timeline and length of stay are confirmed."
 			}
 		],
@@ -181,7 +194,1079 @@
 		"_cms": {
 			"source": "site",
 			"createdAt": 1792659721,
-			"updatedAt": 1792659723
+			"updatedAt": 1793017029
+		}
+	},
+	"orthopedics": {
+		"slug": "orthopedics",
+		"name": "Orthopedics",
+		"icon": "activity",
+		"imageKey": "orthopedics",
+		"theme": "teal",
+		"shortDescription": "Joint replacement and sports medicine with fast-track rehabilitation programs.",
+		"overview": "From robotic-assisted knee replacement to complex spinal fusion, India's orthopedic centers pair modern implant technology with structured physiotherapy programs designed to get patients back on their feet faster.",
+		"startingPrice": 5500,
+		"avgSavings": 87,
+		"hospitalsCount": 95,
+		"procedures": [
+			"Knee Replacement",
+			"Hip Replacement",
+			"Spinal Fusion"
+		],
+		"allProcedures": [
+			"Total Knee Replacement",
+			"Total Hip Replacement",
+			"Knee Arthroscopy",
+			"Arthroscopic ACL Reconstruction",
+			"Arthroscopic PCL Reconstruction",
+			"Meniscus Tear Surgery",
+			"Cartilage Scaffold Surgery",
+			"Arthroscopic Shoulder Stabilization",
+			"Arthroscopic Rotator Cuff Repair",
+			"Arthroscopic Bankart Repair",
+			"Keyhole (Arthroscopic) Shoulder Surgery",
+			"Bone Cancer Surgery",
+			"Limb Lengthening Surgery",
+			"Club Foot Surgery",
+			"Hip Dysplasia Treatment",
+			"Musculoskeletal Disorder Treatment"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Total Knee Replacement",
+				"image": "/media/treatments/c0a6930717e4e862127b.png",
+				"description": "Total knee replacement, or total knee arthroplasty, is a surgical procedure that resurfaces a knee joint damaged by osteoarthritis, rheumatoid arthritis, or post-traumatic wear with an artificial implant made of metal alloy and medical-grade polyethylene. The orthopedic surgeon removes the worn cartilage and a thin layer of bone from the end of the femur and top of the tibia, then fits shaped metal components onto these surfaces with a plastic spacer between them that recreates smooth joint movement; the kneecap surface may also be resurfaced depending on its condition. It is generally recommended once conservative measures such as physiotherapy, weight management, medication, and injections no longer control pain or restore mobility. The surgery is performed under spinal or general anesthesia and takes roughly one to two hours, with many centers now using computer-assisted or robotic-arm guidance to improve implant alignment. Indian hospitals treat a high volume of joint replacement cases each year and offer both traditional and minimally invasive techniques. Recovery involves supervised walking within a day of surgery, a hospital stay of several days, and a structured physiotherapy program over the following weeks to regain strength and range of motion."
+			},
+			{
+				"name": "Total Hip Replacement",
+				"image": "/media/treatments/527144bdfad6f3aa79db.png",
+				"description": "Total hip replacement, or total hip arthroplasty, replaces a hip joint worn down by osteoarthritis, avascular necrosis, rheumatoid arthritis, or fracture with an artificial ball-and-socket implant. During surgery, the orthopedic surgeon removes the damaged femoral head and reshapes the hip socket (acetabulum), then fits a metal or ceramic stem into the thighbone topped with a ball component that articulates against a new socket liner fixed into the pelvis. The approach may be posterior, anterior, or minimally invasive, chosen based on the patient's anatomy and the surgeon's preference, and the procedure typically takes one to two hours under spinal or general anesthesia. It is usually considered once hip pain, stiffness, and reduced mobility persist despite physiotherapy, weight-bearing precautions, and pain medication, and when imaging confirms significant joint degeneration. Many Indian orthopedic centers perform large volumes of hip replacements annually and offer cemented, uncemented, and hybrid fixation options along with robotic or computer-navigated techniques for precise implant positioning. After surgery, patients are usually mobilized with a walker within a day or two, stay in hospital for several days, and follow a structured rehabilitation program over the following weeks to restore strength and walking pattern."
+			},
+			{
+				"name": "Knee Arthroscopy",
+				"image": "/media/treatments/182eccf7285323074487.png",
+				"description": "Knee arthroscopy is a minimally invasive surgical technique used to diagnose and treat problems inside the knee joint through small incisions rather than a large open cut. The surgeon inserts a thin fiber-optic camera, called an arthroscope, along with slender surgical instruments through a few small portals around the knee, allowing direct visualization of the cartilage, ligaments, meniscus, and joint lining on a monitor. It is commonly used to trim or repair torn meniscus tissue, remove loose cartilage fragments, smooth roughened cartilage surfaces, wash out inflamed joint tissue, or address other structural causes of persistent knee pain, swelling, catching, or locking that have not responded to rest, physiotherapy, or medication. The procedure is usually done under spinal, regional, or general anesthesia and takes anywhere from thirty minutes to just over an hour depending on the findings and treatment required. Because the incisions are small, patients typically experience less postoperative pain and a faster return to daily activity than with open knee surgery. Indian orthopedic centers routinely perform knee arthroscopy on a day-care or short-stay basis, with most patients walking with support on the same day and beginning guided physiotherapy shortly afterward to restore full knee function."
+			},
+			{
+				"name": "Arthroscopic ACL Reconstruction",
+				"image": "/media/treatments/a9a0778c631b0da5fc48.png",
+				"description": "Arthroscopic ACL reconstruction repairs a torn anterior cruciate ligament, one of the main stabilizing ligaments of the knee that is frequently injured during sports involving sudden pivoting, jumping, or direction changes. Because a torn ACL does not reliably heal on its own, surgeons reconstruct it using a graft, commonly taken from the patient's own hamstring or patellar tendon, or occasionally from donor tissue, which is threaded through tunnels drilled in the femur and tibia and secured with screws or fixation devices to recreate the ligament's original position and function. The procedure is performed arthroscopically through small portal incisions using a camera and specialized instruments, avoiding the need for a large open incision, and typically takes around one to two hours under regional or general anesthesia. It is generally recommended for patients with knee instability, giving-way episodes, or an inability to return to sport or physically demanding work after an ACL tear. Indian sports medicine and orthopedic units offer both hamstring and patellar tendon graft techniques along with robotic or navigation-assisted tunnel placement. Recovery involves a structured, months-long rehabilitation program with progressive weight-bearing, strengthening, and balance training before a safe return to sporting activity."
+			},
+			{
+				"name": "Arthroscopic PCL Reconstruction",
+				"image": "/media/treatments/68f3dd689066501edf1e.png",
+				"description": "Arthroscopic PCL reconstruction addresses a torn posterior cruciate ligament, a stronger and less commonly injured stabilizing ligament located behind the ACL that typically tears from a direct blow to the front of the shin, such as in a dashboard injury during a road accident, or from a hard fall onto a bent knee. Many partial PCL injuries are managed non-surgically with bracing and physiotherapy, but complete tears causing persistent instability, or those combined with other ligament injuries, usually require surgical reconstruction. The surgeon uses arthroscopic instruments and a camera inserted through small portals to remove the damaged ligament remnants and pass a tendon graft, often taken from the hamstring, patellar tendon, or a donor source, through bone tunnels in the femur and tibia, fixing it under controlled tension to restore knee stability. The operation generally takes two to three hours under regional or general anesthesia and is technically more demanding than ACL reconstruction due to the ligament's position and blood supply. Indian orthopedic and sports injury centers have experienced surgeons performing single- and double-bundle PCL reconstruction techniques. Recovery requires a longer, carefully staged rehabilitation program compared with ACL surgery, with bracing and gradual loading protocols to protect the healing graft."
+			},
+			{
+				"name": "Meniscus Tear Surgery",
+				"image": "/media/treatments/867132c114bae0c29731.png",
+				"description": "Meniscus tear surgery treats damage to the C-shaped cartilage cushions inside the knee that absorb shock and stabilize the joint between the thighbone and shinbone, injuries that commonly occur from twisting movements during sport or from gradual degeneration in older adults. Depending on the tear's location, size, and pattern, the surgeon performs one of two arthroscopic procedures: meniscus repair, in which the torn edges are stitched back together to preserve as much cartilage as possible, particularly in younger patients with tears in the well-vascularized outer zone, or partial meniscectomy, in which the damaged, unstable portion of the meniscus is trimmed away while retaining healthy tissue. Both procedures are carried out through small portal incisions using an arthroscope and fine instruments, typically taking thirty to sixty minutes under spinal or general anesthesia. Surgery is generally advised when pain, swelling, catching, or locking persist despite rest and physiotherapy, or when an MRI confirms a repairable or unstable tear. Indian arthroscopy units routinely offer both repair and meniscectomy techniques, selecting the approach that best preserves long-term knee function. Recovery after meniscectomy is usually quicker, while repair requires a more protected rehabilitation period to allow the stitched tissue to heal."
+			},
+			{
+				"name": "Cartilage Scaffold Surgery",
+				"image": "/media/treatments/6719b21792d0bb7e6652.png",
+				"description": "Cartilage scaffold surgery is a joint-preservation technique used to treat areas of damaged or missing articular cartilage, the smooth tissue covering the ends of bones within a joint, most often in the knee following injury, repetitive stress, or early localized degeneration. Because cartilage has limited capacity to heal itself, the procedure involves implanting a biocompatible scaffold, sometimes seeded with the patient's own cartilage cells or bone marrow-derived cells, into the defect to provide a structural framework that encourages new cartilage-like tissue to form over time. It is typically performed arthroscopically or through a small incision, with the damaged area first prepared and measured before the scaffold is shaped, secured with fibrin glue or sutures, and left to integrate with surrounding tissue. Candidates are usually younger, active patients with a focal cartilage defect and reasonably preserved joint alignment, rather than widespread arthritis, since the goal is to delay or avoid the need for joint replacement. Indian orthopedic centers offering regenerative and sports medicine services provide various scaffold and cell-based cartilage repair techniques suited to the size and depth of the defect. Recovery involves a protected weight-bearing period and gradual, closely supervised rehabilitation to allow the new tissue to mature."
+			},
+			{
+				"name": "Arthroscopic Shoulder Stabilization",
+				"image": "/media/treatments/d041d32207cfdce5cbc1.png",
+				"description": "Arthroscopic shoulder stabilization is performed to correct a shoulder that repeatedly dislocates or subluxates due to stretched, torn, or detached ligaments and labral tissue that normally hold the ball of the shoulder joint securely within its socket. Instability often follows an initial traumatic dislocation, frequently during sport or a fall, after which the joint's soft-tissue restraints fail to heal tightly enough to prevent further episodes. Using an arthroscope and fine instruments inserted through small portal incisions around the shoulder, the surgeon reattaches or tightens the torn labrum and capsule to the rim of the socket using suture anchors, restoring the tension needed to keep the joint centered during movement. The procedure generally takes about one hour and is performed under regional nerve block combined with light sedation or general anesthesia. It is usually recommended for patients with recurrent instability, a positive apprehension sign on examination, and imaging showing labral or capsular injury, particularly younger or physically active individuals at high risk of further dislocation. Indian shoulder and sports injury units routinely perform this arthroscopic technique. Recovery involves a period of sling immobilization followed by a structured physiotherapy program to regain motion and rebuild strength around the joint."
+			},
+			{
+				"name": "Arthroscopic Rotator Cuff Repair",
+				"image": "/media/treatments/58a590a2944eb6d8c32c.png",
+				"description": "Arthroscopic rotator cuff repair treats a torn rotator cuff, the group of four muscles and tendons that stabilize the shoulder and lift the arm, which can tear suddenly from a fall or injury or gradually from age-related wear and repetitive overhead activity. Patients typically present with shoulder pain that worsens at night, weakness lifting or rotating the arm, and difficulty with overhead tasks that has not improved with rest, physiotherapy, or injections. During the procedure, the surgeon inserts an arthroscope and small instruments through a few portal incisions around the shoulder, trims any inflamed or frayed tissue, and reattaches the torn tendon edge to its original footprint on the humerus using suture anchors, restoring the tendon's pull on the bone. The operation is usually performed under regional block with sedation or general anesthesia and takes roughly one to two hours depending on tear size and complexity. Indian orthopedic and shoulder specialty units offer this technique for both partial and full-thickness tears. After surgery, the arm is protected in a sling for several weeks while the tendon heals, followed by a graduated physiotherapy program that progresses from passive motion to active strengthening exercises over a period of months."
+			},
+			{
+				"name": "Arthroscopic Bankart Repair",
+				"image": "/media/treatments/f45cb51458e59ef55c3e.png",
+				"description": "Arthroscopic Bankart repair specifically addresses a Bankart lesion, a tear of the labrum, the ring of cartilage that deepens the shoulder socket, from the front-lower rim of the joint, an injury that commonly occurs during a traumatic shoulder dislocation and is a leading cause of recurrent instability. Left untreated, a Bankart lesion allows the shoulder to keep slipping or fully dislocating with relatively minor stress, particularly in younger and athletic patients. Through small portal incisions, the surgeon uses an arthroscope to visualize the detached labrum and reattaches it to the bony rim of the socket using suture anchors placed at intervals along the tear, restoring the labral bumper effect that helps keep the humeral head centered. In cases with associated bone loss on the socket, additional bone-grafting procedures may be combined with the repair. The surgery typically takes about an hour under regional anesthesia with sedation or general anesthesia. Indian shoulder arthroscopy units perform Bankart repair routinely for patients with confirmed labral injury on MRI or CT arthrogram and a history of recurrent dislocation. Postoperative care involves several weeks of sling immobilization followed by a phased physiotherapy program to restore motion, stability, and strength."
+			},
+			{
+				"name": "Keyhole (Arthroscopic) Shoulder Surgery",
+				"image": "/media/treatments/091b578cc0f88a46fed4.png",
+				"description": "Keyhole, or arthroscopic, shoulder surgery is a minimally invasive approach used to diagnose and treat a wide range of shoulder conditions through a handful of small incisions instead of one large open cut. A thin camera called an arthroscope is inserted into the joint to give the surgeon a magnified, detailed view of the tendons, ligaments, cartilage, and joint lining on a monitor, while slender instruments passed through separate portals are used to trim, repair, or reconstruct damaged tissue. This technique is applied across conditions ranging from rotator cuff tears and shoulder instability to impingement syndrome, frozen shoulder release, and removal of loose bodies or bone spurs, with the specific steps depending on what is found and treated. It is generally offered once symptoms such as pain, weakness, stiffness, or restricted movement fail to improve with rest, physiotherapy, and medication. Performed under regional nerve block, sedation, or general anesthesia, the smaller incisions typically result in less postoperative pain, lower infection risk, and a quicker initial recovery than traditional open shoulder surgery. Indian orthopedic centers with dedicated shoulder units offer this technique for most common shoulder disorders. Recovery still requires a structured, condition-specific physiotherapy program to regain full shoulder function over the following weeks to months."
+			},
+			{
+				"name": "Bone Cancer Surgery",
+				"image": "/media/treatments/b44190d3712d8e9bce54.png",
+				"description": "Bone cancer surgery is performed to remove malignant tumors that arise within bone tissue, such as osteosarcoma, Ewing sarcoma, or chondrosarcoma, or that have spread to bone from cancer elsewhere in the body. Treatment planning typically begins with imaging, including X-rays, MRI, CT, and bone scans, along with a biopsy to confirm the tumor type and grade, after which a multidisciplinary team decides on the most appropriate combination of surgery, chemotherapy, and radiation. Where feasible, surgeons now favor limb-salvage surgery, removing the tumor along with a margin of healthy tissue and reconstructing the affected bone and joint using a metal endoprosthesis, bone graft, or a combination of both, preserving the limb rather than resorting to amputation, which is reserved for cases where the tumor involves major nerves, vessels, or extensive soft tissue. Surgery is usually performed under general anesthesia and can take several hours depending on tumor size, location, and the complexity of reconstruction required. Indian orthopedic oncology centers offer limb-salvage techniques alongside chemotherapy protocols delivered before and after surgery. Recovery involves a hospital stay of one to two weeks followed by an extended rehabilitation program to regain function, with ongoing surveillance to monitor for recurrence."
+			},
+			{
+				"name": "Limb Lengthening Surgery",
+				"image": "/media/treatments/fe9b08e541a0e4b67c32.png",
+				"description": "Limb lengthening surgery gradually increases the length of a shortened bone, most often in the leg, to correct limb length discrepancy caused by congenital conditions, childhood growth plate injury, infection, fracture malunion, or certain skeletal dysplasias. The surgeon first performs a controlled surgical cut of the bone, called an osteotomy, without disturbing the surrounding blood supply, then applies either an external fixator frame worn outside the limb or an internal, magnetically driven lengthening nail placed inside the bone. Over the following weeks, the device is adjusted daily in tiny increments, typically around one millimeter per day, allowing new bone to form gradually in the gap while soft tissues, nerves, and blood vessels stretch alongside it. The total treatment period, including the lengthening phase and subsequent bone consolidation, generally spans several months and requires close monitoring with periodic X-rays to track bone healing and adjust the plan as needed. Indian limb reconstruction centers offer both external fixator and internal nail techniques depending on the amount of lengthening required and patient preference. Physiotherapy throughout the process helps maintain joint motion and muscle strength, and most patients need an extended stay in the treating country to allow safe monitoring during the active lengthening phase."
+			},
+			{
+				"name": "Club Foot Surgery",
+				"image": "/media/treatments/cdbb1fcb3980b258b23e.png",
+				"description": "Club foot surgery treats congenital talipes equinovarus, a birth condition in which one or both feet are turned inward and downward due to shortened tendons and abnormal alignment of the foot bones. Most cases are now managed initially with the Ponseti method, a non-surgical approach using serial gentle manipulation and casting over several weeks to gradually correct the foot's position, often followed by a minor procedure to release a tight Achilles tendon. Surgery becomes necessary when correction through casting is incomplete, when the deformity is resistant or relapses, or in older children whose club foot was not treated early, and can range from a limited tendon release or transfer to more extensive bone and joint procedures to realign the foot structurally. The specific operation depends on the child's age, the severity of the deformity, and which tissues are contributing to the abnormal position. Surgery is performed under general anesthesia, and the foot is typically immobilized in a cast afterward to protect the correction while it heals. Indian pediatric orthopedic centers manage club foot through both Ponseti-based protocols and surgical correction for resistant or neglected cases. Long-term follow-up with bracing and monitoring is usually needed as the child grows."
+			},
+			{
+				"name": "Hip Dysplasia Treatment",
+				"image": "/media/treatments/4276d96441b4a92026d8.png",
+				"description": "Hip dysplasia treatment addresses developmental dysplasia of the hip, a condition in which the hip socket is too shallow to properly cover and stabilize the head of the thighbone, ranging from mild looseness to complete dislocation, and most often identified in infancy through screening but sometimes diagnosed later in childhood or adulthood. In young infants, treatment usually begins with a positioning harness, such as a Pavlik harness, worn for several weeks to gently guide the hip into a stable, well-seated position while the socket develops normally. When dysplasia is diagnosed later, is more severe, or does not respond to bracing, surgical options may be needed, ranging from closed or open reduction of the hip joint to a periacetabular or pelvic osteotomy that reshapes and repositions the socket to better cover the femoral head, sometimes combined with a femoral osteotomy. Surgery is performed under general anesthesia and is typically followed by a period of cast or brace immobilization to protect the correction. Indian pediatric and adult hip preservation units offer both bracing protocols for infants and reconstructive osteotomy techniques for older children and young adults. Long-term follow-up is important, as untreated or inadequately corrected dysplasia can lead to early hip arthritis."
+			},
+			{
+				"name": "Musculoskeletal Disorder Treatment",
+				"image": "/media/treatments/1e429a2d061a0900048f.png",
+				"description": "Musculoskeletal disorder treatment covers the diagnosis and management of a broad range of conditions affecting the bones, joints, muscles, tendons, ligaments, and nerves that make up the body's movement system, including arthritis, chronic back and neck pain, tendon and ligament injuries, fractures, deformities, and degenerative spine conditions. Management typically begins with a clinical assessment and imaging, such as X-rays, MRI, or CT scans, to identify the underlying cause of pain, stiffness, weakness, or restricted movement, after which an orthopedic specialist recommends a treatment pathway that may include physiotherapy, medication, targeted injections, bracing, or surgery depending on the severity and nature of the condition. When surgery is required, it may range from minimally invasive arthroscopic procedures to joint replacement, spinal fixation, or corrective reconstructive surgery, chosen according to the specific diagnosis and the patient's overall health and functional goals. Indian multi-specialty orthopedic centers bring together joint replacement, spine, sports medicine, and physiotherapy teams to manage complex or long-standing musculoskeletal problems under one coordinated plan. Because presentations vary so widely, an initial review of prior imaging and clinical reports helps determine the most appropriate treatment approach before a patient travels. Recovery and rehabilitation timelines depend entirely on the specific disorder being treated and the intervention chosen."
+			}
+		],
+		"benefits": [
+			"Robotic and computer-assisted joint replacement available at leading centers",
+			"Structured in-hospital physiotherapy from day one",
+			"High-quality, internationally sourced implants",
+			"Typical hospital stay of 3–5 days for joint replacement"
+		],
+		"flagshipProcedure": "Total Knee Replacement",
+		"packagePrice": 5500,
+		"totalTripDays": 18,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 1,
+				"roomDays": 4,
+				"totalDays": 5
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 35,000 – 50,000",
+				"waitTime": "4–6 weeks",
+				"successRate": "96–98%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 15,000 – 22,000",
+				"waitTime": "6–12 months (NHS)",
+				"successRate": "96–98%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 14,000 – 20,000",
+				"waitTime": "3–6 weeks",
+				"successRate": "95–97%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 10,000 – 14,000",
+				"waitTime": "2–3 weeks",
+				"successRate": "94–96%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 5,500 – 7,500",
+				"waitTime": "1–2 weeks",
+				"successRate": "97%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-operative orthopedic evaluation including X-rays and fitness clearance",
+			"Surgeon's and anesthetist's fees for the joint replacement",
+			"Operation theatre charges and the implant (standard-grade, unless upgraded)",
+			"ICU/recovery bay for 1 day plus 4 days in a single room",
+			"Structured in-hospital physiotherapy sessions",
+			"Laboratory, radiology, and standard post-op medication during the stay",
+			"Discharge summary with a home exercise and rehabilitation plan"
+		],
+		"exclusions": [
+			"Premium or custom implant upgrades beyond the standard-grade implant",
+			"Hospital stay beyond the package duration",
+			"Bilateral (both-knee) surgery unless quoted separately",
+			"Outpatient physiotherapy sessions after discharge",
+			"Treatment for unrelated conditions identified during pre-op screening",
+			"Revision surgery for complications unrelated to the original procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of knee replacement surgery in India?",
+				"answer": "A total knee replacement package in India starts from USD 5,500, around 85% less than typical US pricing, and includes the surgeon fee, implant, hospital stay, and in-hospital physiotherapy."
+			},
+			{
+				"question": "Is robotic-assisted knee replacement available?",
+				"answer": "Yes, several of our partner hospitals offer robotic and computer-navigated joint replacement, which can improve implant alignment and shorten recovery time for eligible patients."
+			},
+			{
+				"question": "How long is the hospital stay and recovery?",
+				"answer": "Most patients stay about 5 days in hospital and are advised to remain in India for roughly 2–3 weeks so physiotherapists can guide early rehabilitation before you fly home."
+			},
+			{
+				"question": "What implant brands are used?",
+				"answer": "Our partner hospitals use internationally certified implant brands as standard, with premium implant upgrades available on request and quoted separately."
+			},
+			{
+				"question": "Can both knees be replaced in the same trip?",
+				"answer": "Yes, simultaneous or staged bilateral knee replacement is possible for suitable candidates — your surgeon will confirm the best approach after reviewing your X-rays and overall fitness."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Send your X-rays and a summary of your symptoms through our contact form, and you will receive a specialist review and a transparent cost estimate within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793019614,
+			"updatedAt": 1793020418
+		}
+	},
+	"oncology": {
+		"slug": "oncology",
+		"name": "Oncology",
+		"icon": "shieldPlus",
+		"imageKey": "oncology",
+		"theme": "green",
+		"shortDescription": "Multidisciplinary cancer care combining surgery, chemotherapy, and targeted radiation.",
+		"overview": "Cancer treatment in India is delivered through tumor boards that bring together surgical oncologists, medical oncologists, and radiation specialists to build one coordinated treatment plan — the same multidisciplinary model used at leading Western cancer centers.",
+		"startingPrice": 6000,
+		"avgSavings": 85,
+		"hospitalsCount": 110,
+		"procedures": [
+			"Tumor Surgery",
+			"Chemotherapy",
+			"Radiation Therapy"
+		],
+		"allProcedures": [
+			"Breast Cancer Treatment",
+			"Oral Cancer Treatment",
+			"Prostate Cancer Treatment",
+			"Endometrial Cancer Treatment",
+			"Leukemia Treatment",
+			"Hodgkin Lymphoma Treatment",
+			"Chemotherapy",
+			"Intensity-Modulated Radiation Therapy (IMRT)",
+			"Image-Guided Radiation Therapy (IGRT)",
+			"CyberKnife Treatment",
+			"Lymph Node Surgery"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Breast Cancer Treatment",
+				"image": "/media/treatments/d8dbca72d3be96d729e6.png",
+				"description": "Breast cancer treatment in India is planned by a dedicated multidisciplinary tumor board that reviews your mammography, biopsy, and hormone-receptor (ER/PR/HER2) reports before recommending a course tailored to the stage and type of tumor. Depending on the diagnosis, care may combine breast-conserving surgery (lumpectomy) or mastectomy with sentinel lymph node biopsy, followed by adjuvant chemotherapy, targeted therapy (such as trastuzumab for HER2-positive disease), hormone therapy, and radiation to reduce recurrence risk. Reconstructive options, including immediate or delayed breast reconstruction, are available for patients who choose mastectomy. Leading Indian oncology centers use digital mammography, MRI-guided biopsy, and intraoperative frozen-section analysis to plan conservative, tissue-sparing surgery wherever the tumor stage allows. Patients typically need a short hospital stay for surgery, with chemotherapy and radiation delivered on an outpatient basis over the following weeks — many patients plan a longer India stay to complete an initial cycle of adjuvant treatment before returning home under a shared-care plan with their local oncologist. Second opinions on biopsy slides and imaging are reviewed free of charge before you commit to travel."
+			},
+			{
+				"name": "Oral Cancer Treatment",
+				"image": "/media/treatments/39a2bb8de8a6ee4ddedc.png",
+				"description": "Oral cancer — arising in the tongue, cheek lining, gums, floor of the mouth, or lips — is among the most common cancers treated in India, where high-volume head and neck oncology units see a large share of tobacco- and betel-nut-related cases. Treatment begins with a biopsy and imaging (CT/MRI, sometimes PET-CT) to stage the tumor, followed by surgical resection with clear margins, often combined with neck dissection to remove lymph nodes at risk of spread. Reconstructive microvascular surgery — using tissue flaps from the forearm, thigh, or fibula — restores form and function when a significant portion of the jaw or tongue is removed. Depending on the pathology, surgery is followed by adjuvant radiation or chemoradiation to reduce the chance of recurrence. A multidisciplinary team of head and neck surgeons, oncologists, prosthodontists, and speech and swallowing therapists manages the full course of care, including rehabilitation of speech and eating after surgery. Early-stage cancers detected before nodal spread carry a substantially better prognosis, so patients are encouraged to send biopsy and imaging reports for a tumor board opinion as soon as a diagnosis is suspected."
+			},
+			{
+				"name": "Prostate Cancer Treatment",
+				"image": "/media/treatments/167df26bf4358d6c3e0c.png",
+				"description": "Prostate cancer treatment in India ranges from active surveillance for very low-risk, slow-growing tumors to robotic-assisted radical prostatectomy, radiation therapy, and hormone therapy for more advanced disease. After diagnosis via PSA testing, MRI, and biopsy, a urologic oncologist grades the cancer using the Gleason score to determine the most appropriate approach. Robotic (da Vinci) prostatectomy is widely available at India's leading urology centers, offering nerve-sparing surgery that aims to preserve continence and sexual function while removing the prostate gland and, when needed, surrounding lymph nodes. For patients who are not surgical candidates or prefer a non-surgical route, external beam radiation, brachytherapy, or IMRT/IGRT can deliver highly targeted radiation while limiting exposure to nearby organs. Androgen deprivation therapy (hormone therapy) is used alongside surgery or radiation in intermediate- and high-risk cases, or on its own for advanced disease. Recovery after robotic surgery is typically faster than open surgery, with most patients discharged within a few days and returning to normal activity within several weeks. Your case is reviewed by a tumor board before a recommendation is finalized."
+			},
+			{
+				"name": "Endometrial Cancer Treatment",
+				"image": "/media/treatments/b92cddd79a90103a0393.png",
+				"description": "Endometrial (uterine lining) cancer is one of the most treatable gynecologic cancers when caught early, and India's gynecologic oncology units offer comprehensive staging and surgery for women diagnosed at any stage. Initial workup includes transvaginal ultrasound, endometrial biopsy, and imaging to assess how far the disease has spread. The standard treatment is a total hysterectomy with removal of the fallopian tubes and ovaries (salpingo-oophorectomy), usually performed laparoscopically or robotically to reduce blood loss, scarring, and recovery time compared with open surgery. Lymph node sampling or a sentinel lymph node biopsy is performed during the same operation to help determine whether further treatment is needed. Depending on the tumor grade and stage found at surgery, adjuvant radiation therapy (external beam or brachytherapy) or chemotherapy may be recommended to lower the risk of recurrence. For younger women wishing to preserve fertility with very early, low-grade disease, hormone-based non-surgical treatment may be an option after careful evaluation. Most patients undergoing minimally invasive hysterectomy are discharged within two to three days and resume normal activity within a few weeks."
+			},
+			{
+				"name": "Leukemia Treatment",
+				"image": "/media/treatments/73e3134cb9617664a4c2.png",
+				"description": "Leukemia — cancer of the blood-forming cells in the bone marrow — is treated in India by dedicated hemato-oncology teams with access to advanced diagnostics, including flow cytometry, cytogenetics, and molecular testing, which are essential for classifying the exact subtype (acute or chronic, lymphocytic or myeloid) and choosing the right protocol. Treatment typically starts with induction chemotherapy to bring the disease into remission, followed by consolidation therapy to eliminate remaining leukemic cells; some subtypes, such as chronic myeloid leukemia, are managed with targeted oral therapies (tyrosine kinase inhibitors) instead of intensive chemotherapy. For high-risk or relapsed cases, a bone marrow or stem cell transplant may be recommended, using either a matched sibling or unrelated donor, or the patient's own cells. Care is delivered in specialized hematology units with reverse-isolation rooms, blood bank support, and infection-control protocols suited to immunocompromised patients during treatment. Because leukemia protocols run over months, many patients coordinate an initial intensive phase in India with follow-up chemotherapy monitored by their home physician, with regular reports shared between teams to keep the treatment plan on track."
+			},
+			{
+				"name": "Hodgkin Lymphoma Treatment",
+				"image": "/media/treatments/0d4df84f663de2ea3abd.png",
+				"description": "Hodgkin lymphoma, a cancer of the lymphatic system marked by the presence of Reed-Sternberg cells, has one of the highest cure rates among cancers when treated with a standard chemotherapy regimen (commonly ABVD), and India's oncology centers follow internationally recognized protocols for staging and treatment. Diagnosis is confirmed through a lymph node biopsy and staged using PET-CT imaging to map the extent of disease above and below the diaphragm. Most patients are treated with a course of combination chemotherapy over several months, with response assessed by interim PET-CT scans that help oncologists decide whether to continue, adjust, or add radiation therapy for residual disease. Localized, early-stage disease may be treated with a shorter chemotherapy course followed by involved-site radiation, while advanced-stage disease typically needs a longer chemotherapy course alone. For relapsed or resistant cases, salvage chemotherapy followed by autologous stem cell transplant is available at leading centers. Chemotherapy cycles are delivered on an outpatient day-care basis wherever possible, and your tumor board will outline a full cycle-by-cycle schedule before you travel."
+			},
+			{
+				"name": "Chemotherapy",
+				"image": "/media/treatments/fe47b108b6bc99c9b257.png",
+				"description": "Chemotherapy uses cytotoxic or targeted drugs to destroy cancer cells or stop them from dividing, and is used either as the primary treatment for blood cancers and lymphomas or as an adjuvant/neoadjuvant therapy alongside surgery and radiation for solid tumors. India's day-care oncology units are equipped with dedicated chemotherapy chairs, trained oncology nursing staff, and pharmacy-prepared, weight- and body-surface-area-dosed regimens matched to international treatment protocols. Before starting, your oncologist reviews blood counts, organ function, and prior reports to select the regimen, cycle length, and number of cycles appropriate to your cancer type and stage. Most regimens are given as an outpatient infusion lasting a few hours, repeated every two to three weeks, with supportive medication (anti-nausea drugs, growth factors) given alongside to manage side effects. Regular blood tests between cycles monitor for complications such as low blood counts, and doses are adjusted accordingly. For patients combining a trip to India with an initial phase of chemotherapy, your oncology team provides a written protocol and reports so a local physician can safely continue or monitor subsequent cycles at home."
+			},
+			{
+				"name": "Intensity-Modulated Radiation Therapy (IMRT)",
+				"image": "/media/treatments/b6533ec5f0c92afd525b.png",
+				"description": "Intensity-Modulated Radiation Therapy (IMRT) is an advanced form of external beam radiation that shapes and varies the intensity of hundreds of individual radiation beams to closely match the three-dimensional shape of a tumor, delivering a higher, more effective dose to the cancer while sparing surrounding healthy tissue and organs. It is widely used in India for head and neck, prostate, breast, brain, and gynecologic cancers, where nearby structures such as the spinal cord, salivary glands, or bladder need to be protected from radiation damage. Treatment planning begins with a CT simulation scan, which a radiation oncologist and medical physicist use to map the tumor and design a beam plan on specialized software before treatment starts. IMRT is delivered in short daily outpatient sessions, typically five days a week over several weeks, with each session lasting 15–20 minutes. Because the technique reduces radiation to healthy tissue, patients generally experience fewer side effects than with older radiation techniques, such as less dry mouth after head and neck treatment or better bowel and bladder tolerance after pelvic radiation. Regular imaging checks ensure the treatment stays precisely targeted throughout the course."
+			},
+			{
+				"name": "Image-Guided Radiation Therapy (IGRT)",
+				"image": "/media/treatments/aa75a2a139933b17525c.png",
+				"description": "Image-Guided Radiation Therapy (IGRT) pairs advanced imaging — such as cone-beam CT or X-ray verification — with each radiation session to confirm the tumor's exact position immediately before treatment, correcting for small day-to-day changes caused by breathing, organ filling, or patient positioning. This extra layer of precision is especially valuable for tumors that move or shift, such as lung, liver, prostate, and pancreatic cancers, allowing radiation oncologists to safely deliver higher, more effective doses while further reducing exposure to surrounding healthy organs. IGRT is typically combined with IMRT or other conformal radiation techniques rather than used as a standalone therapy, and Indian cancer centers offering it are equipped with on-board imaging systems built into the linear accelerator so verification happens in the same session as treatment, without extra visits. A radiation oncology team reviews the imaging at each session, or at set intervals, and adjusts the patient's position before the beam is delivered. As with other forms of external radiation, sessions are short, painless, and delivered on an outpatient basis over a course planned according to your specific cancer type and stage."
+			},
+			{
+				"name": "CyberKnife Treatment",
+				"image": "/media/treatments/dc86cfd4a39d609ad97a.png",
+				"description": "CyberKnife is a robotic radiosurgery system that delivers highly focused, high-dose radiation to small or hard-to-reach tumors with sub-millimeter accuracy, using a linear accelerator mounted on a robotic arm that tracks the tumor's position and adjusts in real time during treatment — including tumors that move with breathing — without needing an invasive head frame. It is commonly used in India for brain tumors, spinal tumors, early-stage lung cancer, liver tumors, and cases where a tumor sits close to critical structures such as the brainstem, optic nerves, or spinal cord, making conventional surgery or radiation riskier. Because of its precision, CyberKnife can deliver an effective radiation dose in just one to five sessions (stereotactic body radiotherapy/radiosurgery), compared with several weeks of daily treatment with conventional radiation — a significant advantage for patients traveling from abroad. Treatment planning uses high-resolution MRI and CT imaging fused together to map the tumor precisely, and each session is entirely non-invasive and painless, typically lasting 30–90 minutes with no anesthesia required. Most patients return home the same day as each session and resume normal activities immediately afterward."
+			},
+			{
+				"name": "Lymph Node Surgery",
+				"image": "/media/treatments/dbf1b6bfcf0a2c034bc7.png",
+				"description": "Lymph node surgery covers a range of procedures used in cancer care to remove, sample, or evaluate lymph nodes to determine whether cancer has spread beyond the original tumor — a key factor in accurate staging and treatment planning. The most common approach is a sentinel lymph node biopsy, in which a tracer dye or radioactive marker identifies the first node(s) a tumor is likely to spread to; if these are clear, more extensive node removal can often be avoided, reducing the risk of complications such as lymphedema. When cancer is confirmed or suspected in multiple nodes, a more complete lymph node dissection — such as an axillary dissection for breast cancer or a neck dissection for head and neck cancer — removes a wider group of nodes from the affected region. These procedures are usually performed at the same time as the primary tumor surgery under general anesthesia, often using minimally invasive or robotic techniques to reduce scarring and speed recovery. Pathology results from the removed nodes guide decisions about whether chemotherapy or radiation is needed afterward, and physiotherapy or lymphedema-prevention guidance is provided as part of post-operative care."
+			}
+		],
+		"benefits": [
+			"Multidisciplinary tumor boards for every case",
+			"Access to advanced radiation therapy (IMRT, IGRT, proton options at select centers)",
+			"Comprehensive care from diagnosis through post-treatment follow-up",
+			"Dedicated oncology counselors supporting patients and families"
+		],
+		"flagshipProcedure": "Tumor Resection Surgery",
+		"packagePrice": 6000,
+		"totalTripDays": 28,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 2,
+				"roomDays": 6,
+				"totalDays": 8
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 80,000 – 150,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "Varies by stage"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 35,000 – 60,000",
+				"waitTime": "2–6 months (NHS)",
+				"successRate": "Varies by stage"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 30,000 – 50,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "Varies by stage"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 15,000 – 25,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "Varies by stage"
+			},
+			{
+				"country": "India",
+				"cost": "USD 6,000 – 12,000",
+				"waitTime": "1–2 weeks",
+				"successRate": "Varies by stage",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Tumor board review of existing biopsy, imaging, and pathology reports",
+			"Surgeon's, anesthetist's, and oncology team fees for the primary surgery",
+			"Operation theatre and ICU charges (2 days) plus 6 days in a single room",
+			"Nursing care and standard chemotherapy/supportive medication during admission",
+			"Laboratory, radiology, and pathology charges tied to the primary procedure",
+			"Dedicated oncology counselor support for patient and family",
+			"Discharge summary with a structured follow-up chemo/radiation plan"
+		],
+		"exclusions": [
+			"Additional chemotherapy cycles or radiation sessions beyond the initial package",
+			"Genomic/molecular profiling tests unless specifically requested",
+			"Hospital stay beyond the package duration",
+			"Targeted therapy or immunotherapy drugs, priced separately due to variable cost",
+			"Treatment for unrelated conditions identified during work-up",
+			"Re-operation for complications unrelated to the original procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of cancer surgery in India?",
+				"answer": "A tumor resection package in India starts from USD 6,000, roughly 90% less than comparable surgery in the US, covering the tumor board review, surgery, ICU/room stay, and initial supportive care."
+			},
+			{
+				"question": "How are chemotherapy and radiation priced?",
+				"answer": "Chemotherapy cycles and radiation sessions (IMRT/IGRT) are quoted separately based on your specific protocol, since regimens vary widely by cancer type and stage — your tumor board provides an itemized estimate after reviewing your reports."
+			},
+			{
+				"question": "Will a team of specialists review my case, or just one doctor?",
+				"answer": "Every case goes through a multidisciplinary tumor board — surgical oncologist, medical oncologist, and radiation oncologist — before a treatment plan is finalized, the same model used at leading Western cancer centers."
+			},
+			{
+				"question": "How long will I need to stay in India?",
+				"answer": "Surgical patients typically stay 8 days in hospital, with a total recommended stay of around 4 weeks in India if chemotherapy or radiation follows surgery."
+			},
+			{
+				"question": "Can I get a second opinion before committing to surgery?",
+				"answer": "Yes. Send your biopsy, imaging, and pathology reports for a free tumor board review and second opinion before deciding whether to travel for treatment."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your diagnostic reports through our contact form or WhatsApp, and our oncology coordinator will arrange a tumor board review and transparent estimate within 48 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793020602,
+			"updatedAt": 1793084615
+		}
+	},
+	"cosmetic-surgery": {
+		"slug": "cosmetic-surgery",
+		"name": "Cosmetic & Plastic Surgery",
+		"icon": "gem",
+		"imageKey": "cosmeticSurgery",
+		"theme": "blue",
+		"shortDescription": "Aesthetic and reconstructive procedures performed by internationally certified surgeons.",
+		"overview": "Combining board-certified surgeons with recovery-focused, hotel-style aftercare, India has become a preferred destination for aesthetic and reconstructive procedures — with the privacy and discretion international patients expect.",
+		"startingPrice": 2000,
+		"avgSavings": 80,
+		"hospitalsCount": 70,
+		"procedures": [
+			"Rhinoplasty",
+			"Liposuction",
+			"Hair Transplant"
+		],
+		"allProcedures": [
+			"Rhinoplasty (Nose Surgery)",
+			"Face Lift",
+			"Non-Surgical Facelift",
+			"Thread Face Lift",
+			"Blepharoplasty (Eyelid Surgery)",
+			"Oculoplastic Surgery",
+			"Botox Injections",
+			"Otoplasty (Ear Surgery)",
+			"Hair Transplant Surgery",
+			"Breast Enhancement (Augmentation)",
+			"Breast Reduction",
+			"Breast Lift",
+			"Liposuction",
+			"Abdominoplasty (Tummy Tuck)",
+			"Brazilian Butt Lift",
+			"Buttock Augmentation",
+			"Arm Lift",
+			"Thigh Lift",
+			"Labiaplasty",
+			"Scar Removal Surgery"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Rhinoplasty (Nose Surgery)",
+				"image": "/media/treatments/7858230f7199e68c76d3.png",
+				"description": "Rhinoplasty is a surgical procedure that reshapes the bone and cartilage of the nose to change its size, shape, or proportion, or to correct breathing problems caused by a deviated septum or narrow nasal passages. The surgeon may work through small incisions hidden inside the nostrils (closed technique) or a small external incision at the base of the nose (open technique), depending on how much correction is needed. Cartilage may be trimmed, reshaped, or grafted from elsewhere in the nose or ear to build structure. The procedure is usually done under general or local anesthesia with sedation and takes one to three hours. Candidates include people bothered by the shape or size of their nose, those with breathing difficulty, or patients needing revision after a prior surgery. Recovery involves swelling and bruising for one to two weeks, with a splint worn for the first several days and final results visible over several months as swelling subsides. International patients traveling to India for rhinoplasty typically plan for an initial consultation, the procedure itself, and a follow-up visit before the splint is removed, allowing most of the early healing to be monitored in person."
+			},
+			{
+				"name": "Face Lift",
+				"image": "/media/treatments/dfb03ab9679154c10be2.png",
+				"description": "A face lift, or rhytidectomy, is a surgical procedure that addresses sagging skin, deep folds, and loss of definition along the lower face, jawline, and neck that develop with age. Through incisions typically placed along the hairline and around the ear, the surgeon lifts and repositions the underlying facial muscle and connective tissue (the SMAS layer), removes excess skin, and redrapes the remaining skin over the new contour. It is often combined with a neck lift or fat grafting to address related changes. The procedure is performed under general anesthesia or local anesthesia with sedation and generally takes three to five hours. Good candidates are typically in reasonably good health with realistic expectations about the degree of improvement a lift can provide, since it addresses sagging rather than fine lines or sun damage. Recovery includes swelling, bruising, and tightness for one to two weeks, with sutures removed within that period and most patients returning to normal activity within two to three weeks. Because the procedure requires a period of in-person follow-up to check on healing and remove sutures, patients traveling to India for a face lift generally plan a stay of around two weeks."
+			},
+			{
+				"name": "Non-Surgical Facelift",
+				"image": "/media/treatments/6d37b6dfb0284708471a.png",
+				"description": "A non-surgical facelift is not a single procedure but a combination of injectable and energy-based treatments used to lift and refresh the face without incisions or general anesthesia. Depending on the patient's concerns, a treatment plan may combine dermal fillers to restore volume in the cheeks and temples, botulinum toxin injections to soften dynamic lines, and skin-tightening technologies such as radiofrequency or ultrasound (e.g. HIFU) to stimulate collagen and firm loose skin. Sessions are typically performed in an outpatient clinic setting with topical numbing cream, and most treatments take thirty minutes to an hour. There is little to no downtime beyond temporary redness or mild swelling, so patients can usually resume normal activities the same or next day. This approach suits patients with early to moderate signs of aging who want visible improvement without surgery, though results are more subtle and temporary than a surgical lift, typically lasting from several months to a couple of years depending on the treatments used. Because sessions are quick and repeatable, some patients combine a non-surgical facelift with other procedures during a single India visit, with maintenance treatments planned for a later trip or through a local provider."
+			},
+			{
+				"name": "Thread Face Lift",
+				"image": "/media/treatments/216b18e22ad593f860cc.png",
+				"description": "A thread face lift is a minimally invasive procedure that uses fine, dissolvable surgical threads, often made of polydioxanone (PDO), to lift sagging skin and stimulate collagen production without the incisions of a traditional face lift. The threads, some of which have tiny cones or barbs, are inserted under the skin using a thin needle or cannula and anchored to gently reposition tissue in the cheeks, jawline, or brow before the ends are trimmed. The procedure is done under local anesthesia in an outpatient setting and usually takes thirty to sixty minutes. Over the following weeks, the body forms collagen around the dissolving threads, which gradually adds mild firming to the initial lifting effect. It suits patients with early sagging who are not yet ready for surgery, and results are noticeably more modest and shorter-lived, typically twelve to eighteen months, than a surgical lift. Downtime is minimal, with some swelling, bruising, or a pulling sensation for a few days. Because recovery is short, a thread lift can often be scheduled alongside other treatments during a single trip to India, though patients should discuss timing with their surgeon if combining it with more invasive procedures."
+			},
+			{
+				"name": "Blepharoplasty (Eyelid Surgery)",
+				"image": "/media/treatments/7fd35b0a0a50094da249.png",
+				"description": "Blepharoplasty is a surgical procedure that removes or repositions excess skin, muscle, and fat around the upper or lower eyelids to address hooding, puffiness, or under-eye bags. In upper eyelid surgery, the surgeon makes an incision along the natural crease to remove excess tissue; in lower eyelid surgery, the incision may be placed just below the lash line or inside the eyelid (transconjunctival approach) to avoid a visible scar. The procedure is typically done under local anesthesia with sedation and takes one to two hours depending on whether one or both eyelids are treated. Candidates include people whose upper eyelid skin obstructs vision, those bothered by tired-looking or puffy eyes, and patients seeking a more alert appearance. Recovery involves swelling and bruising for one to two weeks, with sutures removed within about a week and most patients comfortable in public within ten to fourteen days using makeup or sunglasses. Because eyelid tissue heals relatively quickly but still needs a suture check and progress review, patients traveling to India for blepharoplasty commonly plan a stay of ten days to two weeks to cover the procedure and early follow-up."
+			},
+			{
+				"name": "Oculoplastic Surgery",
+				"image": "/media/treatments/190642a2f1378dca955a.png",
+				"description": "Oculoplastic surgery is a specialized branch of ophthalmic and plastic surgery that treats structural and functional problems of the eyelids, tear ducts, eye socket, and surrounding tissue. It covers a broad range of procedures, including repair of drooping eyelids (ptosis) that interfere with vision, correction of eyelid malposition such as ectropion or entropion, treatment of blocked tear ducts, removal of eyelid tumors or cysts with reconstruction, orbital fracture repair, and socket reconstruction following eye injury or removal. Surgeons trained in both ophthalmology and plastic surgery techniques perform these procedures, which may be done under local or general anesthesia depending on complexity and location. Candidates are patients with a functional problem affecting vision, eye comfort, or eyelid closure, as well as those needing reconstruction after trauma, tumor removal, or prior surgery. Because many of these conditions affect how the eye is protected and how well it can close, evaluation typically includes a detailed eye exam alongside the surgical assessment. Recovery varies widely by procedure, from a few days for minor eyelid repairs to several weeks for orbital reconstruction, and India-based oculoplastic centers commonly manage complex cases requiring staged surgery and follow-up imaging."
+			},
+			{
+				"name": "Botox Injections",
+				"image": "/media/treatments/2e5a9ccf38c6779b0719.png",
+				"description": "Botox is the best-known brand of botulinum toxin type A, a purified protein that is injected in small, precise doses into facial muscles to temporarily relax the contractions that cause dynamic wrinkles, such as frown lines between the brows, crow's feet around the eyes, and horizontal forehead lines. The toxin works by blocking nerve signals to the treated muscle, so the skin above it smooths out while surrounding expression remains largely natural if the dose is well judged. Treatment is done in a clinic setting with a fine needle and no anesthesia beyond optional numbing cream, typically taking ten to twenty minutes for several injection points. Effects begin within three to seven days, peak around two weeks, and generally last three to four months before the muscle activity gradually returns, at which point repeat treatment is needed to maintain the effect. Botox is also used medically for conditions such as excessive sweating, chronic migraine, and certain muscle spasm disorders. There is essentially no downtime beyond mild redness or a small bruise at injection sites, making it a common add-on for patients already visiting India for other cosmetic or medical treatment."
+			},
+			{
+				"name": "Otoplasty (Ear Surgery)",
+				"image": "/media/treatments/f844ba0794238e336da5.png",
+				"description": "Otoplasty is a surgical procedure that reshapes the cartilage of the outer ear, most commonly to set prominent ears closer to the head or to correct irregularities in ear shape or size present from birth or caused by injury. The surgeon typically makes an incision behind the ear, then scores, folds, or sutures the cartilage into a more natural position before closing the incision so any resulting scar is hidden in the natural crease. The procedure can be done under local anesthesia with sedation in adults or general anesthesia in children, and usually takes one to two hours for both ears. It is one of the few cosmetic procedures commonly performed on children, generally once ear cartilage has sufficiently developed, often to address self-consciousness before school years. Recovery involves a padded head dressing for the first few days, followed by a lighter headband worn at night for several weeks to protect the new position while healing. Swelling and mild discomfort settle within one to two weeks. Families traveling to India for a child's otoplasty generally plan a short stay covering surgery and the initial dressing change."
+			},
+			{
+				"name": "Hair Transplant Surgery",
+				"image": "/media/treatments/d116745412b41c33162a.png",
+				"description": "Hair transplant surgery relocates hair follicles from a donor area, usually the back or sides of the scalp where hair growth is naturally resistant to thinning, to areas of visible balding. The two main techniques are follicular unit transplantation (FUT), where a strip of scalp is removed and divided into individual grafts, and follicular unit extraction (FUE), where follicles are harvested one at a time with a small punch tool, leaving minimal scarring. Grafts are placed into tiny recipient-site incisions following the natural angle and density of surrounding hair for a natural-looking result. The procedure is done under local anesthesia and, depending on the number of grafts required, takes roughly four to eight hours, sometimes spread across two sessions. Suitable candidates are men and women with pattern hair loss and adequate donor supply, assessed beforehand for the underlying cause of shedding. Transplanted hairs typically shed within weeks before regrowing gradually, with visible new growth over six to twelve months. Because the surgery itself involves modest downtime, patients traveling to India often plan a stay of about a week to allow the scalp to settle before flying home."
+			},
+			{
+				"name": "Breast Enhancement (Augmentation)",
+				"image": "/media/treatments/517ad5d3c58e8a6d7cd3.png",
+				"description": "Breast augmentation is a surgical procedure that increases breast size and changes breast shape using silicone or saline implants, or in some cases a patient's own fat transferred from another area of the body. The surgeon places the implant through an incision, commonly around the areola, in the natural fold beneath the breast, or in the armpit, positioning it either above or below the chest muscle depending on the patient's anatomy and desired outcome. The procedure is performed under general anesthesia and typically takes one to two hours. Candidates include women who feel their breast size is disproportionate to their frame, those wanting to restore volume lost after pregnancy or weight change, and patients undergoing reconstruction. Recovery involves swelling, tightness, and restricted arm movement for one to two weeks, with most patients returning to light activity within that time and to full exercise after four to six weeks. Implants are not considered lifetime devices and may eventually need monitoring or replacement. Patients traveling to India for augmentation generally plan a stay of ten to fourteen days to allow the surgeon to check incisions and early healing before travel."
+			},
+			{
+				"name": "Breast Reduction",
+				"image": "/media/treatments/69faa4812fa0a59756f2.png",
+				"description": "Breast reduction surgery, or reduction mammaplasty, removes excess breast fat, glandular tissue, and skin to reduce breast size and weight, and to reposition the nipple and areola higher on a smaller breast mound. The procedure is typically performed through an anchor-shaped or vertical incision pattern, with the surgeon reshaping the remaining tissue to create a proportionate contour before closing the incisions. It is done under general anesthesia and usually takes two to four hours. Candidates are typically patients experiencing physical symptoms from overly large breasts, such as neck, back, or shoulder pain, skin irritation beneath the breast crease, or restricted physical activity, as well as those seeking better proportion with their frame. Recovery involves swelling, bruising, and soreness for one to two weeks, with most patients resuming normal daily activities within two weeks and exercise after four to six weeks, once cleared by the surgeon. Sensation in the nipple area may be temporarily or, less commonly, permanently altered. Because breast reduction often has a documented functional benefit alongside the aesthetic one, patients traveling to India for the procedure typically arrange a two-week stay to allow for suture removal and a wound check."
+			},
+			{
+				"name": "Breast Lift",
+				"image": "/media/treatments/7a9075549352165d0a06.png",
+				"description": "A breast lift, or mastopexy, raises and reshapes breasts that have sagged due to aging, pregnancy, breastfeeding, or weight change by removing excess skin and repositioning the remaining breast tissue and nipple-areola complex higher on the chest. Depending on the degree of sagging, the surgeon may use a shorter incision around the areola or a longer anchor-shaped incision extending down to and along the breast fold. Unlike augmentation, a lift does not add volume, so patients wanting both a fuller and higher breast profile may combine mastopexy with implants in the same operation. The procedure is done under general anesthesia and typically takes two to three hours. Good candidates are patients with sagging breast tissue and adequate skin elasticity, in reasonably stable weight, since future pregnancy or significant weight change can affect results. Recovery involves swelling and restricted arm movement for one to two weeks, with most patients back to non-strenuous activity within that period and full exercise after four to six weeks. Patients traveling to India for a breast lift generally plan a stay of around two weeks to cover surgery and the follow-up visit for incision checks."
+			},
+			{
+				"name": "Liposuction",
+				"image": "/media/treatments/ce2f874fff6f6b933154.png",
+				"description": "Liposuction is a surgical body-contouring procedure that removes localized pockets of fat that have not responded to diet and exercise, from areas such as the abdomen, flanks, thighs, arms, or chin. Through small incisions, the surgeon inserts a thin cannula connected to a suction device and moves it through the fat layer to break up and remove fat cells, with techniques such as tumescent, ultrasound-assisted, or laser-assisted liposuction used to ease fat removal and support skin contraction. The procedure is performed under general or local anesthesia with sedation, depending on the area and extent of treatment, and typically takes one to three hours. Good candidates are people close to their target weight with good skin elasticity and realistic expectations, since liposuction is a contouring procedure rather than a weight-loss treatment. Recovery involves swelling, bruising, and wearing a compression garment for several weeks, with most patients returning to light activity within a week and final contour visible over three to six months as swelling resolves. Patients traveling to India for liposuction typically plan a stay of about ten days to allow for garment fitting, an early follow-up, and monitoring of initial healing."
+			},
+			{
+				"name": "Abdominoplasty (Tummy Tuck)",
+				"image": "/media/treatments/5f95ef678193f7ad97ad.png",
+				"description": "Abdominoplasty, or tummy tuck surgery, removes excess skin and fat from the abdomen and tightens the underlying abdominal muscles, which can become stretched or separated (diastasis recti) after pregnancy or significant weight loss. Through a horizontal incision low on the abdomen, the surgeon repairs the muscle layer with internal sutures, removes excess tissue, and repositions the navel before closing the incision, sometimes combining the procedure with liposuction for additional contouring. It is performed under general anesthesia and typically takes two to four hours. Candidates are generally at a stable, healthy weight with loose abdominal skin or muscle separation that has not improved with exercise, and who do not plan future pregnancies, since pregnancy afterward can reverse the muscle repair. Recovery involves several weeks of restricted activity, with a compression garment worn to support healing, drains typically removed within the first week, and most patients returning to normal, non-strenuous activity within four to six weeks. Because recovery from abdominal muscle repair takes longer than many other body-contouring procedures, patients traveling to India for a tummy tuck usually plan a stay of two to three weeks to allow drains to be removed and healing monitored before flying."
+			},
+			{
+				"name": "Brazilian Butt Lift",
+				"image": "/media/treatments/6bf63ba83eb3c9b48955.png",
+				"description": "A Brazilian butt lift (BBL) uses a patient's own fat, harvested through liposuction from areas such as the abdomen, flanks, or thighs, to add volume and shape to the buttocks. The harvested fat is processed to separate viable fat cells before being carefully injected in multiple small amounts into different layers of the buttock to build a rounder, fuller contour, while the donor areas benefit from the liposuction contouring as well. The procedure is performed under general anesthesia and typically takes two to four hours depending on how much fat is harvested and grafted. Candidates are patients with sufficient donor fat available for harvesting and who want a fuller buttock shape without an implant. Because fat grafts need a stable blood supply to survive, patients are usually asked to avoid sitting directly on the buttocks for a period after surgery, using special cushions or lying face down instead, and a portion of the grafted fat is naturally reabsorbed over the following months. Recovery involves wearing compression garments for several weeks and avoiding strenuous exercise for about six weeks. Patients traveling to India for a BBL generally plan a stay of around two weeks to allow for early healing and follow-up before travel."
+			},
+			{
+				"name": "Buttock Augmentation",
+				"image": "/media/treatments/b4965704700cc0b33f9f.png",
+				"description": "Buttock augmentation increases buttock size and improves contour using either silicone implants or fat grafting, chosen based on the patient's available donor fat, anatomy, and desired outcome. When implants are used, the surgeon places them through a small incision, typically within the buttock crease, positioning them within or beneath the gluteal muscle for a stable, natural-feeling result. When fat grafting is preferred, fat is harvested by liposuction from another area and injected into the buttocks, which also has the benefit of contouring the donor site. Implant-based augmentation is performed under general anesthesia and generally takes about two hours, while fat-grafting procedures take longer depending on the volume transferred. Candidates for implants are typically patients with limited donor fat, while those with adequate fat elsewhere may prefer grafting to avoid a foreign implant. Recovery for both approaches requires avoiding direct pressure on the buttocks for several weeks, with specialized cushions or altered sleeping positions recommended, along with a compression garment and a gradual return to exercise over four to six weeks. Patients considering buttock augmentation in India typically discuss both implant and fat-grafting options with their surgeon during consultation to determine the better fit for their body type."
+			},
+			{
+				"name": "Arm Lift",
+				"image": "/media/treatments/04c9a365e8c5c470768a.png",
+				"description": "An arm lift, or brachioplasty, removes excess skin and fat from the upper arm and tightens the underlying tissue to create a smoother, more toned contour, addressing the loose, hanging skin that can develop after significant weight loss or with aging. The surgeon typically makes an incision along the inner or back of the upper arm, extending from the elbow toward the armpit depending on how much skin needs to be removed, and may combine the procedure with liposuction to refine the contour further. It is performed under general anesthesia and usually takes about two hours. Candidates are patients with loose, sagging upper arm skin that has not improved with exercise, often following major weight loss, who are at a stable weight and in good general health. Recovery involves wearing a compression garment for several weeks, with swelling and restricted arm movement for the first one to two weeks and a gradual return to normal activity over four to six weeks. Because the resulting scar runs the length of the inner arm, patients are counseled on scar care during recovery. Patients traveling to India for an arm lift usually plan a stay of around two weeks to allow for suture removal and wound monitoring."
+			},
+			{
+				"name": "Thigh Lift",
+				"image": "/media/treatments/b6c40b37ed4a0a4df4e8.png",
+				"description": "A thigh lift, or thighplasty, removes excess skin and fat from the inner or outer thigh and tightens the underlying tissue to create a smoother contour, most often for patients left with loose, sagging skin after significant weight loss. Depending on the area and amount of correction needed, the surgeon may use an incision in the groin crease for an inner thigh lift, or an incision extending down the outer thigh for more extensive skin removal, sometimes combined with liposuction. The procedure is performed under general anesthesia and typically takes two to three hours. Candidates are patients at a stable weight with loose thigh skin that has not responded to exercise, and who understand that the trade-off for tighter skin is a visible scar along the incision line. Recovery involves wearing a compression garment, avoiding strenuous activity, and limiting prolonged standing or walking for the first one to two weeks, with a gradual return to normal activity over four to six weeks. Because thigh lift incisions are in areas of friction and movement, careful wound care during the early healing period is important. Patients traveling to India for a thigh lift typically plan a stay of about two weeks to allow the surgeon to monitor healing."
+			},
+			{
+				"name": "Labiaplasty",
+				"description": "Labiaplasty is a surgical procedure that reduces or reshapes the labia minora (the inner folds of the vulva), and less commonly the labia majora, to address discomfort or self-consciousness related to their size or asymmetry. Using either a trim technique, which removes excess tissue along the edge, or a wedge technique, which removes a v-shaped section while preserving the natural edge, the surgeon reshapes the tissue and closes the incision with dissolvable sutures. The procedure is typically done under local anesthesia with sedation or general anesthesia and takes about one to two hours. Candidates include patients experiencing physical discomfort from enlarged or irregular labia, such as chafing or pain during exercise, as well as those seeking a change for personal comfort. Recovery involves swelling and tenderness for one to two weeks, with patients advised to avoid strenuous exercise, tight clothing, and sexual activity for around four to six weeks while the tissue fully heals. Because the procedure is sensitive and recovery benefits from a quiet, private environment, patients traveling to India for labiaplasty often arrange a discreet stay of around ten days to two weeks to allow for follow-up before travel."
+			},
+			{
+				"name": "Scar Removal Surgery",
+				"image": "/media/treatments/28081bdba310f5e1c71a.png",
+				"description": "Scar removal surgery encompasses several surgical techniques used to improve the appearance of scars left by injury, burns, acne, or previous surgery, since no method can erase a scar completely but many can make it flatter, narrower, or less noticeable. Depending on the scar type, options include scar revision, where the old scar is surgically removed and the wound closed with a more precise technique to encourage finer healing; skin grafting or flap surgery for larger areas of scarring; and Z-plasty or W-plasty, which reposition a scar along natural skin lines to make it less visually obvious. Simpler cases may be managed with steroid injections, laser resurfacing, or microneedling rather than surgery. The anesthesia used depends on the scar's size, depth, and location, ranging from local anesthesia for a small revision to general anesthesia for grafting. Candidates are patients with scars causing functional restriction, such as tightness limiting movement, or significant visible concern. Recovery varies from days for minor revisions to several weeks for grafts, with final results visible over months as the new scar matures. Patients traveling to India for scar revision typically have their scar assessed during consultation to determine the most suitable technique before scheduling surgery."
+			}
+		],
+		"benefits": [
+			"Board-certified plastic and reconstructive surgeons",
+			"Private, discreet recovery suites separate from general hospital wards",
+			"Modern techniques including FUE hair transplant and VASER liposuction",
+			"Complete before/after consultation with 3D imaging at select clinics"
+		],
+		"flagshipProcedure": "Rhinoplasty",
+		"packagePrice": 2000,
+		"totalTripDays": 14,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 0,
+				"roomDays": 1,
+				"totalDays": 1
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 8,000 – 15,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "High patient satisfaction"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 6,000 – 10,000",
+				"waitTime": "3–6 weeks",
+				"successRate": "High patient satisfaction"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 5,000 – 9,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "High patient satisfaction"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 3,000 – 5,000",
+				"waitTime": "1–2 weeks",
+				"successRate": "High patient satisfaction"
+			},
+			{
+				"country": "India",
+				"cost": "USD 2,000 – 3,500",
+				"waitTime": "3–7 days",
+				"successRate": "High patient satisfaction",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Consultation with 3D imaging and pre-operative planning",
+			"Surgeon's fee for the procedure",
+			"Operation theatre and anesthesia charges",
+			"One night stay in a private recovery suite",
+			"Post-operative dressing, compression garments, and first follow-up visit",
+			"Standard medication during the recovery stay"
+		],
+		"exclusions": [
+			"Combination procedures (e.g. rhinoplasty plus chin augmentation) unless quoted together",
+			"Recovery stay beyond one night, or extended hotel-style aftercare",
+			"Revision surgery for cosmetic touch-ups after the initial healing period",
+			"Take-home medication beyond the standard discharge kit",
+			"Garments or scar-care products beyond what is issued at discharge"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of rhinoplasty in India?",
+				"answer": "Rhinoplasty in India starts from USD 2,000, around 75–85% less than in the US or UK, and includes the consultation, surgery, anesthesia, and one night of private recovery."
+			},
+			{
+				"question": "Are the surgeons internationally trained?",
+				"answer": "Yes, our partner cosmetic surgeons are board-certified and many hold additional training or fellowships from the US, UK, or Europe in aesthetic and reconstructive surgery."
+			},
+			{
+				"question": "How much privacy and discretion is provided?",
+				"answer": "Patients recover in private suites separate from general hospital wards, and all consultations and records are handled with strict confidentiality."
+			},
+			{
+				"question": "How long should I plan to stay in India?",
+				"answer": "Most aesthetic procedures need about 1–2 weeks in India for surgery and initial follow-up, though this varies by procedure — your surgeon will confirm the exact timeline during consultation."
+			},
+			{
+				"question": "Can I combine multiple procedures in one trip?",
+				"answer": "Yes, many patients combine procedures such as rhinoplasty with liposuction in a single trip; your surgeon will advise on what can be safely done together based on your health and recovery needs."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your goals and photos through our contact form, and our team will arrange a private consultation with 3D imaging and a transparent quote within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793085132,
+			"updatedAt": 1793088030
+		}
+	},
+	"fertility": {
+		"slug": "fertility",
+		"name": "Fertility Treatment",
+		"icon": "droplet",
+		"imageKey": "fertility",
+		"theme": "teal",
+		"shortDescription": "IVF and reproductive care with high success rates and personalized protocols.",
+		"overview": "India's fertility clinics report success rates on par with leading global IVF centers, with personalized hormonal protocols, in-house embryology labs, and none of the multi-month waitlists common in Europe and North America.",
+		"startingPrice": 3000,
+		"avgSavings": 83,
+		"hospitalsCount": 45,
+		"procedures": [
+			"IVF",
+			"IUI",
+			"Egg Freezing"
+		],
+		"allProcedures": [
+			"In Vitro Fertilization (IVF)",
+			"Intracytoplasmic Sperm Injection (ICSI)",
+			"Intrauterine Insemination (IUI)",
+			"Intracervical Insemination (ICI)",
+			"Artificial Insemination",
+			"Donor Egg IVF",
+			"IVF with TESA",
+			"Infertility Treatment in Women",
+			"Infertility Treatment in Men",
+			"Azoospermia Treatment",
+			"PCOS Treatment",
+			"Endometriosis Treatment",
+			"Blocked Fallopian Tubes Treatment",
+			"Laparoscopic Myomectomy",
+			"Laparoscopic Hysterectomy"
+		],
+		"detailedProcedures": [
+			{
+				"name": "In Vitro Fertilization (IVF)",
+				"image": "/media/treatments/aebf072fae2afa5f86d0.png",
+				"description": "In vitro fertilization is a fertility treatment in which eggs are retrieved from the ovaries after a course of hormonal stimulation and combined with sperm in a laboratory dish to achieve fertilization outside the body. The resulting embryos are cultured for several days, monitored for development, and one or more are then transferred into the uterus, with any additional viable embryos typically frozen for future use. The process involves an initial cycle of injectable hormone medication to stimulate multiple eggs to mature, monitored through blood tests and ultrasound, followed by a minor egg-retrieval procedure done under sedation, laboratory fertilization, embryo culture, and finally embryo transfer, which does not require anesthesia. IVF is recommended for a wide range of causes of infertility, including blocked or damaged fallopian tubes, ovulation disorders, male-factor infertility, unexplained infertility, or after other treatments such as IUI have not succeeded. A full cycle from the start of stimulation to embryo transfer typically spans about two to three weeks, followed by a pregnancy test roughly two weeks after transfer. Patients traveling to India for IVF usually plan their stay around this stimulation-to-transfer window, with clinics coordinating cycle timing in advance based on the patient's baseline test results."
+			},
+			{
+				"name": "Intracytoplasmic Sperm Injection (ICSI)",
+				"image": "/media/treatments/5c7a3cd26b0388e99c0e.png",
+				"description": "Intracytoplasmic sperm injection, or ICSI, is a specialized laboratory technique used alongside IVF in which a single sperm is selected and injected directly into the center of a mature egg using a fine glass needle, rather than allowing fertilization to occur naturally in a dish. This bypasses barriers that might otherwise prevent sperm from penetrating the egg on its own. ICSI follows the same ovarian stimulation and egg-retrieval process as conventional IVF, with the difference occurring at the fertilization stage in the laboratory; the resulting embryos are then cultured and transferred using the same protocols. ICSI is primarily recommended for male-factor infertility, including low sperm count, poor sperm motility, abnormal sperm shape, or when sperm has been surgically retrieved rather than ejaculated, as well as in cases of previous fertilization failure with standard IVF. It does not change the ovarian stimulation, retrieval, or transfer timeline, so the overall cycle length is similar to standard IVF, typically around two to three weeks from stimulation to transfer. Because the technique requires no additional patient-side procedure beyond standard IVF, patients traveling to India for ICSI generally follow the same visit structure as an IVF cycle, coordinated around their stimulation and retrieval dates."
+			},
+			{
+				"name": "Intrauterine Insemination (IUI)",
+				"image": "/media/treatments/046eb939d1603595b580.png",
+				"description": "Intrauterine insemination is a fertility treatment in which specially washed and concentrated sperm is placed directly into the uterus around the time of ovulation, shortening the distance sperm need to travel and increasing the concentration of healthy sperm near the egg. The cycle may be natural or supported with oral or injectable medication to encourage the timed release of one or a small number of eggs, with ovulation tracked through blood tests and ultrasound to identify the optimal day for insemination. The procedure itself is quick and generally painless, involving a thin catheter passed through the cervix, and does not require anesthesia or significant downtime, so patients can typically resume normal activity immediately afterward. IUI is often recommended as a first-line treatment for mild male-factor infertility, unexplained infertility, ovulation irregularities, or for single women or same-sex couples using donor sperm, and is generally tried before moving to IVF. A single cycle usually spans about two weeks from the start of monitoring to insemination, with a pregnancy test roughly two weeks later. Because monitoring and insemination happen within a fairly short window, IUI is one of the more time-efficient fertility treatments to pursue while visiting India."
+			},
+			{
+				"name": "Intracervical Insemination (ICI)",
+				"image": "/media/treatments/76d1ffcf76bf2deb3504.png",
+				"description": "Intracervical insemination is a simpler form of artificial insemination in which sperm, either fresh or previously frozen, is placed directly at the entrance of the cervix using a syringe or a specially designed cervical cap, rather than being processed and injected into the uterus as with IUI. Because the sperm is deposited close to but outside the uterus, it does not need to be washed or specially prepared beforehand, which makes the procedure less invasive and generally lower in cost than uterine-based techniques. The procedure can be timed to a natural ovulation cycle tracked through ovulation predictor kits or ultrasound monitoring, and it takes only a few minutes, requiring no anesthesia and minimal recovery time. ICI is commonly chosen by individuals or couples using donor sperm, those with mild fertility concerns, or patients who prefer the least invasive option before considering IUI or IVF, though success rates are generally lower per cycle than intrauterine techniques since fewer sperm reach the uterus. Patients typically undergo several monitored cycles before assessing whether to continue with ICI or move to a more involved treatment. Because the procedure requires little preparation, ICI can often be arranged with a short, flexible visit to a fertility clinic in India."
+			},
+			{
+				"name": "Artificial Insemination",
+				"image": "/media/treatments/dcbcc004dde948373fec.png",
+				"description": "Artificial insemination is a general term for fertility procedures in which sperm is placed into a woman's reproductive tract by means other than intercourse, most commonly through intrauterine insemination (IUI), where prepared sperm is injected into the uterus, or intracervical insemination (ICI), where sperm is placed at the cervix. The sperm used may come from a partner or from a screened donor, and the cycle is typically timed to coincide with ovulation, tracked through basal body monitoring, ovulation kits, or clinical ultrasound, with or without ovulation-stimulating medication depending on the patient's history. The procedure itself is brief, performed in a clinic without anesthesia, and involves minimal discomfort and no significant recovery period, allowing patients to resume normal activities immediately. Artificial insemination is generally recommended for mild fertility issues, unexplained infertility, donor sperm use by single patients or same-sex couples, or as a first step before considering more involved treatments such as IVF. Because each cycle relies on precise ovulation timing, patients may need to undergo more than one attempt before conceiving. Its relatively short, low-intervention nature makes artificial insemination a treatment that international patients can often complete within a single short visit to a fertility clinic in India."
+			},
+			{
+				"name": "Donor Egg IVF",
+				"image": "/media/treatments/606c8de9ea213009e7b5.png",
+				"description": "Donor egg IVF is a form of in vitro fertilization that uses eggs retrieved from a screened donor rather than the intended mother, fertilized with sperm from a partner or donor in the laboratory before the resulting embryo is transferred into the recipient's uterus. The donor undergoes the standard hormonal stimulation and egg-retrieval process, while the recipient's uterine lining is prepared with hormone medication, timed to synchronize with the donor's cycle or with a frozen donor egg or embryo. This approach is recommended for women with diminished ovarian reserve, premature ovarian insufficiency, poor egg quality linked to age or medical history, prior failed IVF cycles attributed to egg quality, or genetic conditions that make using their own eggs inadvisable. Donors are typically screened for medical history, infectious disease, and genetic conditions before being matched or selected from a program. Because the recipient does not require egg retrieval, her portion of the process is comparatively short, mainly involving lining preparation and the embryo transfer itself, which requires no anesthesia. Patients traveling to India for donor egg IVF typically coordinate in advance with the clinic on donor matching and cycle synchronization before planning the timing of their visit around the embryo transfer."
+			},
+			{
+				"name": "IVF with TESA",
+				"description": "IVF with TESA combines standard in vitro fertilization with testicular sperm aspiration, a minor procedure used to retrieve sperm directly from the testicle when none is present in the ejaculate, a condition known as azoospermia. Under local anesthesia, a fine needle is inserted into the testicle to withdraw a small sample of tissue or fluid containing sperm, which is then examined in the laboratory to identify viable sperm cells for use in fertilization. Because sperm retrieved this way is often limited in number, it is typically combined with ICSI, where a single sperm is injected directly into each mature egg, rather than conventional insemination in a dish. On the female partner's side, the process follows the usual IVF path of ovarian stimulation, monitoring, and egg retrieval, timed to coincide with the TESA procedure so that fresh sperm and eggs are available together, though sperm can also be frozen in advance. This approach is used for men with obstructive or non-obstructive azoospermia where sperm production continues in the testicle despite an absent or blocked path to ejaculation. Patients traveling to India for IVF with TESA typically plan their visit around the combined timeline of ovarian stimulation and the sperm retrieval procedure."
+			},
+			{
+				"name": "Infertility Treatment in Women",
+				"description": "Infertility treatment in women begins with a diagnostic workup to identify the underlying cause, which may include blood tests for hormone levels, ultrasound to assess the ovaries and uterus, and imaging such as a hysterosalpingogram to check whether the fallopian tubes are open. Depending on the findings, treatment may range from medication to induce or regulate ovulation, to surgical correction of structural issues such as fibroids, polyps, or endometriosis, to assisted reproductive techniques such as IUI or IVF when other approaches are unsuccessful or unsuitable. Common causes addressed include ovulation disorders such as polycystic ovary syndrome, blocked or damaged fallopian tubes, endometriosis, uterine abnormalities, and age-related decline in egg quantity or quality, and treatment is tailored to the specific diagnosis rather than following a single protocol. Many cases involve a stepwise approach, starting with the least invasive suitable option and progressing if needed. Because a thorough workup guides the treatment plan, patients traveling to India for infertility treatment typically send prior test results and reports ahead of their visit so the specialist can outline a likely treatment pathway and expected duration of stay before they travel."
+			},
+			{
+				"name": "Infertility Treatment in Men",
+				"image": "/media/treatments/098cd4c7db4f63cd37ab.png",
+				"description": "Infertility treatment in men starts with a semen analysis to assess sperm count, motility, and morphology, along with hormone blood tests and, when indicated, a physical exam or scrotal ultrasound to check for structural issues such as a varicocele. Depending on the cause identified, treatment may include lifestyle and medical management to improve sperm parameters, medication to correct hormonal imbalances, surgical repair of a varicocele or blockage in the reproductive tract, or surgical sperm retrieval techniques such as TESA or TESE for men producing little or no sperm in the ejaculate. When natural conception remains unlikely, retrieved or ejaculated sperm can be used with IUI, IVF, or ICSI depending on sperm quality and quantity. Causes addressed range from low sperm count and poor motility to structural blockages, hormonal disorders, and genetic factors affecting sperm production. Many of these evaluations and minor procedures can be completed relatively quickly compared with the female partner's treatment cycle. Patients traveling to India for male infertility evaluation typically bring prior semen analysis and hormone results so the specialist can advise, before the visit, on what further testing or procedures are likely to be needed."
+			},
+			{
+				"name": "Azoospermia Treatment",
+				"image": "/media/treatments/02e7014a8e82da3f6745.png",
+				"description": "Azoospermia is the complete absence of sperm in the ejaculate, and its treatment depends on whether the cause is obstructive, meaning sperm is produced normally but blocked from reaching the ejaculate, or non-obstructive, meaning sperm production itself is impaired. Diagnosis involves hormone blood tests, semen analysis, scrotal ultrasound, and sometimes genetic testing to distinguish between the two types and identify the underlying cause, such as a prior vasectomy, congenital absence of the vas deferens, infection, or a hormonal or testicular disorder. Obstructive cases may be treated by surgically reconnecting or bypassing the blockage, such as vasectomy reversal, or by retrieving sperm directly from the testicle or epididymis using minor procedures like TESA, PESA, or micro-TESE. Non-obstructive cases are managed first by correcting any underlying hormonal issue where possible, and if sperm is still not present in the ejaculate, surgical sperm retrieval may still locate small pockets of sperm production within the testicle for use with ICSI. Retrieved sperm, when found, is typically used immediately or frozen for a subsequent IVF/ICSI cycle. Patients traveling to India for azoospermia treatment usually undergo diagnostic testing early in the visit to determine which retrieval approach is appropriate before proceeding."
+			},
+			{
+				"name": "PCOS Treatment",
+				"image": "/media/treatments/bf6ee32d02dfa679c1a1.png",
+				"description": "Polycystic ovary syndrome (PCOS) is a hormonal disorder that can cause irregular or absent ovulation, elevated androgen levels, and multiple small follicles on the ovaries, and it is one of the more common causes of infertility in women. Diagnosis is based on a combination of symptoms, blood hormone testing, and ultrasound findings rather than any single test. Treatment is tailored to whether the immediate goal is regulating the cycle, managing symptoms such as excess hair growth or acne, or achieving pregnancy. For fertility, first-line treatment often involves lifestyle measures alongside oral medication to induce ovulation, with injectable hormone medication or laparoscopic ovarian drilling considered if oral treatment is not effective. When ovulation induction alone does not lead to pregnancy, treatment may progress to IUI or IVF, particularly if other fertility factors are also present. Because PCOS varies significantly in severity between individuals, the treatment plan is adjusted based on ongoing monitoring of ovulation and hormone response. Patients traveling to India for PCOS-related fertility treatment typically share recent hormone panels and ultrasound reports in advance so the specialist can suggest a likely first step and the length of monitoring their visit may require."
+			},
+			{
+				"name": "Endometriosis Treatment",
+				"image": "/media/treatments/c2f21373a8ed58fe28ff.png",
+				"description": "Endometriosis is a condition in which tissue similar to the uterine lining grows outside the uterus, commonly on the ovaries, fallopian tubes, or pelvic lining, where it can cause pain, inflammation, scarring, and fertility problems. Diagnosis is typically supported by ultrasound or MRI, though laparoscopic surgery remains the most definitive way to confirm and stage the extent of disease. Treatment depends on the severity of symptoms and whether fertility is a priority, ranging from pain management and hormonal medication to suppress the abnormal tissue, to laparoscopic surgery to remove or destroy endometrial implants, cysts, and adhesions while preserving healthy ovarian tissue where possible. For patients trying to conceive, surgical treatment can improve the chances of natural conception in mild to moderate disease, while more advanced cases or those with reduced ovarian reserve may be advised to proceed directly to IVF, sometimes alongside surgery. Laparoscopic surgery is performed under general anesthesia through small incisions and typically involves a short hospital stay with a recovery period of one to two weeks. Patients traveling to India for endometriosis treatment often combine diagnostic imaging, laparoscopic surgery if needed, and a follow-up consultation within a single planned visit."
+			},
+			{
+				"name": "Blocked Fallopian Tubes Treatment",
+				"image": "/media/treatments/97f3459975686fd6b368.png",
+				"description": "Blocked fallopian tubes prevent the egg and sperm from meeting or prevent a fertilized egg from traveling to the uterus, and are a common structural cause of infertility, often resulting from prior pelvic infection, endometriosis, surgery, or scar tissue. Diagnosis is typically made through a hysterosalpingogram, an X-ray procedure that traces dye through the uterus and tubes, or through laparoscopy with dye testing, which allows direct visualization and treatment of certain blockages in the same procedure. Treatment depends on the location and extent of the blockage: some tubal blockages near the uterus can be cleared using a minimally invasive procedure that passes a small catheter through the cervix, while blockages elsewhere in the tube, or scar tissue around the tube, may be treated with laparoscopic surgery to remove adhesions or repair the tube. When tubes are too damaged to repair, or repair is unlikely to restore function, IVF is typically recommended since it bypasses the tubes entirely. Laparoscopic procedures are done under general anesthesia with a short hospital stay and one to two weeks of recovery. Patients traveling to India for tubal blockage treatment usually undergo diagnostic imaging early in the visit to guide the choice between tubal surgery and proceeding to IVF."
+			},
+			{
+				"name": "Laparoscopic Myomectomy",
+				"image": "/media/treatments/03e285b997963cb3fb43.png",
+				"description": "Laparoscopic myomectomy is a minimally invasive surgical procedure to remove uterine fibroids, benign growths in the muscular wall of the uterus, while preserving the uterus itself, making it a preferred option for women who wish to retain fertility or avoid hysterectomy. Through several small abdominal incisions, the surgeon uses a camera and specialized instruments to locate, remove, and shell out each fibroid, then repairs the uterine muscle layer by layer to maintain the strength of the wall for any future pregnancy. The procedure is performed under general anesthesia and can take one to several hours depending on the number, size, and location of the fibroids. It is generally recommended for women with symptomatic fibroids causing heavy bleeding, pain, pressure symptoms, or fertility problems, when the fibroid location and size make a laparoscopic approach feasible. Recovery from laparoscopic surgery is typically faster than open surgery, with a hospital stay of one to two days and return to normal activity within two to three weeks, though pregnancy is usually advised to be delayed for several months to allow the uterine repair to heal. Patients traveling to India for laparoscopic myomectomy typically plan a stay of around two weeks to cover surgery and early recovery."
+			},
+			{
+				"name": "Laparoscopic Hysterectomy",
+				"image": "/media/treatments/584bb4c1c3c6942f7ecc.png",
+				"description": "Laparoscopic hysterectomy is a minimally invasive surgical procedure to remove the uterus using a camera and specialized instruments inserted through several small abdominal incisions, rather than the single larger incision used in open surgery. Depending on the patient's condition, the surgeon may perform a total hysterectomy, removing the uterus and cervix, or a subtotal procedure that preserves the cervix, and the ovaries may or may not be removed at the same time depending on the diagnosis and the patient's age. The procedure is performed under general anesthesia and typically takes one to three hours. It is generally recommended for conditions such as large or numerous fibroids, adenomyosis, chronic pelvic pain, abnormal uterine bleeding unresponsive to other treatment, or certain gynecologic conditions where fertility preservation is no longer a goal. Compared with open surgery, the laparoscopic approach generally involves smaller scars, less postoperative pain, a shorter hospital stay of one to two days, and a faster return to normal activity, typically within two to four weeks. Patients traveling to India for laparoscopic hysterectomy typically plan a stay of about two weeks to allow the surgical team to monitor recovery and confirm healing before international travel."
+			}
+		],
+		"benefits": [
+			"In-house embryology and genetic screening labs",
+			"Personalized hormonal stimulation protocols",
+			"No multi-month waitlists — cycles typically begin within weeks",
+			"Bundled packages covering medication, monitoring, and the procedure itself"
+		],
+		"flagshipProcedure": "IVF Cycle",
+		"packagePrice": 3000,
+		"totalTripDays": 21,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 0,
+				"roomDays": 0,
+				"totalDays": 0
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 15,000 – 25,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "40–50% per cycle"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 8,000 – 12,000",
+				"waitTime": "6–12 months (NHS)",
+				"successRate": "35–45% per cycle"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 7,000 – 10,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "35–45% per cycle"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 5,000 – 8,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "40–48% per cycle"
+			},
+			{
+				"country": "India",
+				"cost": "USD 3,000 – 4,500",
+				"waitTime": "1–2 weeks",
+				"successRate": "40–50% per cycle",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Initial fertility work-up including hormonal and ultrasound assessment",
+			"Ovarian stimulation monitoring visits",
+			"Egg retrieval procedure and anesthesia charges",
+			"In-house embryology, fertilization, and embryo culture",
+			"Single embryo transfer procedure",
+			"Standard fertility medication for the stimulation cycle"
+		],
+		"exclusions": [
+			"Donor eggs, donor sperm, or gestational surrogacy arrangements",
+			"Pre-implantation genetic testing (PGT) unless specifically requested",
+			"Additional embryo transfer attempts beyond the first, or frozen embryo transfer cycles",
+			"Medication beyond the standard stimulation protocol",
+			"Fertility treatment for male-factor procedures such as ICSI/TESA unless quoted separately"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of IVF treatment in India?",
+				"answer": "An IVF cycle in India starts from USD 3,000, around 80% less than in the US, and covers the work-up, stimulation monitoring, egg retrieval, embryology, and a single embryo transfer."
+			},
+			{
+				"question": "What is the success rate of IVF in India?",
+				"answer": "India's leading fertility clinics report per-cycle success rates of 40–50%, comparable to top clinics in the US and Europe, with outcomes depending on age and underlying fertility factors."
+			},
+			{
+				"question": "How long does an IVF cycle take?",
+				"answer": "A full stimulation-to-transfer cycle typically takes 2–3 weeks, so most international patients plan to stay in India for about 3 weeks to complete monitoring, retrieval, and transfer."
+			},
+			{
+				"question": "Do you offer donor egg or surrogacy programs?",
+				"answer": "These arrangements involve additional legal and medical steps and are quoted separately — reach out to our fertility coordinator to discuss eligibility and current regulations."
+			},
+			{
+				"question": "Can treatment start without traveling first?",
+				"answer": "Yes, an initial tele-consultation and report review can happen before you travel, so your protocol is planned in advance and your trip is timed around the stimulation cycle."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your fertility history and any prior test reports through our contact form, and a fertility coordinator will arrange a specialist review and transparent estimate within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793094040,
+			"updatedAt": 1793094040
+		}
+	},
+	"eye-care": {
+		"slug": "eye-care",
+		"name": "Eye Care",
+		"icon": "eye",
+		"imageKey": "eyeCare",
+		"theme": "teal",
+		"shortDescription": "Cataract surgery and vision correction with same-day discharge in most cases.",
+		"overview": "India's eye hospitals perform cataract and refractive procedures at extremely high volumes, giving surgeons deep expertise in bladeless, laser-assisted techniques with same-day discharge for most.",
+		"startingPrice": 700,
+		"avgSavings": 86,
+		"hospitalsCount": 60,
+		"procedures": [
+			"Cataract Surgery",
+			"LASIK",
+			"Retina Treatment"
+		],
+		"allProcedures": [
+			"Cataract Surgery",
+			"LASIK Surgery",
+			"Femto LASIK Surgery",
+			"SMILE LASIK Eye Surgery",
+			"Contoura Laser Eye Surgery",
+			"Corneal Cross-Linking",
+			"Cornea Transplant",
+			"Keratoconus Treatment",
+			"Astigmatism Surgery",
+			"Glaucoma Treatment",
+			"Retinal Detachment Surgery",
+			"Diabetic Retinopathy Treatment",
+			"Vitreoretinal Surgery",
+			"Retinitis Pigmentosa Treatment",
+			"Squint Surgery",
+			"Corneal Abrasion Treatment",
+			"Optic Nerve Disorders",
+			"Optic Nerve Atrophy Treatment",
+			"Optic Neuritis Treatment"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Cataract Surgery",
+				"image": "/media/treatments/ff5b930a44820cdf6571.png",
+				"description": "Cataract surgery removes the eye's natural lens once it has become clouded, a condition called a cataract, and replaces it with a clear artificial intraocular lens to restore vision. The most common technique, phacoemulsification, uses a small ultrasonic probe inserted through a tiny incision to break up the clouded lens into fragments, which are then gently suctioned out before the folded artificial lens is inserted and unfolds into place, all typically performed under local or topical anesthesia in under half an hour. Cataracts usually develop gradually with age, though they can also result from injury, certain medications, or underlying conditions such as diabetes, and are generally diagnosed when a patient notices blurred vision, glare or halos around lights, faded colors, or difficulty with night driving. A range of intraocular lens options exist, including standard monofocal lenses and premium multifocal or toric lenses that can also reduce dependence on glasses for presbyopia or astigmatism. Recovery is usually quick, with most patients noticing improved vision within a day or two, though full stabilization can take several weeks. Eye centers in India perform very high volumes of cataract surgery using advanced phacoemulsification and femtosecond laser-assisted techniques."
+			},
+			{
+				"name": "LASIK Surgery",
+				"image": "/media/treatments/f00f9cddeb25eaacaf21.png",
+				"description": "LASIK, or laser-assisted in situ keratomileusis, is a refractive surgery that reshapes the cornea to correct nearsightedness, farsightedness, and astigmatism, reducing or eliminating a patient's dependence on glasses or contact lenses. During the procedure, the surgeon creates a thin, hinged flap in the outer layer of the cornea, folds it back, and uses an excimer laser to precisely remove microscopic amounts of underlying corneal tissue to correct the eye's focusing power, before repositioning the flap, which adheres naturally without stitches. The entire procedure typically takes only a few minutes per eye and is performed under numbing eye drops, with most patients noticing improved vision within a day. Candidates are generally adults with stable vision prescriptions and corneas of adequate thickness, since insufficient corneal tissue or certain eye conditions can make LASIK unsuitable, in which case alternative procedures may be recommended after a detailed pre-operative evaluation including corneal mapping. Mild dryness or glare around lights can occur temporarily during healing. Eye hospitals in India commonly use advanced diagnostic mapping and a range of laser platforms to plan LASIK precisely, and the procedure is typically completed within a single-day visit."
+			},
+			{
+				"name": "Femto LASIK Surgery",
+				"image": "/media/treatments/2ad152bfe9a31dc1cf5d.png",
+				"description": "Femto LASIK is a variation of standard LASIK surgery in which the initial corneal flap is created using a femtosecond laser instead of a handheld mechanical blade, or microkeratome, allowing for a more precise, uniform, and customizable flap in terms of thickness, diameter, and shape. After the femtosecond laser creates and lifts the corneal flap, the procedure continues as with traditional LASIK, using an excimer laser to reshape the underlying corneal tissue and correct the patient's specific refractive error, whether nearsightedness, farsightedness, or astigmatism, before the flap is repositioned to heal naturally. Because the laser-created flap tends to be more consistent than a blade-cut one, this bladeless approach is often associated with a somewhat lower risk of certain flap-related complications and may be recommended for patients with corneas that make a mechanical microkeratome less suitable. As with standard LASIK, candidacy depends on stable vision, adequate corneal thickness, and a comprehensive pre-operative eye examination. Recovery is generally quick, with noticeable visual improvement within a day and full stabilization over the following weeks. Many eye care centers in India offer Femto LASIK as their standard bladeless option, using femtosecond laser platforms alongside detailed corneal topography for pre-surgical planning."
+			},
+			{
+				"name": "SMILE LASIK Eye Surgery",
+				"image": "/media/treatments/bba953312d36ac64b83e.png",
+				"description": "SMILE, or small incision lenticule extraction, is a newer form of laser vision correction that treats nearsightedness and astigmatism without creating the larger hinged flap used in traditional LASIK. Instead, a femtosecond laser is used entirely within the cornea to carve a thin, lens-shaped piece of tissue, called a lenticule, which is then removed through a very small incision, just a few millimeters wide, reshaping the cornea's curvature to correct the eye's focus. Because the procedure avoids a large surface flap, it preserves more of the cornea's structural integrity and outer nerve layer, which some patients find results in less dryness and a faster return to normal corneal sensation during recovery. The entire treatment is performed with a single laser system rather than two, and is completed in a few minutes per eye under topical anesthesia. Candidates are generally adults with stable, qualifying degrees of myopia or astigmatism, determined through a comprehensive pre-operative assessment including corneal thickness and shape mapping. Visual recovery is typically rapid, with most patients seeing clearly within a day or two. Eye centers in India increasingly offer SMILE alongside LASIK, allowing surgeons to recommend the technique best suited to each patient's corneal profile."
+			},
+			{
+				"name": "Contoura Laser Eye Surgery",
+				"image": "/media/treatments/0fc989d02f52e53f8d85.png",
+				"description": "Contoura Vision, often referred to as topography-guided LASIK, is an advanced form of laser vision correction that uses detailed mapping of the cornea's surface, capturing thousands of unique data points, to guide the excimer laser in correcting not only a patient's glasses prescription but also microscopic surface irregularities specific to their eye. This individualized approach differs from conventional LASIK, which applies a more standardized correction pattern, and is intended to produce a smoother corneal surface that may improve contrast sensitivity and reduce visual disturbances such as glare or halos, particularly at night. The surgical process itself follows a similar sequence to standard LASIK, with a corneal flap created using a blade or femtosecond laser, followed by laser reshaping of the underlying tissue guided by the topographic map, and the flap repositioned to heal naturally. Candidates are generally patients with stable refractive errors, adequate corneal thickness, and, in some cases, irregular astigmatism that might not respond as well to conventional laser correction. As with other forms of LASIK, recovery is typically rapid. Eye hospitals in India offering Contoura Vision use specialized topography systems to build each patient's corneal map, allowing the treatment plan to be tailored before surgery is performed."
+			},
+			{
+				"name": "Corneal Cross-Linking",
+				"image": "/media/treatments/b253df764563b479d566.png",
+				"description": "Corneal cross-linking is a procedure designed to strengthen the cornea's internal collagen structure and halt the progression of keratoconus and other conditions that cause the cornea to gradually thin and bulge into an irregular, cone-like shape. During the standard, or Epi-off, technique, the thin outer layer of the cornea is gently removed, riboflavin, or vitamin B2, eye drops are applied to saturate the corneal tissue, and the eye is then exposed to a controlled dose of ultraviolet-A light, which triggers a chemical reaction that creates new molecular bonds between collagen fibers, increasing the cornea's rigidity. A newer variation, Epi-on cross-linking, leaves the outer layer intact, which can shorten recovery time though it may be less effective in certain cases. The procedure is typically recommended once progressive thinning has been confirmed through repeated corneal mapping, most often in younger patients whose keratoconus is still advancing, with the goal of preventing further deterioration rather than reversing existing damage. Recovery from the standard technique generally takes several days to a week. Eye centers in India commonly combine cross-linking with regular topography monitoring to track corneal stability before and after treatment."
+			},
+			{
+				"name": "Cornea Transplant",
+				"image": "/media/treatments/521be3628a53047d94f1.png",
+				"description": "A cornea transplant, or keratoplasty, replaces damaged or diseased corneal tissue with healthy donor tissue to restore vision, relieve pain, or repair the eye's surface when the cornea has become too scarred, thinned, swollen, or irregularly shaped to function properly. Depending on which corneal layers are affected, surgeons may perform a full-thickness transplant, known as penetrating keratoplasty, replacing the entire cornea, or a partial-thickness procedure that replaces only the damaged front layers, known as DALK, or the innermost layer, known as DSEK or DMEK, which generally allows for a faster recovery and lower risk of certain complications. Common reasons for needing a transplant include advanced keratoconus, corneal scarring from infection or injury, corneal swelling from endothelial disease, or failure of a previous transplant. Donor corneal tissue is matched and screened before use, and the procedure is performed under local or general anesthesia depending on the case. Recovery varies considerably by technique, ranging from several weeks for partial-thickness procedures to closer to a year for full stabilization after a full-thickness transplant, with regular monitoring needed to watch for graft rejection. Eye hospitals in India maintain eye banks and donor tissue programs to support timely access to corneal transplantation."
+			},
+			{
+				"name": "Keratoconus Treatment",
+				"image": "/media/treatments/077a6ccea819e9a11419.png",
+				"description": "Keratoconus is a progressive eye condition in which the normally round cornea gradually thins and bulges outward into a cone-like shape, distorting vision and causing increasing nearsightedness and irregular astigmatism that is often difficult to correct fully with regular glasses. Treatment approaches depend on how advanced the condition is at diagnosis: in earlier stages, specialty contact lenses, such as rigid gas-permeable or scleral lenses, are often used to compensate for the irregular corneal surface and improve vision, while corneal cross-linking is used to strengthen the cornea and slow or halt further progression once thinning is confirmed to be advancing. In more advanced cases where vision cannot be adequately corrected with lenses, or the cornea has become significantly thinned, procedures such as implantation of corneal ring segments to flatten the cone shape, or, in severe cases, a corneal transplant, may be recommended. Diagnosis and monitoring rely heavily on corneal topography, which maps the surface shape of the eye over time to detect progression. Because keratoconus often develops during the teenage or young adult years, regular monitoring is important. Eye centers in India typically offer the full spectrum of keratoconus management, from specialty lens fitting to cross-linking and transplant surgery, under one roof."
+			},
+			{
+				"name": "Astigmatism Surgery",
+				"image": "/media/treatments/68d8451e87ff1f916c93.png",
+				"description": "Astigmatism is a common refractive condition in which an irregularly curved cornea, or sometimes lens, causes light to focus at multiple points rather than a single point on the retina, resulting in blurred or distorted vision at both near and far distances. Surgical correction most often involves laser vision correction techniques such as LASIK, SMILE, or topography-guided procedures, which reshape the cornea's surface to create a more uniform curvature that focuses light correctly, using an excimer or femtosecond laser guided by detailed measurements of the eye's specific astigmatic pattern. For patients undergoing cataract surgery, astigmatism can also be addressed at the same time through the use of a toric intraocular lens, which is designed with additional correcting power aligned to the axis of the astigmatism, or through small limbal relaxing incisions made in the cornea. The right approach depends on the degree and type of astigmatism, corneal thickness, and whether the patient also needs correction for nearsightedness or farsightedness or has any coexisting eye conditions such as keratoconus. A comprehensive pre-operative evaluation, including corneal mapping, is used to determine candidacy and plan the correction. Eye centers in India offer this full range of laser and lens-based options for correcting astigmatism."
+			},
+			{
+				"name": "Glaucoma Treatment",
+				"image": "/media/treatments/825345059e5b76adc173.png",
+				"description": "Glaucoma refers to a group of eye conditions that damage the optic nerve, most often due to elevated pressure inside the eye, gradually affecting peripheral vision and, if untreated, potentially leading to permanent vision loss. Because early glaucoma often causes no noticeable symptoms, it is typically detected through routine eye exams measuring intraocular pressure, examining the optic nerve, and testing the visual field. Treatment generally begins with prescription eye drops that either reduce the amount of fluid the eye produces or improve its drainage, and many patients manage the condition long-term with medication alone. When drops are insufficient or not well tolerated, laser procedures such as selective laser trabeculoplasty can improve the eye's natural drainage, while more advanced or resistant cases may require surgical intervention, including trabeculectomy, drainage implant devices, or newer minimally invasive glaucoma surgery techniques designed to lower eye pressure with less tissue disruption. The specific approach depends on the type and severity of glaucoma, how well pressure responds to less invasive measures, and the patient's overall eye health. Eye centers in India offer this full spectrum of glaucoma management, from medical therapy through laser and surgical options, alongside long-term monitoring of optic nerve health."
+			},
+			{
+				"name": "Retinal Detachment Surgery",
+				"image": "/media/treatments/0443d6cb7e2d5051bb68.png",
+				"description": "Retinal detachment occurs when the light-sensitive retina at the back of the eye separates from the underlying tissue that supplies it with oxygen and nutrients, a serious condition that can cause permanent vision loss if not treated promptly. Patients often notice sudden flashes of light, a rapid increase in floaters, or a shadow or curtain moving across their field of vision, and urgent evaluation is generally recommended when these symptoms appear. Surgical repair options depend on the type, location, and severity of the detachment: pneumatic retinopexy involves injecting a gas bubble into the eye to help reposition the retina, scleral buckling involves placing a flexible band around the outside of the eye to relieve the pulling that caused the detachment, and vitrectomy involves removing the gel-like vitreous humor from inside the eye and replacing it with a gas or silicone oil bubble to hold the retina in place while it heals. In many cases, a combination of these techniques is used. Recovery can involve maintaining a specific head position for a period after surgery, particularly when a gas bubble is used. Eye hospitals in India are generally equipped to manage retinal detachment as a time-sensitive surgical emergency."
+			},
+			{
+				"name": "Diabetic Retinopathy Treatment",
+				"image": "/media/treatments/894733db70fa5a87376b.png",
+				"description": "Diabetic retinopathy is damage to the blood vessels of the retina caused by prolonged high blood sugar levels, which can lead to leaking, swelling, or abnormal new blood vessel growth that threatens vision if left unmanaged. Regular dilated eye examinations are important for patients with diabetes since early-stage retinopathy often has no noticeable symptoms, and detecting changes early allows treatment to begin before significant vision loss occurs. Treatment approaches depend on severity and the specific complications present: laser photocoagulation is used to seal leaking blood vessels or shrink abnormal vessel growth, intravitreal injections of anti-VEGF medication are used to reduce swelling in the macula and slow abnormal vessel formation, and in more advanced cases involving bleeding into the vitreous or retinal detachment, a vitrectomy may be required to remove blood and scar tissue and restore the retina's normal position. Alongside eye-specific treatment, careful management of blood sugar, blood pressure, and cholesterol levels remains essential to slowing disease progression. Because diabetic retinopathy can progress silently, ongoing monitoring is typically recommended even after treatment. Eye centers in India commonly offer integrated diabetic eye care, combining retinal imaging, laser treatment, and injection therapy for patients managing this condition."
+			},
+			{
+				"name": "Vitreoretinal Surgery",
+				"image": "/media/treatments/f4af388370d2421ba3d9.png",
+				"description": "Vitreoretinal surgery refers to a group of procedures performed on the vitreous humor, the gel-like substance filling the eye, and the retina at the back of the eye, used to treat a range of conditions including retinal detachment, macular holes, epiretinal membranes, diabetic eye disease, and vitreous hemorrhage. The core technique, vitrectomy, involves making tiny incisions in the eye through which specialized micro-instruments remove the vitreous gel, allowing the surgeon direct access to repair or treat the retina, whether by peeling scar tissue, sealing a macular hole, addressing bleeding, or repositioning a detached retina; the vitreous cavity is then refilled with a saline solution, gas bubble, or, in more complex cases, silicone oil to help support healing. These procedures are typically performed using small-gauge, minimally invasive instruments that reduce the need for stitches and can shorten recovery time compared with older techniques. Patients requiring vitreoretinal surgery are often referred by a general ophthalmologist after imaging such as optical coherence tomography identifies structural changes at the back of the eye. Recovery time and positioning requirements afterward vary depending on the specific procedure performed. Eye hospitals in India generally have dedicated vitreoretinal units equipped with advanced imaging and micro-incision surgical systems."
+			},
+			{
+				"name": "Retinitis Pigmentosa Treatment",
+				"image": "/media/treatments/7abf5ebccd8360c9cd8c.png",
+				"description": "Retinitis pigmentosa is a group of inherited genetic disorders that cause the light-sensitive cells of the retina to gradually break down over time, typically leading to progressive night blindness and a narrowing of peripheral vision that can, in advanced cases, affect central vision as well. Because it is a genetic condition, there is currently no cure that reverses existing retinal cell loss, and management instead focuses on slowing progression, supporting remaining vision, and monitoring for treatable complications such as cataracts or swelling of the macula, both of which are more common in patients with this condition and can sometimes be addressed surgically or medically to improve functional vision. Some patients may be candidates for gene-specific therapies where an identifiable genetic mutation is treatable, and genetic testing and counseling are often recommended to clarify the specific type of retinitis pigmentosa involved and inform family planning. Low-vision aids, orientation training, and nutritional guidance, including certain vitamin supplementation under medical supervision, are commonly part of a long-term care plan. Regular retinal imaging and visual field testing help track changes over time. Eye centers in India offering retinitis pigmentosa care typically combine genetic counseling, retinal imaging, and low-vision support services for affected patients."
+			},
+			{
+				"name": "Squint Surgery",
+				"image": "/media/treatments/3f1f48c54071c359929e.png",
+				"description": "Squint, or strabismus, is a condition in which the eyes are not properly aligned with each other, with one eye turning inward, outward, upward, or downward relative to the other, which can affect depth perception, cause double vision, or, particularly in children, lead to reduced vision in the misaligned eye if not corrected. Non-surgical treatments such as corrective glasses, prism lenses, or vision therapy exercises are often tried first, particularly in milder cases or those caused by uncorrected refractive error, but surgery is generally recommended when misalignment is significant or does not respond adequately to these measures. Squint surgery involves adjusting the tension or position of one or more of the small muscles that control eye movement, either tightening, loosening, or repositioning them, to bring the eyes into better alignment, and is typically performed under general anesthesia in children and local or general anesthesia in adults. The procedure usually takes under an hour, with most patients returning to normal activities within a few days, though full realignment and comfort may take longer to settle. In some cases more than one surgery is needed to achieve the desired alignment. Eye hospitals in India routinely perform squint surgery in both pediatric and adult patients."
+			},
+			{
+				"name": "Corneal Abrasion Treatment",
+				"image": "/media/treatments/f6450a1a36471ba1f319.png",
+				"description": "A corneal abrasion is a scratch or superficial injury to the clear, protective outer layer of the cornea, commonly caused by a foreign object such as dust, sand, or a fingernail, contact lens misuse, or minor trauma to the eye, and typically causes pain, redness, light sensitivity, tearing, and a sensation of something being in the eye. Diagnosis usually involves examining the eye with a slit lamp after applying a fluorescein dye, which highlights the damaged area of the corneal surface under blue light, allowing the extent of the injury to be assessed and any embedded foreign material to be identified and removed. Treatment typically focuses on preventing infection and supporting natural healing, which for most minor abrasions occurs within one to three days, using antibiotic eye drops or ointment, lubricating drops to ease discomfort, and sometimes a short course of pain relief; contact lens wear is generally paused until the eye has fully healed. Larger or deeper abrasions, or those that do not heal as expected, may require closer follow-up to rule out infection or complications. Eye clinics in India are well equipped to assess and manage corneal abrasions promptly, which is important for reducing the risk of complications such as infection."
+			},
+			{
+				"name": "Optic Nerve Disorders",
+				"image": "/media/treatments/6b56cbc5edcd1a1ff1a3.png",
+				"description": "Optic nerve disorders encompass a range of conditions affecting the nerve that carries visual information from the eye to the brain, including inflammation, compression, reduced blood supply, or degeneration, any of which can cause vision loss, blurred or dimmed vision, reduced color perception, or visual field defects depending on which part of the nerve is affected. Diagnosis typically involves a detailed neuro-ophthalmic examination, assessment of pupil responses, visual field testing, and imaging of the optic nerve using optical coherence tomography, sometimes alongside MRI scanning to check for compression from a tumor or other structural cause, or blood tests to investigate inflammatory or vascular causes. Treatment depends heavily on the underlying cause: inflammatory conditions may be treated with corticosteroids, compressive causes may require surgical intervention to relieve pressure on the nerve, and vascular causes are managed alongside control of underlying risk factors such as blood pressure and cholesterol. Because optic nerve damage can be permanent if the underlying cause is not addressed promptly, timely evaluation is important when new visual symptoms appear. Eye centers in India offering neuro-ophthalmology services typically coordinate closely with neurology to investigate and manage the full range of optic nerve disorders."
+			},
+			{
+				"name": "Optic Nerve Atrophy Treatment",
+				"image": "/media/treatments/37121bd026e923d3d172.png",
+				"description": "Optic nerve atrophy refers to the degeneration or loss of the nerve fibers that transmit visual signals from the retina to the brain, resulting in progressive, and often permanent, vision loss, reduced color perception, and diminished pupil response that varies depending on the extent and cause of the damage. It can result from a wide range of underlying causes, including prolonged elevated eye pressure from glaucoma, reduced blood flow to the optic nerve, compression from a tumor or swelling, inherited genetic conditions, inflammation, or trauma, which makes identifying the underlying cause through detailed examination, imaging, and sometimes blood or genetic testing an essential first step in management. Because damaged optic nerve fibers generally do not regenerate, treatment focuses primarily on halting further damage by addressing the underlying cause, for example lowering eye pressure in glaucoma-related cases or treating an inflammatory or compressive condition, rather than reversing vision already lost. Supportive measures such as low-vision rehabilitation, magnification aids, and orientation training can help patients make the most of remaining vision. Ongoing monitoring with visual field testing and optical coherence tomography helps track stability over time. Eye centers in India typically combine neuro-ophthalmology assessment with supportive low-vision services for patients with optic nerve atrophy."
+			},
+			{
+				"name": "Optic Neuritis Treatment",
+				"image": "/media/treatments/3a0d2c89616b50b100df.png",
+				"description": "Optic neuritis is inflammation of the optic nerve that typically causes sudden vision loss or blurring in one eye, often accompanied by pain that worsens with eye movement and reduced color perception, and most commonly affects younger adults. It can occur on its own or as an early sign of an underlying demyelinating condition such as multiple sclerosis, which is why diagnosis usually involves a detailed neurological and ophthalmic examination, visual field testing, and an MRI scan of the brain and optic nerves to look for other areas of inflammation or damage that might indicate a broader underlying condition. Blood tests may also be used to rule out other inflammatory or infectious causes. In many cases, vision recovers substantially on its own over several weeks, but treatment with intravenous corticosteroids is often used to speed up visual recovery, particularly in more severe cases, and in patients found to have an underlying demyelinating condition, additional long-term therapy may be recommended to reduce the risk of future episodes. Ongoing follow-up with both neurology and ophthalmology is typically recommended after an episode. Eye centers in India managing optic neuritis usually coordinate closely with neurology departments to investigate and treat any underlying systemic cause."
+			}
+		],
+		"benefits": [
+			"Bladeless, laser-assisted cataract surgery",
+			"Same-day discharge for most procedures",
+			"High-volume centers with deep surgical expertise",
+			"Premium intraocular lens options available"
+		],
+		"flagshipProcedure": "Cataract Surgery (Phacoemulsification)",
+		"packagePrice": 700,
+		"totalTripDays": 7,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 0,
+				"roomDays": 0,
+				"totalDays": 0
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 3,500 – 5,000 per eye",
+				"waitTime": "2–4 weeks",
+				"successRate": "98–99%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 2,500 – 4,000 per eye",
+				"waitTime": "8–18 weeks (NHS)",
+				"successRate": "98–99%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 2,000 – 3,500 per eye",
+				"waitTime": "2–4 weeks",
+				"successRate": "97–99%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 1,200 – 2,000 per eye",
+				"waitTime": "1–2 weeks",
+				"successRate": "97–98%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 700 – 1,200 per eye",
+				"waitTime": "2–4 days",
+				"successRate": "98%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-operative eye evaluation including biometry and fitness check",
+			"Surgeon's fee for bladeless, laser-assisted cataract surgery",
+			"Standard monofocal intraocular lens (IOL)",
+			"Operation theatre and sterile procedure charges",
+			"Same-day discharge with post-operative eye drops",
+			"One follow-up visit to confirm healing and vision correction"
+		],
+		"exclusions": [
+			"Premium IOL upgrades (multifocal or toric lenses) beyond the standard monofocal lens",
+			"Treatment for unrelated eye conditions such as glaucoma or retina disease found during evaluation",
+			"Second-eye surgery unless quoted together as a package",
+			"Follow-up visits beyond the one included check-up",
+			"Spectacles or contact lenses after the procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of cataract surgery in India?",
+				"answer": "Cataract surgery in India starts from USD 700 per eye, around 80% less than in the US, and includes the pre-op evaluation, laser-assisted surgery, a standard IOL, and one follow-up visit."
+			},
+			{
+				"question": "Is the surgery painless and quick?",
+				"answer": "Yes, modern bladeless, laser-assisted cataract surgery typically takes 15–20 minutes per eye under local anesthesia, with most patients discharged the same day."
+			},
+			{
+				"question": "Can I choose a premium lens (multifocal or toric)?",
+				"answer": "Yes, premium intraocular lens options are available for patients who want reduced dependence on glasses after surgery — these are quoted separately from the standard monofocal lens."
+			},
+			{
+				"question": "How long should I plan to stay in India?",
+				"answer": "Most cataract patients plan for about 4–7 days in India to allow for the pre-op evaluation, surgery, and a follow-up visit before flying home; LASIK follows a similar short timeline."
+			},
+			{
+				"question": "Is LASIK available for both eyes in one visit?",
+				"answer": "Yes, LASIK and other refractive procedures are typically performed on both eyes in a single same-day visit for suitable candidates, following a detailed pre-operative assessment."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your recent eye prescription or any existing reports through our contact form, and our eye care coordinator will arrange a specialist review and transparent quote within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1792837242,
+			"updatedAt": 1793018750
 		}
 	}
 }

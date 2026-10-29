@@ -1,0 +1,458 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import PageHeader from '../../components/PageHeader.astro';
+import EnquiryCard from '../../components/EnquiryCard.astro';
+import { successStories, type SuccessStory } from '../../data/successStories';
+import 'flag-icons/css/flag-icons.min.css';
+import iconCalendar from 'bootstrap-icons/icons/calendar-week-fill.svg?raw';
+import iconPerson from 'bootstrap-icons/icons/person-badge-fill.svg?raw';
+import iconHospital from 'bootstrap-icons/icons/hospital-fill.svg?raw';
+import iconArrowLeft from 'bootstrap-icons/icons/arrow-left.svg?raw';
+import iconArrowRight from 'bootstrap-icons/icons/arrow-right.svg?raw';
+import iconShield from 'bootstrap-icons/icons/shield-check.svg?raw';
+
+export function getStaticPaths() {
+	return successStories.map((story) => ({
+		params: { slug: story.slug },
+		props: { story },
+	}));
+}
+
+const { story } = Astro.props as { story: SuccessStory };
+const otherStories = successStories.filter((s) => s.slug !== story.slug).slice(0, 4);
+const metaDescription = `${story.name}'s story: how they travelled from ${story.country} for ${story.treatment.toLowerCase()} with AlisPro MediTours.`;
+const dateFormat = (iso: string) =>
+	new Date(iso).toLocaleDateString('en-US', { day: '2-digit', month: 'short', year: 'numeric' });
+---
+
+<Layout
+	title={`${story.name}'s Success Story | AlisPro MediTours`}
+	description={metaDescription}
+	alternates={[
+		{ locale: 'en', href: `/success-stories/${story.slug}` },
+		{ locale: 'fr', href: `/fr/success-stories/${story.slug}` },
+		{ locale: 'ru', href: `/ru/success-stories/${story.slug}` },
+		{ locale: 'bn', href: `/bn/success-stories/${story.slug}` },
+		{ locale: 'ro', href: `/ro/success-stories/${story.slug}` },
+		{ locale: 'es', href: `/es/success-stories/${story.slug}` },
+		{ locale: 'pt', href: `/pt/success-stories/${story.slug}` },
+		{ locale: 'vi', href: `/vi/success-stories/${story.slug}` },
+		{ locale: 'ar', href: `/ar/success-stories/${story.slug}` },
+	]}
+>
+	<PageHeader
+		badge="Patient Success Story"
+		title={`${story.name.replace(/\s*\(.*\)$/, '')}`}
+		highlight={`— ${story.treatment}`}
+		breadcrumbs={[{ label: 'Success Stories', href: '/success-stories' }, { label: story.name }]}
+	/>
+
+	<section class="story-detail">
+		<div class="story-detail__inner">
+			<div class="story-detail__grid">
+				<article class="story-detail__main">
+					<div class="story-article__meta">
+						<span>
+							<span set:html={iconCalendar} aria-hidden="true" />
+							Published: {dateFormat(story.publishedDate)}
+							{story.updatedDate !== story.publishedDate && <> · Updated: {dateFormat(story.updatedDate)}</>}
+						</span>
+						<span class="story-article__byline">By the AlisPro MediTours Medical Team</span>
+					</div>
+
+					<div class="story-article__identity">
+						<span class={`fi fi-${story.countryCode}`} aria-hidden="true" />
+						<span>
+							{story.age && <>{story.age}-year-old from </>}
+							{story.country}
+							{' · '}Treated in {story.city}
+						</span>
+					</div>
+
+					<p class="story-article__lede">{story.leadLine}</p>
+
+					<div class="story-article__body">
+						{story.paragraphs.map((p) => <p>{p}</p>)}
+					</div>
+
+					<p class="story-article__closing-quote">"{story.quote}"</p>
+
+					<div class="story-article__written-by">
+						<span set:html={iconShield} aria-hidden="true" />
+						<p>
+							This story is shared with the patient's experience in mind. Clinical details are described
+							in general terms; for specifics of any treatment plan, our medical team reviews each case
+							individually.
+						</p>
+					</div>
+
+					<a class="story-article__back" href="/success-stories">
+						<span set:html={iconArrowLeft} aria-hidden="true" />
+						Back to all success stories
+					</a>
+				</article>
+
+				<aside class="story-detail__aside">
+					<EnquiryCard title="Start Your Own Story" subtitle="Share your reports and get a personalized plan within 24 hours" defaultTreatment={story.treatment} />
+
+					<div class="story-detail__profile-card">
+						<h2>Care Team &amp; Hospital</h2>
+
+						{story.doctorName && (
+							<a class="story-detail__profile-link" href={`/doctors/${story.doctorSlug}`}>
+								<span set:html={iconPerson} aria-hidden="true" />
+								<div>
+									<strong>{story.doctorName}</strong>
+									<span>View doctor profile</span>
+								</div>
+								<span class="story-detail__profile-arrow" set:html={iconArrowRight} aria-hidden="true" />
+							</a>
+						)}
+
+						{story.hospitalSlug ? (
+							<a class="story-detail__profile-link" href={`/hospitals/${story.hospitalSlug}`}>
+								<span set:html={iconHospital} aria-hidden="true" />
+								<div>
+									<strong>{story.hospitalName}</strong>
+									<span>View hospital profile</span>
+								</div>
+								<span class="story-detail__profile-arrow" set:html={iconArrowRight} aria-hidden="true" />
+							</a>
+						) : (
+							<div class="story-detail__profile-link story-detail__profile-link--static">
+								<span set:html={iconHospital} aria-hidden="true" />
+								<div>
+									<strong>{story.hospitalName}</strong>
+									<span>Treatment location</span>
+								</div>
+							</div>
+						)}
+					</div>
+
+					<div class="story-detail__related-card">
+						<h2>Other Patient Stories</h2>
+						<ul class="story-detail__related-list">
+							{otherStories.map((s) => (
+								<li>
+									<a href={`/success-stories/${s.slug}`}>
+										<span class={`fi fi-${s.countryCode}`} aria-hidden="true" />
+										<div>
+											<strong>{s.name}</strong>
+											<span>{s.treatment}</span>
+										</div>
+									</a>
+								</li>
+							))}
+						</ul>
+					</div>
+				</aside>
+			</div>
+		</div>
+	</section>
+</Layout>
+
+<style>
+	.story-detail {
+		background: var(--color-bg-white);
+		padding: 48px 24px 88px;
+		font-family: var(--font-body);
+	}
+
+	.story-detail__inner {
+		max-width: 1140px;
+		margin: 0 auto;
+	}
+
+	.story-detail__grid {
+		display: grid;
+		grid-template-columns: 1.6fr 1fr;
+		gap: 40px;
+		align-items: start;
+	}
+
+	.story-detail__main {
+		min-width: 0;
+	}
+
+	.story-article__meta {
+		display: flex;
+		flex-wrap: wrap;
+		align-items: center;
+		gap: 6px 18px;
+		font-size: 13px;
+		color: var(--color-text-muted);
+		margin-bottom: 14px;
+	}
+
+	.story-article__meta span:first-child {
+		display: inline-flex;
+		align-items: center;
+		gap: 6px;
+	}
+
+	.story-article__meta span:first-child span {
+		display: flex;
+		width: 13px;
+		height: 13px;
+	}
+
+	.story-article__meta span:first-child span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.story-article__byline {
+		font-weight: 600;
+		color: var(--color-text-secondary);
+	}
+
+	.story-article__identity {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		margin-bottom: 24px;
+		font-size: 13.5px;
+		color: var(--color-text-secondary);
+	}
+
+	.story-article__identity .fi {
+		flex-shrink: 0;
+		width: 24px;
+		height: 17px;
+		border-radius: 3px;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+	}
+
+	.story-article__lede {
+		font-family: var(--font-heading);
+		font-size: 19px;
+		font-weight: 600;
+		line-height: 1.5;
+		color: var(--color-text-primary);
+		margin: 0 0 28px;
+		padding-inline-start: 18px;
+		border-inline-start: 3px solid var(--color-teal);
+	}
+
+	.story-article__body p {
+		font-size: 15.5px;
+		line-height: 1.85;
+		color: var(--color-text-secondary);
+		margin: 0 0 20px;
+	}
+
+	.story-article__closing-quote {
+		font-family: var(--font-heading);
+		font-style: italic;
+		font-size: 17px;
+		line-height: 1.6;
+		color: var(--color-primary);
+		margin: 8px 0 32px;
+	}
+
+	.story-article__written-by {
+		display: flex;
+		gap: 12px;
+		padding: 18px 20px;
+		background: var(--color-bg-gray);
+		border-radius: var(--radius-md);
+		margin-bottom: 28px;
+	}
+
+	.story-article__written-by span {
+		display: flex;
+		flex-shrink: 0;
+		width: 18px;
+		height: 18px;
+		color: var(--color-teal);
+		margin-top: 2px;
+	}
+
+	.story-article__written-by span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.story-article__written-by p {
+		font-size: 12.5px;
+		line-height: 1.6;
+		color: var(--color-text-muted);
+		margin: 0;
+	}
+
+	.story-article__back {
+		display: inline-flex;
+		align-items: center;
+		gap: 8px;
+		font-size: 14px;
+		font-weight: 600;
+		color: var(--color-primary);
+		text-decoration: none;
+	}
+
+	.story-article__back span {
+		display: flex;
+		width: 14px;
+		height: 14px;
+	}
+
+	.story-article__back span :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.story-detail__aside {
+		display: flex;
+		flex-direction: column;
+		gap: 24px;
+		align-self: start;
+		position: sticky;
+		top: 100px;
+	}
+
+	.story-detail__profile-card,
+	.story-detail__related-card {
+		background: var(--color-bg-white);
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		padding: 24px;
+		box-shadow: var(--shadow-soft);
+	}
+
+	.story-detail__profile-card h2,
+	.story-detail__related-card h2 {
+		font-family: var(--font-heading);
+		font-size: 16px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 16px;
+	}
+
+	.story-detail__profile-link {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		text-decoration: none;
+		padding: 12px;
+		border-radius: var(--radius-md);
+		background: var(--color-bg-alt);
+		margin-bottom: 10px;
+		transition: background 0.15s ease;
+	}
+
+	.story-detail__profile-link:last-child {
+		margin-bottom: 0;
+	}
+
+	a.story-detail__profile-link:hover {
+		background: var(--color-bg-soft-blue);
+	}
+
+	.story-detail__profile-link > span:first-child {
+		display: flex;
+		flex-shrink: 0;
+		align-items: center;
+		justify-content: center;
+		width: 34px;
+		height: 34px;
+		border-radius: 50%;
+		background: var(--color-bg-white);
+		color: var(--color-primary);
+	}
+
+	.story-detail__profile-link > span:first-child :global(svg) {
+		width: 15px;
+		height: 15px;
+	}
+
+	.story-detail__profile-link div {
+		display: flex;
+		flex-direction: column;
+		min-width: 0;
+		margin-inline-end: auto;
+	}
+
+	.story-detail__profile-link strong {
+		font-size: 13px;
+		color: var(--color-text-primary);
+	}
+
+	.story-detail__profile-link div span {
+		font-size: 11px;
+		color: var(--color-text-muted);
+	}
+
+	.story-detail__profile-arrow {
+		display: flex;
+		flex-shrink: 0;
+		width: 14px;
+		height: 14px;
+		color: var(--color-text-light);
+	}
+
+	.story-detail__profile-arrow :global(svg) {
+		width: 100%;
+		height: 100%;
+	}
+
+	.story-detail__related-list {
+		list-style: none;
+		margin: 0;
+		padding: 0;
+		display: flex;
+		flex-direction: column;
+		gap: 8px;
+	}
+
+	.story-detail__related-list a {
+		display: flex;
+		align-items: center;
+		gap: 10px;
+		text-decoration: none;
+		padding: 8px;
+		border-radius: 8px;
+		transition: background 0.15s ease;
+	}
+
+	.story-detail__related-list a:hover {
+		background: var(--color-bg-soft-blue);
+	}
+
+	.story-detail__related-list .fi {
+		flex-shrink: 0;
+		width: 22px;
+		height: 16px;
+		border-radius: 3px;
+	}
+
+	.story-detail__related-list strong {
+		display: block;
+		font-size: 13px;
+		color: var(--color-text-primary);
+	}
+
+	.story-detail__related-list span {
+		font-size: 11.5px;
+		color: var(--color-text-muted);
+	}
+
+	@media screen and (max-width: 860px) {
+		.story-detail__grid {
+			grid-template-columns: 1fr;
+		}
+
+		.story-detail__aside {
+			position: static;
+		}
+	}
+
+	@media screen and (max-width: 640px) {
+		.story-detail {
+			padding: 36px 16px 64px;
+		}
+
+		.story-article__lede {
+			font-size: 17px;
+		}
+	}
+</style>
