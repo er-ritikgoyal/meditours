@@ -34,6 +34,7 @@ import iconTabMemberships from 'bootstrap-icons/icons/people-fill.svg?raw';
 import { doctorVideoUrls } from '../../data/doctors';
 import { doctors, type DoctorData } from '../../data/doctors';
 import { doctorCornerPhoto } from '../../utils/doctorHospital';
+import { successStories } from '../../data/successStories';
 
 export function getStaticPaths() {
 	return doctors.map((doctor) => ({
@@ -43,6 +44,7 @@ export function getStaticPaths() {
 }
 
 const { doctor } = Astro.props as { doctor: DoctorData };
+const doctorStories = successStories.filter((s) => s.doctorSlug === doctor.slug);
 
 // Doctor's own clinic photo, falling back to their hospital's photo.
 const cornerPhoto = doctorCornerPhoto(doctors.find((d) => d.slug === Astro.params.slug)!);
@@ -390,6 +392,23 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 						)
 					}</CmsMark>
 
+					{doctorStories.length > 0 && (
+						<div class="doctor-success-stories">
+							<h2>Patient Success Stories</h2>
+							<div class="doctor-success-stories__grid">
+								{doctorStories.map((s) => (
+									<a class="doctor-success-story-card" href={`/success-stories/${s.slug}`}>
+										<span class={`fi fi-${s.countryCode}`} aria-hidden="true" />
+										<div>
+											<strong>{s.name}</strong>
+											<span>{s.treatment} — {s.country}</span>
+										</div>
+									</a>
+								))}
+							</div>
+						</div>
+					)}
+
 					<div class="doctor-related">
 						<h2>Other Specialists</h2>
 						<div class="doctor-related__grid">
@@ -523,7 +542,10 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 	}
 
 	.doctor-hero {
-		background: var(--gradient-hero);
+		background: linear-gradient(135deg, rgba(234, 247, 255, 0.82) 0%, rgba(255, 255, 255, 0.7) 50%, rgba(245, 255, 253, 0.82) 100%), url('/images/bg6.png');
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
 		padding: 40px 24px 64px;
 		font-family: var(--font-body);
 	}
@@ -1402,6 +1424,62 @@ const whatsappHref = `https://wa.me/919821701155?text=${encodeURIComponent(`Hell
 	}
 
 	.doctor-review-card__person span span {
+		font-size: 11.5px;
+		color: var(--color-text-muted);
+	}
+
+	.doctor-success-stories {
+		margin-top: 48px;
+		padding-top: 40px;
+		border-top: 1px solid var(--color-border-light);
+	}
+
+	.doctor-success-stories h2 {
+		font-family: var(--font-heading);
+		font-size: 20px;
+		font-weight: 700;
+		color: var(--color-text-primary);
+		margin: 0 0 20px;
+	}
+
+	.doctor-success-stories__grid {
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+		gap: 14px;
+	}
+
+	.doctor-success-story-card {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 14px 16px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-alt);
+		text-decoration: none;
+		transition: box-shadow 0.2s ease, transform 0.2s ease;
+	}
+
+	.doctor-success-story-card:hover {
+		box-shadow: var(--shadow-soft);
+		transform: translateY(-2px);
+	}
+
+	.doctor-success-story-card .fi {
+		flex-shrink: 0;
+		width: 26px;
+		height: 19px;
+		border-radius: 3px;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+	}
+
+	.doctor-success-story-card strong {
+		display: block;
+		font-size: 13.5px;
+		color: var(--color-text-primary);
+	}
+
+	.doctor-success-story-card span {
 		font-size: 11.5px;
 		color: var(--color-text-muted);
 	}

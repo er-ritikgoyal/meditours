@@ -22,6 +22,8 @@ import iconPersonBadge from 'bootstrap-icons/icons/person-badge-fill.svg?raw';
 import { hospitals, type HospitalData } from '../../data/hospitals';
 import { doctors } from '../../data/doctors';
 import { destinations } from '../../data/destinations';
+import { successStories } from '../../data/successStories';
+import 'flag-icons/css/flag-icons.min.css';
 import { hospitalDetails } from '../../data/hospitalDetails';
 import { detailLabels } from '../../i18n/hospitalNames';
 import { getOverview } from '../../i18n/overviews';
@@ -42,6 +44,7 @@ const destination = destinations.find((d) => d.slug === hospital.citySlug);
 // a doctor's `hospital` field is free text, not a foreign key to a slug.
 const cityToken = hospital.city.split(/[,/]/)[0].trim();
 const affiliatedDoctors = doctors.filter((d) => d.hospital.includes(hospital.name) && d.hospital.includes(cityToken));
+const hospitalStories = successStories.filter((s) => s.hospitalSlug === hospital.slug);
 
 const relatedHospitals = hospitals.filter((h) => h.citySlug === hospital.citySlug && h.slug !== hospital.slug).slice(0, 3);
 
@@ -182,9 +185,22 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 					}
 					</CmsMark>
 
-					{
-						
-					}
+					{hospitalStories.length > 0 && (
+						<div class="hospital-detail__section">
+							<h2>Patient Success Stories</h2>
+							<div class="hospital-stories">
+								{hospitalStories.map((s) => (
+									<a class="hospital-story-card" href={`/success-stories/${s.slug}`}>
+										<span class={`fi fi-${s.countryCode}`} aria-hidden="true" />
+										<span class="hospital-story-card__text">
+											<strong>{s.name}</strong>
+											<span>{s.treatment} — {s.country}</span>
+										</span>
+									</a>
+								))}
+							</div>
+						</div>
+					)}
 				</div>
 
 				<aside class="hospital-detail__sidebar">
@@ -431,6 +447,55 @@ const aboutSections = getHospitalAbout(hospital.slug, 'en', hospital.name, hospi
 	}
 
 	.hospital-doctor-card__text span {
+		font-size: 12.5px;
+		color: var(--color-text-secondary);
+	}
+
+	.hospital-stories {
+		display: grid;
+		grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+		gap: 12px;
+	}
+
+	.hospital-story-card {
+		display: flex;
+		align-items: center;
+		gap: 12px;
+		padding: 12px 14px;
+		border: 1px solid var(--color-border-light);
+		border-radius: var(--radius-md);
+		text-decoration: none;
+		transition:
+			border-color 0.15s ease,
+			box-shadow 0.15s ease;
+	}
+
+	.hospital-story-card:hover {
+		border-color: var(--color-teal);
+		box-shadow: var(--shadow-soft);
+	}
+
+	.hospital-story-card .fi {
+		flex-shrink: 0;
+		width: 26px;
+		height: 19px;
+		border-radius: 3px;
+		box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.08);
+	}
+
+	.hospital-story-card__text {
+		display: flex;
+		flex-direction: column;
+		gap: 2px;
+		min-width: 0;
+	}
+
+	.hospital-story-card__text strong {
+		font-size: 13.5px;
+		color: var(--color-text-primary);
+	}
+
+	.hospital-story-card__text span {
 		font-size: 12.5px;
 		color: var(--color-text-secondary);
 	}

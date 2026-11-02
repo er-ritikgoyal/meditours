@@ -1038,6 +1038,381 @@
 			"updatedAt": 1793094040
 		}
 	},
+	"organ-transplant": {
+		"slug": "organ-transplant",
+		"name": "Organ Transplant",
+		"icon": "dropletFill",
+		"imageKey": "organTransplant",
+		"theme": "green",
+		"shortDescription": "Liver and kidney transplant programs with dedicated post-operative care teams.",
+		"overview": "India performs some of the highest volumes of living-donor liver and kidney transplants in the world, backed by dedicated transplant ICUs and long-term post-operative monitoring programs for international patients.",
+		"startingPrice": 15000,
+		"avgSavings": 94,
+		"hospitalsCount": 55,
+		"procedures": [
+			"Kidney Transplant",
+			"Liver Transplant",
+			"Bone Marrow Transplant"
+		],
+		"allProcedures": [
+			"Liver Transplant",
+			"Pediatric Liver Transplant",
+			"Kidney Transplant",
+			"Bone Marrow Transplant",
+			"Heart Transplant",
+			"Heart-Lung Transplant",
+			"Lung Transplant"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Liver Transplant",
+				"image": "/media/treatments/5f93f6ab6b03678fd218.png",
+				"description": "A liver transplant replaces a diseased or failing liver with a healthy one, performed in patients with end-stage liver disease, cirrhosis, certain liver cancers within defined size and number limits, or acute liver failure. The replacement liver may come from a deceased donor or, more commonly in India, from a living donor who gives a portion of their own liver, which regenerates to near-full size in both donor and recipient within a few months. During the operation, the diseased liver is removed and the donor liver or liver segment is connected to the recipient's blood vessels and bile duct, a complex procedure that typically takes eight to twelve hours and requires an experienced transplant surgical team. Recipients spend time in intensive care immediately after surgery, followed by one to two weeks in hospital, and begin lifelong immunosuppressive medication to prevent organ rejection. India's transplant centers have extensive experience with living-donor liver transplantation, including thorough donor evaluation to confirm safety for the donor. International patients typically need an accompanying potential living donor and should plan for an extended stay of several weeks to complete donor and recipient evaluation, surgery, and the critical early recovery period before travel home is considered safe."
+			},
+			{
+				"name": "Pediatric Liver Transplant",
+				"image": "/media/treatments/5a4ef8988c808fccbbfa.png",
+				"description": "Pediatric liver transplant is performed in infants and children with liver failure caused by conditions such as biliary atresia, inherited metabolic disorders, or acute liver failure, where the liver can no longer support the child's growth and health. Because deceased-donor organs sized for small children are limited, living-donor transplantation is especially important in pediatric cases, with a parent or relative often donating a small segment of their liver that is surgically shaped and connected to match the child's smaller blood vessels and bile duct. The operation requires a pediatric transplant surgical team experienced in the technical precision small anatomy demands, along with pediatric intensive care support afterward to manage fluid balance, immunosuppression, and infection risk. Children generally spend one to two weeks in hospital following surgery, with close monitoring of liver function and gradual introduction of lifelong anti-rejection medication. India's pediatric transplant programs have experience treating young children from abroad, coordinating donor evaluation for accompanying family members alongside the child's own work-up. Families should plan for an extended stay of several weeks to cover donor and recipient evaluation, surgery, and the early recovery period during which the child is closely monitored for complications."
+			},
+			{
+				"name": "Kidney Transplant",
+				"description": "A kidney transplant is performed for patients with end-stage kidney disease whose kidneys can no longer adequately filter waste from the blood, offering an alternative to long-term dialysis. The donor kidney, which may come from a living relative or approved living donor, or in some cases a deceased donor, is surgically placed in the recipient's lower abdomen and connected to nearby blood vessels and the bladder; the patient's own non-functioning kidneys are usually left in place. The surgery typically takes three to four hours under general anesthesia, and the transplanted kidney often begins producing urine within hours. Recipients require lifelong immunosuppressive medication to prevent rejection and are monitored closely in the early weeks for signs of rejection or infection. Living donors undergo a separate, generally laparoscopic procedure to remove one kidney, with most going on to live healthily with their remaining kidney. India's transplant centers carry out extensive living-donor kidney transplant work, including careful compatibility testing and donor safety evaluation. International patients typically need an accompanying donor where applicable and should plan for a stay of several weeks to allow for evaluation, surgery, and monitoring of early kidney function before returning home."
+			},
+			{
+				"name": "Bone Marrow Transplant",
+				"image": "/media/treatments/e638671c4ea6928c30ec.png",
+				"description": "A bone marrow transplant, also called a stem cell transplant, replaces a patient's diseased or damaged bone marrow with healthy blood-forming stem cells, used to treat conditions such as leukemia, lymphoma, multiple myeloma, aplastic anemia, and certain inherited blood disorders. In an autologous transplant, the patient's own stem cells are collected, stored, and reinfused after high-dose chemotherapy; in an allogeneic transplant, stem cells come from a matched donor, often a sibling or an unrelated donor identified through tissue-typing. Before the transplant, patients undergo a conditioning regimen of chemotherapy and sometimes radiation to clear diseased marrow and suppress the immune system, after which the stem cells are infused intravenously and travel to the bone marrow to begin producing new blood cells over the following two to four weeks. This period requires isolation in a specialized transplant unit to protect against infection while blood counts recover. Allogeneic transplant recipients also need medication to prevent graft-versus-host disease, where donor immune cells react against the recipient's tissues. India's transplant centers offer both autologous and allogeneic bone marrow transplantation with dedicated isolation facilities, and international patients typically plan for a stay of six to eight weeks to cover conditioning, transplant, and initial recovery."
+			},
+			{
+				"name": "Heart Transplant",
+				"image": "/media/treatments/625bd4c29a796017f740.png",
+				"description": "A heart transplant replaces a severely diseased or failing heart with a healthy donor heart, generally considered for patients with advanced heart failure that has not responded to medication, devices, or other surgical treatment. Because a suitable donor heart must come from a deceased donor and be matched for blood type and body size, candidates are placed on a waiting list and undergo thorough evaluation to confirm they are fit for surgery and long-term immunosuppression. During the operation, performed with the patient on a heart-lung bypass machine, the diseased heart is removed and the donor heart is connected to the major blood vessels, typically taking four to six hours. Recipients spend time in intensive care immediately afterward and remain in hospital for several weeks while doctors monitor for rejection and infection and adjust lifelong anti-rejection medication. Regular biopsies of the new heart are performed in the early months to check for rejection. India's transplant programs manage the full pathway from evaluation to post-transplant care, though international patients should be aware that donor heart availability and waiting times vary depending on local allocation processes. Extended stays of several weeks to months are typically required to cover the waiting period, surgery, and recovery."
+			},
+			{
+				"name": "Heart-Lung Transplant",
+				"description": "A combined heart-lung transplant replaces both the heart and lungs in a single operation and is reserved for patients with severe, advanced disease affecting both organs together, such as complex congenital heart conditions with associated lung damage, or severe pulmonary hypertension that has caused irreversible heart failure. Because it requires a matched set of donor organs from a single deceased donor, it is a rarer and more complex procedure than single-organ transplant, with longer waiting periods due to limited donor availability. The operation is performed with the patient on a heart-lung bypass machine while the surgical team removes the diseased heart and lungs and connects the donor organs to the recipient's airway and major blood vessels. Recovery involves an extended stay in intensive care, careful management of breathing and lung function, and close monitoring for rejection of either organ, alongside lifelong immunosuppressive medication. Rehabilitation gradually rebuilds lung capacity and physical stamina over several months. India's transplant centers with combined thoracic transplant capability evaluate candidates thoroughly before listing, and international patients should expect a lengthy process encompassing evaluation, waiting time, surgery, and an extended recovery of several months before travel home is considered."
+			},
+			{
+				"name": "Lung Transplant",
+				"image": "/media/treatments/4a3ca8cc325aadd73243.png",
+				"description": "A lung transplant replaces one or both diseased lungs with healthy donor lungs and is considered for patients with end-stage lung disease such as chronic obstructive pulmonary disease, pulmonary fibrosis, cystic fibrosis, or severe pulmonary hypertension, where medical treatment can no longer maintain adequate breathing function. Depending on the condition, either a single lung or both lungs may be transplanted; the procedure is performed under general anesthesia, often with circulatory support such as a heart-lung bypass machine, while the surgical team removes the diseased lung tissue and connects the donor lung's airway and blood vessels to the recipient's. The operation typically takes several hours per lung, and recipients spend time on a ventilator and in intensive care afterward while lung function stabilizes. A structured pulmonary rehabilitation program follows over subsequent months to rebuild breathing capacity and endurance, alongside lifelong immunosuppressive medication and regular monitoring for rejection or infection. India's transplant centers assess candidates carefully for suitability, including disease severity and overall fitness for major surgery. Because donor lung availability affects waiting times, international patients should plan for an extended, somewhat variable stay covering evaluation, the waiting period, surgery, and early rehabilitation before travel home."
+			}
+		],
+		"benefits": [
+			"High-volume living-donor transplant programs",
+			"Dedicated transplant ICUs and isolation recovery wards",
+			"Long-term immunosuppression and follow-up care planning",
+			"Legal and ethical donor evaluation support throughout"
+		],
+		"flagshipProcedure": "Living Donor Liver Transplant",
+		"packagePrice": 25000,
+		"totalTripDays": 60,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 5,
+				"roomDays": 16,
+				"totalDays": 21
+			},
+			"donor": {
+				"icuDays": 2,
+				"roomDays": 6,
+				"totalDays": 8
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 300,000 – 500,000",
+				"waitTime": "Years (waitlist)",
+				"successRate": "88–92%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 150,000 – 250,000",
+				"waitTime": "1–3 years",
+				"successRate": "88–91%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 120,000 – 200,000",
+				"waitTime": "6–18 months",
+				"successRate": "87–90%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 60,000 – 80,000",
+				"waitTime": "Moderate",
+				"successRate": "85–88%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 25,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "90%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-transplant evaluation of Recipient and one Donor on OPD basis",
+			"Room Rent: Recipient — 21 days (5 days ICU + 16 days Single Room); Donor — 8 days (2 days ICU + 6 days Single Room)",
+			"Surgeon's Fees for both Donor & Recipient",
+			"Anesthetist Fee for both Donor & Recipient",
+			"Operation Theatre Charges for both Donor & Recipient",
+			"Anesthesia Service Charges for both Donor & Recipient",
+			"Laboratory Services Charges",
+			"Transfusion Services Charges",
+			"Radiology Services Charges",
+			"Physiotherapy Services Charges",
+			"Pharmacy Services Charges including Drugs & Medical Consumables"
+		],
+		"exclusions": [
+			"Hospital stay before the operation to improve the condition of the patient, and drugs/investigations after discharge from hospital",
+			"Workup of any additional donor",
+			"Any period of hospital or ICU stay beyond the package duration",
+			"All investigations, drugs, and consumables beyond ceiling rates",
+			"Costly or infrequently used medicines such as Zenapax, Simulect, Valcyte, Novoseven, Thymoglobulin, Ambisome, Caspofungin, and Anidulafungin",
+			"Any non-transplant consultant visit charges and procedure charges",
+			"Interventional radiology charges including percutaneous drain placement, percutaneous trans-hepatic biliary drainage, and angiography",
+			"Cardiology-related procedures (echo, angiography) and nephrology-related charges (dialysis, CRRT)",
+			"Endoscopic procedures such as ERCP",
+			"Re-operation"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of liver transplant in India?",
+				"answer": "Liver transplant surgery in India starts from USD 25,000, around 60–70% less than in the USA or UK. The package covers pre-transplant evaluation for the recipient and one donor, surgery for both, ICU and hospital stay, OT charges, nursing, lab, radiology, and pharmacy services."
+			},
+			{
+				"question": "What is the success rate of liver transplant in India?",
+				"answer": "India's top liver transplant centres report a one-year success rate of over 90%, comparable to leading programmes in the USA and Europe. The five-year survival rate is approximately 75%, depending on the underlying disease, overall patient health, and follow-up compliance."
+			},
+			{
+				"question": "Who can be a liver donor for transplant in India?",
+				"answer": "For a living donor liver transplant, the donor must be a close blood relative (parent, sibling, child, or spouse), aged 18–55, healthy, with a compatible blood group and normal liver function. Donation must be entirely voluntary — any financial transaction between donor and recipient is illegal under Indian law. Full donor evaluation is typically completed in 2–3 days."
+			},
+			{
+				"question": "How long is the hospital stay for liver transplant in India?",
+				"answer": "The recipient stays approximately 21 days — 5 days in the ICU and 16 days in a single room. The donor stays about 8 days — 2 days in ICU and 6 days in a single room. After discharge, the recipient is advised to remain in India for at least 1 month for close monitoring, making the total stay in India typically around 2 months."
+			},
+			{
+				"question": "Can the liver regenerate after living donor donation?",
+				"answer": "Yes. The liver is the only solid organ in the human body that can fully regenerate. After donating a portion, the donor's remaining liver grows back to roughly 80% of its original size within a few weeks, and to near-original size within months. The transplanted portion in the recipient also grows to full size."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Send the recipient and potential donor medical reports through our contact form or WhatsApp, and our transplant coordination team will arrange a free specialist review and a tele-consultation with the transplant surgeon before you travel."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793267292,
+			"updatedAt": 1793267292
+		}
+	},
+	"dental-care": {
+		"slug": "dental-care",
+		"name": "Dental Care",
+		"icon": "capsule",
+		"imageKey": "dentalCare",
+		"theme": "blue",
+		"shortDescription": "Implants, veneers, and full-mouth restoration using the latest digital dentistry.",
+		"overview": "Digital smile design, CAD/CAM same-day crowns, and full-mouth implant rehabilitation are standard at India's leading dental centers — delivering results in days rather than the months typical of staged treatment abroad.",
+		"startingPrice": 800,
+		"avgSavings": 84,
+		"hospitalsCount": 80,
+		"procedures": [
+			"Dental Implants",
+			"Veneers",
+			"Full Mouth Restoration"
+		],
+		"allProcedures": [
+			"Full Mouth Dental Implants",
+			"All-on-4 Dental Implants",
+			"All-on-6 Dental Implants",
+			"Immediate (3-Day) Dental Implants",
+			"Mini Dental Implants",
+			"Zygomatic Implants",
+			"Dental Crowns",
+			"Dentures & Bridges",
+			"Root Canal Treatment",
+			"Dental Veneers",
+			"Hollywood Smile Design",
+			"Invisalign — Clear Aligners",
+			"Snap-On Smile",
+			"Teeth Whitening",
+			"Orthodontics",
+			"Periodontics",
+			"Sedation Dentistry"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Full Mouth Dental Implants",
+				"image": "/media/treatments/36c1864b29d2db3be086.png",
+				"description": "Full mouth dental implants replace an entire arch, or both arches, of missing or severely damaged teeth with a fixed, implant-supported prosthesis. The process begins with a detailed evaluation of jawbone density using 3D CT scanning, followed by the surgical placement of multiple titanium implant posts into the upper and/or lower jaw, which act as artificial tooth roots. Over a period of healing, known as osseointegration, the implants fuse with the surrounding bone to create a stable foundation before a custom-made bridge or full-arch prosthesis is attached. Patients typically consider this option after losing most or all of their natural teeth due to advanced gum disease, decay, trauma, or long-term denture wear that has caused bone loss. Compared with removable dentures, a full mouth implant restoration offers improved chewing function, speech, and facial support, since it does not rely on suction or adhesive. Dental teams in India commonly combine digital smile design and in-house implant and prosthetic labs so that surgical placement, healing, and final restoration can be coordinated within a single treatment journey, often over one to two visits spaced a few months apart."
+			},
+			{
+				"name": "All-on-4 Dental Implants",
+				"description": "The All-on-4 technique restores a full arch of teeth using just four strategically placed implants, two positioned vertically at the front of the jaw and two angled toward the back to make use of denser bone and avoid structures like the sinus cavity or nerve canal. This angled placement often allows a fixed provisional bridge to be attached to the implants on the same day as surgery, giving patients functional, natural-looking teeth while the implants integrate with the bone over the following months. It is typically recommended for patients who have lost most of their teeth or require a full-arch extraction, particularly those who do not have enough bone volume for a full complement of implants without additional grafting. Once healing is complete, the provisional bridge is replaced with a final, more durable prosthesis. Because the approach uses fewer implants and often avoids bone grafting, it can shorten overall treatment time compared with traditional full mouth implant surgery. Clinics in India frequently offer this procedure with digital planning software to map implant angles precisely, allowing international patients to complete the surgical phase and receive a functional temporary bridge within a single trip."
+			},
+			{
+				"name": "All-on-6 Dental Implants",
+				"description": "The All-on-6 method restores a complete arch of missing teeth by anchoring a fixed prosthetic bridge to six implants distributed evenly along the jaw, rather than the four used in the All-on-4 approach. The additional implants spread biting forces across more points, which can provide extra stability for patients with higher bite pressure or those who want a broader base of support for a long-term fixed restoration. Candidates are generally patients with sufficient jawbone volume who are missing most or all of their teeth in an arch, whether from advanced periodontal disease, decay, or previous tooth loss. Surgery involves precise placement of the implant posts, guided by 3D imaging, followed by a healing period during which the bone fuses around the implants before the final bridge is fitted; in many cases a temporary fixed bridge is attached soon after surgery. This technique is often chosen over removable dentures because it eliminates the need for adhesives and restores near-normal chewing ability. Indian implant centers typically pair this procedure with in-house dental laboratories, allowing the surgical and prosthetic stages to be planned together and completed over one extended visit."
+			},
+			{
+				"name": "Immediate (3-Day) Dental Implants",
+				"description": "Immediate, or 3-day, dental implants are a protocol in which implant placement, temporary crown or bridge fitting, and initial follow-up are compressed into a short, structured visit rather than being spread across several separate trips. On the first day, implants are surgically placed into the jawbone, often using guided digital planning to determine ideal positioning; where bone quality allows, a temporary fixed restoration is attached within the same visit or shortly after, so the patient leaves with functional, aesthetic teeth rather than a gap or removable appliance. The following days are typically used for review of healing, bite adjustment, and fine-tuning of the temporary prosthesis before the patient returns home, with the final permanent restoration completed later, either locally or on a subsequent visit, once osseointegration is complete. This approach suits patients who need efficient treatment due to travel constraints and who have adequate bone density to support immediate loading. India-based implant teams often structure this protocol specifically around international patients, coordinating scanning, surgery, and temporary restoration within a compact itinerary while planning follow-up care for when the implants have fully integrated."
+			},
+			{
+				"name": "Mini Dental Implants",
+				"description": "Mini dental implants are narrower-diameter titanium posts, generally less than three millimeters across, used to anchor replacement teeth or stabilize dentures in patients whose jawbone is too thin or narrow for conventional implants. Because of their smaller size, they can often be placed with a minimally invasive technique that avoids the need for bone grafting, using a small pilot hole rather than a larger surgical flap, which typically shortens both the procedure and recovery time. They are most commonly used to secure a lower or upper denture with a ball-and-socket or bar attachment, converting a loose removable appliance into a more stable one, though they can also support single crowns in cases with limited bone. Patients who need this option include those with significant bone loss who are not candidates for standard implants, or older patients seeking a less invasive way to improve denture stability. Healing time is generally shorter than with standard implants, and in many cases a prosthesis can be attached soon after placement. Dental clinics in India commonly offer mini implants as a lower-cost, faster alternative for patients focused on denture stabilization rather than full-arch fixed reconstruction."
+			},
+			{
+				"name": "Zygomatic Implants",
+				"description": "Zygomatic implants are unusually long titanium implants, often 30 to 50 millimeters, anchored not in the upper jawbone but in the zygomatic bone, or cheekbone, which is denser and less prone to the resorption that frequently affects the upper jaw after long-term tooth loss. They are used for patients with severe upper jaw bone loss who are not candidates for conventional implants and who would otherwise require extensive bone grafting procedures before any implant could be placed. During surgery, the implant is inserted at an angle that passes through the upper jaw and engages the cheekbone, providing a stable anchor point for a fixed prosthesis, in many cases allowing a full-arch temporary bridge to be attached soon after surgery. This technique can eliminate the months-long grafting and healing process that would otherwise be needed, making it an option for patients seeking a faster path to a fixed restoration despite significant bone deficiency. Because zygomatic implant placement requires specialized surgical training and imaging, it is typically performed by experienced oral and maxillofacial surgeons. Indian centers offering this procedure generally use 3D cone-beam imaging for precise surgical planning given the anatomical complexity involved."
+			},
+			{
+				"name": "Dental Crowns",
+				"description": "A dental crown is a custom-fabricated cap, typically made from porcelain, zirconia, metal, or a combination of these materials, that fully covers a damaged or weakened tooth to restore its shape, strength, and appearance. Crowns are recommended when a tooth has been significantly weakened by a large filling, cracked, worn down, or treated with root canal therapy, since the procedure often removes enough tooth structure that the remaining tooth needs additional support to withstand normal biting forces. Placement usually involves shaping the tooth to make room for the crown, taking a digital or physical impression, and fitting a temporary crown while the permanent one is fabricated, often in a dental laboratory, before it is cemented into place at a follow-up visit. Same-day crown systems using in-office milling technology can shorten this process considerably by designing and producing the crown chairside. Crowns are also used to cap dental implants and to anchor bridges replacing missing teeth. Dental clinics in India commonly offer a choice of crown materials with varying aesthetics and durability, and many use digital scanning and on-site milling to reduce the number of visits required."
+			},
+			{
+				"name": "Dentures & Bridges",
+				"description": "Dentures and bridges are two traditional approaches to replacing missing teeth without surgery. A denture is a removable appliance, either partial or complete, made from an acrylic or flexible base with artificial teeth, designed to rest on the gums and, in the upper jaw, part of the palate; it is held in place by suction, clasps, or adhesive and can be taken out for cleaning. A bridge, by contrast, is a fixed restoration that replaces one or more missing teeth by anchoring artificial teeth to the natural teeth or implants on either side of the gap, typically using crowns cemented over the supporting teeth. Patients choose these options based on the number of missing teeth, the condition of remaining teeth, bone health, and budget, since both are generally less invasive and more affordable than implant-based alternatives. Fitting involves impressions or digital scans, laboratory fabrication, and adjustment visits to ensure comfort and a natural bite. Indian dental laboratories often use CAD/CAM technology to fabricate precise, well-fitting dentures and bridges, and many clinics can complete design, fabrication, and fitting within a single extended visit for international patients."
+			},
+			{
+				"name": "Root Canal Treatment",
+				"description": "Root canal treatment, or endodontic therapy, removes infected or inflamed pulp tissue from inside a tooth to relieve pain and save a tooth that might otherwise need extraction. It is typically needed when deep decay, a cracked tooth, or repeated dental procedures allow bacteria to reach the pulp chamber and root canals, causing infection, swelling, or persistent pain, particularly with hot, cold, or pressure. Under local anesthesia, the dentist creates a small opening in the tooth, removes the damaged pulp, and cleans and shapes the root canals before filling them with a biocompatible material to seal out further infection. Because a treated tooth becomes more brittle without its blood supply, it is usually capped with a crown afterward, especially for back teeth that bear heavy chewing forces. Modern root canal treatment is generally completed over one or two visits using rotary instruments and, in many clinics, operating microscopes for greater precision, and most patients experience significant relief from pre-treatment pain rather than added discomfort. Dental centers in India commonly use digital X-rays and apex locators to map canal anatomy accurately, helping ensure thorough cleaning and a well-sealed result."
+			},
+			{
+				"name": "Dental Veneers",
+				"description": "Dental veneers are thin shells, usually made of porcelain or composite resin, bonded to the front surface of teeth to improve their appearance by changing their color, shape, size, or alignment. They are commonly used to address discoloration that does not respond to whitening, chips, gaps between teeth, or teeth that are slightly misshapen or uneven, offering a way to improve a smile without the more extensive movement required by orthodontics. For porcelain veneers, a thin layer of enamel is typically removed from the tooth surface to allow the veneer to sit flush, impressions are taken, and custom shells are fabricated in a laboratory before being bonded into place at a second visit; composite veneers can often be sculpted directly onto the tooth in a single session. Because porcelain veneer placement removes some natural enamel, it is generally considered a permanent cosmetic change requiring long-term maintenance. Veneers are durable but not indestructible, and patients are usually advised to avoid biting very hard foods directly with veneered teeth. Indian cosmetic dental clinics often use digital smile design software to preview the result and match veneer shade and shape to the patient's facial features before treatment begins."
+			},
+			{
+				"name": "Hollywood Smile Design",
+				"description": "Hollywood Smile Design is a comprehensive cosmetic dentistry approach that combines multiple procedures, most often porcelain veneers or crowns, teeth whitening, and sometimes gum contouring, to create a uniformly white, symmetrical smile. Rather than treating a single tooth or issue, the process begins with a full assessment of tooth color, shape, alignment, and gum line, often supported by digital smile design software that lets the patient preview the planned outcome before any tooth is touched. Candidates are typically patients seeking a significant cosmetic transformation for reasons such as uneven teeth, discoloration, gaps, or an uneven gum line, rather than those with a single isolated dental problem. Treatment usually involves minimal tooth preparation, laboratory fabrication of custom veneers or crowns matched to a chosen shade and shape, and staged fitting appointments to achieve a natural yet enhanced result. Because it is a cosmetic rather than medically necessary procedure, planning discussions focus heavily on the patient's expectations and facial proportions. Indian cosmetic dental centers frequently package this treatment for international patients, coordinating digital planning, laboratory work, and fitting appointments so the full transformation can be completed within a single extended visit."
+			},
+			{
+				"name": "Invisalign — Clear Aligners",
+				"description": "Invisalign uses a series of custom-made, clear, removable plastic aligners to gradually move teeth into a straighter position, offering an alternative to traditional metal braces for correcting crowding, spacing, and certain bite irregularities. Treatment begins with digital scans or impressions of the teeth, which are used to generate a 3D treatment plan showing the projected movement of each tooth through a sequence of aligner stages; a new aligner is worn roughly every one to two weeks, each one shifting the teeth slightly closer to their final position. Because the aligners are transparent and removable for eating and cleaning, they are often chosen by adult patients or those wanting a less visible option than fixed braces. Small tooth-colored attachments may be bonded to certain teeth to help aligners grip and apply more precise force where needed. Treatment length varies with the complexity of the case, ranging from several months for minor corrections to well over a year for more involved misalignment, and periodic check-ins are needed to monitor progress and issue new aligner sets. Orthodontic clinics in India commonly use in-house 3D scanning and treatment-planning software to design and monitor Invisalign cases for both local and visiting patients."
+			},
+			{
+				"name": "Snap-On Smile",
+				"description": "Snap-On Smile is a removable, non-invasive dental appliance made from a flexible dental resin that fits directly over a patient's existing teeth to instantly improve the appearance of a smile without any drilling, shaping, or anesthesia. It is custom-fabricated from impressions of the patient's mouth to snap securely over the natural teeth, covering discoloration, chips, gaps, or misalignment, and can be removed and reinserted by the patient at will for cleaning or eating. Because no tooth structure is altered, it is often chosen by patients who want a reversible cosmetic solution, a temporary option while considering more permanent treatments such as veneers or implants, or an affordable way to improve their smile's appearance without surgery. It is not a substitute for restorative treatment in cases involving active decay, gum disease, or missing teeth requiring functional replacement, and it is generally not intended for regular chewing of very hard foods. Fitting typically requires two visits: one for impressions and shade selection, and a second for fitting and adjustment once the appliance has been fabricated. Dental clinics in India often offer this as a quick cosmetic option for patients wanting a same-trip smile improvement without committing to permanent tooth alteration."
+			},
+			{
+				"name": "Teeth Whitening",
+				"description": "Teeth whitening is a cosmetic procedure that lightens the shade of teeth by breaking down staining compounds within the enamel and underlying dentin, typically using a peroxide-based gel. In-office whitening involves a dentist applying a higher-concentration gel to the teeth, sometimes activated with a special light, under controlled conditions that protect the gums, producing a visible change within a single appointment lasting around an hour. Take-home whitening kits use custom-fitted trays and a lower-concentration gel worn for a set period daily over one to two weeks, offering a more gradual result that patients can manage at their own pace. Patients typically seek whitening to address staining from coffee, tea, tobacco, aging, or certain medications, though results vary depending on the original cause and shade of discoloration, and whitening does not change the color of crowns, veneers, or fillings, which can create shade mismatches if not planned for. Mild tooth sensitivity during or after treatment is common and usually temporary. Dental clinics in India often combine in-office whitening with a take-home maintenance kit so international patients can achieve an immediate result before travel and maintain it afterward."
+			},
+			{
+				"name": "Orthodontics",
+				"description": "Orthodontics is the branch of dentistry focused on diagnosing and correcting misaligned teeth and jaws, using appliances such as traditional metal or ceramic braces, clear aligners, or functional devices to gradually move teeth or guide jaw growth into a more balanced position. Treatment is typically recommended for crowding, gaps, overbite, underbite, crossbite, or jaw misalignment that affects chewing, speech, oral hygiene, or long-term dental health, and can be pursued at almost any age, though early evaluation in childhood can sometimes simplify later treatment. The process usually begins with a clinical exam, X-rays, and digital or physical impressions to plan tooth movement, followed by fitting of braces or aligners and regular adjustment visits, typically every four to eight weeks, over a treatment period that can range from several months to a few years depending on complexity. In some cases involving significant jaw discrepancy, orthodontic treatment is combined with corrective jaw surgery for a more complete result. After active treatment, a retainer is generally required to maintain the new tooth positions. Orthodontic centers in India commonly offer a full range of options from traditional braces to clear aligner systems, with digital planning tools used to map treatment before it begins."
+			},
+			{
+				"name": "Periodontics",
+				"description": "Periodontics is the dental specialty concerned with the structures that support the teeth, namely the gums, periodontal ligament, and surrounding bone, and focuses on preventing, diagnosing, and treating gum disease ranging from mild gingivitis to advanced periodontitis. Treatment often begins with non-surgical approaches such as deep cleaning procedures, known as scaling and root planing, which remove plaque and tartar from below the gum line to reduce inflammation and infection. When disease has progressed further, causing gum recession, bone loss, or deep pockets around the teeth, surgical options such as flap surgery, bone grafting, or gum grafting may be used to remove infected tissue, regenerate lost bone, or cover exposed roots. Patients typically need periodontal care when they notice bleeding gums, persistent bad breath, gum recession, or loosening teeth, all of which can indicate underlying infection that, left untreated, may lead to tooth loss. Periodontists also play a key role in preparing the gums and bone before dental implant placement. Dental centers in India often integrate periodontal assessment into implant and cosmetic treatment planning, since healthy gum and bone tissue is essential for the long-term success of most restorative procedures."
+			},
+			{
+				"name": "Sedation Dentistry",
+				"description": "Sedation dentistry uses medication to help patients relax during dental procedures, ranging from mild anxiety-reducing options to deeper levels of sedation, and is generally offered to patients with significant dental anxiety, a strong gag reflex, sensitivity to pain, or those undergoing lengthy or complex procedures such as multiple extractions or full-arch implant surgery. Common options include nitrous oxide, or laughing gas, which is inhaled and wears off quickly, oral sedatives taken before the appointment for a calmer, drowsy state, and intravenous sedation, which is administered by a trained professional and allows for deeper relaxation with the patient still able to breathe independently and respond to instructions. For more extensive surgical procedures, general anesthesia may occasionally be used under the supervision of an anesthesiologist. Throughout sedation, vital signs such as heart rate, blood pressure, and oxygen levels are typically monitored to ensure patient safety. The choice of sedation level depends on the complexity of the procedure, the patient's anxiety level, and their overall health history. Dental clinics in India offering sedation options for complex procedures such as full mouth implants typically have qualified anesthesiology support on-site, allowing international patients to complete lengthy treatment sessions comfortably within a single visit."
+			}
+		],
+		"benefits": [
+			"Digital smile design and CAD/CAM same-day crowns",
+			"Full-mouth implant rehabilitation completed in a single trip",
+			"International-grade implant brands used throughout",
+			"Combine treatment with a recovery stay near the clinic"
+		],
+		"flagshipProcedure": "Full Mouth Dental Implants",
+		"packagePrice": 800,
+		"totalTripDays": 10,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 0,
+				"roomDays": 0,
+				"totalDays": 0
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 4,000 – 6,000 per implant",
+				"waitTime": "2–4 weeks",
+				"successRate": "95–97%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 3,000 – 5,000 per implant",
+				"waitTime": "3–6 weeks",
+				"successRate": "95–97%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 2,500 – 4,000 per implant",
+				"waitTime": "2–4 weeks",
+				"successRate": "94–96%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 1,200 – 2,000 per implant",
+				"waitTime": "1–2 weeks",
+				"successRate": "93–95%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 800 – 1,300 per implant",
+				"waitTime": "3–5 days",
+				"successRate": "95%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Digital smile design consultation and 3D scan",
+			"Dentist's fees for implant placement or restoration",
+			"Standard-grade implant fixture and abutment",
+			"CAD/CAM same-day crown fabrication where applicable",
+			"Local anesthesia and sterile procedure charges",
+			"One follow-up visit to check healing and fit"
+		],
+		"exclusions": [
+			"Bone grafting or sinus lift procedures unless identified during the initial scan",
+			"Premium implant brand upgrades beyond the standard-grade fixture",
+			"Additional crowns, veneers, or restorations beyond the agreed treatment plan",
+			"Orthodontic treatment or teeth alignment prior to implant placement",
+			"Follow-up visits beyond the one included check-up"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of dental implants in India?",
+				"answer": "A single dental implant in India starts from USD 800, around 80% less than in the US, and includes the consultation, implant placement, and a same-day CAD/CAM crown where applicable."
+			},
+			{
+				"question": "Can full-mouth restoration be completed in one trip?",
+				"answer": "Yes, using digital smile design and same-day crown technology, most full-mouth implant cases can be completed within a single 7–10 day trip, compared to the months typically needed for staged treatment abroad."
+			},
+			{
+				"question": "What implant brands are used?",
+				"answer": "Our partner dental centers use internationally certified implant brands as standard, with premium brand upgrades available on request."
+			},
+			{
+				"question": "Is the procedure painful?",
+				"answer": "Implant placement is done under local anesthesia and is generally well-tolerated, with most patients returning to normal activity within a day or two."
+			},
+			{
+				"question": "How long should I plan to stay in India?",
+				"answer": "Most implant and restoration cases need about 7–10 days in India to allow for placement, any same-day crown work, and a follow-up check before you travel home."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share a recent dental X-ray or photos of your teeth through our contact form, and our dental coordinator will arrange a review and transparent quote within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793267005,
+			"updatedAt": 1793267005
+		}
+	},
 	"eye-care": {
 		"slug": "eye-care",
 		"name": "Eye Care",
@@ -1267,6 +1642,356 @@
 			"source": "site",
 			"createdAt": 1792837242,
 			"updatedAt": 1793018750
+		}
+	},
+	"ent-care": {
+		"slug": "ent-care",
+		"name": "ENT (Ear, Nose & Throat)",
+		"icon": "earNoseThroat",
+		"theme": "green",
+		"shortDescription": "Cochlear implants, sinus surgery, and hearing restoration using advanced endoscopic techniques.",
+		"overview": "India's ENT centers combine microsurgical expertise in cochlear implantation with advanced endoscopic sinus and airway surgery, giving international patients — including children needing early hearing intervention — access to specialized care without the long waitlists common for cochlear implant programs abroad.",
+		"startingPrice": 600,
+		"avgSavings": 82,
+		"hospitalsCount": 40,
+		"procedures": [
+			"Cochlear Implants",
+			"Sinus Surgery",
+			"Tonsillectomy"
+		],
+		"allProcedures": [
+			"Cochlear Implant Surgery",
+			"Hearing Loss Treatment",
+			"Tympanoplasty (Eardrum Repair)",
+			"Sinus Surgery (FESS)",
+			"Nasal Polyp Surgery",
+			"Nasal Septum Surgery (Septoplasty)",
+			"Adenoid Surgery",
+			"Tonsillitis Treatment (Tonsillectomy)",
+			"Thyroid Gland Surgery",
+			"Endocrine Gland Surgery"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Cochlear Implant Surgery",
+				"image": "/media/treatments/186e5346a3e265ee4f19.png",
+				"description": "A cochlear implant is an electronic device surgically implanted to provide a sense of sound to people with severe to profound hearing loss who no longer benefit sufficiently from conventional hearing aids. Unlike a hearing aid, which amplifies sound, a cochlear implant bypasses the damaged part of the inner ear and directly stimulates the auditory nerve using electrical signals. The device consists of an external processor worn behind the ear, which captures and digitizes sound, and an internal receiver and electrode array that a surgeon places into the cochlea during a procedure performed under general anesthesia, typically taking two to three hours. Candidates undergo detailed hearing assessments, inner-ear imaging, and counseling beforehand, as outcomes depend on factors such as age at implantation and duration of hearing loss. After a short hospital stay, the external device is fitted and activated several weeks after surgery, followed by auditory rehabilitation and mapping sessions to fine-tune the processor's settings. India's ENT and cochlear implant centers treat both children and adults, with programs experienced in pediatric implantation for congenital hearing loss. International patients should plan for an initial visit for surgery and a return visit some weeks later for activation and programming."
+			},
+			{
+				"name": "Hearing Loss Treatment",
+				"image": "/media/treatments/664710c8d25f99ffcaca.png",
+				"description": "Hearing loss treatment covers a range of approaches tailored to the type, severity, and cause of a patient's hearing impairment, determined through audiometric testing and a clinical ENT examination. Conductive hearing loss, caused by problems in the outer or middle ear such as fluid, earwax blockage, or a damaged eardrum or ossicles, may be treated medically or with surgery such as eardrum repair or ossicular reconstruction. Sensorineural hearing loss, caused by damage to the inner ear or auditory nerve, is more often managed with hearing aids that amplify sound, or with cochlear implants in cases of severe to profound loss where hearing aids are no longer effective. Evaluation typically includes a hearing test, examination of the ear canal and eardrum, and sometimes imaging to identify the underlying cause. Treatment plans are individualized, and for many patients a combination of approaches, such as addressing a treatable cause alongside amplification, gives the best results. India's ENT and audiology centers offer comprehensive hearing assessment along with the full range of surgical and device-based treatment options in one setting. International patients typically begin with a detailed hearing evaluation, after which the specialist recommends a treatment path and expected length of stay."
+			},
+			{
+				"name": "Tympanoplasty (Eardrum Repair)",
+				"image": "/media/treatments/ee4d8172f91c0e70441e.png",
+				"description": "Tympanoplasty is a surgical procedure to repair a perforated or damaged eardrum, most often caused by chronic ear infections, trauma, or a previous injury, which can lead to hearing loss and recurrent infections if left untreated. The surgeon typically uses a small graft of the patient's own tissue, often taken from beneath the skin near the ear or from cartilage, to patch the hole and restore the eardrum's ability to vibrate and transmit sound. Depending on the extent of damage, the procedure may also involve repairing the tiny middle ear bones if they have been affected by infection or disease. Tympanoplasty is usually performed under local or general anesthesia through the ear canal or a small incision behind the ear, and typically takes one to two hours. Most patients go home the same day or after a short overnight stay, with ear drops prescribed and precautions to keep the ear dry while it heals over the following weeks. India's ENT surgical centers perform tympanoplasty routinely using microscopic or endoscopic ear surgery techniques for precise, minimally invasive repair. International patients typically need about one to two weeks in India to allow for the procedure and an initial post-operative check before travel."
+			},
+			{
+				"name": "Sinus Surgery (FESS)",
+				"image": "/media/treatments/e77fc74b4f2b12c799d4.png",
+				"description": "Functional endoscopic sinus surgery, or FESS, is a minimally invasive procedure used to treat chronic sinusitis, nasal polyps, and other sinus conditions that have not responded adequately to medical treatment such as antibiotics, nasal steroids, or saline irrigation. Using a thin endoscope with a camera and light inserted through the nostrils, the surgeon identifies and removes blockages, diseased tissue, or polyps obstructing the sinus openings, widening the natural drainage pathways so the sinuses can ventilate and drain normally, without any external incisions. The procedure is typically performed under general anesthesia and takes one to two hours depending on how many sinuses are involved, often guided by CT imaging taken beforehand to map the patient's individual sinus anatomy. Most patients go home the same day or after an overnight stay, with temporary nasal packing removed within the first week and a period of nasal irrigation to support healing. India's ENT centers perform FESS routinely using high-definition endoscopic equipment and, in some cases, image-guided navigation for complex or revision cases. International patients typically plan for about one to two weeks to allow for the procedure and an early follow-up visit before traveling home."
+			},
+			{
+				"name": "Nasal Polyp Surgery",
+				"image": "/media/treatments/364c3a7abca055e6e7e3.png",
+				"description": "Nasal polyp surgery removes soft, non-cancerous growths that develop in the lining of the nose or sinuses, which can cause nasal blockage, loss of smell, facial pressure, and recurrent sinus infections when large enough to obstruct airflow and drainage. Polyps are often linked to chronic inflammation, allergies, or asthma, and while small polyps may initially be managed with nasal steroid sprays, surgery is recommended when polyps are large or medical treatment has not adequately controlled symptoms. The procedure is usually performed endoscopically, using a thin camera passed through the nostrils to visualize and remove the polyps along with any associated sinus disease, without external cuts. It is typically done under general anesthesia and takes around thirty minutes to an hour, often combined with broader sinus surgery if the polyps involve multiple sinus cavities. Most patients go home the same day or after a short stay, with saline irrigation and follow-up steroid treatment used afterward to reduce the chance of polyps returning, since recurrence is common without ongoing management. India's ENT centers combine endoscopic polyp removal with allergy and sinus disease management, and international patients typically plan for about a week to cover surgery and an initial follow-up review."
+			},
+			{
+				"name": "Nasal Septum Surgery (Septoplasty)",
+				"image": "/media/treatments/f98e7df29a276e4d0441.png",
+				"description": "Septoplasty is a surgical procedure to correct a deviated nasal septum, the thin wall of cartilage and bone dividing the two nostrils, when it is bent or displaced enough to cause nasal obstruction, breathing difficulty, recurrent sinus infections, or disrupted sleep. A deviated septum may be present from birth or result from an injury to the nose. During the procedure, performed under local or general anesthesia through incisions made inside the nose with no visible external scarring, the surgeon straightens the septum by trimming, repositioning, or removing the cartilage and bone causing obstruction, while preserving enough structural support to maintain the shape of the nose. The operation typically takes thirty minutes to an hour, and most patients go home the same day or after a short overnight stay, sometimes with temporary internal splints to support healing. Improvement in nasal breathing is usually noticeable within a few weeks as post-operative swelling subsides. India's ENT surgeons perform septoplasty routinely, often combining it with sinus surgery or turbinate reduction when needed for a complete breathing correction. International patients typically plan for about one to two weeks to allow for the procedure and a follow-up check before traveling home."
+			},
+			{
+				"name": "Adenoid Surgery",
+				"image": "/media/treatments/f63cefc071366ec7bb42.png",
+				"description": "Adenoid surgery, or adenoidectomy, is the surgical removal of the adenoids, a patch of lymphoid tissue at the back of the nasal cavity that can become chronically enlarged or infected, most commonly in children. Enlarged adenoids can obstruct the airway behind the nose, leading to persistent nasal blockage, mouth breathing, snoring, recurrent ear infections from blocked middle-ear drainage, and in some cases disrupted sleep. The procedure is performed under general anesthesia through the mouth, without any external incision, using instruments or a microdebrider to remove the adenoid tissue, typically taking fifteen to thirty minutes. It is often performed alongside tonsillectomy when both the tonsils and adenoids are enlarged and causing symptoms together. Most children go home the same day or after a short overnight observation, with a few days of mild throat or ear discomfort and a soft diet recommended during initial healing. Improvement in nasal breathing, snoring, and recurrent ear infections is usually noticeable within a few weeks. India's pediatric ENT surgeons perform adenoidectomy routinely, often coordinating it with tonsillectomy in a single anesthetic when appropriate. International families typically plan for about a week in India to allow for the procedure and a brief follow-up review before travel home."
+			},
+			{
+				"name": "Tonsillitis Treatment (Tonsillectomy)",
+				"image": "/media/treatments/78cd16d79771ca763d52.png",
+				"description": "Tonsillectomy is the surgical removal of the tonsils, two oval-shaped pads of lymphoid tissue at the back of the throat, and is generally recommended for patients with recurrent or chronic tonsillitis that has not responded to medical treatment, or for tonsils enlarged enough to cause breathing or swallowing difficulty and disrupted sleep. The procedure is performed under general anesthesia through the mouth, with no external incision, using techniques such as traditional dissection, electrocautery, or coblation to remove the tonsil tissue while controlling bleeding from the tonsil bed. It typically takes thirty minutes to an hour, and most patients, whether children or adults, go home the same day or after an overnight stay for observation. Recovery involves a period of sore throat and discomfort with swallowing lasting one to two weeks, during which a soft diet, hydration, and pain management support healing and reduce the risk of bleeding. India's ENT centers perform tonsillectomy routinely for both recurrent tonsillitis and airway-related indications, using modern techniques aimed at minimizing bleeding and postoperative pain. International patients typically plan for about one to two weeks in India to allow for the procedure and monitoring through the higher-risk early healing period before traveling home."
+			},
+			{
+				"name": "Thyroid Gland Surgery",
+				"image": "/media/treatments/064bdd51e67d1f455ad2.png",
+				"description": "Thyroid surgery, or thyroidectomy, involves the surgical removal of part or all of the thyroid gland, the butterfly-shaped gland in the neck that regulates metabolism through hormone production. It is commonly performed for thyroid nodules suspicious for or confirmed to be cancer, large goiters causing compression of the windpipe or swallowing difficulty, overactive thyroid conditions not adequately controlled by medication or radioactive iodine, or nodules that cannot be clearly diagnosed without removing tissue for examination. Depending on the condition, the surgeon may remove just one lobe or the entire gland, performed under general anesthesia through an incision in the lower neck, typically taking one to three hours, with careful technique used to protect the nearby nerves controlling the voice box and the small parathyroid glands that regulate calcium. Most patients stay in hospital for one to two days for monitoring of calcium levels and voice function before discharge. Patients who have the entire thyroid removed require lifelong thyroid hormone replacement medication. India's endocrine surgery centers perform thyroidectomy routinely, often supported by ultrasound-guided biopsy and pathology services for pre-operative diagnosis. International patients typically plan for about one to two weeks to cover surgery, monitoring, and initial follow-up before travel home."
+			},
+			{
+				"name": "Endocrine Gland Surgery",
+				"image": "/media/treatments/7d40a56a7d8b4318681c.png",
+				"description": "Endocrine gland surgery refers to operations performed on the body's hormone-producing glands, most commonly the thyroid, parathyroid, and adrenal glands, when a gland is overactive, enlarged, or affected by a tumor not adequately managed with medication alone. The approach depends on the gland involved: parathyroid surgery removes one or more overactive parathyroid glands to correct abnormally high calcium levels, adrenal surgery removes part or all of an adrenal gland affected by a hormone-secreting or suspicious tumor, often using minimally invasive laparoscopic techniques, and thyroid surgery removes part or all of the thyroid for nodules, goiters, or cancer. Diagnosis typically relies on blood hormone testing, imaging such as ultrasound or CT, and sometimes nuclear medicine scans to localize the abnormal gland before surgery. Most procedures are performed under general anesthesia and require careful technique to preserve nearby nerves and normal glandular tissue where possible. Hospital stays range from one to a few days depending on the gland and extent of surgery, and some patients require lifelong hormone replacement afterward. India's endocrine surgery centers offer coordinated care between endocrinologists and surgeons for accurate diagnosis and planning. International patients typically plan for one to two weeks to allow for evaluation, surgery, and post-operative hormone level checks."
+			}
+		],
+		"benefits": [
+			"ENT surgeons experienced in pediatric and adult cochlear implantation",
+			"Access to leading cochlear implant brands (Cochlear, MED-EL, Advanced Bionics)",
+			"Dedicated audiology team for device programming and follow-up mapping",
+			"Endoscopic, minimally invasive techniques for sinus and nasal procedures"
+		],
+		"flagshipProcedure": "Cochlear Implant Surgery",
+		"packagePrice": 9000,
+		"totalTripDays": 14,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 0,
+				"roomDays": 2,
+				"totalDays": 2
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 30,000 – 50,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "90–95%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 25,000 – 40,000",
+				"waitTime": "6–18 months (NHS)",
+				"successRate": "90–95%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 22,000 – 35,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "89–94%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 12,000 – 18,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "88–92%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 9,000 – 13,000",
+				"waitTime": "1–2 weeks",
+				"successRate": "90%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-operative audiological assessment and imaging (CT/MRI) review",
+			"Surgeon's and anesthetist's fees for the implant surgery",
+			"Standard cochlear implant device and internal processor",
+			"Operation theatre charges and 2 days of hospital stay",
+			"Initial device activation and mapping session with the audiology team",
+			"Discharge summary with a structured auditory rehabilitation plan"
+		],
+		"exclusions": [
+			"Premium or upgraded external processor models beyond the standard device",
+			"Ongoing speech and auditory rehabilitation sessions beyond the initial mapping",
+			"Bilateral (both-ear) implantation unless quoted together",
+			"Hospital stay beyond the package duration",
+			"Treatment for unrelated conditions identified during pre-op screening",
+			"Revision surgery for complications unrelated to the original procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of a cochlear implant in India?",
+				"answer": "A cochlear implant package in India starts from USD 9,000, around 70–80% less than in the US, and includes the pre-op assessment, surgery, standard device, hospital stay, and initial mapping session."
+			},
+			{
+				"question": "Is a cochlear implant suitable for children?",
+				"answer": "Yes, cochlear implantation is commonly performed in young children with severe hearing loss, and earlier implantation generally supports better speech and language development — our ENT team will confirm candidacy after reviewing your child's audiology reports."
+			},
+			{
+				"question": "How long is the hospital stay and recovery?",
+				"answer": "Most patients stay about 2 days in hospital, with device activation typically done 2–4 weeks after surgery once initial healing is complete — many families plan a longer stay in India to complete the first mapping session before flying home."
+			},
+			{
+				"question": "Can both ears be treated in one trip?",
+				"answer": "Yes, bilateral cochlear implantation or combined sinus and hearing procedures can often be planned in a single trip for suitable candidates — this is quoted separately from a single-ear package."
+			},
+			{
+				"question": "Is sinus surgery done endoscopically?",
+				"answer": "Yes, functional endoscopic sinus surgery (FESS) is standard at our partner hospitals, which typically means no external incisions and a faster recovery than open surgery."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your audiology reports, imaging, or a description of your symptoms through our contact form, and our ENT coordinator will arrange a specialist review and transparent quote within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"imageKey": "dentalCare",
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793268804,
+			"updatedAt": 1793275615
+		}
+	},
+	"nephrology-urology": {
+		"slug": "nephrology-urology",
+		"name": "Nephrology & Urology",
+		"icon": "kidney",
+		"imageKey": "urology",
+		"theme": "blue",
+		"shortDescription": "Kidney stone treatment, prostate surgery, and dialysis care from specialized urology teams.",
+		"overview": "India's urology and nephrology centers perform kidney stone and prostate procedures at high volumes using laser and minimally invasive techniques, giving international patients fast access to specialists without the waitlists common abroad.",
+		"startingPrice": 3500,
+		"avgSavings": 84,
+		"hospitalsCount": 55,
+		"procedures": [
+			"Kidney Stone Removal",
+			"Prostate Surgery",
+			"Dialysis Care"
+		],
+		"allProcedures": [
+			"Kidney Stone Removal (PCNL / RIRS)",
+			"Prostate Surgery",
+			"Dialysis Care",
+			"Urinary Incontinence Treatment",
+			"Erectile Dysfunction Treatment",
+			"Peyronie's Disease Treatment",
+			"Penile Implant Surgery (Malleable & Inflatable)",
+			"Malleable Penile Implant (Shah Technique)",
+			"Chronic Pelvic & Perineal Pain Management"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Kidney Stone Removal (PCNL / RIRS)",
+				"image": "/media/treatments/7ff6c336000de7593945.png",
+				"description": "Kidney stone removal addresses stones that form when minerals and salts in urine crystallize within the kidney, causing pain, blood in urine, infection, or blockage of urine flow when conservative measures such as hydration and medication fail to clear them. Percutaneous nephrolithotomy, or PCNL, is used for larger or more complex stones and involves creating a small tunnel through the skin of the back directly into the kidney under X-ray or ultrasound guidance, through which a scope and instruments break up and remove the stone in fragments. Retrograde intrarenal surgery, or RIRS, is a scarless alternative for small to medium stones in which a flexible scope is passed through the urinary tract via the bladder and ureter up into the kidney, where a laser fragments the stone into pieces small enough to pass or be extracted. Both procedures are performed under spinal or general anesthesia, with PCNL generally taking one to two hours and RIRS somewhat less. Indian urology centers perform very high volumes of both techniques, often supported by advanced laser lithotripsy systems. Recovery from RIRS is typically quicker with a shorter hospital stay, while PCNL patients usually need a few additional days to recover, with a stent often left temporarily to support healing."
+			},
+			{
+				"name": "Prostate Surgery",
+				"image": "/media/treatments/abae9e7ce3a1b91e3fcd.png",
+				"description": "Prostate surgery covers a range of procedures used to treat either benign prostatic hyperplasia, a common non-cancerous enlargement of the prostate that obstructs urine flow, or prostate cancer confined to the gland. For benign enlargement, the most common approach is transurethral resection of the prostate, or TURP, in which a scope passed through the urethra removes excess prostate tissue to relieve blockage, with newer laser-based techniques such as holmium laser enucleation offering similar relief with less bleeding. For prostate cancer, radical prostatectomy removes the entire prostate gland along with surrounding tissue and is increasingly performed using laparoscopic or robotic-assisted techniques, allowing precise dissection through small incisions with better preservation of surrounding nerves controlling continence and sexual function where oncologically appropriate. The choice of procedure depends on the underlying condition, prostate size, cancer stage if present, and the patient's overall health, and is guided by prior imaging, PSA levels, and biopsy findings. Surgery is performed under spinal or general anesthesia and duration varies with technique and complexity. Indian urology centers offer both conventional and robotic-assisted prostate surgery. Recovery includes a period with a urinary catheter in place, with continence and function gradually improving over the following weeks to months."
+			},
+			{
+				"name": "Dialysis Care",
+				"image": "/media/treatments/0e77b6f50af9e9df2286.png",
+				"description": "Dialysis care provides ongoing treatment for patients whose kidneys can no longer adequately filter waste products, excess fluid, and toxins from the blood, most often due to chronic kidney disease that has progressed to kidney failure. Hemodialysis, the more common form, circulates the patient's blood through an external machine fitted with a filtering membrane that removes waste and excess fluid before returning cleaned blood to the body, typically performed several times a week in sessions lasting a few hours through a surgically created vascular access point in the arm. Peritoneal dialysis, an alternative approach, uses the lining of the patient's own abdominal cavity as a natural filter, with a specially formulated fluid introduced and later drained through a permanently placed catheter, a process that can often be managed at home. The choice between the two depends on the patient's kidney function, overall health, lifestyle, and personal preference, guided by a nephrologist's assessment. Indian nephrology centers offer both modalities along with vascular access surgery and ongoing monitoring of kidney function, anemia, and mineral balance. For patients with progressive kidney failure, dialysis is often a bridge toward eventual kidney transplantation, alongside pre-transplant evaluation and long-term management planning."
+			},
+			{
+				"name": "Urinary Incontinence Treatment",
+				"image": "/media/treatments/d55d19b3cff3c710b831.png",
+				"description": "Urinary incontinence treatment addresses the involuntary leakage of urine, a common condition with several underlying causes including weakened pelvic floor muscles, an overactive bladder, prostate surgery in men, or nerve-related bladder dysfunction, and it is evaluated through a combination of symptom history, bladder diary review, and tests such as urodynamic studies to identify the specific type and cause. Initial management typically includes pelvic floor physiotherapy, bladder training, and medication to calm an overactive bladder, which resolve or significantly improve symptoms for many patients without the need for surgery. When conservative treatment is insufficient, surgical options include a mid-urethral sling procedure, in which a supportive strip of synthetic mesh or the patient's own tissue is placed under the urethra to prevent leakage during activities like coughing or exercise, or, for more complex cases, placement of an artificial urinary sphincter that the patient controls to open and close the urethra. These procedures are typically performed through small incisions under spinal or general anesthesia and generally take under an hour. Indian urogynecology and urology centers offer the full range of conservative and surgical incontinence treatments. Recovery is usually quick after sling surgery, with most patients returning to normal activity within a few weeks."
+			},
+			{
+				"name": "Erectile Dysfunction Treatment",
+				"image": "/media/treatments/8ee62a5dd79434fb1a26.png",
+				"description": "Erectile dysfunction treatment addresses the persistent inability to achieve or maintain an erection sufficient for satisfactory sexual activity, a condition that can stem from vascular disease, diabetes, nerve damage, hormonal imbalance, psychological factors, or as a side effect of certain medications or pelvic surgery. Evaluation typically includes a detailed medical history, hormone and blood sugar testing, and sometimes specialized vascular studies to identify the underlying cause before recommending treatment. First-line management usually involves oral phosphodiesterase-5 inhibitor medications, which improve blood flow to achieve an erection in response to sexual stimulation, along with management of contributing conditions such as diabetes or high blood pressure. When medication is ineffective, contraindicated, or insufficient, further options include vacuum erection devices, injectable or intraurethral medications delivered directly into the penis, and, for men who do not respond to less invasive measures, surgically implanted penile prostheses that provide a reliable, on-demand mechanical solution. Indian urology and andrology centers offer this full stepwise pathway, from hormonal and vascular evaluation through to prosthesis surgery for appropriate candidates. Treatment choice depends on the underlying cause, previous response to therapy, and patient preference, with surgical options generally reserved for cases where non-surgical treatments have not achieved an adequate result."
+			},
+			{
+				"name": "Peyronie's Disease Treatment",
+				"image": "/media/treatments/e4cb074a9c37d024e7f9.png",
+				"description": "Peyronie's disease treatment addresses an acquired condition in which fibrous scar tissue, called plaque, forms within the layer surrounding the erectile tissue of the penis, causing curvature, indentation, or narrowing during erection that can be associated with pain, particularly in the earlier, active phase of the condition. Diagnosis is based on clinical examination, patient-reported curvature, and sometimes ultrasound imaging to assess plaque location and size, as well as blood flow. In the early, active phase, when curvature is still changing and pain is present, treatment may involve oral medications, injectable agents such as collagenase directly into the plaque, or traction and vacuum therapy aimed at limiting progression. Once the condition has stabilized, usually after twelve months or more, and curvature significantly affects sexual function, surgical correction may be recommended, ranging from plication procedures that shorten the longer, unaffected side of the penis to plaque incision or excision with grafting for more severe curvature, chosen based on the degree and complexity of the deformity. These procedures are performed under general or spinal anesthesia. Indian andrology and urology centers with specific experience in penile reconstructive surgery offer the full range of these treatment options, with the surgical approach tailored to each patient's specific anatomy and functional goals."
+			},
+			{
+				"name": "Penile Implant Surgery (Malleable & Inflatable)",
+				"image": "/media/treatments/4d26a1985d52e982a844.png",
+				"description": "Penile implant surgery places a prosthetic device inside the penis to restore the ability to achieve a rigid erection in men with erectile dysfunction that has not responded to medication, injections, or other less invasive treatments. Two main types of implant are used: a malleable, or semi-rigid, implant consists of a pair of bendable rods placed within the erectile chambers that leave the penis in a permanently firm but positionable state, which can be bent upward for sexual activity and downward for concealment at other times, while an inflatable implant uses fluid-filled cylinders connected to a pump placed in the scrotum and a fluid reservoir, allowing the patient to inflate the device to produce an erection and deflate it afterward, more closely mimicking natural function. The surgeon places the chosen device through a small incision, typically at the base of the penis or in the lower abdomen for the reservoir, under general or spinal anesthesia, with the procedure usually taking about one to two hours. The choice between implant types depends on manual dexterity, prior surgeries, anatomy, and patient preference. Indian urology centers with dedicated andrology units offer both implant types. Recovery involves several weeks of restricted activity before the device is activated for use."
+			},
+			{
+				"name": "Malleable Penile Implant (Shah Technique)",
+				"image": "/media/treatments/1402d361d660d4b65380.png",
+				"description": "The malleable penile implant, placed using the Shah technique, is a specific surgical approach to inserting a semi-rigid penile prosthesis, developed to simplify the procedure and reduce operative time and complication rates compared with older insertion methods. As with other malleable implants, a pair of bendable rods are placed within the erectile chambers of the penis to provide a firm but positionable structure sufficient for sexual activity, without the pump or reservoir components used in inflatable devices. The Shah technique typically uses a single small incision and a streamlined dissection and sizing method to position the rods accurately while minimizing tissue trauma, which can shorten operating time and support a more straightforward recovery. It is generally offered to men with erectile dysfunction unresponsive to non-surgical treatment who prefer the mechanical simplicity and lower long-term mechanical failure risk of a malleable device over an inflatable one. The surgery is performed under general or spinal anesthesia and usually takes under an hour in experienced hands. Indian andrology centers with specific expertise in this technique offer it as an efficient option for appropriate candidates. As with other implants, a period of restricted activity follows surgery before the device is used for sexual activity."
+			},
+			{
+				"name": "Chronic Pelvic & Perineal Pain Management",
+				"image": "/media/treatments/2d75cd9d90c02e301bc8.png",
+				"description": "Chronic pelvic and perineal pain management addresses persistent pain in the lower abdomen, pelvic floor, genital area, or perineum lasting three months or longer, a condition with varied causes that may include nerve entrapment or irritation, pelvic floor muscle dysfunction, prior surgery or trauma, infection, or, in some cases, no clearly identifiable structural cause despite thorough evaluation. Assessment typically involves a detailed history, physical and neurological examination, and targeted imaging or nerve studies to rule out identifiable structural or nerve-related causes before a treatment plan is developed. Management is usually multidisciplinary and stepwise, beginning with pelvic floor physiotherapy, medication aimed at nerve-related pain, and lifestyle and posture modification, progressing to targeted interventions such as trigger point or nerve block injections when pain persists. For cases linked to a specific entrapped or irritated nerve, such as the pudendal nerve, surgical decompression may be considered when conservative and interventional treatments have not provided adequate relief. Indian pain management and urology centers with pelvic pain expertise coordinate physiotherapy, pain medicine, and surgical input as needed for individual cases. Because causes and responses vary considerably between patients, treatment is tailored closely to findings on examination and response to earlier interventions, with realistic expectations set from the outset."
+			}
+		],
+		"benefits": [
+			"Laser and minimally invasive kidney stone removal (PCNL/RIRS)",
+			"Robotic and laparoscopic prostate surgery available at leading centers",
+			"Dedicated dialysis units for patients requiring ongoing renal care",
+			"Same-day or next-day discharge for many minimally invasive procedures"
+		],
+		"flagshipProcedure": "Percutaneous Nephrolithotomy (PCNL)",
+		"packagePrice": 3500,
+		"totalTripDays": 10,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 0,
+				"roomDays": 2,
+				"totalDays": 2
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 20,000 – 35,000",
+				"waitTime": "3–6 weeks",
+				"successRate": "92–96%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 10,000 – 16,000",
+				"waitTime": "3–9 months (NHS)",
+				"successRate": "92–96%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 9,000 – 14,000",
+				"waitTime": "3–6 weeks",
+				"successRate": "91–95%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 5,000 – 8,000",
+				"waitTime": "1–3 weeks",
+				"successRate": "90–94%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 3,500 – 5,500",
+				"waitTime": "3–7 days",
+				"successRate": "94%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-operative evaluation including ultrasound/CT and fitness clearance",
+			"Urologist's and anesthetist's fees for the procedure",
+			"Operation theatre and laser/endoscopic equipment charges",
+			"2 days of hospital stay including post-op monitoring",
+			"Standard medication and consumables during the inpatient stay",
+			"Discharge summary with a follow-up imaging plan"
+		],
+		"exclusions": [
+			"Hospital stay beyond the package duration",
+			"Treatment of bilateral (both-kidney) stones unless quoted together",
+			"Long-term dialysis sessions beyond an initial evaluation stay",
+			"Take-home medication beyond the standard discharge kit",
+			"Treatment for unrelated conditions identified during pre-op screening",
+			"Re-operation for complications unrelated to the original procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of kidney stone removal in India?",
+				"answer": "A PCNL (kidney stone removal) package in India starts from USD 3,500, around 85% less than in the US, and includes the pre-op evaluation, procedure, hospital stay, and follow-up imaging."
+			},
+			{
+				"question": "Is kidney stone treatment minimally invasive?",
+				"answer": "Yes, most stones are treated using laser-based minimally invasive techniques such as PCNL or RIRS, which typically allow discharge within 1–2 days depending on stone size and location."
+			},
+			{
+				"question": "Is robotic prostate surgery available?",
+				"answer": "Yes, several of our partner hospitals offer robotic-assisted and laparoscopic prostate surgery, which can reduce blood loss and shorten recovery compared to open surgery."
+			},
+			{
+				"question": "How long should I plan to stay in India?",
+				"answer": "Most urology procedures need about 7–10 days in India for the pre-op work-up, procedure, and a follow-up check before flying home; complex cases may need a longer stay."
+			},
+			{
+				"question": "Do you support patients who need ongoing dialysis?",
+				"answer": "Yes, our partner hospitals have dedicated dialysis units and can coordinate ongoing renal care for patients traveling for evaluation or awaiting a kidney transplant."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your imaging reports (ultrasound/CT) through our contact form, and our urology coordinator will arrange a specialist review and transparent quote within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793277376,
+			"updatedAt": 1793277376
 		}
 	}
 }
