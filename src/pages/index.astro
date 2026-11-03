@@ -14,7 +14,6 @@ import DoctorsVideoCarousel from '../components/DoctorsVideoCarousel.astro';
 import Achievements from '../components/Achievements.astro';
 import { doctors } from '../data/doctors';
 
-
 const videoEntries = doctors
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---

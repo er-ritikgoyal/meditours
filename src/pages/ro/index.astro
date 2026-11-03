@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { ro } from '../../i18n/ro';
 import { roAbout } from '../../i18n/ro-pages';
-import { roDoctors, roPartnerHospitalsHome, roSupportServices, roTravelProcess } from '../../i18n/ro-home';
+import { roDoctors, roPartnerHospitalsHome, roSupportServices, roTravelProcess, roCostComparison } from '../../i18n/ro-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { roDoctorsTr } from '../../i18n/ro-doctors';
@@ -23,7 +23,7 @@ const romanianHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const romanianDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...roDoctors.doctors[i] }));
 
-const videoEntries = defaultDoctors
+const videoEntries = translateDoctors(defaultDoctors, roDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -86,7 +86,17 @@ const videoEntries = defaultDoctors
 		hospitals={romanianHospitals}
 		basePath="/ro"
 	/>
-	<TreatmentCostComparison basePath="/ro" />
+	<TreatmentCostComparison
+		basePath="/ro"
+		title={roCostComparison.title}
+		subtitle={roCostComparison.subtitle}
+		discoverText={roCostComparison.discoverText}
+		startingLabel={roCostComparison.startingLabel}
+		getQuoteLabel={roCostComparison.getQuoteLabel}
+		chatLabel={roCostComparison.chatLabel}
+		treatmentNames={roCostComparison.treatmentNames}
+		doctors={translateDoctors(defaultDoctors, roDoctorsTr)}
+	/>
 	<SupportServices
 		badge={roSupportServices.badge}
 		title={roSupportServices.titleLead}

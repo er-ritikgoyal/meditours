@@ -89,6 +89,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'javed-rizwan': {
 		specialty: 'Implantologue et orthodontiste',
 		title: 'Directeur et responsable — Implantologie dentaire et orthodontie',
+		city: 'Gurugram, Inde',
 		about: [
 			"Le Dr Javed Rizwan est implantologue dentaire et orthodontiste avec plus de 20 ans de pratique clinique ; il a posé plus de 15 000 implants dentaires conventionnels et immédiats et réalisé plus de 500 réhabilitations complètes de la bouche par techniques d'implants stratégiques immédiats. Formé en implantologie stratégique à Munich, en Allemagne, il dirige Spruce Dental Chain of Clinics à Gurugram, où il se concentre sur la pose d'implants mini-invasive et la restauration complète de la bouche en une seule visite pour les patients internationaux.",
 			"Le Dr Javed Rizwan est l'un des implantologues dentaires les plus éminents et l'un des meilleurs orthodontistes de Delhi NCR. Il est directeur et responsable de la chaîne de cliniques Spruce Dental à Delhi depuis plus de 20 ans. Le Dr Rizwan a réalisé plus de 500 réhabilitations complètes de la bouche par implants stratégiques immédiats. Il a obtenu son BDS à la prestigieuse CCS University de Meerut, en Uttar Pradesh, en Inde. Il a ensuite obtenu un MDS (orthodontie et orthopédie dento-faciale) de la même université, puis un PGCE au Dr R Ahmad Dental College de Calcutta, au Bengale-Occidental, en Inde.",
@@ -139,6 +140,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'anika-bhasin-arora': {
 		specialty: 'Spécialiste des racines dentaires et dentiste esthétique',
 		title: 'Propriétaire et dentiste principale — Endodontie et dentisterie esthétique',
+		city: 'New Delhi, Inde',
 		about:
 			"Le Dr Anika Bhasin Arora est spécialisée dans le traitement de canal et la dentisterie esthétique, alliant précision endodontique et recherche de résultats naturels. Elle a dirigé la succursale de Delhi de Cosmodent India avant de fonder Shining Smiles Dentistry, où elle traite aussi bien des traitements de canal microscopiques complexes que des cas complets de conception du sourire, et possède une formation complémentaire en esthétique faciale pour les patients qui associent soins dentaires et esthétiques en un seul séjour.",
 		specializations: [
@@ -178,6 +180,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'suraj-munjal': {
 		specialty: 'Ophtalmologue et chirurgien de la cataracte',
 		title: "Fondateur, président et directeur général — The Sight Avenue Eye Hospital",
+		city: 'New Delhi, Inde',
 		about:
 			"Le Dr Suraj Munjal est ophtalmologue, avec plus de 21 ans en médecine dont plus de 15 consacrés à la chirurgie de la cataracte et réfractive. Formé à la phacoémulsification à l'Aditya Jyot Eye Hospital et titulaire d'un fellowship clinique en chirurgie cornéenne et réfractive à l'hôpital universitaire de Tübingen (Allemagne), il a fondé The Sight Avenue Eye Hospital à New Delhi, où il dirige une activité à grand volume couvrant cataracte, LASIK, cornée et strabisme.",
 		specializations: [
@@ -226,6 +229,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'himanshu-champaneri': {
 		specialty: 'Neurochirurgien',
 		title: "Directeur associé et chef d'unité — Neurochirurgie",
+		city: 'Gurugram, Inde',
 		about:
 			"Le Dr Himanshu Champaneri est directeur associé et chef d'unité de neurochirurgie à Max Hospital, Gurugram, avec une pratique couvrant la chirurgie complexe des tumeurs cérébrales, les troubles du mouvement et les interventions mini-invasives du rachis et de la base du crâne. Formé en chirurgie générale à l'université Sardar Patel (médaillé d'or), titulaire d'un fellowship en chirurgie mini-invasive au Pramukhswami Medical College et d'un DNB en neurochirurgie, il a occupé des postes de direction en neurochirurgie à Marengo Asia Hospitals et Medanta — The Medicity, tous deux à Gurugram, et développé une expertise particulière en stimulation cérébrale profonde, chirurgie endoscopique du rachis et chirurgie fonctionnelle et de l'épilepsie.",
 		specializations: [
@@ -279,6 +283,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'amitabh-singh': {
 		specialty: 'Chirurgien plasticien',
 		title: 'Directeur clinique et chef — Chirurgie plastique',
+		city: 'Gurugram, Inde',
 		about:
 			"Le Dr Amitabh Singh est directeur clinique et chef de la chirurgie plastique à Marengo Asia Hospitals, Gurugram, avec plus de 20 ans d'expérience en chirurgie esthétique, reconstructrice, de la main et microchirurgie. Après son MCh en chirurgie plastique, il a effectué des fellowships en chirurgie microvasculaire et du plexus brachial à Taïwan et Bangkok, et en chirurgie plastique esthétique et post-bariatrique dans l'Iowa (États-Unis), avec une formation complémentaire à Ganga Hospital (Coimbatore) et à l'université Emory (Atlanta). Ancien consultant senior en chirurgie plastique chez Fortis Hospitals (NCR), il a rédigé des chapitres de manuels de référence en chirurgie plastique et soins des brûlés, et est relecteur pour l'Aesthetic Surgery Journal.",
 		specializations: [
@@ -325,6 +330,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'sunil-sanghi': {
 		specialty: 'Dermatologue',
 		title: 'Directeur clinique et chef — Dermatologie',
+		city: 'Gurugram, Inde',
 		about:
 			"Le Dr Sunil Sanghi est directeur clinique et chef de la dermatologie à Marengo Asia Hospitals, Gurugram, avec plus de 30 ans d'expérience. Médaillé d'or en MD de dermatologie à l'Armed Forces Medical College de Pune, il a été professeur de dermatologie et vénéréologie à l'AFMC puis consultant senior dans de grands hôpitaux. Formé en dermatologie pédiatrique, psoriasis et maladies du cheveu, il traite un large éventail d'affections de la peau, des cheveux et de dermatologie esthétique. Il a publié plus de 18 articles dans des revues indexées, donné plus de 60 conférences au niveau national et international, et siégé au comité de rédaction de l'Indian Journal of Dermatology, Venereology & Leprology.",
 		specializations: [
@@ -376,6 +382,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'bilal-ahmad-baba': {
 		specialty: 'Cardiologue interventionnel',
 		title: 'Consultant senior — Cardiologie interventionnelle',
+		city: 'Gurugram, Inde',
 		about:
 			"Le Dr Bilal Ahmad Baba est consultant senior en cardiologie interventionnelle à Marengo Asia Hospitals, Gurugram, avec plus de 15 ans d'expérience et plus de 5 000 interventions coronariennes et interventionnelles avancées. Sa pratique couvre l'angioplastie coronarienne complexe guidée par imagerie avancée (IVUS, OCT), l'implantation de dispositifs de rythme dont les stimulateurs sans sonde, les interventions structurelles comme le TAVI et le TMVR, la fermeture de défauts congénitaux et la chirurgie vasculaire périphérique. Avant Marengo, il a occupé des postes de cardiologie à Shalby Sanar International Hospital, BLK-Max Super Speciality Hospital et Shri Narayan Hospital, et publié dans des revues de cardiologie indexées.",
 		specializations: [
@@ -424,6 +431,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'saurabh-verma': {
 		specialty: 'Chirurgien orthopédiste et du rachis',
 		title: 'Directeur associé — Orthopédie et chirurgie du rachis',
+		city: 'Gurugram, Inde',
 		about:
 			"Le Dr Saurabh Verma est directeur associé d'orthopédie et de chirurgie du rachis à Marengo Asia Hospitals, Gurugram, avec plus de dix ans d'expérience clinique centrée sur la chirurgie mini-invasive du rachis. Formé au Maulana Azad Medical College de Delhi, titulaire d'un FNB en chirurgie du rachis, d'un fellowship de longue durée à l'Indian Spinal Injuries Centre et d'un autre au National University Hospital de Singapour, il a dirigé le service du rachis de Manipal Hospital (Dwarka) puis la chirurgie du rachis d'Aakash Healthcare (Dwarka) avant de rejoindre Marengo en 2024, traitant traumatismes, affections dégénératives et pathologies cervicales et lombaires.",
 		specializations: [
@@ -484,6 +492,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'krishan-kumar-yadav': {
 		specialty: 'Neurochirurgien',
 		title: 'Directeur clinique, professeur et chef de service — Neurochirurgie et chirurgie neuro-rachidienne',
+		city: 'Gurugram, Inde',
 		about:
 			"Le Dr (Air Cmde) Krishan Kumar Yadav est directeur clinique, professeur et chef de la neurochirurgie et de la chirurgie neuro-rachidienne à Marengo Asia Hospitals, Gurugram, avec plus de 35 ans en neurochirurgie. Formé entièrement à l'Armed Forces Medical College de Pune, du MBBS au MCh en neurochirurgie, il a pris en charge plus de 80 000 cas et réalisé plus de 5 000 interventions complexes. Son activité couvre la chirurgie du cerveau et du rachis, les interventions mini-invasives du rachis, la neurotraumatologie, la neuro-oncologie, la neurochirurgie cérébrovasculaire et pédiatrique, les tumeurs de la base du crâne et la chirurgie endoscopique de l'hypophyse. Il est l'auteur de plus de 24 publications et a contribué à des manuels de neurochirurgie.",
 		specializations: [
@@ -528,6 +537,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'punit-singla': {
 		specialty: 'Chirurgien de transplantation hépatique',
 		title: 'Directeur clinique du programme — Institut de transplantation hépatique et de chirurgie HPB',
+		city: 'Faridabad, Inde',
 		about:
 			"Le Dr Punit Singla est directeur clinique du programme de l'Institut de transplantation hépatique et de chirurgie HPB, et exerce à Marengo Asia Hospitals (Faridabad et Gurugram) et à Marengo CIMS Hospital (Ahmedabad). Il a réalisé plus de 2 000 transplantations hépatiques, dont des cas pédiatriques, des greffes ABO incompatibles et des greffes foie-rein simultanées, et a créé le premier programme indépendant de transplantation hépatique avec donneur vivant du Pendjab. Formé en gastro-entérologie chirurgicale à Sir Ganga Ram Hospital (Delhi), il a effectué son fellowship en transplantation hépatique à Medanta — The Medicity (Gurugram).",
 		specializations: [
@@ -570,6 +580,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'neeraj-teotia': {
 		specialty: 'Hémato-oncologue pédiatrique',
 		title: 'Consultant — Hémato-oncologie pédiatrique et greffe de moelle osseuse',
+		city: 'Gurugram, Inde',
 		about:
 			"Le Dr Neeraj Teotia est consultant en hémato-oncologie pédiatrique et greffe de moelle osseuse à Marengo Asia Hospitals, à Gurugram et Faridabad. Il a réalisé avec succès plus de 200 greffes de moelle osseuse et traite les leucémies et lymphomes de l'enfant, les tumeurs solides comme le neuroblastome, le rhabdomyosarcome et l'ostéosarcome, ainsi que l'aplasie médullaire et les syndromes d'insuffisance médullaire. Titulaire d'un FNB au Rajiv Gandhi Cancer Institute (Delhi) et d'un fellowship en greffe de moelle pédiatrique et thérapie cellulaire au Royal Bristol Hospital for Children (Royaume-Uni), il compte plus de 10 publications dans des revues nationales et internationales.",
 		specializations: [
@@ -629,6 +640,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'ritesh-mongha': {
 		specialty: 'Urologue et chirurgien de transplantation rénale',
 		title: 'Directeur clinique et chef — Urologie, uro-oncologie et transplantation rénale',
+		city: 'Faridabad, Inde',
 		about:
 			"Le Dr Ritesh Mongha est directeur clinique et chef de l'urologie, de l'uro-oncologie et de la transplantation rénale à Marengo Asia Hospitals, Faridabad, avec 18 ans d'expérience. Titulaire d'un MCh en urologie de l'IPGMER de Calcutta, sa pratique couvre la transplantation rénale, l'urologie robotique et cœlioscopique, l'endo-urologie, le traitement laser des calculs rénaux et de la prostate, l'uro-oncologie, l'urologie reconstructrice et la chirurgie de l'infertilité masculine. Son activité chirurgicale comprend plus de 700 transplantations rénales, plus de 20 000 interventions endo-urologiques et plus de 1 000 chirurgies laser de la prostate.",
 		specializations: [
@@ -676,6 +688,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'meet-kumar': {
 		specialty: 'Hématologue et spécialiste de la greffe de moelle',
 		title: 'Directeur clinique et chef de service — Hémato-oncologie et greffe de moelle osseuse',
+		city: 'Faridabad, Inde',
 		about:
 			"Le Dr Meet Kumar est directeur clinique et chef de service d'hémato-oncologie et de greffe de moelle osseuse à Marengo Asia Hospitals, à Faridabad et Gurugram. Titulaire d'un DM en hématologie clinique, d'un fellowship en greffe de moelle au Tata Medical Centre (Calcutta) et d'une formation d'observateur en thérapie cellulaire CAR-T au King's College de Londres, il a réalisé plus de 700 greffes de moelle osseuse, autologues, allogéniques, non apparentées et haplo-identiques. Il traite l'anémie, la thrombopénie, la leucémie, le lymphome, le myélome et l'aplasie médullaire, compte plus de 20 publications de recherche, et a exercé à Sir Ganga Ram Hospital, au SGPGI de Lucknow, à BLK Hospital et à Fortis Memorial Research Institute.",
 		specializations: [
@@ -735,6 +748,7 @@ export const frDoctorsTr: DoctorTranslations = {
 	'shibal-bhartiya': {
 		specialty: 'Ophtalmologue et spécialiste du glaucome',
 		title: 'Directeur clinique — Ophtalmologie ; directeur de programme — Actions communautaires et bien-être, MAIINS',
+		city: 'Gurugram, Inde',
 		about:
 			"Le Dr Shibal Bhartiya est directeur clinique d'ophtalmologie à Marengo Asia Hospitals, Gurugram, et directeur de programme pour les actions communautaires et le bien-être ainsi que le Marengo Asia International Institute of Neuro and Spine (MAIINS), avec plus de 23 ans d'expérience. Formé au Maulana Azad Medical College et au Dr R P Centre for Ophthalmic Sciences (AIIMS), avec un fellowship de recherche sur le glaucome à l'université de Genève, il est spécialisé dans le glaucome, la neuro-ophtalmologie, les maladies de la surface oculaire, le LASIK, la DMLA et la rétinopathie diabétique. Collaborateur de recherche à la Mayo Clinic, rédacteur en chef de Clinical and Experimental Vision and Eye Research, il est l'auteur de plus de 200 articles évalués par des pairs et de 10 manuels.",
 		specializations: [
@@ -790,6 +804,7 @@ export const frDoctorsTr: DoctorTranslations = {
 		title: 'Consultant — Urologie et andrologie',
 		qualification: 'MBBS, MS — Chirurgie générale, MCh — Urologie',
 		languages: ['Anglais', 'Hindi'],
+		city: 'New Delhi, Inde',
 		about:
 			"Le Dr Gautam Banga est urologue et andrologue consultant, fort de plus de 20 ans d'expérience spécialisée et de plus de 3 000 interventions urologiques complexes réalisées. Formé en chirurgie générale au MGM Medical College d'Indore, il a obtenu son MCh en urologie au Sawai Mansingh Medical College avant de développer, au SCI International Hospital de New Delhi, une pratique centrée sur l'urologie reconstructive, l'andrologie et la santé sexuelle masculine. Il est considéré comme l'un des chirurgiens les plus expérimentés du nord de l'Inde pour les traitements avancés de la santé masculine, y compris l'implantation de prothèses péniennes approuvées par la FDA et les procédures microchirurgicales de fertilité.",
 		specializations: [
@@ -828,6 +843,7 @@ export const frDoctorsTr: DoctorTranslations = {
 			"Anglais",
 			"Hindi"
 		],
+		city: 'New Delhi, Inde',
 		"about": "Le Dr Ila Gupta est cofondatrice et directrice de Pristyn Care Ferticity IVF & Fertility Clinics, forte de plus de 29 ans d’expérience dans le traitement de l’infertilité et les techniques de procréation médicalement assistée (PMA). Formée à l’endoscopie avancée au Kerala et à Clermont (France), puis titulaire d’un diplôme en médecine de la reproduction et PMA obtenu à Kiel (Allemagne), elle a bâti une pratique couvrant la FIV, l’ICSI, l’IMSI, l’IUI, la congélation d’embryons et le dépistage génétique, ainsi que la chirurgie hystéroscopique et cœlioscopique pour l’infertilité masculine et féminine. Sa clinique annonce un taux de réussite pouvant atteindre 78 % pour des grossesses menées à terme et génétiquement saines, et elle a siégé dans un comité de cinq experts chargé d’évaluer la loi indienne de 2020 sur la PMA (Assisted Reproductive Technology (Regulation) Act).",
 		"specializations": [
 			"Traitement de FIV",
@@ -879,6 +895,7 @@ export const frDoctorsTr: DoctorTranslations = {
 			"Anglais",
 			"Hindi"
 		],
+		city: 'New Delhi, Inde',
 		"about": "Le Dr Rahil Chaudhary est directeur général d’Eye7 Eye Hospitals, chirurgien de la cataracte et de la chirurgie réfractive spécialisé dans le LASIK, les ICL, la correction laser Contoura Vision et le traitement du kératocône dans le réseau de centres Eye7 de Delhi-NCR. Formé à la chirurgie réfractive en Allemagne et au Japon, il détient un record du monde Guinness pour 250 interventions LASIK Contoura Vision réalisées en une seule journée, ainsi que des entrées au Limca Book of Records et à l’India Book of Records pour la plus forte puissance de lunettes corrigée par ICL et la chirurgie LASIK la plus rapide enregistrée. Il détient depuis dix années consécutives le record du plus grand nombre d’interventions ICL réalisées en Inde et intervient fréquemment dans des congrès internationaux tels que l’ESCRS, l’ASCRS et le World ICL Meet. En dehors du bloc opératoire, il a fondé la 7 Sight Foundation pour les soins oculaires caritatifs et déposé devant la Cour suprême une action d’intérêt public sur la réglementation des chirurgies diffusées en direct, qui a conduit à de nouvelles directives de la National Medical Commission.",
 		"specializations": [
 			"Correction laser LASIK et Contoura Vision",
@@ -918,6 +935,99 @@ export const frDoctorsTr: DoctorTranslations = {
 			"Prix de la meilleure technique chirurgicale et prix John Henahan, ESCRS",
 			"Prix Swadesh Samman, ministère de la Santé"
 		]
+	},
+	'deepak-saha': {
+		specialty: 'Cardiologue interventionnel',
+		city: 'Hyderabad, Inde',
+	},
+	's-sudha': {
+		specialty: "Gynécologue-obstétricienne et spécialiste de l'infertilité",
+		city: 'Hyderabad, Inde',
+	},
+	'dvl-narayana-rao': {
+		specialty: 'Gastro-entérologue chirurgical',
+		title: 'Consultant senior — Chirurgie gastro-entérologique, chirurgie robotique et laparoscopique du cancer digestif',
+		qualification:
+			"MBBS ; MS — Chirurgie générale (Madras Medical College) ; MCh — Gastro-entérologie chirurgicale (AIIMS, New Delhi) ; DNB ; Fellowship — Gastro-entérologie chirurgicale (NIMS, Hyderabad)",
+		city: 'Hyderabad, Inde',
+		about:
+			"Le Dr D.V.L. Narayana Rao est gastro-entérologue chirurgical avec plus de 33 ans d'expérience en chirurgie digestive, hépatobiliaire et pancréatique, exerçant actuellement au TX Hospitals, Banjara Hills, Hyderabad. Il a conçu une technique de shunt colo-cave pour l'hypertension portale et a réalisé plus de 350 opérations de shunt et 200 procédures de Frey.",
+		specializations: [
+			'Chirurgie bariatrique',
+			'Chirurgie mini-invasive et laparoscopique',
+			'Chirurgie hépatobiliaire et pancréatique',
+			'Chirurgie colorectale',
+			'Proctologie',
+			'Chirurgie générale',
+		],
+		awards: [
+			"Conception d'une technique de shunt colo-cave pour l'hypertension portale, utilisant la veine colique moyenne pour décomprimer le système porte",
+			"Développement de modifications de l'intervention de Whipple",
+			'Pionnier de la "déconnexion pancréatique" comme traitement de la pancréatite chronique à canal non dilaté',
+			"Plus de 350 opérations de shunt réalisées pour hypertension portale non cirrhotique chez l'enfant et l'adulte",
+			"Plus de 200 procédures de Frey réalisées pour pancréatite chronique",
+		],
+	},
+	'lokesh-rudra-madhav': {
+		specialty: 'Orthodontiste',
+		title: 'Orthodontiste et consultant en orthodontie — Appareils fixes, gouttières et orthopédie dento-faciale',
+		qualification: 'BDS ; MDS — Orthodontie et orthopédie dento-faciale',
+		city: 'New Delhi, Inde',
+		about:
+			"Le Dr Lokesh Rudra Madhav est orthodontiste, spécialisé dans les appareils fixes, les gouttières transparentes et le traitement orthodontique interdisciplinaire, exerçant actuellement à Green Park Dental, Delhi. Pendant son internat, il a suivi plus de 200 cas orthodontiques, y compris des cas complexes d'orthodontie chirurgicale.",
+		specializations: [
+			'Appareils orthodontiques fixes (MBT et auto-ligaturants Damon)',
+			'Traitement par gouttières transparentes',
+			'Orthodontie interceptive',
+			'Orthodontie chirurgicale et malocclusions complexes',
+			'Pose de mini-vis (TAD)',
+			'Analyse céphalométrique et CBCT',
+			'Appareils fonctionnels',
+		],
+		awards: [
+			"Mémoire — « Évaluation de l'épaisseur du profil des tissus mous chez les patients de classe I selon différents schémas de croissance »",
+			"Thèse — « Proximité radiculaire et angulation des mini-vis orthodontiques au maxillaire antérieur : une évaluation par CBCT »",
+		],
+	},
+	'ganesh-dubey': {
+		specialty: 'Dentiste généraliste et directeur clinique',
+		title: 'Fondateur et directeur clinique — Mithila Multi Speciality Dental Clinic',
+		qualification: 'BDS',
+		city: 'Ghaziabad, Inde',
+		about:
+			"Le Dr Ganesh Dubey est le fondateur et directeur clinique de la Mithila Multi Speciality Dental Clinic à Ghaziabad, à la tête d'une équipe de 13 spécialistes MDS dans 9 disciplines. Il a développé une solide expérience du traitement de patients internationaux, avec des consultations en anglais et une coordination complète des voyages.",
+		specializations: [
+			'Supervision clinique et planification des traitements',
+			'Implants dentaires',
+			'Conception du sourire et réhabilitation complète',
+			'Coordination des patients internationaux',
+			'Dentisterie générale et esthétique',
+		],
+		awards: [
+			"Constitution d'une équipe clinique de 13 spécialistes MDS dans 9 disciplines à la Mithila Multi Speciality Dental Clinic",
+			"Organisation de campagnes de dépistage dentaire gratuites en partenariat avec Max Healthcare et l'hôpital de district MMG, Ghaziabad",
+		],
+	},
+	'n-pavan-kumar-rao': {
+		specialty: 'Néphrologue et spécialiste de la transplantation rénale',
+		title: 'Consultant senior — Néphrologie et transplantation rénale',
+		qualification: 'MBBS ; MD ; DM — Néphrologie',
+		city: 'Hyderabad, Inde',
+		about:
+			"Le Dr N. Pavan Kumar Rao est consultant senior en néphrologie avec plus de 21 ans d'expérience dans la transplantation rénale, le suivi post-greffe, la maladie rénale chronique et la dialyse, exerçant actuellement au TX Hospitals, Banjara Hills, Hyderabad. Il est considéré comme l'un des principaux spécialistes de la transplantation rénale de la région.",
+		specializations: [
+			'Transplantation rénale et suivi post-greffe',
+			'Prise en charge de la maladie rénale chronique (MRC)',
+			'Dialyse et hémodialyse',
+			"Maintenance de l'abord d'hémodialyse",
+			'Traitement des calculs rénaux',
+			'Hypertension associée à une maladie rénale',
+			'Programmes de nutrition rénale',
+		],
+		awards: [
+			"Reconnu comme l'un des principaux spécialistes de la transplantation rénale au Telangana",
+			"Présentation de travaux de recherche et d'études de cas lors de conférences internationales de néphrologie",
+		],
 	},
 };
 

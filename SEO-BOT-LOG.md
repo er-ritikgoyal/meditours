@@ -23,8 +23,8 @@ straight from `src/data/*.ts` so new content is picked up automatically.
 on competitor research.** Searched what's actually ranking for high-intent
 queries like "heart bypass surgery cost in india" and "IVF cost in india" —
 the winning pattern everywhere is `[Procedure] Cost in India [Year]`, not a
-generic category name. Old: `${treatment.name} in India | Alis Pro Med Tour`.
-New: `${treatment.name} Cost in India (${year}) | Alis Pro Med Tour` (year
+generic category name. Old: `${treatment.name} in India | Alis Pro meditours`.
+New: `${treatment.name} Cost in India (${year}) | Alis Pro meditours` (year
 is computed live, so it never goes stale). Brand suffix left untouched.
 
 For the 8 non-English locales, only the added "cost + year" clause is new
@@ -46,7 +46,7 @@ worth a native-speaker glance if you get a chance, listed here for that:
 - Footer "Our Doctors" link (`/doctors`) points to a page that doesn't
   exist, on every page, every locale. Needs you to pick: build a real page,
   point it at an anchor on the homepage's doctors section, or remove it.
-- The site uses two different brand strings: "Alis Pro Med Tour" (all
+- The site uses two different brand strings: "Alis Pro meditours" (all
   treatment/destination page titles, footer default) vs "AlisPro MediTours"
   (site-wide default title, JSON-LD, Open Graph, the domain name itself).
   Left both as-is since I can't tell which is the intended public name —

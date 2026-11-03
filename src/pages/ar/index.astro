@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { ar } from '../../i18n/ar';
 import { arAbout } from '../../i18n/ar-pages';
-import { arDoctors, arPartnerHospitalsHome, arSupportServices, arTravelProcess } from '../../i18n/ar-home';
+import { arDoctors, arPartnerHospitalsHome, arSupportServices, arTravelProcess, arCostComparison } from '../../i18n/ar-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { arDoctorsTr } from '../../i18n/ar-doctors';
@@ -23,7 +23,7 @@ const arabicHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const arabicDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...arDoctors.doctors[i] }));
 
-const videoEntries = defaultDoctors
+const videoEntries = translateDoctors(defaultDoctors, arDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -86,7 +86,17 @@ const videoEntries = defaultDoctors
 		hospitals={arabicHospitals}
 		basePath="/ar"
 	/>
-	<TreatmentCostComparison basePath="/ar" />
+	<TreatmentCostComparison
+		basePath="/ar"
+		title={arCostComparison.title}
+		subtitle={arCostComparison.subtitle}
+		discoverText={arCostComparison.discoverText}
+		startingLabel={arCostComparison.startingLabel}
+		getQuoteLabel={arCostComparison.getQuoteLabel}
+		chatLabel={arCostComparison.chatLabel}
+		treatmentNames={arCostComparison.treatmentNames}
+		doctors={translateDoctors(defaultDoctors, arDoctorsTr)}
+	/>
 	<SupportServices
 		badge={arSupportServices.badge}
 		title={arSupportServices.titleLead}

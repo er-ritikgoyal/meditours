@@ -6,6 +6,43 @@ import OurJourney from '../components/OurJourney.astro';
 import WhyChooseUs from '../components/WhyChooseUs.astro';
 import FaqAccordion from '../components/FaqAccordion.astro';
 import CostEstimateCta from '../components/CostEstimateCta.astro';
+import SeoContent from '../components/SeoContent.astro';
+
+const aboutFaqs = [
+	{
+		question: 'Why is India popular for medical tourism?',
+		answer:
+			'India attracts international patients because of its established hospitals, experienced medical specialists, healthcare facilities, and diverse medical treatment options.',
+	},
+	{
+		question: 'How can I find the best hospital for medical tourism in India?',
+		answer:
+			"You should compare hospital accreditation, doctors' experience, available medical facilities, treatment plans, and patient support services before choosing a hospital.",
+	},
+	{
+		question: 'What documents are required for medical treatment in India?',
+		answer:
+			'Patients may need medical reports, previous prescriptions, diagnostic records, a valid passport, and applicable visa documents. Requirements depend on the hospital and visa regulations.',
+	},
+	{
+		question: 'Does ALIS PRO MEDI TOURS provide medical visa assistance?',
+		answer: 'Yes, ALIS PRO MEDI TOURS assists international patients with medical visa arrangements as part of its medical tourism facilitation services.',
+	},
+	{
+		question: 'Does ALIS PRO MEDI TOURS arrange accommodation and airport transfers?',
+		answer: 'Yes, we assist international patients with accommodation, airport transfers, flight arrangements, and other travel coordination services.',
+	},
+	{
+		question: 'Can international patients get a second medical opinion in India?',
+		answer:
+			'Yes, international patients can request a second medical opinion from relevant medical specialists in India. ALIS PRO MEDI TOURS assists with coordinating the consultation process.',
+	},
+	{
+		question: 'How can I contact ALIS PRO MEDI TOURS for medical tourism services?',
+		answer:
+			'International patients can contact ALIS PRO MEDI TOURS to discuss their medical requirements and receive assistance with consultations, hospital appointments, treatment planning, and travel arrangements.',
+	},
+];
 ---
 
 <Layout
@@ -39,11 +76,14 @@ import CostEstimateCta from '../components/CostEstimateCta.astro';
 		highlight="Every Patient"
 		subtitle="The same standards we hold ourselves to on every single case, for every single patient."
 	/> -->
+	<SeoContent />
+
 	<FaqAccordion
-		badge="Have Questions?"
-		title="About Us,"
+		badge="FAQs"
+		title="Medical Tourism in India,"
 		highlight="Answered"
-		subtitle="The questions we hear most often from patients considering treatment abroad."
+		subtitle="Common questions international patients ask before travelling to India for treatment."
+		faqs={aboutFaqs}
 	/>
 
 	<CostEstimateCta />

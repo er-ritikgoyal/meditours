@@ -135,3 +135,27 @@ export const roTravelProcess = {
 		},
 	],
 };
+
+export const roCostComparison = {
+	title: 'Cele mai mici prețuri garantate',
+	subtitle:
+		'Negociem constant prețuri și alternative mai bune, fără a compromite calitatea tratamentului. Prețurile noastre sunt constant mai mici.',
+	discoverText: 'Descoperiți ce vă oferim!',
+	startingLabel: 'Începând de la',
+	getQuoteLabel: 'Obțineți o ofertă',
+	chatLabel: 'Chat',
+	treatmentNames: [
+		'Protezare de genunchi',
+		'Protezare de șold',
+		'Tumoră cerebrală',
+		'Bypass coronarian',
+		'Înlocuire de valvă cardiacă',
+		'Cancer de sân',
+		'Cancer pulmonar',
+		'Rinoplastie',
+		'Implanturi mamare',
+		'Transplant de păr',
+		'Tratament FIV',
+		'Histerectomie',
+	],
+};

@@ -18,7 +18,7 @@ export const roAbout = {
 		titleLead: 'Construiți pentru a face îngrijirea medicală de talie mondială',
 		titleHighlight: 'accesibilă tuturor',
 		paragraphs: [
-			'Alis Pro Med Tour a fost fondată pentru a reduce decalajul dintre îngrijirea medicală de talie mondială și costul acesteia. Credem că locul unde v-ați născut nu ar trebui să determine dacă vă puteți permite intervenția chirurgicală de care aveți nevoie. De la înființarea noastră, am ghidat mii de pacienți — de la prima opinie medicală până la recuperarea completă — prin cele mai acreditate spitale din India, economisind familiilor sume de bani care le schimbă viața, fără a face vreodată compromisuri privind calitatea.',
+			'Alis Pro meditours a fost fondată pentru a reduce decalajul dintre îngrijirea medicală de talie mondială și costul acesteia. Credem că locul unde v-ați născut nu ar trebui să determine dacă vă puteți permite intervenția chirurgicală de care aveți nevoie. De la înființarea noastră, am ghidat mii de pacienți — de la prima opinie medicală până la recuperarea completă — prin cele mai acreditate spitale din India, economisind familiilor sume de bani care le schimbă viața, fără a face vreodată compromisuri privind calitatea.',
 			'Ceea ce a început ca o mică echipă de coordonatori de pacienți a devenit o rețea completă de servicii concierge care se extinde în peste 40 de țări, cu comisii medicale interne, specialiști dedicați în vize și sprijin multilingv 24/7 — pentru că navigarea în sistemul de sănătate al unei țări străine nu ar trebui niciodată să pară o experiență de parcurs singur.',
 		],
 		statsLabels: ['Spitale partenere', 'Țări deservite', 'Sprijin pentru pacienți', 'Pacienți ajutați'],
@@ -48,7 +48,7 @@ export const roAbout = {
 		titleHighlight: 'încrederii pacienților',
 		subtitle: 'De la o mică echipă de coordonatori la o rețea de pacienți în peste 40 de țări.',
 		milestones: [
-			{ title: 'Fondată la Mumbai', description: 'Alis Pro Med Tour se lansează cu câteva spitale partenere în Delhi și Mumbai.' },
+			{ title: 'Fondată la Mumbai', description: 'Alis Pro meditours se lansează cu câteva spitale partenere în Delhi și Mumbai.' },
 			{
 				title: 'Rețeaua de acreditare se extinde',
 				description: 'Extindere la peste 100 de spitale acreditate JCI și NABH în cele mai importante centre medicale din India.',

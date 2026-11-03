@@ -135,3 +135,27 @@ export const ptTravelProcess = {
 		},
 	],
 };
+
+export const ptCostComparison = {
+	title: 'Os preços mais baixos garantidos',
+	subtitle:
+		'Negociamos constantemente melhores preços e alternativas sem comprometer a qualidade do tratamento. Os nossos preços são sempre mais baixos.',
+	discoverText: 'Descubra o que oferecemos!',
+	startingLabel: 'A partir de',
+	getQuoteLabel: 'Pedir orçamento',
+	chatLabel: 'Conversar',
+	treatmentNames: [
+		'Substituição do joelho',
+		'Substituição da anca',
+		'Tumor cerebral',
+		'Cirurgia de bypass cardíaco',
+		'Substituição de válvula cardíaca',
+		'Cancro da mama',
+		'Cancro do pulmão',
+		'Rinoplastia',
+		'Implantes mamários',
+		'Transplante capilar',
+		'Tratamento de FIV',
+		'Histerectomia',
+	],
+};

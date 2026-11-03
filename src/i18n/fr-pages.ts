@@ -18,7 +18,7 @@ export const frAbout = {
 		titleLead: 'Conçus pour rendre des soins de classe mondiale',
 		titleHighlight: 'accessibles à tous',
 		paragraphs: [
-			"Alis Pro Med Tour a été fondée pour combler l'écart entre les soins médicaux de classe mondiale et leur coût. Nous croyons que l'endroit où vous êtes né ne devrait pas déterminer si vous pouvez vous permettre l'intervention dont vous avez besoin. Depuis notre création, nous avons accompagné des milliers de patients — du premier avis médical au rétablissement complet — à travers les hôpitaux les plus accrédités d'Inde, permettant aux familles d'économiser des sommes qui changent une vie, sans jamais transiger sur la qualité.",
+			"Alis Pro meditours a été fondée pour combler l'écart entre les soins médicaux de classe mondiale et leur coût. Nous croyons que l'endroit où vous êtes né ne devrait pas déterminer si vous pouvez vous permettre l'intervention dont vous avez besoin. Depuis notre création, nous avons accompagné des milliers de patients — du premier avis médical au rétablissement complet — à travers les hôpitaux les plus accrédités d'Inde, permettant aux familles d'économiser des sommes qui changent une vie, sans jamais transiger sur la qualité.",
 			"Ce qui a commencé comme une petite équipe de coordinateurs de patients est devenu un réseau de conciergerie complet couvrant plus de 40 pays, avec des comités de révision médicale internes, des spécialistes des visas dédiés et une assistance multilingue 24 h/24 et 7 j/7 — car naviguer dans le système de santé d'un pays étranger ne devrait jamais donner l'impression de le faire seul.",
 		],
 		statsLabels: ['Hôpitaux partenaires', 'Pays desservis', 'Assistance patients', 'Patients accompagnés'],
@@ -50,7 +50,7 @@ export const frAbout = {
 		titleHighlight: 'de nos patients',
 		subtitle: "D'une petite équipe de coordinateurs à un réseau de patients présent dans plus de 40 pays.",
 		milestones: [
-			{ title: 'Fondation à Mumbai', description: "Alis Pro Med Tour se lance avec une poignée d'hôpitaux partenaires à Delhi et Mumbai." },
+			{ title: 'Fondation à Mumbai', description: "Alis Pro meditours se lance avec une poignée d'hôpitaux partenaires à Delhi et Mumbai." },
 			{
 				title: "Le réseau d'accréditation s'agrandit",
 				description: "Extension à plus de 100 hôpitaux accrédités JCI et NABH dans les principaux pôles médicaux d'Inde.",

@@ -89,6 +89,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'javed-rizwan': {
 		specialty: 'Bác sĩ cấy ghép implant và chỉnh nha',
 		title: 'Giám đốc kiêm Trưởng khoa — Cấy ghép implant nha khoa và chỉnh nha',
+		city: 'Gurugram, Ấn Độ',
 		about: [
 			'Bác sĩ Javed Rizwan là chuyên gia cấy ghép implant nha khoa và chỉnh nha với hơn 20 năm thực hành lâm sàng, đã cấy hơn 15.000 implant nha khoa thông thường và tức thì, hoàn thành hơn 500 ca phục hình toàn hàm bằng kỹ thuật implant tức thì chiến lược. Ông được đào tạo về cấy ghép implant chiến lược tại Munich, Đức, và điều hành Spruce Dental Chain of Clinics tại Gurugram, nơi ông tập trung vào việc đặt implant ít xâm lấn và phục hồi toàn hàm trong một lần khám cho bệnh nhân quốc tế.',
 			'Bác sĩ Javed Rizwan là một trong những chuyên gia cấy ghép implant nha khoa nổi tiếng và là một trong những bác sĩ chỉnh nha hàng đầu tại Delhi NCR. Ông đã giữ chức giám đốc kiêm trưởng khoa của chuỗi phòng khám Spruce Dental tại Delhi hơn 20 năm qua. Bác sĩ Rizwan đã thực hiện hơn 500 ca phục hình toàn hàm bằng implant tức thì chiến lược. Ông tốt nghiệp BDS tại Đại học CCS danh tiếng ở Meerut, Uttar Pradesh, Ấn Độ. Sau đó, ông hoàn thành chương trình MDS (Chỉnh nha và Chỉnh hình răng mặt) tại cùng trường đại học, rồi theo học chương trình PGCE tại Trường Nha khoa Dr R Ahmad ở Kolkata, Tây Bengal, Ấn Độ.',
@@ -108,6 +109,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'anika-bhasin-arora': {
 		specialty: 'Chuyên gia nội nha và nha sĩ thẩm mỹ',
 		title: 'Chủ phòng khám và nha sĩ chính — Nội nha và nha khoa thẩm mỹ',
+		city: 'New Delhi, Ấn Độ',
 		about:
 			'Bác sĩ Anika Bhasin Arora chuyên điều trị tủy và nha khoa thẩm mỹ, kết hợp độ chính xác của nội nha với kết quả tự nhiên. Bà từng điều hành chi nhánh Delhi của Cosmodent India trước khi sáng lập Shining Smiles Dentistry, nơi bà thực hiện mọi ca từ nội nha vi phẫu phức tạp đến thiết kế nụ cười toàn diện, và được đào tạo thêm về thẩm mỹ khuôn mặt cho bệnh nhân kết hợp điều trị nha khoa và làm đẹp trong một chuyến đi.',
 		specializations: [
@@ -121,6 +123,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'suraj-munjal': {
 		specialty: 'Bác sĩ nhãn khoa và phẫu thuật đục thủy tinh thể',
 		title: 'Sáng lập, Chủ tịch kiêm Tổng giám đốc — The Sight Avenue Eye Hospital',
+		city: 'New Delhi, Ấn Độ',
 		about:
 			'Bác sĩ Suraj Munjal là bác sĩ nhãn khoa với hơn 21 năm trong ngành y, trong đó hơn 15 năm chuyên về phẫu thuật đục thủy tinh thể và phẫu thuật khúc xạ. Ông được đào tạo phaco tại Aditya Jyot Eye Hospital và hoàn thành chương trình học bổng lâm sàng về phẫu thuật giác mạc và khúc xạ tại Bệnh viện Đại học Tübingen (Đức), sau đó sáng lập The Sight Avenue Eye Hospital tại New Delhi, nơi ông duy trì khối lượng lớn ca đục thủy tinh thể, LASIK, giác mạc và lác.',
 		specializations: [
@@ -140,6 +143,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'himanshu-champaneri': {
 		specialty: 'Bác sĩ phẫu thuật thần kinh',
 		title: 'Phó giám đốc kiêm Trưởng đơn vị — Phẫu thuật thần kinh',
+		city: 'Gurugram, Ấn Độ',
 		about:
 			'Bác sĩ Himanshu Champaneri là phó giám đốc kiêm trưởng đơn vị phẫu thuật thần kinh tại Max Hospital, Gurugram, với chuyên môn về phẫu thuật u não phức tạp, rối loạn vận động và các thủ thuật xâm lấn tối thiểu cột sống và nền sọ. Ông được đào tạo phẫu thuật tổng quát tại Đại học Sardar Patel (huy chương vàng), hoàn thành học bổng phẫu thuật xâm lấn tối thiểu tại Pramukhswami Medical College và đạt DNB Phẫu thuật thần kinh; trước đó ông giữ các vị trí lãnh đạo phẫu thuật thần kinh tại Marengo Asia Hospitals và Medanta — The Medicity (đều ở Gurugram), đặc biệt có kinh nghiệm về kích thích não sâu, phẫu thuật nội soi cột sống, phẫu thuật chức năng và động kinh.',
 		specializations: [
@@ -156,6 +160,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'amitabh-singh': {
 		specialty: 'Bác sĩ phẫu thuật tạo hình',
 		title: 'Giám đốc lâm sàng kiêm Trưởng khoa — Phẫu thuật tạo hình',
+		city: 'Gurugram, Ấn Độ',
 		about:
 			'Bác sĩ Amitabh Singh là giám đốc lâm sàng kiêm trưởng khoa phẫu thuật tạo hình tại Marengo Asia Hospitals, Gurugram, với hơn 20 năm kinh nghiệm về phẫu thuật thẩm mỹ, tái tạo, bàn tay và vi phẫu. Sau bằng MCh Phẫu thuật Tạo hình, ông theo học các chương trình về vi phẫu mạch máu và đám rối thần kinh cánh tay tại Đài Loan và Bangkok, cùng phẫu thuật tạo hình thẩm mỹ và sau giảm cân tại Iowa (Hoa Kỳ), với đào tạo bổ sung tại Ganga Hospital (Coimbatore) và Đại học Emory (Atlanta). Ông từng là chuyên gia cao cấp phẫu thuật tạo hình tại Fortis Hospitals (NCR), viết các chương trong sách giáo khoa hàng đầu về phẫu thuật tạo hình và chăm sóc bỏng, và là phản biện của Aesthetic Surgery Journal.',
 		specializations: [
@@ -176,6 +181,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'sunil-sanghi': {
 		specialty: 'Bác sĩ da liễu',
 		title: 'Giám đốc lâm sàng kiêm Trưởng khoa — Da liễu',
+		city: 'Gurugram, Ấn Độ',
 		about:
 			'Bác sĩ Sunil Sanghi là giám đốc lâm sàng kiêm trưởng khoa da liễu tại Marengo Asia Hospitals, Gurugram, với hơn 30 năm kinh nghiệm. Là huy chương vàng MD Da liễu tại Armed Forces Medical College, Pune, ông từng là Giáo sư Da liễu và Hoa liễu tại AFMC và chuyên gia cao cấp tại nhiều bệnh viện hàng đầu. Ông được đào tạo chuyên sâu về da liễu nhi, vảy nến và bệnh tóc, điều trị nhiều bệnh da, tóc và thẩm mỹ. Ông đã công bố hơn 18 bài báo trên các tạp chí có phản biện, trình bày tại hơn 60 hội nghị trong nước và quốc tế, và là thành viên ban biên tập Indian Journal of Dermatology, Venereology & Leprology.',
 		specializations: [
@@ -197,6 +203,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'bilal-ahmad-baba': {
 		specialty: 'Bác sĩ tim mạch can thiệp',
 		title: 'Chuyên gia cao cấp — Tim mạch can thiệp',
+		city: 'Gurugram, Ấn Độ',
 		about:
 			'Bác sĩ Bilal Ahmad Baba là chuyên gia cao cấp về tim mạch can thiệp tại Marengo Asia Hospitals, Gurugram, với hơn 15 năm kinh nghiệm và hơn 5.000 thủ thuật mạch vành và can thiệp nâng cao. Công việc của ông gồm nong mạch vành phức tạp dưới hướng dẫn hình ảnh nâng cao (IVUS, OCT), cấy thiết bị nhịp tim, kể cả máy tạo nhịp không dây, can thiệp cấu trúc như TAVI và TMVR, đóng dị tật tim bẩm sinh và can thiệp mạch ngoại biên. Trước Marengo, ông giữ các vị trí tim mạch tại Shalby Sanar International Hospital, BLK-Max Super Speciality Hospital và Shri Narayan Hospital, và có bài đăng trên các tạp chí tim mạch có phản biện.',
 		specializations: [
@@ -217,6 +224,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'saurabh-verma': {
 		specialty: 'Bác sĩ phẫu thuật chỉnh hình và cột sống',
 		title: 'Phó giám đốc — Chỉnh hình và phẫu thuật cột sống',
+		city: 'Gurugram, Ấn Độ',
 		about:
 			'Bác sĩ Saurabh Verma là phó giám đốc chỉnh hình và phẫu thuật cột sống tại Marengo Asia Hospitals, Gurugram, với hơn một thập kỷ kinh nghiệm lâm sàng tập trung vào phẫu thuật cột sống xâm lấn tối thiểu. Ông được đào tạo tại Maulana Azad Medical College, Delhi, hoàn thành FNB Phẫu thuật Cột sống và học bổng dài hạn tại Indian Spinal Injuries Centre, cùng một học bổng khác tại National University Hospital, Singapore. Trước khi gia nhập Marengo năm 2024, ông đứng đầu đơn vị cột sống tại Manipal Hospital (Dwarka) và phẫu thuật cột sống tại Aakash Healthcare (Dwarka), điều trị chấn thương, bệnh thoái hóa và bệnh lý cột sống cổ và thắt lưng.',
 		specializations: [
@@ -230,6 +238,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'krishan-kumar-yadav': {
 		specialty: 'Bác sĩ phẫu thuật thần kinh',
 		title: 'Giám đốc lâm sàng, Giáo sư kiêm Trưởng khoa — Phẫu thuật thần kinh và cột sống thần kinh',
+		city: 'Gurugram, Ấn Độ',
 		about:
 			'Bác sĩ (Air Cmde) Krishan Kumar Yadav là giám đốc lâm sàng, giáo sư kiêm trưởng khoa phẫu thuật thần kinh và cột sống thần kinh tại Marengo Asia Hospitals, Gurugram, với hơn 35 năm trong ngành phẫu thuật thần kinh. Ông được đào tạo hoàn toàn tại Armed Forces Medical College, Pune, từ MBBS đến MCh Phẫu thuật Thần kinh, đã điều trị hơn 80.000 ca và thực hiện hơn 5.000 thủ thuật phức tạp. Chuyên môn của ông gồm phẫu thuật não và cột sống, thủ thuật cột sống xâm lấn tối thiểu, chấn thương thần kinh, ung thư thần kinh, phẫu thuật mạch máu não và nhi khoa, u nền sọ và phẫu thuật nội soi tuyến yên. Ông là tác giả hơn 24 công bố và đóng góp cho các sách giáo khoa phẫu thuật thần kinh.',
 		specializations: [
@@ -252,6 +261,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'punit-singla': {
 		specialty: 'Bác sĩ phẫu thuật ghép gan',
 		title: 'Giám đốc chương trình lâm sàng — Viện Ghép Gan và Phẫu thuật Gan mật tụy',
+		city: 'Faridabad, Ấn Độ',
 		about:
 			'Bác sĩ Punit Singla là giám đốc chương trình lâm sàng của Viện Ghép Gan và Phẫu thuật Gan mật tụy (HPB), hành nghề tại Marengo Asia Hospitals (Faridabad và Gurugram) và Marengo CIMS Hospital (Ahmedabad). Ông đã thực hiện hơn 2.000 ca ghép gan, gồm ghép ở trẻ em, ghép khác nhóm máu ABO và ghép gan – thận đồng thời, và đã thiết lập chương trình ghép gan từ người hiến sống độc lập đầu tiên của Punjab. Ông được đào tạo tiêu hóa phẫu thuật tại Sir Ganga Ram Hospital (Delhi) và hoàn thành học bổng ghép gan tại Medanta — The Medicity (Gurugram).',
 		specializations: [
@@ -269,6 +279,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'neeraj-teotia': {
 		specialty: 'Bác sĩ huyết học – ung bướu nhi',
 		title: 'Chuyên gia — Huyết học – Ung bướu nhi và Ghép tủy xương',
+		city: 'Gurugram, Ấn Độ',
 		about:
 			'Bác sĩ Neeraj Teotia là chuyên gia huyết học – ung bướu nhi và ghép tủy xương tại Marengo Asia Hospitals, làm việc tại Gurugram và Faridabad. Ông đã thực hiện thành công hơn 200 ca ghép tủy xương và điều trị bạch cầu cấp, u lympho ở trẻ em, các khối u đặc như u nguyên bào thần kinh, sarcoma cơ vân và sarcoma xương, cũng như suy tủy và các hội chứng suy tủy xương. Ông hoàn thành FNB tại Rajiv Gandhi Cancer Institute (Delhi) và học bổng ghép tủy xương nhi và liệu pháp tế bào tại Royal Bristol Hospital for Children (Anh), với hơn 10 công bố trên các tạp chí trong nước và quốc tế.',
 		specializations: [
@@ -287,6 +298,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'ritesh-mongha': {
 		specialty: 'Bác sĩ tiết niệu và phẫu thuật ghép thận',
 		title: 'Giám đốc lâm sàng kiêm Trưởng khoa — Tiết niệu, Ung bướu tiết niệu và Ghép thận',
+		city: 'Faridabad, Ấn Độ',
 		about:
 			'Bác sĩ Ritesh Mongha là giám đốc lâm sàng kiêm trưởng khoa tiết niệu, ung bướu tiết niệu và ghép thận tại Marengo Asia Hospitals, Faridabad, với 18 năm kinh nghiệm. Ông đạt MCh Tiết niệu tại IPGMER, Kolkata, và chuyên môn gồm ghép thận, tiết niệu robot và nội soi, nội soi tiết niệu, tán sỏi thận và điều trị tuyến tiền liệt bằng laser, ung bướu tiết niệu, tiết niệu tái tạo và phẫu thuật vô sinh nam. Thành tích phẫu thuật của ông gồm hơn 700 ca ghép thận, hơn 20.000 thủ thuật nội soi tiết niệu và hơn 1.000 ca laser tuyến tiền liệt.',
 		specializations: [
@@ -309,6 +321,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'meet-kumar': {
 		specialty: 'Bác sĩ huyết học và chuyên gia ghép tủy',
 		title: 'Giám đốc lâm sàng kiêm Trưởng khoa — Huyết học – Ung bướu và Ghép tủy xương',
+		city: 'Faridabad, Ấn Độ',
 		about:
 			'Bác sĩ Meet Kumar là giám đốc lâm sàng kiêm trưởng khoa huyết học – ung bướu và ghép tủy xương tại Marengo Asia Hospitals, làm việc tại Faridabad và Gurugram. Với bằng DM Huyết học Lâm sàng, học bổng ghép tủy tại Tata Medical Centre (Kolkata) và đào tạo quan sát liệu pháp tế bào CAR-T tại King’s College London, ông đã thực hiện hơn 700 ca ghép tủy xương, gồm ghép tự thân, đồng loài, từ người hiến không cùng huyết thống và haplo. Ông điều trị thiếu máu, giảm tiểu cầu, bạch cầu cấp, u lympho, đa u tủy và suy tủy, có hơn 20 công bố nghiên cứu, và từng làm việc tại Sir Ganga Ram Hospital, SGPGI Lucknow, BLK Hospital và Fortis Memorial Research Institute.',
 		specializations: [
@@ -327,6 +340,7 @@ export const viDoctorsTr: DoctorTranslations = {
 	'shibal-bhartiya': {
 		specialty: 'Bác sĩ nhãn khoa và chuyên gia glaucoma',
 		title: 'Giám đốc lâm sàng — Nhãn khoa; Giám đốc chương trình — Hoạt động cộng đồng và Sức khỏe, MAIINS',
+		city: 'Gurugram, Ấn Độ',
 		about:
 			'Bác sĩ Shibal Bhartiya là giám đốc lâm sàng nhãn khoa tại Marengo Asia Hospitals, Gurugram, đồng thời là giám đốc chương trình Hoạt động Cộng đồng và Sức khỏe cũng như Marengo Asia International Institute of Neuro and Spine (MAIINS), với hơn 23 năm kinh nghiệm. Bà được đào tạo tại Maulana Azad Medical College và Dr R P Centre for Ophthalmic Sciences (AIIMS), có học bổng nghiên cứu glaucoma tại Đại học Geneva, chuyên về glaucoma, thần kinh – nhãn khoa, bệnh bề mặt nhãn cầu, LASIK, thoái hóa hoàng điểm và bệnh võng mạc đái tháo đường. Bà là cộng tác viên nghiên cứu tại Mayo Clinic, tổng biên tập Clinical and Experimental Vision and Eye Research, và là tác giả hơn 200 bài báo có phản biện cùng 10 sách giáo khoa.',
 		specializations: [
@@ -350,6 +364,7 @@ export const viDoctorsTr: DoctorTranslations = {
 		title: 'Chuyên gia — Tiết niệu và Nam khoa',
 		qualification: 'MBBS, MS — Ngoại tổng quát, MCh — Tiết niệu',
 		languages: ['Tiếng Anh', 'Tiếng Hindi'],
+		city: 'New Delhi, Ấn Độ',
 		about:
 			'Bác sĩ Gautam Banga là chuyên gia tư vấn tiết niệu và nam khoa với hơn 20 năm kinh nghiệm chuyên sâu và đã thực hiện hơn 3.000 ca phẫu thuật tiết niệu phức tạp. Ông được đào tạo ngoại tổng quát tại Trường Y MGM, Indore, và hoàn thành chương trình MCh Tiết niệu tại Trường Y Sawai Mansingh, trước khi xây dựng một phòng khám tập trung vào tiết niệu tái tạo, nam khoa và sức khỏe tình dục nam giới tại Bệnh viện Quốc tế SCI, New Delhi. Ông được coi là một trong những bác sĩ phẫu thuật có khối lượng ca mổ cao nhất miền Bắc Ấn Độ về các phương pháp điều trị sức khỏe nam giới tiên tiến, bao gồm cấy ghép dương vật giả được FDA phê duyệt và các thủ thuật vi phẫu điều trị hiếm muộn.',
 		specializations: [
@@ -388,6 +403,7 @@ export const viDoctorsTr: DoctorTranslations = {
 			"Tiếng Anh",
 			"Tiếng Hindi"
 		],
+		city: 'New Delhi, Ấn Độ',
 		"about": "Bác sĩ Ila Gupta là Đồng sáng lập kiêm Giám đốc của Pristyn Care Ferticity IVF & Fertility Clinics, với hơn 29 năm kinh nghiệm điều trị hiếm muộn và các kỹ thuật hỗ trợ sinh sản (ART). Bà được đào tạo nội soi nâng cao tại Kerala và Clermont (Pháp), sau đó hoàn thành chứng chỉ Y học sinh sản & hỗ trợ sinh sản tại Kiel (Đức), rồi xây dựng nền tảng thực hành bao gồm IVF, ICSI, IMSI, IUI, trữ đông phôi và sàng lọc di truyền, cùng phẫu thuật nội soi buồng tử cung và nội soi ổ bụng cho hiếm muộn ở cả nam và nữ. Phòng khám của bà báo cáo tỷ lệ thành công lên đến 78% đối với thai kỳ đủ tháng và khỏe mạnh về mặt di truyền, và bà từng là thành viên hội đồng năm chuyên gia đánh giá Đạo luật Công nghệ Hỗ trợ Sinh sản (Điều chỉnh) năm 2020 của Ấn Độ.",
 		"specializations": [
 			"Điều trị IVF",
@@ -439,6 +455,7 @@ export const viDoctorsTr: DoctorTranslations = {
 			"Tiếng Anh",
 			"Tiếng Hindi"
 		],
+		city: 'New Delhi, Ấn Độ',
 		"about": "Bác sĩ Rahil Chaudhary là Tổng giám đốc của Eye7 Eye Hospitals, bác sĩ phẫu thuật đục thủy tinh thể và tật khúc xạ chuyên về LASIK, ICL, điều chỉnh thị lực bằng laser Contoura Vision và điều trị giác mạc hình chóp tại mạng lưới các trung tâm Eye7 ở Delhi-NCR. Ông được đào tạo về phẫu thuật khúc xạ tại Đức và Nhật Bản, giữ Kỷ lục Thế giới Guinness khi thực hiện 250 ca LASIK Contoura Vision trong một ngày, cùng các kỷ lục trong Limca Book of Records và India Book of Records về độ cận cao nhất được điều chỉnh bằng ICL và ca phẫu thuật LASIK nhanh nhất từng ghi nhận. Ông giữ kỷ lục số ca ICL nhiều nhất tại Ấn Độ suốt mười năm liên tiếp và thường xuyên là diễn giả tại các hội nghị quốc tế như ESCRS, ASCRS và World ICL Meet. Ngoài phòng mổ, ông sáng lập 7 Sight Foundation chăm sóc mắt từ thiện và đã nộp đơn kiện vì lợi ích công cộng lên Tòa án Tối cao về việc quản lý các ca phẫu thuật phát trực tiếp, dẫn đến các hướng dẫn mới của National Medical Commission.",
 		"specializations": [
 			"Điều chỉnh thị lực bằng laser LASIK và Contoura Vision",
@@ -478,6 +495,99 @@ export const viDoctorsTr: DoctorTranslations = {
 			"Giải Kỹ thuật Phẫu thuật Xuất sắc nhất và Giải John Henahan, ESCRS",
 			"Giải Swadesh Samman, Bộ Y tế"
 		]
+	},
+	'deepak-saha': {
+		specialty: 'Bác sĩ tim mạch can thiệp',
+		city: 'Hyderabad, Ấn Độ',
+	},
+	's-sudha': {
+		specialty: 'Bác sĩ sản phụ khoa và chuyên gia hiếm muộn',
+		city: 'Hyderabad, Ấn Độ',
+	},
+	'dvl-narayana-rao': {
+		specialty: 'Bác sĩ phẫu thuật tiêu hóa',
+		title: 'Bác sĩ tư vấn cấp cao — Phẫu thuật tiêu hóa, phẫu thuật robot và nội soi ung thư tiêu hóa',
+		qualification:
+			'MBBS; MS — Phẫu thuật tổng quát (Đại học Y Madras); MCh — Phẫu thuật tiêu hóa (AIIMS, New Delhi); DNB; Học bổng — Phẫu thuật tiêu hóa (NIMS, Hyderabad)',
+		city: 'Hyderabad, Ấn Độ',
+		about:
+			'Bác sĩ D.V.L. Narayana Rao là bác sĩ phẫu thuật tiêu hóa với hơn 33 năm kinh nghiệm trong phẫu thuật tiêu hóa, gan mật và tụy, hiện đang công tác tại Bệnh viện TX, Banjara Hills, Hyderabad. Ông đã thiết kế kỹ thuật shunt colo-cava cho tăng áp lực tĩnh mạch cửa và đã thực hiện hơn 350 ca phẫu thuật shunt và 200 thủ thuật Frey.',
+		specializations: [
+			'Phẫu thuật giảm béo',
+			'Phẫu thuật xâm lấn tối thiểu và nội soi',
+			'Phẫu thuật gan mật và tụy',
+			'Phẫu thuật đại trực tràng',
+			'Hậu môn trực tràng học',
+			'Phẫu thuật tổng quát',
+		],
+		awards: [
+			'Thiết kế kỹ thuật shunt colo-cava cho tăng áp lực tĩnh mạch cửa, sử dụng tĩnh mạch đại tràng giữa để giảm áp hệ cửa',
+			'Phát triển các cải tiến cho thủ thuật Whipple',
+			'Tiên phong trong phương pháp "cắt rời tụy" để điều trị viêm tụy mạn với ống tụy không giãn',
+			'Thực hiện hơn 350 ca phẫu thuật shunt cho tăng áp tĩnh mạch cửa không do xơ gan ở trẻ em và người lớn',
+			'Hoàn thành hơn 200 thủ thuật Frey cho viêm tụy mạn',
+		],
+	},
+	'lokesh-rudra-madhav': {
+		specialty: 'Bác sĩ chỉnh nha',
+		title: 'Bác sĩ chỉnh nha và tư vấn chỉnh nha — Mắc cài cố định, khay niềng trong suốt và chỉnh hình răng mặt',
+		qualification: 'BDS; MDS — Chỉnh nha và chỉnh hình răng mặt',
+		city: 'New Delhi, Ấn Độ',
+		about:
+			'Bác sĩ Lokesh Rudra Madhav là bác sĩ chỉnh nha chuyên về mắc cài cố định, tháo lắp, khay niềng trong suốt và điều trị chỉnh nha liên chuyên khoa, hiện đang công tác tại Green Park Dental, Delhi. Trong thời gian nội trú sau đại học, ông đã quản lý hơn 200 ca chỉnh nha, bao gồm các ca chỉnh nha phẫu thuật phức tạp.',
+		specializations: [
+			'Mắc cài chỉnh nha cố định (MBT và tự buộc Damon)',
+			'Điều trị bằng khay niềng trong suốt',
+			'Chỉnh nha phòng ngừa',
+			'Chỉnh nha phẫu thuật và sai khớp cắn phức tạp',
+			'Đặt mini vít (TAD)',
+			'Phân tích đo sọ và CBCT',
+			'Điều trị bằng khí cụ chức năng',
+		],
+		awards: [
+			'Luận văn — "Đánh giá độ dày mô mềm ở bệnh nhân Loại I với các kiểu tăng trưởng khác nhau"',
+			'Luận án — "Khoảng cách chân răng và góc nghiêng của mini vít chỉnh nha ở hàm trên trước: đánh giá bằng CBCT"',
+		],
+	},
+	'ganesh-dubey': {
+		specialty: 'Nha sĩ tổng quát và giám đốc chuyên môn',
+		title: 'Người sáng lập và giám đốc chuyên môn — Phòng khám Nha khoa Đa khoa Mithila',
+		qualification: 'BDS',
+		city: 'Ghaziabad, Ấn Độ',
+		about:
+			'Bác sĩ Ganesh Dubey là người sáng lập và giám đốc chuyên môn của Phòng khám Nha khoa Đa khoa Mithila tại Ghaziabad, đứng đầu đội ngũ 13 chuyên gia MDS thuộc 9 chuyên khoa. Ông đã xây dựng kinh nghiệm điều trị bệnh nhân quốc tế, đặc biệt từ các nước châu Phi và các đảo Thái Bình Dương, với tư vấn bằng tiếng Anh và hỗ trợ sắp xếp đi lại toàn diện.',
+		specializations: [
+			'Giám sát lâm sàng và lập kế hoạch điều trị',
+			'Cấy ghép implant nha khoa',
+			'Thiết kế nụ cười và phục hồi toàn bộ miệng',
+			'Điều phối bệnh nhân quốc tế',
+			'Nha khoa tổng quát và thẩm mỹ',
+		],
+		awards: [
+			'Xây dựng đội ngũ lâm sàng gồm 13 chuyên gia MDS thuộc 9 chuyên khoa tại Phòng khám Nha khoa Đa khoa Mithila',
+			'Dẫn đầu các đợt khám nha khoa và sàng lọc sức khỏe răng miệng miễn phí hợp tác với Max Healthcare và Bệnh viện Huyện MMG, Ghaziabad',
+		],
+	},
+	'n-pavan-kumar-rao': {
+		specialty: 'Bác sĩ thận học và chuyên gia ghép thận',
+		title: 'Bác sĩ tư vấn cấp cao — Thận học và ghép thận',
+		qualification: 'MBBS; MD; DM — Thận học',
+		city: 'Hyderabad, Ấn Độ',
+		about:
+			'Bác sĩ N. Pavan Kumar Rao là bác sĩ tư vấn cấp cao chuyên khoa thận với hơn 21 năm kinh nghiệm trong ghép thận và chăm sóc sau ghép, quản lý bệnh thận mạn và lọc máu, hiện đang công tác tại Bệnh viện TX, Banjara Hills, Hyderabad. Ông được coi là một trong những chuyên gia ghép thận hàng đầu trong khu vực.',
+		specializations: [
+			'Ghép thận và chăm sóc sau ghép',
+			'Quản lý bệnh thận mạn (CKD)',
+			'Lọc máu và chạy thận nhân tạo',
+			'Bảo trì đường vào chạy thận nhân tạo',
+			'Điều trị sỏi thận',
+			'Tăng huyết áp kèm bệnh thận',
+			'Chương trình dinh dưỡng cho bệnh thận',
+		],
+		awards: [
+			'Được công nhận là một trong những chuyên gia ghép thận hàng đầu tại Telangana',
+			'Trình bày các công trình nghiên cứu và nghiên cứu ca bệnh tại các hội nghị thận học quốc tế',
+		],
 	},
 };
 

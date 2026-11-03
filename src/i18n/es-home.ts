@@ -135,3 +135,27 @@ export const esTravelProcess = {
 		},
 	],
 };
+
+export const esCostComparison = {
+	title: 'Los precios más bajos garantizados',
+	subtitle:
+		'Negociamos constantemente mejores precios y alternativas sin comprometer la calidad del tratamiento. Nuestros precios son siempre más bajos.',
+	discoverText: '¡Descubra lo que ofrecemos!',
+	startingLabel: 'Desde',
+	getQuoteLabel: 'Solicitar presupuesto',
+	chatLabel: 'Chatear',
+	treatmentNames: [
+		'Reemplazo de rodilla',
+		'Reemplazo de cadera',
+		'Tumor cerebral',
+		'Cirugía de bypass coronario',
+		'Reemplazo de válvula cardíaca',
+		'Cáncer de mama',
+		'Cáncer de pulmón',
+		'Rinoplastia',
+		'Implantes mamarios',
+		'Trasplante capilar',
+		'Tratamiento de FIV',
+		'Histerectomía',
+	],
+};

@@ -92,10 +92,16 @@ function procedureTeaser(text: string): string {
 const currentTreatmentIndex = treatments.findIndex((t) => t.slug === treatment.slug);
 const related = Array.from({ length: 3 }, (_, i) => treatments[(currentTreatmentIndex + 1 + i) % treatments.length]);
 const year = new Date().getFullYear();
+
+function getYouTubeId(url: string): string | null {
+	const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+	return match ? match[1] : null;
+}
+const heroVideoYouTubeId = treatment.video ? getYouTubeId(treatment.video) : null;
 ---
 
 <Layout
-	title={`${treatment.name} Cost in India (${year}) | Alis Pro Med Tour`}
+	title={`${treatment.name} Cost in India (${year}) | Alis Pro meditours`}
 	description={treatment.shortDescription}
 	alternates={[
 		{ locale: 'en', href: `/treatments/${treatment.slug}` },
@@ -119,6 +125,26 @@ const year = new Date().getFullYear();
 	<RecommendationLayout kind="treatment" slug={Astro.params.slug} locale="en">
 		<section class="treatment-detail">
 			<div class="treatment-detail__inner">
+				{treatment.video && (
+					<div class="treatment-detail__hero-video-wrap">
+						{heroVideoYouTubeId ? (
+							<div class="treatment-detail__hero-video-embed">
+								<iframe
+									src={`https://www.youtube.com/embed/${heroVideoYouTubeId}`}
+									title={`${treatment.name} video`}
+									allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+									allowfullscreen
+									loading="lazy"
+								/>
+							</div>
+						) : (
+							<video class="treatment-detail__hero-video" controls preload="metadata" poster={treatment.imageKey ? IMAGES[treatment.imageKey].src : undefined}>
+								<source src={treatment.video} type="video/mp4" />
+							</video>
+						)}
+					</div>
+				)}
+
 				<div class="treatment-detail__hero-row">
 					<TreatmentCta variant="media" treatmentName={treatment.name} locale="en">
 						{treatment.imageKey ? (
@@ -395,6 +421,39 @@ const year = new Date().getFullYear();
 		grid-template-columns: minmax(0, 1fr) 380px;
 		align-items: start;
 		gap: 32px;
+	}
+
+	.treatment-detail__hero-video-wrap {
+		max-width: 640px;
+		margin: 0 auto 24px;
+	}
+
+	.treatment-detail__hero-video {
+		display: block;
+		width: 100%;
+		max-height: 480px;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+		background: #000;
+	}
+
+	.treatment-detail__hero-video-embed {
+		position: relative;
+		width: 100%;
+		aspect-ratio: 16 / 9;
+		max-height: 480px;
+		border-radius: var(--radius-lg);
+		box-shadow: var(--shadow-card);
+		overflow: hidden;
+		background: #000;
+	}
+
+	.treatment-detail__hero-video-embed iframe {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
 	}
 
 	.treatment-detail__hero-image {
@@ -1093,6 +1152,10 @@ const year = new Date().getFullYear();
 
 		.treatment-detail__hero-image {
 			max-height: 340px;
+		}
+
+		.treatment-detail__hero-video {
+			max-height: 260px;
 		}
 
 		.treatment-detail__grid {

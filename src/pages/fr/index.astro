@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { fr } from '../../i18n/fr';
 import { frAbout } from '../../i18n/fr-pages';
-import { frDoctors, frPartnerHospitalsHome, frSupportServices, frTravelProcess } from '../../i18n/fr-home';
+import { frDoctors, frPartnerHospitalsHome, frSupportServices, frTravelProcess, frCostComparison } from '../../i18n/fr-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { frDoctorsTr } from '../../i18n/fr-doctors';
@@ -23,7 +23,7 @@ const frenchHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const frenchDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...frDoctors.doctors[i] }));
 
-const videoEntries = defaultDoctors
+const videoEntries = translateDoctors(defaultDoctors, frDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -86,7 +86,17 @@ const videoEntries = defaultDoctors
 		hospitals={frenchHospitals}
 		basePath="/fr"
 	/>
-	<TreatmentCostComparison basePath="/fr" />
+	<TreatmentCostComparison
+		basePath="/fr"
+		title={frCostComparison.title}
+		subtitle={frCostComparison.subtitle}
+		discoverText={frCostComparison.discoverText}
+		startingLabel={frCostComparison.startingLabel}
+		getQuoteLabel={frCostComparison.getQuoteLabel}
+		chatLabel={frCostComparison.chatLabel}
+		treatmentNames={frCostComparison.treatmentNames}
+		doctors={translateDoctors(defaultDoctors, frDoctorsTr)}
+	/>
 	<SupportServices
 		badge={frSupportServices.badge}
 		title={frSupportServices.titleLead}

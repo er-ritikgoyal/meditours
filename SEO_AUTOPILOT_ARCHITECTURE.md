@@ -114,7 +114,7 @@ Two different authoring patterns exist:
 1. Static pages (`about.astro`, `contact.astro`, ...): hardcoded string props.
 2. Dynamic detail pages (`treatments/[slug].astro`,
    `destinations/[slug].astro`): computed from the matched data record, e.g.
-   `` title={`${treatment.name} Cost in India (${year}) | Alis Pro Med Tour`} ``
+   `` title={`${treatment.name} Cost in India (${year}) | Alis Pro meditours`} ``
    and `description={treatment.shortDescription}`. The 2026-09-04 pass
    specifically fixed 18 detail-page files across all locales that were
    missing the `description` prop entirely (silently inheriting the
@@ -135,7 +135,7 @@ discovery.
 
 **Known, already-flagged gaps** (from `SEO-BOT-LOG.md`, not yet fixed):
 - Footer "Our Doctors" link (`/doctors`) 404s on every page, every locale.
-- Two inconsistent brand strings in the wild: "Alis Pro Med Tour" (treatment/
+- Two inconsistent brand strings in the wild: "Alis Pro meditours" (treatment/
   destination titles, footer) vs. "AlisPro MediTours" (site default title,
   JSON-LD, OG, domain name).
 - No `FAQPage` structured data (deliberately skipped — Google retired FAQ

@@ -251,7 +251,7 @@ function render_treatment(array $t): void {
     $content = (string)ob_get_clean();
 
     cms_page(
-        $name . ' Cost in India (' . date('Y') . ') | Alis Pro Med Tour',
+        $name . ' Cost in India (' . date('Y') . ') | Alis Pro meditours',
         (string)($t['shortDescription'] ?? ''),
         '/treatments/' . $t['slug'] . '/',
         cms_header($name, (string)($t['shortDescription'] ?? ''), [['Treatments', '/treatments/'], [$name, '']], !empty($t['avgSavings']) ? 'Save up to ' . (int)$t['avgSavings'] . '%' : ''),
@@ -278,7 +278,7 @@ function render_procedure(array $t, array $proc): void {
     $content = (string)ob_get_clean();
     $first = (string)(preg_split('/(?<=\.)\s/u', trim((string)($proc['description'] ?? '')))[0] ?? '');
     cms_page(
-        $name . ' in India | ' . $tName . ' | Alis Pro Med Tour',
+        $name . ' in India | ' . $tName . ' | Alis Pro meditours',
         $first,
         '/treatments/' . $t['slug'] . '/' . slugify($name) . '/',
         cms_header($name, $tName, [['Treatments', '/treatments/'], [$tName, '/treatments/' . $t['slug'] . '/'], [$name, '']]),

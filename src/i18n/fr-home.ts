@@ -1,6 +1,7 @@
 /**
  * French translations for the remaining homepage-only sections:
- * OurDoctors, OurPartnerHospitals (homepage heading), SupportServices, TravelProcess.
+ * OurDoctors, OurPartnerHospitals (homepage heading), SupportServices, TravelProcess,
+ * TreatmentCostComparison.
  */
 
 export const frDoctors = {
@@ -134,5 +135,29 @@ export const frTravelProcess = {
 			title: 'Retour à la maison',
 			description: 'Assistance de suivi post-traitement après votre retour chez vous.',
 		},
+	],
+};
+
+export const frCostComparison = {
+	title: 'Tarifs les plus bas garantis',
+	subtitle:
+		'Nous négocions constamment de meilleurs prix et alternatives sans compromettre la qualité des soins. Nos tarifs sont systématiquement plus bas.',
+	discoverText: 'Découvrez ce que nous proposons !',
+	startingLabel: 'À partir de',
+	getQuoteLabel: 'Obtenir un devis',
+	chatLabel: 'Discuter',
+	treatmentNames: [
+		'Prothèse du genou',
+		'Prothèse de hanche',
+		'Tumeur cérébrale',
+		'Pontage coronarien',
+		'Remplacement de valve cardiaque',
+		'Cancer du sein',
+		'Cancer du poumon',
+		'Rhinoplastie',
+		'Implants mammaires',
+		'Greffe de cheveux',
+		'Traitement FIV',
+		'Hystérectomie',
 	],
 };

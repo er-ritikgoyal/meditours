@@ -919,6 +919,94 @@ export const esDoctorsTr: DoctorTranslations = {
 			"Premio Swadesh Samman, Ministerio de Salud"
 		]
 	},
+	'deepak-saha': {
+		specialty: 'Cardiólogo intervencionista',
+	},
+	's-sudha': {
+		specialty: 'Obstetra, ginecóloga y especialista en infertilidad',
+	},
+	'dvl-narayana-rao': {
+		specialty: 'Cirujano gastroenterólogo',
+		title: 'Consultor sénior — Cirugía gastroenterológica, cirugía robótica y laparoscópica del cáncer digestivo',
+		qualification:
+			'MBBS; MS — Cirugía general (Madras Medical College); MCh — Cirugía gastroenterológica (AIIMS, Nueva Delhi); DNB; Fellowship — Cirugía gastroenterológica (NIMS, Hyderabad)',
+		about:
+			'El Dr. D.V.L. Narayana Rao es cirujano gastroenterólogo con más de 33 años de experiencia en cirugía digestiva, hepatobiliar y pancreática, y ejerce actualmente en TX Hospitals, Banjara Hills, Hyderabad. Diseñó una técnica de derivación colo-cava para la hipertensión portal y ha realizado más de 350 cirugías de derivación y 200 procedimientos de Frey.',
+		specializations: [
+			'Cirugía bariátrica',
+			'Cirugía mínimamente invasiva y laparoscópica',
+			'Cirugía hepatobiliar y pancreática',
+			'Cirugía colorrectal',
+			'Proctología',
+			'Cirugía general',
+		],
+		awards: [
+			'Diseñó una técnica de derivación colo-cava para la hipertensión portal, utilizando la vena cólica media para descomprimir el sistema porta',
+			'Desarrolló modificaciones del procedimiento de Whipple',
+			'Fue pionero de la "desconexión pancreática" como tratamiento de la pancreatitis crónica con conducto no dilatado',
+			'Realizó más de 350 cirugías de derivación para hipertensión portal no cirrótica en niños y adultos',
+			'Completó más de 200 procedimientos de Frey para pancreatitis crónica',
+		],
+	},
+	'lokesh-rudra-madhav': {
+		specialty: 'Ortodoncista',
+		title: 'Ortodoncista y consultor en ortodoncia — Aparatología fija, alineadores y ortopedia dentofacial',
+		qualification: 'BDS; MDS — Ortodoncia y ortopedia dentofacial',
+		city: 'Nueva Delhi, India',
+		about:
+			'El Dr. Lokesh Rudra Madhav es ortodoncista especializado en aparatología fija y removible, alineadores transparentes y tratamiento ortodóncico interdisciplinario, y ejerce actualmente en Green Park Dental, Delhi. Durante su residencia de posgrado gestionó más de 200 casos ortodóncicos, incluyendo casos complejos de ortodoncia quirúrgica.',
+		specializations: [
+			'Aparatología ortodóncica fija (MBT y autoligado Damon)',
+			'Terapia con alineadores transparentes',
+			'Ortodoncia interceptiva',
+			'Ortodoncia quirúrgica y maloclusiones complejas',
+			'Colocación de mini-implantes (TAD)',
+			'Análisis cefalométrico y CBCT',
+			'Terapia con aparatos funcionales',
+		],
+		awards: [
+			'Disertación — "Evaluación del grosor del perfil de tejidos blandos en pacientes de clase I con diferentes patrones de crecimiento"',
+			'Tesis — "Proximidad radicular y angulación de minitornillos ortodóncicos en el maxilar anterior: una evaluación por CBCT"',
+		],
+	},
+	'ganesh-dubey': {
+		specialty: 'Dentista general y director clínico',
+		title: 'Fundador y director clínico — Mithila Multi Speciality Dental Clinic',
+		qualification: 'BDS',
+		about:
+			'El Dr. Ganesh Dubey es el fundador y director clínico de Mithila Multi Speciality Dental Clinic en Ghaziabad, al frente de un equipo de 13 especialistas con MDS en 9 disciplinas. Ha acumulado una sólida trayectoria tratando a pacientes internacionales, especialmente de países africanos e islas del Pacífico, con consultas en inglés y coordinación integral de viajes.',
+		specializations: [
+			'Supervisión clínica y planificación del tratamiento',
+			'Implantes dentales',
+			'Diseño de sonrisa y rehabilitación bucal completa',
+			'Coordinación de pacientes internacionales',
+			'Odontología general y estética',
+		],
+		awards: [
+			'Formó un equipo clínico de 13 especialistas con MDS en 9 disciplinas en Mithila Multi Speciality Dental Clinic',
+			'Lidera campañas dentales gratuitas y jornadas de detección bucal en colaboración con Max Healthcare y el Hospital Distrital MMG, Ghaziabad',
+		],
+	},
+	'n-pavan-kumar-rao': {
+		specialty: 'Nefrólogo y especialista en trasplante renal',
+		title: 'Consultor sénior — Nefrología y trasplante renal',
+		qualification: 'MBBS; MD; DM — Nefrología',
+		about:
+			'El Dr. N. Pavan Kumar Rao es consultor sénior en nefrología con más de 21 años de experiencia en trasplante renal y cuidados postrasplante, manejo de enfermedad renal crónica y diálisis, y ejerce actualmente en TX Hospitals, Banjara Hills, Hyderabad. Está considerado uno de los principales especialistas en trasplante renal de la región.',
+		specializations: [
+			'Trasplante renal y cuidados postrasplante',
+			'Manejo de la enfermedad renal crónica (ERC)',
+			'Diálisis y hemodiálisis',
+			'Mantenimiento del acceso para hemodiálisis',
+			'Tratamiento de cálculos renales',
+			'Hipertensión asociada a enfermedad renal',
+			'Programas de nutrición renal',
+		],
+		awards: [
+			'Reconocido como uno de los principales especialistas en trasplante renal de Telangana',
+			'Ha presentado trabajos de investigación y casos clínicos en congresos internacionales de nefrología',
+		],
+	},
 };
 
 // Translations saved in the content editor (/editor/) take priority.

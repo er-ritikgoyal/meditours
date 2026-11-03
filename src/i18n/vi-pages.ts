@@ -18,7 +18,7 @@ export const viAbout = {
 		titleLead: 'Được xây dựng để mang chăm sóc y tế đẳng cấp thế giới đến',
 		titleHighlight: 'với mọi người',
 		paragraphs: [
-			'Alis Pro Med Tour được thành lập để thu hẹp khoảng cách giữa chăm sóc y tế đẳng cấp thế giới và chi phí của nó. Chúng tôi tin rằng nơi bạn sinh ra không nên quyết định việc bạn có đủ khả năng chi trả cho ca phẫu thuật mình cần hay không. Kể từ khi thành lập, chúng tôi đã đồng hành cùng hàng nghìn bệnh nhân — từ ý kiến y tế đầu tiên đến khi hồi phục hoàn toàn — thông qua các bệnh viện được công nhận cao nhất tại Ấn Độ, giúp các gia đình tiết kiệm những khoản tiền có thể thay đổi cuộc sống, mà không bao giờ đánh đổi chất lượng.',
+			'Alis Pro meditours được thành lập để thu hẹp khoảng cách giữa chăm sóc y tế đẳng cấp thế giới và chi phí của nó. Chúng tôi tin rằng nơi bạn sinh ra không nên quyết định việc bạn có đủ khả năng chi trả cho ca phẫu thuật mình cần hay không. Kể từ khi thành lập, chúng tôi đã đồng hành cùng hàng nghìn bệnh nhân — từ ý kiến y tế đầu tiên đến khi hồi phục hoàn toàn — thông qua các bệnh viện được công nhận cao nhất tại Ấn Độ, giúp các gia đình tiết kiệm những khoản tiền có thể thay đổi cuộc sống, mà không bao giờ đánh đổi chất lượng.',
 			'Những gì bắt đầu như một đội ngũ điều phối viên bệnh nhân nhỏ đã phát triển thành một mạng lưới dịch vụ hỗ trợ toàn diện trải rộng khắp hơn 40 quốc gia, với các hội đồng y khoa nội bộ, chuyên gia thị thực tận tâm và hỗ trợ đa ngôn ngữ 24/7 — bởi vì việc tìm hiểu hệ thống y tế của một quốc gia xa lạ không bao giờ nên là một hành trình đơn độc.',
 		],
 		statsLabels: ['Bệnh viện đối tác', 'Quốc gia được hỗ trợ', 'Hỗ trợ bệnh nhân', 'Bệnh nhân đã hỗ trợ'],
@@ -48,7 +48,7 @@ export const viAbout = {
 		titleHighlight: 'niềm tin của bệnh nhân',
 		subtitle: 'Từ một đội ngũ điều phối viên nhỏ đến mạng lưới bệnh nhân tại hơn 40 quốc gia.',
 		milestones: [
-			{ title: 'Thành lập tại Mumbai', description: 'Alis Pro Med Tour ra mắt với một số ít bệnh viện đối tác tại Delhi và Mumbai.' },
+			{ title: 'Thành lập tại Mumbai', description: 'Alis Pro meditours ra mắt với một số ít bệnh viện đối tác tại Delhi và Mumbai.' },
 			{
 				title: 'Mạng lưới công nhận mở rộng',
 				description: 'Mở rộng lên hơn 100 bệnh viện được JCI và NABH công nhận tại các trung tâm y tế hàng đầu Ấn Độ.',

@@ -135,3 +135,27 @@ export const viTravelProcess = {
 		},
 	],
 };
+
+export const viCostComparison = {
+	title: 'Đảm bảo mức giá thấp nhất',
+	subtitle:
+		'Chúng tôi liên tục đàm phán để có mức giá và lựa chọn tốt hơn mà không ảnh hưởng đến chất lượng điều trị. Giá của chúng tôi luôn thấp hơn.',
+	discoverText: 'Khám phá những gì chúng tôi cung cấp!',
+	startingLabel: 'Chỉ từ',
+	getQuoteLabel: 'Nhận báo giá',
+	chatLabel: 'Trò chuyện',
+	treatmentNames: [
+		'Thay khớp gối',
+		'Thay khớp háng',
+		'U não',
+		'Phẫu thuật bắc cầu động mạch vành',
+		'Thay van tim',
+		'Ung thư vú',
+		'Ung thư phổi',
+		'Phẫu thuật nâng mũi',
+		'Nâng ngực',
+		'Cấy tóc',
+		'Điều trị IVF',
+		'Cắt tử cung',
+	],
+};

@@ -919,6 +919,93 @@ export const roDoctorsTr: DoctorTranslations = {
 			"Premiul Swadesh Samman, Ministerul Sănătății"
 		]
 	},
+	'deepak-saha': {
+		specialty: 'Cardiolog intervenționist',
+	},
+	's-sudha': {
+		specialty: 'Medic obstetrician-ginecolog și specialist în infertilitate',
+	},
+	'dvl-narayana-rao': {
+		specialty: 'Chirurg gastroenterolog',
+		title: 'Consultant senior — Chirurgie gastroenterologică, chirurgie robotică și laparoscopică a cancerului digestiv',
+		qualification:
+			'MBBS; MS — Chirurgie generală (Madras Medical College); MCh — Chirurgie gastroenterologică (AIIMS, New Delhi); DNB; Fellowship — Chirurgie gastroenterologică (NIMS, Hyderabad)',
+		about:
+			'Dr. D.V.L. Narayana Rao este chirurg gastroenterolog cu peste 33 de ani de experiență în chirurgia digestivă, hepatobiliară și pancreatică, practicând în prezent la TX Hospitals, Banjara Hills, Hyderabad. A conceput o tehnică de șunt colo-cav pentru hipertensiunea portală și a efectuat peste 350 de intervenții de șunt și 200 de proceduri Frey.',
+		specializations: [
+			'Chirurgie bariatrică',
+			'Chirurgie minim invazivă și laparoscopică',
+			'Chirurgie hepatobiliară și pancreatică',
+			'Chirurgie colorectală',
+			'Proctologie',
+			'Chirurgie generală',
+		],
+		awards: [
+			'A conceput o tehnică de șunt colo-cav pentru hipertensiunea portală, folosind vena colică medie pentru decomprimarea sistemului port',
+			'A dezvoltat modificări ale procedurii Whipple',
+			'A fost pionier al "deconectării pancreatice" ca tratament pentru pancreatita cronică cu canal nedilatat',
+			'A efectuat peste 350 de intervenții de șunt pentru hipertensiune portală non-cirotică la copii și adulți',
+			'A efectuat peste 200 de proceduri Frey pentru pancreatită cronică',
+		],
+	},
+	'lokesh-rudra-madhav': {
+		specialty: 'Ortodont',
+		title: 'Ortodont și consultant ortodont — Aparate fixe, aligneri și ortopedie dento-facială',
+		qualification: 'BDS; MDS — Ortodonție și ortopedie dento-facială',
+		about:
+			'Dr. Lokesh Rudra Madhav este ortodont specializat în aparate fixe și mobile, aligneri transparenți și tratament ortodontic interdisciplinar, practicând în prezent la Green Park Dental, Delhi. În timpul rezidențiatului a gestionat peste 200 de cazuri ortodontice, inclusiv cazuri complexe de ortodonție chirurgicală.',
+		specializations: [
+			'Aparate ortodontice fixe (MBT și autoligaturante Damon)',
+			'Terapie cu aligneri transparenți',
+			'Ortodonție interceptivă',
+			'Ortodonție chirurgicală și malocluzii complexe',
+			'Plasare de mini-implanturi (TAD)',
+			'Analiză cefalometrică și CBCT',
+			'Terapie cu aparate funcționale',
+		],
+		awards: [
+			'Disertație — "Evaluarea grosimii profilului țesuturilor moi la pacienții de clasa I cu diferite tipare de creștere"',
+			'Teză — "Proximitatea și angulația rădăcinilor minișuruburilor ortodontice în maxilarul anterior: o evaluare CBCT"',
+		],
+	},
+	'ganesh-dubey': {
+		specialty: 'Medic stomatolog generalist și director clinic',
+		title: 'Fondator și director clinic — Mithila Multi Speciality Dental Clinic',
+		qualification: 'BDS',
+		about:
+			'Dr. Ganesh Dubey este fondatorul și directorul clinic al clinicii Mithila Multi Speciality Dental Clinic din Ghaziabad, coordonând o echipă de 13 specialiști MDS în 9 discipline. A acumulat o experiență solidă în tratarea pacienților internaționali, în special din țări africane și insulele Pacificului, oferind consultații în limba engleză și coordonare completă a călătoriei.',
+		specializations: [
+			'Supervizare clinică și planificarea tratamentului',
+			'Implanturi dentare',
+			'Design al zâmbetului și reabilitare completă',
+			'Coordonarea pacienților internaționali',
+			'Stomatologie generală și cosmetică',
+		],
+		awards: [
+			'A format o echipă clinică de 13 specialiști MDS în 9 discipline la Mithila Multi Speciality Dental Clinic',
+			'Conduce tabere dentare gratuite și campanii de screening oral în parteneriat cu Max Healthcare și Spitalul Districtual MMG, Ghaziabad',
+		],
+	},
+	'n-pavan-kumar-rao': {
+		specialty: 'Nefrolog și medic specialist în transplant renal',
+		title: 'Consultant senior — Nefrologie și transplant renal',
+		qualification: 'MBBS; MD; DM — Nefrologie',
+		about:
+			'Dr. N. Pavan Kumar Rao este consultant senior nefrolog cu peste 21 de ani de experiență în transplant renal și îngrijire post-transplant, managementul bolii renale cronice și dializă, practicând în prezent la TX Hospitals, Banjara Hills, Hyderabad. Este considerat unul dintre principalii specialiști în transplant renal din regiune.',
+		specializations: [
+			'Transplant renal și îngrijire post-transplant',
+			'Managementul bolii renale cronice (BRC)',
+			'Dializă și hemodializă',
+			'Întreținerea accesului pentru hemodializă',
+			'Tratamentul calculilor renali',
+			'Hipertensiune asociată bolii renale',
+			'Programe de nutriție renală',
+		],
+		awards: [
+			'Recunoscut ca unul dintre principalii specialiști în transplant renal din Telangana',
+			'A prezentat lucrări de cercetare și studii de caz la conferințe internaționale de nefrologie',
+		],
+	},
 };
 
 // Translations saved in the content editor (/editor/) take priority.

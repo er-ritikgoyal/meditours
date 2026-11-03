@@ -36,8 +36,8 @@ export interface Props {
 }
 
 const {
-	title = 'Trusted Medical Tourism Services in India | AlisPro MediTours',
-	description: rawDescription = 'AlisPro MediTours helps international patients get trusted treatment in India: hospital coordination, treatment planning, travel support and personal care.',
+	title = 'Your Trusted Partner for Quality Healthcare in India',
+	description: rawDescription = 'AlisPro MediTours helps international patients get trusted treatment and healthcare in India: hospital coordination, treatment planning, travel support and personal care.',
 	ogImage = '/images/Alis_Logo.png',
 	locale = 'en',
 	alternates,
@@ -235,6 +235,20 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 		<meta property="og:locale" content={ogLocale} />
 
 		<script type="application/ld+json" is:inline set:html={jsonLd} />
+		<script type="application/ld+json" is:inline>
+			{
+				"@context": "https://schema.org",
+				"@type": "Organization",
+				"name": "AlisPro MediTours",
+				"alternateName": "Alis Pro Medical Tourism",
+				"url": "https://alispromeditours.com/",
+				"logo": "https://alispromeditours.com/images/Alis_Logo.png",
+				"sameAs": [
+					"https://alispromeditours.com/",
+					"https://www.instagram.com/alispromeditours/"
+				]
+			}
+		</script>
 	</head>
 	<body>
 		<Navbar {...navbarProps} />
@@ -251,6 +265,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 		</script>
 	</body>
 </html>
+
 
 <style>
 	:global(*),

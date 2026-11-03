@@ -18,7 +18,7 @@ export const esAbout = {
 		titleLead: 'Construidos para hacer que la atención médica de clase mundial sea',
 		titleHighlight: 'accesible para todos',
 		paragraphs: [
-			'Alis Pro Med Tour se fundó para cerrar la brecha entre la atención médica de clase mundial y su costo. Creemos que el lugar donde nació no debería determinar si puede permitirse la cirugía que necesita. Desde nuestro inicio, hemos guiado a miles de pacientes — desde la primera opinión médica hasta la recuperación completa — a través de los hospitales más acreditados de la India, ahorrando a las familias sumas que cambian sus vidas, sin comprometer nunca la calidad.',
+			'Alis Pro meditours se fundó para cerrar la brecha entre la atención médica de clase mundial y su costo. Creemos que el lugar donde nació no debería determinar si puede permitirse la cirugía que necesita. Desde nuestro inicio, hemos guiado a miles de pacientes — desde la primera opinión médica hasta la recuperación completa — a través de los hospitales más acreditados de la India, ahorrando a las familias sumas que cambian sus vidas, sin comprometer nunca la calidad.',
 			'Lo que comenzó como un pequeño equipo de coordinadores de pacientes se ha convertido en una red completa de servicios de conserjería que abarca más de 40 países, con comités médicos internos, especialistas dedicados en visados y apoyo multilingüe 24/7 — porque navegar por el sistema de salud de un país extranjero nunca debería sentirse como un viaje en solitario.',
 		],
 		statsLabels: ['Hospitales asociados', 'Países atendidos', 'Apoyo al paciente', 'Pacientes atendidos'],
@@ -48,7 +48,7 @@ export const esAbout = {
 		titleHighlight: 'la confianza de los pacientes',
 		subtitle: 'De un pequeño equipo de coordinadores a una red de pacientes en más de 40 países.',
 		milestones: [
-			{ title: 'Fundada en Mumbai', description: 'Alis Pro Med Tour se lanza con un puñado de hospitales asociados en Delhi y Mumbai.' },
+			{ title: 'Fundada en Mumbai', description: 'Alis Pro meditours se lanza con un puñado de hospitales asociados en Delhi y Mumbai.' },
 			{
 				title: 'La red de acreditación se expande',
 				description: 'Expansión a más de 100 hospitales acreditados por la JCI y la NABH en los principales centros médicos de la India.',

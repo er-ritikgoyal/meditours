@@ -316,7 +316,7 @@ function render_treatment_live(array $t): bool {
     $html = cms_set_text($html, 'name-lc', mb_strtolower($name));
     $html = cms_set_faqs($html, (array)($t['faqs'] ?? []), 'Common questions about ' . mb_strtolower($flagship) . ' and treatment in India.', $fb);
 
-    $html = cms_set_meta($html, $name . ' Cost in India (' . date('Y') . ') | Alis Pro Med Tour', (string)($t['shortDescription'] ?? ''));
+    $html = cms_set_meta($html, $name . ' Cost in India (' . date('Y') . ') | Alis Pro meditours', (string)($t['shortDescription'] ?? ''));
     cms_output($html);
     return true;
 }
@@ -377,7 +377,7 @@ function render_procedure_live(array $t, array $proc): bool {
     $first = trim(explode('. ', cms_plain((string)($proc['description'] ?? '')))[0]);
     $first = str_ends_with($first, '.') ? $first : $first . '.';
     if (mb_strlen($first) > 155) $first = rtrim(mb_substr($first, 0, 152)) . '…';
-    $html = cms_set_meta($html, $pName . ' in India (' . date('Y') . ') | Alis Pro Med Tour', $first);
+    $html = cms_set_meta($html, $pName . ' in India (' . date('Y') . ') | Alis Pro meditours', $first);
     cms_output($html);
     return true;
 }

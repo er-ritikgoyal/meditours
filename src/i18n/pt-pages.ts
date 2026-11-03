@@ -18,7 +18,7 @@ export const ptAbout = {
 		titleLead: 'Construídos para tornar os cuidados médicos de classe mundial',
 		titleHighlight: 'acessíveis a todos',
 		paragraphs: [
-			'A Alis Pro Med Tour foi fundada para fechar a lacuna entre cuidados médicos de classe mundial e seu custo. Acreditamos que o lugar onde você nasceu não deveria determinar se você pode pagar pela cirurgia de que precisa. Desde nossa fundação, guiamos milhares de pacientes — da primeira opinião médica até a recuperação completa — pelos hospitais mais credenciados da Índia, economizando para as famílias somas que mudam vidas, sem nunca comprometer a qualidade.',
+			'A Alis Pro meditours foi fundada para fechar a lacuna entre cuidados médicos de classe mundial e seu custo. Acreditamos que o lugar onde você nasceu não deveria determinar se você pode pagar pela cirurgia de que precisa. Desde nossa fundação, guiamos milhares de pacientes — da primeira opinião médica até a recuperação completa — pelos hospitais mais credenciados da Índia, economizando para as famílias somas que mudam vidas, sem nunca comprometer a qualidade.',
 			'O que começou como uma pequena equipe de coordenadores de pacientes se tornou uma rede completa de serviços de concierge que abrange mais de 40 países, com comitês médicos internos, especialistas dedicados em vistos e apoio multilíngue 24/7 — porque navegar pelo sistema de saúde de um país estrangeiro nunca deveria parecer uma jornada solitária.',
 		],
 		statsLabels: ['Hospitais parceiros', 'Países atendidos', 'Apoio ao paciente', 'Pacientes atendidos'],
@@ -48,7 +48,7 @@ export const ptAbout = {
 		titleHighlight: 'a confiança dos pacientes',
 		subtitle: 'De uma pequena equipe de coordenadores a uma rede de pacientes em mais de 40 países.',
 		milestones: [
-			{ title: 'Fundada em Mumbai', description: 'A Alis Pro Med Tour é lançada com um punhado de hospitais parceiros em Delhi e Mumbai.' },
+			{ title: 'Fundada em Mumbai', description: 'A Alis Pro meditours é lançada com um punhado de hospitais parceiros em Delhi e Mumbai.' },
 			{
 				title: 'A rede de credenciamento se expande',
 				description: 'Expansão para mais de 100 hospitais credenciados pela JCI e pela NABH nos principais centros médicos da Índia.',

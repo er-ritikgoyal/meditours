@@ -53,6 +53,8 @@ export interface TreatmentData {
 		| 'bariatric'
 		| 'urology';
 	theme: 'blue' | 'teal' | 'green';
+	/** Optional hero video shown above the hero photo on the detail page: a YouTube URL (youtu.be/… or youtube.com/watch?v=…) or a public path to a local file, e.g. '/images/clip.mp4'. */
+	video?: string;
 	shortDescription: string;
 	overview: string;
 	startingPrice: number;
@@ -1102,6 +1104,7 @@ const baseTreatments: TreatmentData[] = [
 		name: 'Dental Care',
 		icon: 'capsule',
 		imageKey: 'dentalCare',
+		video: 'https://youtu.be/9YjdFY7jcU0',
 		theme: 'blue',
 		shortDescription: 'Implants, veneers, and full-mouth restoration using the latest digital dentistry.',
 		overview:

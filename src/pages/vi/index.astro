@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { vi } from '../../i18n/vi';
 import { viAbout } from '../../i18n/vi-pages';
-import { viDoctors, viPartnerHospitalsHome, viSupportServices, viTravelProcess } from '../../i18n/vi-home';
+import { viDoctors, viPartnerHospitalsHome, viSupportServices, viTravelProcess, viCostComparison } from '../../i18n/vi-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { viDoctorsTr } from '../../i18n/vi-doctors';
@@ -23,7 +23,7 @@ const vietnameseHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const vietnameseDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...viDoctors.doctors[i] }));
 
-const videoEntries = defaultDoctors
+const videoEntries = translateDoctors(defaultDoctors, viDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -86,7 +86,17 @@ const videoEntries = defaultDoctors
 		hospitals={vietnameseHospitals}
 		basePath="/vi"
 	/>
-	<TreatmentCostComparison basePath="/vi" />
+	<TreatmentCostComparison
+		basePath="/vi"
+		title={viCostComparison.title}
+		subtitle={viCostComparison.subtitle}
+		discoverText={viCostComparison.discoverText}
+		startingLabel={viCostComparison.startingLabel}
+		getQuoteLabel={viCostComparison.getQuoteLabel}
+		chatLabel={viCostComparison.chatLabel}
+		treatmentNames={viCostComparison.treatmentNames}
+		doctors={translateDoctors(defaultDoctors, viDoctorsTr)}
+	/>
 	<SupportServices
 		badge={viSupportServices.badge}
 		title={viSupportServices.titleLead}

@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { es } from '../../i18n/es';
 import { esAbout } from '../../i18n/es-pages';
-import { esDoctors, esPartnerHospitalsHome, esSupportServices, esTravelProcess } from '../../i18n/es-home';
+import { esDoctors, esPartnerHospitalsHome, esSupportServices, esTravelProcess, esCostComparison } from '../../i18n/es-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { esDoctorsTr } from '../../i18n/es-doctors';
@@ -23,7 +23,7 @@ const spanishHospitals = translateHospitals(hospitals.slice(0, 4));
 
 const spanishDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...esDoctors.doctors[i] }));
 
-const videoEntries = defaultDoctors
+const videoEntries = translateDoctors(defaultDoctors, esDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -86,7 +86,17 @@ const videoEntries = defaultDoctors
 		hospitals={spanishHospitals}
 		basePath="/es"
 	/>
-	<TreatmentCostComparison basePath="/es" />
+	<TreatmentCostComparison
+		basePath="/es"
+		title={esCostComparison.title}
+		subtitle={esCostComparison.subtitle}
+		discoverText={esCostComparison.discoverText}
+		startingLabel={esCostComparison.startingLabel}
+		getQuoteLabel={esCostComparison.getQuoteLabel}
+		chatLabel={esCostComparison.chatLabel}
+		treatmentNames={esCostComparison.treatmentNames}
+		doctors={translateDoctors(defaultDoctors, esDoctorsTr)}
+	/>
 	<SupportServices
 		badge={esSupportServices.badge}
 		title={esSupportServices.titleLead}

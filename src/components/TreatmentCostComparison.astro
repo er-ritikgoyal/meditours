@@ -1,6 +1,6 @@
 ---
 import { Image } from 'astro:assets';
-import { doctors } from '../data/doctors';
+import { doctors as defaultDoctors, type DoctorData } from '../data/doctors';
 import iconJoints from 'healthicons/public/icons/svg/outline/body/joints.svg?raw';
 import iconOrthopaedics from 'healthicons/public/icons/svg/outline/specialties/orthopaedics.svg?raw';
 import iconNeurology from 'healthicons/public/icons/svg/outline/body/neurology.svg?raw';
@@ -24,12 +24,17 @@ export interface Props {
 	title?: string;
 	subtitle?: string;
 	discoverText?: string;
+	startingLabel?: string;
 	getQuoteLabel?: string;
 	chatLabel?: string;
 	basePath?: string;
 	whatsappNumber?: string;
 	whatsappMessage?: string;
 	treatments?: QuoteTreatment[];
+	/** Translated treatment names, same order as the default treatments list; ignored if `treatments` is also passed. */
+	treatmentNames?: string[];
+	/** Doctor roster to pull name/specialty from (e.g. already locale-translated via translateDoctors). Defaults to the English roster. */
+	doctors?: DoctorData[];
 }
 
 const defaultTreatments: QuoteTreatment[] = [
@@ -51,13 +56,20 @@ const {
 	title = 'Lowest Quotes Assured',
 	subtitle = 'We constantly negotiate better prices and alternatives without compromising treatment quality. Our prices are consistently lower.',
 	discoverText = 'Discover what we offer!',
+	startingLabel = 'Starting',
 	getQuoteLabel = 'Get Quote',
 	chatLabel = 'Chat',
 	basePath = '',
 	whatsappNumber = '919821701155',
 	whatsappMessage = 'Hello, I am interested in the services listed on your website',
 	treatments = defaultTreatments,
+	treatmentNames,
+	doctors = defaultDoctors,
 } = Astro.props;
+
+const displayTreatments = treatmentNames
+	? treatments.map((treatment, i) => ({ ...treatment, name: treatmentNames[i] ?? treatment.name }))
+	: treatments;
 
 const formatPrice = (value: number) => `$${value.toLocaleString('en-US')}`;
 const quoteHref = `${basePath}/contact#enquiry-form`;
@@ -73,7 +85,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 
 		<div class="quotes__grid">
 			{
-				treatments.map((treatment, i) => (
+				displayTreatments.map((treatment, i) => (
 					(() => {
 						const doctor = doctors.find((entry) => entry.slug === treatment.doctorSlug);
 						if (!doctor) {
@@ -86,7 +98,7 @@ const whatsappHref = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(
 								<div class="quote-card__body">
 									<h3 class="quote-card__name">{treatment.name}</h3>
 									<p class="quote-card__price">
-										Starting <strong>{formatPrice(treatment.startingPrice)}</strong>
+										{startingLabel} <strong>{formatPrice(treatment.startingPrice)}</strong>
 									</p>
 									<a class="quote-card__doctor" href={`${basePath}/doctors/${doctor.slug}`}>
 										{doctor.photo ? (
