@@ -14,6 +14,7 @@ export const ro = {
 		home: 'Acasă',
 		destinations: 'Destinații',
 		treatments: 'Tratamente',
+		allTreatments: 'Toate tratamentele',
 		about: 'Despre noi',
 		contact: 'Contact',
 		more: 'Mai mult',

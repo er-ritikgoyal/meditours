@@ -14,6 +14,7 @@ export const vi = {
 		home: 'Trang chủ',
 		destinations: 'Điểm đến',
 		treatments: 'Điều trị',
+		allTreatments: 'Tất cả các phương pháp điều trị',
 		about: 'Về chúng tôi',
 		contact: 'Liên hệ',
 		more: 'Thêm',

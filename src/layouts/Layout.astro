@@ -6,6 +6,7 @@ import FloatingContactWidget from '../components/FloatingContactWidget.astro';
 import InsuranceEligibility from '../components/InsuranceEligibility.astro';
 import SearchBar from '../components/SearchBar.astro';
 import CookieConsent from '../components/CookieConsent.astro';
+import LanguagePrompt from '../components/LanguagePrompt.astro';
 import GoogleAdsTag from '../components/GoogleAdsTag.astro';
 import { fr } from '../i18n/fr';
 import { ru } from '../i18n/ru';
@@ -18,6 +19,7 @@ import { ar } from '../i18n/ar';
 import { treatments } from '../data/treatments';
 import { treatmentIcons } from '../utils/treatmentIcons';
 import { getNavMenus } from '../utils/navMenus';
+import { getTreatmentMenuLabel } from '../utils/treatmentMenu';
 import iconGrid from 'bootstrap-icons/icons/grid-fill.svg?raw';
 import { trimDescription } from '../utils/metaDescription';
 import { getSearchHeroBackgrounds, SEARCH_HERO_MOBILE_MAX } from '../utils/searchHeroBackground';
@@ -82,11 +84,13 @@ const navbarProps = t
 				{
 						label: t.nav.treatments,
 						href: `${prefix}treatments`,
-						// Category names are English-only across every locale, same as the
-						// procedure lists on the treatment pages themselves.
 						children: [
-							{ label: t.nav.treatments, href: `${prefix}treatments`, icon: iconGrid },
-							...treatments.map((tr) => ({ label: tr.name, href: `${prefix}treatments/${tr.slug}`, icon: treatmentIcons[tr.icon] })),
+							{ label: t.nav.allTreatments, href: `${prefix}treatments`, icon: iconGrid },
+							...treatments.map((tr) => ({
+								label: getTreatmentMenuLabel(locale, tr),
+								href: `${prefix}treatments/${tr.slug}`,
+								icon: treatmentIcons[tr.icon],
+							})),
 						],
 					},
 				{ label: t.nav.about, href: `${prefix}about` },
@@ -260,6 +264,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 		<FloatingContactWidget {...floatingWidgetProps} />
 		<InsuranceEligibility {...insuranceModalProps} />
 		<CookieConsent locale={locale} cookiePolicyHref="/cookie-policy" {...cookieBannerProps} />
+		<LanguagePrompt locale={locale} />
 		<script>
 			import '../scripts/attribution';
 		</script>

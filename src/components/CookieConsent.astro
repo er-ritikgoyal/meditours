@@ -16,7 +16,7 @@
  * - Locale preference (the language the visitor picked in the navbar) is
  *   treated as strictly necessary — it's not tracking, just remembering an
  *   explicit choice — so it's stored in `site_locale` regardless of the
- *   Analytics decision. Set from Navbar.astro.
+ *   Analytics decision. Set by the first-visit language prompt or Navbar.astro.
  * - Dispatches/listens for a couple of small custom DOM events so other
  *   parts of the site can integrate without importing this component:
  *     - "cc:open"            -> (document) reopens the banner/preferences.

@@ -14,6 +14,7 @@ export const pt = {
 		home: 'Início',
 		destinations: 'Destinos',
 		treatments: 'Tratamentos',
+		allTreatments: 'Todos os tratamentos',
 		about: 'Sobre nós',
 		contact: 'Contato',
 		more: 'Mais',

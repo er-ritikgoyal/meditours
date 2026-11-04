@@ -18,6 +18,7 @@ export const fr = {
 		home: 'Accueil',
 		destinations: 'Destinations',
 		treatments: 'Traitements',
+		allTreatments: 'Tous les traitements',
 		about: 'À propos',
 		contact: 'Contact',
 		more: 'Plus',

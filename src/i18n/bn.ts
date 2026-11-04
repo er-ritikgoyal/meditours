@@ -14,6 +14,7 @@ export const bn = {
 		home: 'হোম',
 		destinations: 'গন্তব্য',
 		treatments: 'চিকিৎসা',
+		allTreatments: 'সব চিকিৎসা',
 		about: 'আমাদের সম্পর্কে',
 		contact: 'যোগাযোগ',
 		more: 'আরও',

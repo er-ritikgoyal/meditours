@@ -131,6 +131,8 @@ const langOptions = [
 </header>
 
 <script>
+	import { isSiteLocale, rememberLocalePreference, targetUrlForLocale } from '../utils/localePreference';
+
 	const header = document.getElementById('site-navbar');
 	const toggle = document.getElementById('navbar-toggle');
 	const links = document.getElementById('navbar-links');
@@ -178,49 +180,16 @@ const langOptions = [
 
 	// Locale switcher — stays on the equivalent page in the new language rather
 	// than always jumping to that locale's homepage.
-	const localeRoutes: Record<string, string> = { en: '/', fr: '/fr/', ru: '/ru/', bn: '/bn/', ro: '/ro/', es: '/es/', pt: '/pt/', vi: '/vi/', ar: '/ar/' };
 	const langSelect = document.getElementById('navbar-lang') as HTMLSelectElement | null;
 
-	/** Strips a locale prefix (e.g. "/fr") off a pathname, returning the base path. */
-	function stripLocalePrefix(pathname: string): string {
-		const match = pathname.match(/^\/(fr|ru|bn|ro|es|pt|vi|ar)(\/.*)?$/);
-		if (!match) return pathname;
-		return match[2] && match[2] !== '/' ? match[2] : '/';
-	}
-
-	function targetUrlFor(locale: string): string | undefined {
-		// Prefer the exact equivalent page, declared by this page itself via
-		// Layout's `alternates` prop (rendered as <link rel="alternate" hreflang>).
-		const altLink = document.querySelector<HTMLLinkElement>(`link[rel="alternate"][hreflang="${locale}"]`);
-		if (altLink) return new URL(altLink.href).pathname;
-
-		// No declared translation for this exact page — e.g. an individual
-		// procedure page (English-only by design). Fall back to its parent
-		// treatment category page, which does exist in every locale.
-		const basePath = stripLocalePrefix(window.location.pathname);
-		const procedureMatch = basePath.match(/^(\/treatments\/[^/]+)\/[^/]+\/?$/);
-		if (procedureMatch) {
-			const categoryPath = procedureMatch[1];
-			return locale === 'en' ? categoryPath : `/${locale}${categoryPath}`;
-		}
-
-		// Last resort: that locale's homepage (e.g. for English-only sections
-		// like /hotel, /flights, /tourism that have no translated equivalent).
-		return localeRoutes[locale];
-	}
-
 	langSelect?.addEventListener('change', () => {
-		const target = targetUrlFor(langSelect.value);
-		if (target) {
-			// Remembered as a "necessary" preference cookie — see CookieConsent.astro,
-			// which reads this to offer a returning visitor their chosen language.
-			const d = new Date();
-			d.setTime(d.getTime() + 365 * 24 * 60 * 60 * 1000);
-			document.cookie = `site_locale=${langSelect.value};expires=${d.toUTCString()};path=/;SameSite=Lax`;
-			window.location.href = target;
-		} else {
+		if (!isSiteLocale(langSelect.value)) {
 			langSelect.value = langSelect.dataset.current ?? 'en';
+			return;
 		}
+
+		rememberLocalePreference(langSelect.value);
+		window.location.href = targetUrlForLocale(langSelect.value);
 	});
 
 	const onScroll = () => {

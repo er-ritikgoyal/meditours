@@ -1,0 +1,245 @@
+---
+import type { SiteLocale } from '../i18n/siteUi';
+
+export interface Props {
+	locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const promptCopy: Record<SiteLocale, { title: string; description: string; label: string; continue: string }> = {
+	en: {
+		title: 'Choose your language',
+		description: 'Select your preferred language. You can change it anytime from the language menu.',
+		label: 'Language',
+		continue: 'Continue',
+	},
+	fr: {
+		title: 'Choisissez votre langue',
+		description: 'Choisissez votre langue préférée. Vous pourrez la modifier à tout moment dans le menu des langues.',
+		label: 'Langue',
+		continue: 'Continuer',
+	},
+	ru: {
+		title: 'Выберите язык',
+		description: 'Выберите язык. Вы сможете изменить его в любое время в меню языков.',
+		label: 'Язык',
+		continue: 'Продолжить',
+	},
+	bn: {
+		title: 'আপনার ভাষা বেছে নিন',
+		description: 'আপনার পছন্দের ভাষা নির্বাচন করুন। ভাষা মেনু থেকে যেকোনো সময় এটি পরিবর্তন করতে পারবেন।',
+		label: 'ভাষা',
+		continue: 'চালিয়ে যান',
+	},
+	ro: {
+		title: 'Alegeți limba',
+		description: 'Alegeți limba preferată. O puteți schimba oricând din meniul de limbi.',
+		label: 'Limbă',
+		continue: 'Continuă',
+	},
+	es: {
+		title: 'Elige tu idioma',
+		description: 'Elige tu idioma preferido. Puedes cambiarlo en cualquier momento desde el menú de idiomas.',
+		label: 'Idioma',
+		continue: 'Continuar',
+	},
+	pt: {
+		title: 'Escolha o seu idioma',
+		description: 'Escolha o seu idioma preferido. Pode alterá-lo a qualquer momento no menu de idiomas.',
+		label: 'Idioma',
+		continue: 'Continuar',
+	},
+	vi: {
+		title: 'Chọn ngôn ngữ',
+		description: 'Chọn ngôn ngữ bạn muốn. Bạn có thể thay đổi bất cứ lúc nào trong menu ngôn ngữ.',
+		label: 'Ngôn ngữ',
+		continue: 'Tiếp tục',
+	},
+	ar: {
+		title: 'اختر لغتك',
+		description: 'اختر اللغة التي تفضلها. يمكنك تغييرها في أي وقت من قائمة اللغات.',
+		label: 'اللغة',
+		continue: 'متابعة',
+	},
+};
+
+const copy = promptCopy[locale as SiteLocale] ?? promptCopy.en;
+
+const languages: { value: SiteLocale; label: string }[] = [
+	{ value: 'en', label: 'English' },
+	{ value: 'fr', label: 'Français' },
+	{ value: 'ru', label: 'Русский' },
+	{ value: 'bn', label: 'বাংলা' },
+	{ value: 'ro', label: 'Română' },
+	{ value: 'es', label: 'Español' },
+	{ value: 'pt', label: 'Português' },
+	{ value: 'vi', label: 'Tiếng Việt' },
+	{ value: 'ar', label: 'العربية' },
+];
+---
+
+<dialog class="language-prompt" id="language-prompt" aria-labelledby="language-prompt-title" aria-describedby="language-prompt-description">
+	<div class="language-prompt__panel">
+		<p class="language-prompt__eyebrow">AlisPro MediTours</p>
+		<h2 id="language-prompt-title">{copy.title}</h2>
+		<p class="language-prompt__description" id="language-prompt-description">{copy.description}</p>
+
+		<form id="language-prompt-form">
+			<label class="language-prompt__label" for="language-prompt-select">{copy.label}</label>
+			<select id="language-prompt-select" name="locale" required>
+				{languages.map((language) => (
+					<option value={language.value} lang={language.value} selected={language.value === locale}>
+						{language.label}
+					</option>
+				))}
+			</select>
+			<button class="language-prompt__continue" type="submit">{copy.continue}</button>
+		</form>
+	</div>
+</dialog>
+
+<script>
+	import { isSiteLocale, rememberLocalePreference, targetUrlForLocale } from '../utils/localePreference';
+
+	const dialog = document.getElementById('language-prompt');
+	const form = document.getElementById('language-prompt-form');
+	const languageSelect = document.getElementById('language-prompt-select');
+
+	function hasLocalePreference(): boolean {
+		const cookie = document.cookie.match(/(?:^|; )site_locale=([^;]*)/);
+		return cookie ? isSiteLocale(cookie[1]) : false;
+	}
+
+	if (dialog instanceof HTMLDialogElement && !hasLocalePreference()) {
+		dialog.showModal();
+		languageSelect?.focus();
+	}
+
+	form?.addEventListener('submit', (event) => {
+		event.preventDefault();
+		if (!(dialog instanceof HTMLDialogElement) || !(languageSelect instanceof HTMLSelectElement)) return;
+
+		const selectedLocale = isSiteLocale(languageSelect.value) ? languageSelect.value : 'en';
+		const currentLocale = document.documentElement.lang;
+		rememberLocalePreference(selectedLocale);
+		dialog.close();
+
+		if (selectedLocale !== currentLocale) {
+			window.location.href = targetUrlForLocale(selectedLocale);
+		}
+	});
+
+	dialog?.addEventListener('cancel', (event) => {
+		event.preventDefault();
+		if (dialog instanceof HTMLDialogElement) {
+			const currentLocale = document.documentElement.lang;
+			if (isSiteLocale(currentLocale)) rememberLocalePreference(currentLocale);
+			dialog.close();
+		}
+	});
+</script>
+
+<style>
+	.language-prompt {
+		width: min(440px, calc(100vw - 32px));
+		max-width: none;
+		margin: auto;
+		padding: 0;
+		border: 0;
+		border-radius: var(--radius-lg);
+		background: transparent;
+		color: var(--color-text-primary);
+		font-family: var(--font-body);
+	}
+
+	.language-prompt::backdrop {
+		background: rgba(15, 23, 42, 0.62);
+		backdrop-filter: blur(3px);
+	}
+
+	.language-prompt__panel {
+		padding: 32px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		background: var(--color-bg-white);
+		box-shadow: var(--shadow-card);
+	}
+
+	.language-prompt__eyebrow {
+		margin: 0 0 8px;
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.language-prompt h2 {
+		margin: 0;
+		font-family: var(--font-heading);
+		font-size: clamp(22px, 5vw, 28px);
+		line-height: 1.25;
+	}
+
+	.language-prompt__description {
+		margin: 10px 0 22px;
+		color: var(--color-text-secondary);
+		font-size: 14px;
+		line-height: 1.6;
+	}
+
+	.language-prompt__label {
+		display: block;
+		margin-bottom: 8px;
+		font-size: 13px;
+		font-weight: 700;
+	}
+
+	.language-prompt select {
+		width: 100%;
+		min-height: 48px;
+		padding: 0 14px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-white);
+		color: var(--color-text-primary);
+		font: inherit;
+		font-size: 16px;
+	}
+
+	.language-prompt select:focus-visible,
+	.language-prompt__continue:focus-visible {
+		outline: 3px solid var(--color-primary);
+		outline-offset: 3px;
+	}
+
+	.language-prompt__continue {
+		width: 100%;
+		min-height: 48px;
+		margin-top: 16px;
+		border: 0;
+		border-radius: 999px;
+		background: var(--btn-primary-bg);
+		color: var(--btn-primary-text);
+		font: inherit;
+		font-weight: 700;
+		cursor: pointer;
+	}
+
+	.language-prompt__continue:hover {
+		background: var(--btn-primary-hover);
+	}
+
+	@media (max-width: 480px) {
+		.language-prompt__panel {
+			padding: 26px 22px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.language-prompt::backdrop {
+			backdrop-filter: none;
+		}
+	}
+</style>

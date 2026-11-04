@@ -1193,6 +1193,158 @@ export const esTreatments: Record<string, TreatmentDataEs> = {
 			},
 		],
 	},
+	'orthopedics': {
+		name: 'Ortopedia',
+		shortDescription: 'Reemplazo articular y medicina deportiva con programas de rehabilitación acelerada.',
+		overview:
+			'Desde el reemplazo de rodilla asistido por robot hasta la fusión espinal compleja, los centros ortopédicos de la India combinan tecnología moderna de implantes con programas de fisioterapia estructurados diseñados para que los pacientes vuelvan a caminar más rápido.',
+		procedures: ['Reemplazo de rodilla', 'Reemplazo de cadera', 'Fusión espinal'],
+		detailedProcedures: [
+			{
+				name: 'Reemplazo Total de Rodilla',
+				description:
+					"El reemplazo total de rodilla, o artroplastia total de rodilla, es un procedimiento quirúrgico que remodela la superficie de una articulación de rodilla dañada por artrosis, artritis reumatoide o desgaste postraumático, sustituyéndola por un implante artificial de aleación metálica y polietileno de grado médico. El cirujano ortopédico retira el cartílago desgastado y una fina capa de hueso del extremo del fémur y la parte superior de la tibia, y luego coloca componentes metálicos moldeados sobre estas superficies con un espaciador de plástico entre ellos que recrea un movimiento articular suave; la superficie de la rótula también puede remodelarse según su estado. Generalmente se recomienda cuando las medidas conservadoras, como la fisioterapia, el control de peso, la medicación y las inyecciones, ya no controlan el dolor ni restauran la movilidad. La cirugía se realiza bajo anestesia raquídea o general y dura aproximadamente de una a dos horas, y muchos centros utilizan ahora guía asistida por computadora o por brazo robótico para mejorar la alineación del implante. Los hospitales de la India tratan un alto volumen de casos de reemplazo articular cada año y ofrecen técnicas tanto tradicionales como mínimamente invasivas. La recuperación incluye caminar con supervisión dentro del primer día tras la cirugía, una estancia hospitalaria de varios días y un programa de fisioterapia estructurado durante las semanas siguientes para recuperar fuerza y rango de movimiento.",
+			},
+			{
+				name: 'Reemplazo Total de Cadera',
+				description:
+					"El reemplazo total de cadera, o artroplastia total de cadera, sustituye una articulación de cadera desgastada por artrosis, necrosis avascular, artritis reumatoide o fractura, por un implante artificial de bola y encaje. Durante la cirugía, el cirujano ortopédico retira la cabeza femoral dañada y remodela el encaje de la cadera (acetábulo), y luego coloca un vástago metálico o cerámico en el fémur, rematado con un componente esférico que se articula contra un nuevo revestimiento del encaje fijado en la pelvis. El abordaje puede ser posterior, anterior o mínimamente invasivo, según la anatomía del paciente y la preferencia del cirujano, y el procedimiento suele durar de una a dos horas bajo anestesia raquídea o general. Generalmente se considera cuando el dolor de cadera, la rigidez y la movilidad reducida persisten a pesar de la fisioterapia, las precauciones de carga de peso y la medicación para el dolor, y cuando las imágenes confirman una degeneración articular significativa. Muchos centros ortopédicos de la India realizan un gran volumen de reemplazos de cadera al año y ofrecen opciones de fijación cementada, no cementada e híbrida, junto con técnicas robóticas o navegadas por computadora para un posicionamiento preciso del implante. Después de la cirugía, los pacientes suelen movilizarse con andador dentro de uno o dos días, permanecen hospitalizados varios días y siguen un programa de rehabilitación estructurado durante las semanas siguientes para recuperar fuerza y el patrón de marcha.",
+			},
+			{
+				name: 'Artroscopia de Rodilla',
+				description:
+					"La artroscopia de rodilla es una técnica quirúrgica mínimamente invasiva utilizada para diagnosticar y tratar problemas dentro de la articulación de la rodilla a través de pequeñas incisiones en lugar de un corte abierto grande. El cirujano inserta una cámara de fibra óptica delgada, llamada artroscopio, junto con instrumentos quirúrgicos finos a través de unos pocos portales pequeños alrededor de la rodilla, lo que permite visualizar directamente el cartílago, los ligamentos, el menisco y el revestimiento articular en un monitor. Se utiliza comúnmente para recortar o reparar tejido meniscal roto, retirar fragmentos de cartílago sueltos, alisar superficies cartilaginosas rugosas, lavar tejido articular inflamado o abordar otras causas estructurales de dolor, hinchazón, enganche o bloqueo persistente de la rodilla que no han respondido al reposo, la fisioterapia o la medicación. El procedimiento generalmente se realiza bajo anestesia raquídea, regional o general y dura entre treinta minutos y poco más de una hora, según los hallazgos y el tratamiento requerido. Debido a que las incisiones son pequeñas, los pacientes suelen experimentar menos dolor posoperatorio y un retorno más rápido a la actividad diaria que con la cirugía abierta de rodilla. Los centros ortopédicos de la India realizan rutinariamente artroscopia de rodilla de forma ambulatoria o de estancia corta, y la mayoría de los pacientes caminan con apoyo el mismo día y comienzan fisioterapia guiada poco después para restaurar la función completa de la rodilla.",
+			},
+			{
+				name: 'Reconstrucción Artroscópica del LCA',
+				description:
+					"La reconstrucción artroscópica del ligamento cruzado anterior (LCA) repara un ligamento cruzado anterior roto, uno de los principales ligamentos estabilizadores de la rodilla que se lesiona con frecuencia durante deportes que implican giros bruscos, saltos o cambios de dirección. Dado que un LCA roto no cicatriza de forma fiable por sí solo, los cirujanos lo reconstruyen utilizando un injerto, comúnmente tomado del propio tendón isquiotibial o rotuliano del paciente, u ocasionalmente de tejido de donante, que se introduce a través de túneles perforados en el fémur y la tibia y se fija con tornillos o dispositivos de fijación para recrear la posición y función originales del ligamento. El procedimiento se realiza artroscópicamente a través de pequeñas incisiones portales utilizando una cámara e instrumentos especializados, evitando la necesidad de una incisión abierta grande, y generalmente dura entre una y dos horas bajo anestesia regional o general. Generalmente se recomienda para pacientes con inestabilidad de rodilla, episodios de cesión o incapacidad para volver al deporte o al trabajo físicamente exigente tras una rotura del LCA. Las unidades de medicina deportiva y ortopedia de la India ofrecen técnicas de injerto tanto isquiotibial como rotuliano, junto con colocación de túneles asistida por robot o navegación. La recuperación implica un programa de rehabilitación estructurado de varios meses con carga de peso progresiva, fortalecimiento y entrenamiento del equilibrio antes de un regreso seguro a la actividad deportiva.",
+			},
+			{
+				name: 'Reconstrucción Artroscópica del LCP',
+				description:
+					"La reconstrucción artroscópica del ligamento cruzado posterior (LCP) aborda una rotura del ligamento cruzado posterior, un ligamento estabilizador más fuerte y menos lesionado, ubicado detrás del LCA, que normalmente se rompe por un golpe directo en la parte frontal de la tibia, como en una lesión por el salpicadero durante un accidente de tráfico, o por una caída fuerte sobre una rodilla flexionada. Muchas lesiones parciales del LCP se tratan sin cirugía con férulas y fisioterapia, pero las roturas completas que causan inestabilidad persistente, o las combinadas con otras lesiones ligamentosas, generalmente requieren reconstrucción quirúrgica. El cirujano utiliza instrumentos artroscópicos y una cámara insertados a través de pequeños portales para retirar los restos del ligamento dañado y pasar un injerto de tendón, a menudo tomado del isquiotibial, el tendón rotuliano o una fuente donante, a través de túneles óseos en el fémur y la tibia, fijándolo bajo tensión controlada para restaurar la estabilidad de la rodilla. La operación generalmente dura de dos a tres horas bajo anestesia regional o general y es técnicamente más exigente que la reconstrucción del LCA debido a la posición y el suministro sanguíneo del ligamento. Los centros ortopédicos y de lesiones deportivas de la India cuentan con cirujanos experimentados en técnicas de reconstrucción del LCP de banda única y doble. La recuperación requiere un programa de rehabilitación más largo y cuidadosamente escalonado en comparación con la cirugía del LCA, con uso de férula y protocolos de carga gradual para proteger el injerto en cicatrización.",
+			},
+			{
+				name: 'Cirugía de Rotura de Menisco',
+				description:
+					"La cirugía de rotura de menisco trata el daño de los cojinetes de cartílago en forma de C dentro de la rodilla que absorben impactos y estabilizan la articulación entre el fémur y la tibia, lesiones que ocurren comúnmente por movimientos de torsión durante el deporte o por degeneración gradual en adultos mayores. Según la ubicación, el tamaño y el patrón de la rotura, el cirujano realiza uno de dos procedimientos artroscópicos: la reparación del menisco, en la que los bordes rotos se suturan para preservar la mayor cantidad posible de cartílago, particularmente en pacientes más jóvenes con roturas en la zona externa bien vascularizada, o la meniscectomía parcial, en la que se recorta la porción dañada e inestable del menisco conservando el tejido sano. Ambos procedimientos se realizan a través de pequeñas incisiones portales utilizando un artroscopio e instrumentos finos, generalmente de treinta a sesenta minutos bajo anestesia raquídea o general. La cirugía generalmente se aconseja cuando el dolor, la hinchazón, el enganche o el bloqueo persisten a pesar del reposo y la fisioterapia, o cuando una resonancia magnética confirma una rotura reparable o inestable. Las unidades de artroscopia de la India ofrecen rutinariamente técnicas tanto de reparación como de meniscectomía, seleccionando el enfoque que mejor preserve la función de la rodilla a largo plazo. La recuperación tras la meniscectomía suele ser más rápida, mientras que la reparación requiere un período de rehabilitación más protegido para permitir que el tejido suturado cicatrice.",
+			},
+			{
+				name: 'Cirugía de Andamiaje de Cartílago',
+				description:
+					"La cirugía de andamiaje de cartílago es una técnica de preservación articular utilizada para tratar áreas de cartílago articular dañado o ausente, el tejido liso que recubre los extremos de los huesos dentro de una articulación, más a menudo en la rodilla tras una lesión, estrés repetitivo o degeneración localizada temprana. Dado que el cartílago tiene una capacidad limitada para autorrepararse, el procedimiento implica implantar un andamiaje biocompatible, a veces sembrado con células de cartílago propias del paciente o células derivadas de la médula ósea, en el defecto para proporcionar un marco estructural que favorezca la formación de nuevo tejido similar al cartílago con el tiempo. Generalmente se realiza de forma artroscópica o a través de una pequeña incisión, preparando y midiendo primero el área dañada antes de moldear el andamiaje, fijarlo con pegamento de fibrina o suturas, y dejarlo integrarse con el tejido circundante. Los candidatos suelen ser pacientes jóvenes y activos con un defecto focal de cartílago y una alineación articular razonablemente preservada, en lugar de artrosis generalizada, ya que el objetivo es retrasar o evitar la necesidad de un reemplazo articular. Los centros ortopédicos de la India que ofrecen servicios regenerativos y de medicina deportiva proporcionan diversas técnicas de andamiaje y reparación de cartílago basadas en células, adaptadas al tamaño y la profundidad del defecto. La recuperación implica un período protegido de carga de peso y una rehabilitación gradual y estrechamente supervisada para permitir que madure el nuevo tejido.",
+			},
+			{
+				name: 'Estabilización Artroscópica de Hombro',
+				description:
+					"La estabilización artroscópica de hombro se realiza para corregir un hombro que se disloca o subluxa repetidamente debido a ligamentos y tejido labral estirados, rotos o desprendidos que normalmente mantienen la cabeza de la articulación del hombro firmemente dentro de su encaje. La inestabilidad a menudo sigue a una dislocación traumática inicial, frecuentemente durante el deporte o una caída, tras la cual las restricciones de tejido blando de la articulación no cicatrizan con la firmeza suficiente para prevenir nuevos episodios. Utilizando un artroscopio e instrumentos finos insertados a través de pequeñas incisiones portales alrededor del hombro, el cirujano vuelve a fijar o tensa el labrum y la cápsula rotos al borde del encaje mediante anclajes de sutura, restaurando la tensión necesaria para mantener la articulación centrada durante el movimiento. El procedimiento generalmente dura alrededor de una hora y se realiza bajo bloqueo nervioso regional combinado con sedación ligera o anestesia general. Generalmente se recomienda para pacientes con inestabilidad recurrente, un signo de aprensión positivo en la exploración e imágenes que muestran lesión labral o capsular, particularmente individuos jóvenes o físicamente activos con alto riesgo de nueva dislocación. Las unidades de hombro y lesiones deportivas de la India realizan rutinariamente esta técnica artroscópica. La recuperación implica un período de inmovilización con cabestrillo seguido de un programa de fisioterapia estructurado para recuperar el movimiento y reconstruir la fuerza alrededor de la articulación.",
+			},
+			{
+				name: 'Reparación Artroscópica del Manguito Rotador',
+				description:
+					"La reparación artroscópica del manguito rotador trata un manguito rotador roto, el grupo de cuatro músculos y tendones que estabilizan el hombro y elevan el brazo, que puede romperse repentinamente por una caída o lesión, o gradualmente por el desgaste relacionado con la edad y la actividad repetitiva por encima de la cabeza. Los pacientes típicamente presentan dolor de hombro que empeora por la noche, debilidad al levantar o rotar el brazo, y dificultad con tareas por encima de la cabeza que no ha mejorado con el reposo, la fisioterapia o las inyecciones. Durante el procedimiento, el cirujano inserta un artroscopio e instrumentos pequeños a través de unos pocos portales alrededor del hombro, recorta cualquier tejido inflamado o deshilachado, y vuelve a fijar el borde del tendón roto a su huella original en el húmero utilizando anclajes de sutura, restaurando la tracción del tendón sobre el hueso. La operación generalmente se realiza bajo bloqueo regional con sedación o anestesia general y dura aproximadamente de una a dos horas según el tamaño y la complejidad de la rotura. Las unidades ortopédicas y de especialidad de hombro de la India ofrecen esta técnica tanto para roturas parciales como de espesor completo. Después de la cirugía, el brazo se protege en un cabestrillo durante varias semanas mientras el tendón cicatriza, seguido de un programa de fisioterapia gradual que progresa desde el movimiento pasivo hasta ejercicios activos de fortalecimiento durante varios meses.",
+			},
+			{
+				name: 'Reparación Artroscópica de Bankart',
+				description:
+					"La reparación artroscópica de Bankart aborda específicamente una lesión de Bankart, una rotura del labrum —el anillo de cartílago que profundiza el encaje del hombro— en el borde anteroinferior de la articulación, una lesión que ocurre comúnmente durante una dislocación traumática de hombro y es una causa principal de inestabilidad recurrente. Si no se trata, una lesión de Bankart permite que el hombro siga resbalando o dislocándose completamente con un estrés relativamente menor, particularmente en pacientes jóvenes y deportistas. A través de pequeñas incisiones portales, el cirujano utiliza un artroscopio para visualizar el labrum desprendido y lo vuelve a fijar al borde óseo del encaje mediante anclajes de sutura colocados a intervalos a lo largo de la rotura, restaurando el efecto de tope labral que ayuda a mantener centrada la cabeza humeral. En casos con pérdida ósea asociada en el encaje, pueden combinarse procedimientos adicionales de injerto óseo con la reparación. La cirugía generalmente dura alrededor de una hora bajo anestesia regional con sedación o anestesia general. Las unidades de artroscopia de hombro de la India realizan rutinariamente la reparación de Bankart en pacientes con lesión labral confirmada por resonancia magnética o artrografía por TC y antecedentes de dislocación recurrente. El cuidado posoperatorio implica varias semanas de inmovilización con cabestrillo seguidas de un programa de fisioterapia por fases para restaurar el movimiento, la estabilidad y la fuerza.",
+			},
+			{
+				name: 'Cirugía de Hombro por Ojo de Cerradura (Artroscópica)',
+				description:
+					"La cirugía de hombro por ojo de cerradura, o artroscópica, es un abordaje mínimamente invasivo utilizado para diagnosticar y tratar una amplia gama de afecciones del hombro a través de unas pocas incisiones pequeñas en lugar de un corte abierto grande. Se inserta una cámara delgada llamada artroscopio en la articulación para dar al cirujano una vista magnificada y detallada de los tendones, ligamentos, cartílago y revestimiento articular en un monitor, mientras que instrumentos finos pasados a través de portales separados se utilizan para recortar, reparar o reconstruir el tejido dañado. Esta técnica se aplica a afecciones que van desde roturas del manguito rotador e inestabilidad de hombro hasta síndrome de pinzamiento, liberación de hombro congelado y extracción de cuerpos libres o espolones óseos, con los pasos específicos dependiendo de lo que se encuentre y trate. Generalmente se ofrece cuando síntomas como dolor, debilidad, rigidez o movimiento restringido no mejoran con reposo, fisioterapia y medicación. Realizada bajo bloqueo nervioso regional, sedación o anestesia general, las incisiones más pequeñas suelen resultar en menos dolor posoperatorio, menor riesgo de infección y una recuperación inicial más rápida que la cirugía abierta tradicional de hombro. Los centros ortopédicos de la India con unidades dedicadas de hombro ofrecen esta técnica para la mayoría de los trastornos comunes del hombro. La recuperación aún requiere un programa de fisioterapia estructurado y específico para la afección, con el fin de recuperar la función completa del hombro durante las semanas y meses siguientes.",
+			},
+			{
+				name: 'Cirugía de Cáncer Óseo',
+				description:
+					"La cirugía de cáncer óseo se realiza para extirpar tumores malignos que surgen dentro del tejido óseo, como el osteosarcoma, el sarcoma de Ewing o el condrosarcoma, o que se han diseminado al hueso desde cáncer en otra parte del cuerpo. La planificación del tratamiento generalmente comienza con imágenes, incluidas radiografías, resonancia magnética, TC y gammagrafías óseas, junto con una biopsia para confirmar el tipo y grado del tumor, tras lo cual un equipo multidisciplinario decide la combinación más apropiada de cirugía, quimioterapia y radiación. Cuando es posible, los cirujanos ahora prefieren la cirugía de preservación de la extremidad, extirpando el tumor junto con un margen de tejido sano y reconstruyendo el hueso y la articulación afectados mediante una endoprótesis metálica, injerto óseo o una combinación de ambos, preservando la extremidad en lugar de recurrir a la amputación, que se reserva para casos en los que el tumor afecta nervios, vasos importantes o tejido blando extenso. La cirugía generalmente se realiza bajo anestesia general y puede durar varias horas según el tamaño, la ubicación del tumor y la complejidad de la reconstrucción requerida. Los centros de oncología ortopédica de la India ofrecen técnicas de preservación de la extremidad junto con protocolos de quimioterapia administrados antes y después de la cirugía. La recuperación implica una estancia hospitalaria de una a dos semanas seguida de un programa de rehabilitación extendido para recuperar la función, con vigilancia continua para monitorear la recurrencia.",
+			},
+			{
+				name: 'Cirugía de Alargamiento de Extremidades',
+				description:
+					"La cirugía de alargamiento de extremidades aumenta gradualmente la longitud de un hueso acortado, más a menudo en la pierna, para corregir la discrepancia de longitud de las extremidades causada por afecciones congénitas, lesión de la placa de crecimiento en la infancia, infección, consolidación viciosa de una fractura o ciertas displasias esqueléticas. El cirujano primero realiza un corte quirúrgico controlado del hueso, llamado osteotomía, sin alterar el suministro sanguíneo circundante, y luego aplica un marco fijador externo, llevado fuera de la extremidad, o un clavo de alargamiento interno impulsado magnéticamente, colocado dentro del hueso. Durante las semanas siguientes, el dispositivo se ajusta diariamente en pequeños incrementos, típicamente alrededor de un milímetro por día, permitiendo que se forme nuevo hueso gradualmente en el espacio mientras los tejidos blandos, nervios y vasos sanguíneos se estiran junto con él. El período total de tratamiento, incluida la fase de alargamiento y la consolidación ósea posterior, generalmente abarca varios meses y requiere un seguimiento cercano con radiografías periódicas para controlar la cicatrización ósea y ajustar el plan según sea necesario. Los centros de reconstrucción de extremidades de la India ofrecen tanto técnicas de fijador externo como de clavo interno según la cantidad de alargamiento requerido y la preferencia del paciente. La fisioterapia durante todo el proceso ayuda a mantener el movimiento articular y la fuerza muscular, y la mayoría de los pacientes necesitan una estancia prolongada en el país de tratamiento para permitir un monitoreo seguro durante la fase activa de alargamiento.",
+			},
+			{
+				name: 'Cirugía de Pie Zambo',
+				description:
+					"La cirugía de pie zambo trata el talipes equinovaro congénito, una afección presente al nacer en la que uno o ambos pies están girados hacia adentro y hacia abajo debido a tendones acortados y una alineación anormal de los huesos del pie. La mayoría de los casos ahora se manejan inicialmente con el método Ponseti, un abordaje no quirúrgico que utiliza manipulación suave seriada y enyesado durante varias semanas para corregir gradualmente la posición del pie, a menudo seguido de un procedimiento menor para liberar un tendón de Aquiles tenso. La cirugía se vuelve necesaria cuando la corrección mediante enyesado es incompleta, cuando la deformidad es resistente o recae, o en niños mayores cuyo pie zambo no se trató tempranamente, y puede variar desde una liberación o transferencia tendinosa limitada hasta procedimientos óseos y articulares más extensos para realinear el pie estructuralmente. La operación específica depende de la edad del niño, la gravedad de la deformidad y qué tejidos contribuyen a la posición anormal. La cirugía se realiza bajo anestesia general, y el pie generalmente se inmoviliza con yeso después para proteger la corrección mientras cicatriza. Los centros de ortopedia pediátrica de la India manejan el pie zambo tanto mediante protocolos basados en Ponseti como mediante corrección quirúrgica para casos resistentes o no tratados. Generalmente se necesita un seguimiento a largo plazo con ortesis y monitoreo a medida que el niño crece.",
+			},
+			{
+				name: 'Tratamiento de Displasia de Cadera',
+				description:
+					"El tratamiento de la displasia de cadera aborda la displasia del desarrollo de la cadera, una afección en la que el encaje de la cadera es demasiado poco profundo para cubrir y estabilizar adecuadamente la cabeza del fémur, que va desde una laxitud leve hasta la dislocación completa, y que se identifica con mayor frecuencia en la infancia mediante cribado, aunque a veces se diagnostica más tarde en la niñez o en la edad adulta. En bebés pequeños, el tratamiento generalmente comienza con un arnés de posicionamiento, como el arnés de Pavlik, usado durante varias semanas para guiar suavemente la cadera hacia una posición estable y bien asentada mientras el encaje se desarrolla normalmente. Cuando la displasia se diagnostica más tarde, es más grave o no responde al arnés, pueden ser necesarias opciones quirúrgicas, que van desde la reducción cerrada o abierta de la articulación de la cadera hasta una osteotomía periacetabular o pélvica que remodela y reposiciona el encaje para cubrir mejor la cabeza femoral, a veces combinada con una osteotomía femoral. La cirugía se realiza bajo anestesia general y generalmente va seguida de un período de inmovilización con yeso o arnés para proteger la corrección. Las unidades de preservación de cadera pediátrica y de adultos de la India ofrecen tanto protocolos de arnés para bebés como técnicas de osteotomía reconstructiva para niños mayores y adultos jóvenes. El seguimiento a largo plazo es importante, ya que la displasia no tratada o corregida de forma inadecuada puede provocar artrosis temprana de cadera.",
+			},
+			{
+				name: 'Tratamiento de Trastornos Musculoesqueléticos',
+				description:
+					"El tratamiento de trastornos musculoesqueléticos abarca el diagnóstico y manejo de una amplia gama de afecciones que afectan los huesos, articulaciones, músculos, tendones, ligamentos y nervios que componen el sistema de movimiento del cuerpo, incluyendo artritis, dolor crónico de espalda y cuello, lesiones de tendones y ligamentos, fracturas, deformidades y afecciones degenerativas de la columna. El manejo generalmente comienza con una evaluación clínica e imágenes, como radiografías, resonancia magnética o TC, para identificar la causa subyacente del dolor, la rigidez, la debilidad o el movimiento restringido, tras lo cual un especialista ortopédico recomienda una vía de tratamiento que puede incluir fisioterapia, medicación, inyecciones específicas, ortesis o cirugía según la gravedad y naturaleza de la afección. Cuando se requiere cirugía, puede variar desde procedimientos artroscópicos mínimamente invasivos hasta reemplazo articular, fijación espinal o cirugía reconstructiva correctiva, elegida según el diagnóstico específico y los objetivos generales de salud y funcionales del paciente. Los centros ortopédicos multiespecialidad de la India reúnen a equipos de reemplazo articular, columna, medicina deportiva y fisioterapia para manejar problemas musculoesqueléticos complejos o de larga evolución bajo un plan coordinado. Debido a que las presentaciones varían ampliamente, una revisión inicial de imágenes e informes clínicos previos ayuda a determinar el enfoque de tratamiento más apropiado antes de que el paciente viaje. Los plazos de recuperación y rehabilitación dependen enteramente del trastorno específico tratado y la intervención elegida.",
+			},
+		],
+		benefits: [
+			'Reemplazo articular robótico y asistido por computadora disponible en centros líderes',
+			'Fisioterapia estructurada intrahospitalaria desde el primer día',
+			'Implantes de alta calidad de origen internacional',
+			'Estancia hospitalaria típica de 3 a 5 días para el reemplazo articular',
+		],
+		flagshipProcedure: 'Reemplazo Total de Rodilla',
+		costComparison: [
+			{ country: 'Estados Unidos', waitTime: '4–6 semanas', successRate: '96–98%' },
+			{ country: 'Reino Unido', waitTime: '6–12 meses (NHS)', successRate: '96–98%' },
+			{ country: 'Alemania', waitTime: '3–6 semanas', successRate: '95–97%' },
+			{ country: 'Tailandia', waitTime: '2–3 semanas', successRate: '94–96%' },
+			{ country: 'India', waitTime: '1–2 semanas', successRate: '97%+' },
+		],
+		inclusions: [
+			'Evaluación ortopédica preoperatoria, incluidas radiografías y aptitud para la cirugía',
+			'Honorarios del cirujano y del anestesista para el reemplazo articular',
+			'Cargos de quirófano y el implante (de grado estándar, salvo mejora)',
+			'Estancia en UCI/recuperación (1 día) más 4 días en habitación individual',
+			'Sesiones estructuradas de fisioterapia intrahospitalaria',
+			'Laboratorio, radiología y medicación posoperatoria estándar durante la estancia',
+			'Resumen de alta con un plan de ejercicios en casa y rehabilitación',
+		],
+		exclusions: [
+			'Mejoras de implante premium o personalizado más allá del implante de grado estándar',
+			'Estancia hospitalaria más allá de la duración del paquete',
+			'Cirugía bilateral (ambas rodillas) salvo que se cotice por separado',
+			'Sesiones de fisioterapia ambulatoria tras el alta',
+			'Tratamiento de afecciones no relacionadas identificadas durante la evaluación preoperatoria',
+			'Cirugía de revisión por complicaciones no relacionadas con el procedimiento original',
+		],
+		faqs: [
+			{
+				question: '¿Cuál es el costo de la cirugía de reemplazo de rodilla en la India?',
+				answer:
+					'Un paquete de reemplazo total de rodilla en la India comienza desde USD 5.500, alrededor de un 85% menos que el precio habitual en EE. UU., e incluye los honorarios del cirujano, el implante, la estancia hospitalaria y la fisioterapia intrahospitalaria.',
+			},
+			{
+				question: '¿Está disponible el reemplazo de rodilla asistido por robot?',
+				answer:
+					'Sí, varios de nuestros hospitales asociados ofrecen reemplazo articular robótico y navegado por computadora, lo que puede mejorar la alineación del implante y acortar el tiempo de recuperación para los pacientes aptos.',
+			},
+			{
+				question: '¿Cuánto dura la estancia hospitalaria y la recuperación?',
+				answer:
+					'La mayoría de los pacientes permanecen unos 5 días en el hospital y se les aconseja quedarse en la India aproximadamente 2 a 3 semanas para que los fisioterapeutas guíen la rehabilitación temprana antes de volar a casa.',
+			},
+			{
+				question: '¿Qué marcas de implantes se utilizan?',
+				answer:
+					'Nuestros hospitales asociados utilizan marcas de implantes certificadas internacionalmente como estándar, con mejoras de implante premium disponibles a solicitud y cotizadas por separado.',
+			},
+			{
+				question: '¿Se pueden reemplazar ambas rodillas en el mismo viaje?',
+				answer:
+					'Sí, el reemplazo bilateral de rodilla simultáneo o escalonado es posible para candidatos adecuados — su cirujano confirmará el mejor enfoque tras revisar sus radiografías y aptitud general.',
+			},
+			{
+				question: '¿Cómo empiezo?',
+				answer:
+					'Envíe sus radiografías y un resumen de sus síntomas a través de nuestro formulario de contacto, y recibirá una evaluación especializada y una estimación de costo transparente en 24 horas.',
+			},
+		],
+	},
 };
 
 export const getEsTreatment = (slug: string) => esTreatments[slug];

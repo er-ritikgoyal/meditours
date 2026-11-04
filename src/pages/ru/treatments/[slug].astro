@@ -86,7 +86,16 @@ export function getStaticPaths() {
 
 const { treatment: baseTreatment } = Astro.props as { treatment: TreatmentData };
 const ruT = ruTreatments[baseTreatment.slug];
-const treatment: TreatmentData = ruT ? { ...baseTreatment, ...ruT } : baseTreatment;
+const treatment: TreatmentData = ruT
+	? {
+			...baseTreatment,
+			...ruT,
+			// Translated rows only carry country/waitTime/successRate; keep the English cost figure and highlight flag.
+			costComparison: ruT.costComparison
+				? ruT.costComparison.map((row, i) => ({ ...baseTreatment.costComparison[i], ...row }))
+				: baseTreatment.costComparison,
+		}
+	: baseTreatment;
 const formatPrice = (value: number) => `${value.toLocaleString('en-US')}`;
 function procedureTeaser(text: string): string {
 	const sentence = text.split('. ')[0].trim();
@@ -97,6 +106,17 @@ const currentTreatmentIndex = treatments.findIndex((t) => t.slug === baseTreatme
 const related = Array.from({ length: 3 }, (_, i) => treatments[(currentTreatmentIndex + 1 + i) % treatments.length]);
 const d = ruTreatmentsPage.detail;
 const year = new Date().getFullYear();
+
+function getYouTubeId(url: string): string | null {
+	const match = url.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?v=|embed\/|shorts\/))([\w-]{11})/);
+	return match ? match[1] : null;
+}
+function getYouTubeStart(url: string): number | null {
+	const match = url.match(/[?&]t=(\d+)/) || url.match(/[?&]start=(\d+)/);
+	return match ? parseInt(match[1], 10) : null;
+}
+const heroVideoYouTubeId = treatment.video ? getYouTubeId(treatment.video) : null;
+const heroVideoStart = treatment.video ? getYouTubeStart(treatment.video) : null;
 ---
 
 <Layout
@@ -129,7 +149,23 @@ const year = new Date().getFullYear();
 			<div class="treatment-detail__inner">
 				<div class="treatment-detail__hero-row">
 					<TreatmentCta variant="media" treatmentName={treatment.name} locale="ru">
-						{treatment.imageKey ? (
+						{treatment.video ? (
+							<div class="treatment-detail__hero-video-embed">
+								{heroVideoYouTubeId ? (
+									<iframe
+										src={`https://www.youtube.com/embed/${heroVideoYouTubeId}${heroVideoStart ? `?start=${heroVideoStart}` : ''}`}
+										title={`${treatment.name} video`}
+										allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+										allowfullscreen
+										loading="lazy"
+									/>
+								) : (
+									<video controls preload="metadata" poster={treatment.imageKey ? IMAGES[treatment.imageKey].src : undefined}>
+										<source src={treatment.video} type="video/mp4" />
+									</video>
+								)}
+							</div>
+						) : treatment.imageKey ? (
 							<Image
 								src={IMAGES[treatment.imageKey]}
 								alt={treatment.name}
@@ -434,6 +470,20 @@ const year = new Date().getFullYear();
 		object-fit: cover;
 		border-radius: var(--radius-lg);
 		box-shadow: var(--shadow-card);
+	}
+
+	.treatment-detail__hero-video-embed {
+		background: #000;
+	}
+
+	.treatment-detail__hero-video-embed iframe,
+	.treatment-detail__hero-video-embed video {
+		position: absolute;
+		inset: 0;
+		width: 100%;
+		height: 100%;
+		border: none;
+		object-fit: cover;
 	}
 
 	.treatment-detail__hero-fallback {

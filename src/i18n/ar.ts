@@ -20,6 +20,7 @@ export const ar = {
 		home: 'الرئيسية',
 		destinations: 'الوجهات',
 		treatments: 'العلاجات',
+		allTreatments: 'جميع العلاجات',
 		about: 'من نحن',
 		contact: 'اتصل بنا',
 		more: 'المزيد',

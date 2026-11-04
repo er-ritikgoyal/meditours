@@ -14,6 +14,7 @@ export const ru = {
 		home: 'Главная',
 		destinations: 'Направления',
 		treatments: 'Лечение',
+		allTreatments: 'Все направления лечения',
 		about: 'О нас',
 		contact: 'Контакты',
 		more: 'Ещё',

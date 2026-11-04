@@ -14,6 +14,7 @@ export const es = {
 		home: 'Inicio',
 		destinations: 'Destinos',
 		treatments: 'Tratamientos',
+		allTreatments: 'Todos los tratamientos',
 		about: 'Sobre nosotros',
 		contact: 'Contacto',
 		more: 'Más',
