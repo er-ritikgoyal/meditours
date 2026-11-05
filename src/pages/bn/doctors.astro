@@ -10,7 +10,7 @@ import { bnDoctorsTr } from '../../i18n/bn-doctors';
 import { doctors } from '../../data/doctors';
 
 const { listing, card, detail } = bnDoctorsPage;
-const videoEntries = doctors
+const videoEntries = translateDoctors(doctors, bnDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -43,7 +43,18 @@ const videoEntries = doctors
 		verifiedLabel={card.verifiedLabel}
 	/>
 
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="আমাদের বিশেষজ্ঞদের সাথে পরিচিত হন"
+		title="শুনুন আমাদের"
+		highlight="ডাক্তারদের কাছ থেকে"
+		subtitle={`আপনার যত্ন সমন্বয়কারী বিশেষজ্ঞদের সংক্ষিপ্ত ভিডিও পরিচিতি।`}
+		experienceLabel="বছরের অভিজ্ঞতা"
+		viewProfileLabel="প্রোফাইল দেখুন"
+		previousLabel="আগের ডাক্তার"
+		nextLabel="পরবর্তী ডাক্তার"
+		closeLabel="ভিডিও বন্ধ করুন"
+		entries={videoEntries}
+	/>
 
 	<CostEstimateCta
 		title="আপনার চিকিৎসার সঠিক খরচ জানতে চান?"

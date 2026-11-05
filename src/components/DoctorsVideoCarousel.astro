@@ -31,6 +31,11 @@ export interface Props {
 	title?: string;
 	highlight?: string;
 	subtitle?: string;
+	experienceLabel?: string;
+	viewProfileLabel?: string;
+	previousLabel?: string;
+	nextLabel?: string;
+	closeLabel?: string;
 	entries: DoctorVideoEntry[];
 }
 
@@ -39,6 +44,11 @@ const {
 	title = 'Hear From Our',
 	highlight = 'Doctors',
 	subtitle = 'Short video introductions from the specialists coordinating your care.',
+	experienceLabel = 'Yrs Experience',
+	viewProfileLabel = 'View Profile',
+	previousLabel = 'Previous doctors',
+	nextLabel = 'Next doctors',
+	closeLabel = 'Close video',
 	entries,
 } = Astro.props;
 
@@ -116,7 +126,7 @@ function thumbnailFor(url: string): string {
 									<div class="doctor-video-card__meta">
 										<span class="doctor-video-card__meta-item">
 											<span set:html={iconExperience} aria-hidden="true" />
-											{doctor.experienceYears}+ Yrs Experience
+											{doctor.experienceYears}+ {experienceLabel}
 										</span>
 										<span class="doctor-video-card__meta-item">
 											<span set:html={iconLanguage} aria-hidden="true" />
@@ -138,7 +148,7 @@ function thumbnailFor(url: string): string {
 										</span>
 									</div>
 
-									<a href={`/doctors/${doctor.slug}`} class="doctor-video-card__link">View Profile</a>
+									<a href={`/doctors/${doctor.slug}`} class="doctor-video-card__link">{viewProfileLabel}</a>
 								</div>
 							</article>
 						</div>
@@ -150,12 +160,12 @@ function thumbnailFor(url: string): string {
 		</div>
 
 		<div class="doctor-video-carousel__controls">
-			<button class="doctor-video-carousel__nav doctor-video-carousel__nav--prev" aria-label="Previous doctors">
+			<button class="doctor-video-carousel__nav doctor-video-carousel__nav--prev" aria-label={previousLabel}>
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
 					<path d="M15 6l-6 6 6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
 			</button>
-			<button class="doctor-video-carousel__nav doctor-video-carousel__nav--next" aria-label="Next doctors">
+			<button class="doctor-video-carousel__nav doctor-video-carousel__nav--next" aria-label={nextLabel}>
 				<svg width="18" height="18" viewBox="0 0 24 24" fill="none">
 					<path d="M9 6l6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
 				</svg>
@@ -166,7 +176,7 @@ function thumbnailFor(url: string): string {
 	<div class="doctor-video-modal" data-video-modal hidden>
 		<div class="doctor-video-modal__backdrop" data-video-modal-close />
 		<div class="doctor-video-modal__panel">
-			<button type="button" class="doctor-video-modal__close" data-video-modal-close aria-label="Close video">
+			<button type="button" class="doctor-video-modal__close" data-video-modal-close aria-label={closeLabel}>
 				<span set:html={iconClose} aria-hidden="true" />
 			</button>
 			<div class="doctor-video-modal__content" data-video-modal-content />

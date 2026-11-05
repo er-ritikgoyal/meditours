@@ -7,6 +7,7 @@ import InsuranceEligibility from '../components/InsuranceEligibility.astro';
 import SearchBar from '../components/SearchBar.astro';
 import CookieConsent from '../components/CookieConsent.astro';
 import LanguagePrompt from '../components/LanguagePrompt.astro';
+import ConsultationPopup from '../components/ConsultationPopup.astro';
 import GoogleAdsTag from '../components/GoogleAdsTag.astro';
 import { fr } from '../i18n/fr';
 import { ru } from '../i18n/ru';
@@ -265,6 +266,7 @@ const jsonLd = JSON.stringify({ '@context': 'https://schema.org', '@graph': json
 		<InsuranceEligibility {...insuranceModalProps} />
 		<CookieConsent locale={locale} cookiePolicyHref="/cookie-policy" {...cookieBannerProps} />
 		<LanguagePrompt locale={locale} />
+		<ConsultationPopup locale={locale} />
 		<script>
 			import '../scripts/attribution';
 		</script>

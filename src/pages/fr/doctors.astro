@@ -10,7 +10,7 @@ import { frDoctorsTr } from '../../i18n/fr-doctors';
 import { doctors } from '../../data/doctors';
 
 const { listing, card, detail } = frDoctorsPage;
-const videoEntries = doctors
+const videoEntries = translateDoctors(doctors, frDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -43,7 +43,18 @@ const videoEntries = doctors
 		verifiedLabel={card.verifiedLabel}
 	/>
 
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="Rencontrez nos spécialistes"
+		title="Écoutez nos"
+		highlight="médecins"
+		subtitle={`De courtes présentations vidéo des spécialistes qui coordonnent vos soins.`}
+		experienceLabel="Ans d'exp."
+		viewProfileLabel="Voir le profil"
+		previousLabel="Médecins précédents"
+		nextLabel="Médecins suivants"
+		closeLabel="Fermer la vidéo"
+		entries={videoEntries}
+	/>
 
 	<CostEstimateCta
 		title="Vous voulez une estimation précise de votre traitement ?"

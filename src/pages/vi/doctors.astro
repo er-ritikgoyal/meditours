@@ -10,7 +10,7 @@ import { viDoctorsTr } from '../../i18n/vi-doctors';
 import { doctors } from '../../data/doctors';
 
 const { listing, card, detail } = viDoctorsPage;
-const videoEntries = doctors
+const videoEntries = translateDoctors(doctors, viDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -43,7 +43,18 @@ const videoEntries = doctors
 		verifiedLabel={card.verifiedLabel}
 	/>
 
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="Gặp gỡ các chuyên gia của chúng tôi"
+		title="Lắng nghe"
+		highlight="bác sĩ của chúng tôi"
+		subtitle={`Những đoạn video giới thiệu ngắn từ các chuyên gia điều phối việc chăm sóc của bạn.`}
+		experienceLabel="Năm kinh nghiệm"
+		viewProfileLabel="Xem hồ sơ"
+		previousLabel="Bác sĩ trước"
+		nextLabel="Bác sĩ tiếp theo"
+		closeLabel="Đóng video"
+		entries={videoEntries}
+	/>
 
 	<CostEstimateCta
 		title="Bạn muốn có ước tính chính xác cho phương pháp điều trị của mình?"

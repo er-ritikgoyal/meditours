@@ -10,7 +10,7 @@ import { ruDoctorsTr } from '../../i18n/ru-doctors';
 import { doctors } from '../../data/doctors';
 
 const { listing, card, detail } = ruDoctorsPage;
-const videoEntries = doctors
+const videoEntries = translateDoctors(doctors, ruDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
 ---
 
@@ -43,7 +43,18 @@ const videoEntries = doctors
 		verifiedLabel={card.verifiedLabel}
 	/>
 
-	<DoctorsVideoCarousel entries={videoEntries} />
+	<DoctorsVideoCarousel
+		badge="Познакомьтесь с нашими специалистами"
+		title="Послушайте наших"
+		highlight="врачей"
+		subtitle={`Короткие видеопредставления специалистов, координирующих ваше лечение.`}
+		experienceLabel="Лет опыта"
+		viewProfileLabel="Смотреть профиль"
+		previousLabel="Предыдущие врачи"
+		nextLabel="Следующие врачи"
+		closeLabel="Закрыть видео"
+		entries={videoEntries}
+	/>
 
 	<CostEstimateCta
 		title="Хотите точную оценку стоимости лечения?"

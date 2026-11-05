@@ -1,0 +1,534 @@
+---
+/**
+ * "Get a Free Consultation" popup: shown once per page view, 5 seconds after
+ * load, on every page. Closing it (X, backdrop, Escape) just hides it for
+ * that page view — it can show again on the next page. Submitting the form
+ * sets a 1-day cookie so it stops appearing for the rest of that day.
+ * Skips itself if the first-visit language prompt (LanguagePrompt.astro) is
+ * still open, so the two modals never overlap.
+ */
+import ConsentCheckbox from './ConsentCheckbox.astro';
+import { treatments } from '../data/treatments';
+import { getTreatmentMenuLabel } from '../utils/treatmentMenu';
+import { countries } from '../data/countries';
+
+export interface Props {
+	locale?: string;
+}
+
+const { locale = 'en' } = Astro.props;
+
+const COPY: Record<string, {
+	title: string;
+	description: string;
+	nameLabel: string;
+	namePlaceholder: string;
+	treatmentLabel: string;
+	treatmentPlaceholder: string;
+	otherLabel: string;
+	countryLabel: string;
+	countryPlaceholder: string;
+	phoneCodeLabel: string;
+	phoneLabel: string;
+	phonePlaceholder: string;
+	submitLabel: string;
+	successMessage: string;
+	closeLabel: string;
+}> = {
+	en: {
+		title: 'Get a Free Consultation',
+		description: "Share your number and a patient coordinator will call you back within 24 hours — no obligation.",
+		nameLabel: 'Full name',
+		namePlaceholder: 'Your name',
+		treatmentLabel: 'Which treatment are you interested in?',
+		treatmentPlaceholder: 'Select a treatment (optional)',
+		otherLabel: 'Other',
+		countryLabel: 'Country',
+		countryPlaceholder: 'Select your country (optional)',
+		phoneCodeLabel: 'Country code',
+		phoneLabel: 'WhatsApp / phone number',
+		phonePlaceholder: '+1 555 123 4567',
+		submitLabel: 'Request Callback',
+		successMessage: 'Thanks! A patient coordinator will reach out shortly.',
+		closeLabel: 'Close',
+	},
+	fr: {
+		title: 'Obtenez une consultation gratuite',
+		description: 'Indiquez votre numéro et un coordinateur patient vous rappellera sous 24 heures — sans engagement.',
+		nameLabel: 'Nom complet',
+		namePlaceholder: 'Votre nom',
+		treatmentLabel: 'Quel traitement vous intéresse ?',
+		treatmentPlaceholder: 'Sélectionnez un traitement (facultatif)',
+		otherLabel: 'Autre',
+		countryLabel: 'Pays',
+		countryPlaceholder: 'Sélectionnez votre pays (facultatif)',
+		phoneCodeLabel: 'Indicatif du pays',
+		phoneLabel: 'WhatsApp / numéro de téléphone',
+		phonePlaceholder: '+33 6 12 34 56 78',
+		submitLabel: 'Demander un rappel',
+		successMessage: 'Merci ! Un coordinateur patient vous contactera sous peu.',
+		closeLabel: 'Fermer',
+	},
+	ru: {
+		title: 'Получите бесплатную консультацию',
+		description: 'Оставьте номер телефона, и координатор пациентов перезвонит вам в течение 24 часов — без обязательств.',
+		nameLabel: 'Полное имя',
+		namePlaceholder: 'Ваше имя',
+		treatmentLabel: 'Какое лечение вас интересует?',
+		treatmentPlaceholder: 'Выберите лечение (необязательно)',
+		otherLabel: 'Другое',
+		countryLabel: 'Страна',
+		countryPlaceholder: 'Выберите страну (необязательно)',
+		phoneCodeLabel: 'Код страны',
+		phoneLabel: 'WhatsApp / номер телефона',
+		phonePlaceholder: '+7 912 345-67-89',
+		submitLabel: 'Запросить звонок',
+		successMessage: 'Спасибо! Координатор пациентов скоро свяжется с вами.',
+		closeLabel: 'Закрыть',
+	},
+	bn: {
+		title: 'বিনামূল্যে পরামর্শ নিন',
+		description: 'আপনার নম্বর দিন, একজন পেশেন্ট কোঅর্ডিনেটর ২৪ ঘণ্টার মধ্যে কল করবেন — কোনো বাধ্যবাধকতা নেই।',
+		nameLabel: 'পুরো নাম',
+		namePlaceholder: 'আপনার নাম',
+		treatmentLabel: 'আপনি কোন চিকিৎসায় আগ্রহী?',
+		treatmentPlaceholder: 'একটি চিকিৎসা নির্বাচন করুন (ঐচ্ছিক)',
+		otherLabel: 'অন্যান্য',
+		countryLabel: 'দেশ',
+		countryPlaceholder: 'আপনার দেশ নির্বাচন করুন (ঐচ্ছিক)',
+		phoneCodeLabel: 'দেশের কোড',
+		phoneLabel: 'হোয়াটসঅ্যাপ / ফোন নম্বর',
+		phonePlaceholder: '+৮৮০ ১৭xx-xxxxxx',
+		submitLabel: 'কলব্যাক অনুরোধ করুন',
+		successMessage: 'ধন্যবাদ! একজন পেশেন্ট কোঅর্ডিনেটর শীঘ্রই যোগাযোগ করবেন।',
+		closeLabel: 'বন্ধ করুন',
+	},
+	ro: {
+		title: 'Obțineți o consultație gratuită',
+		description: 'Lăsați numărul dumneavoastră și un coordonator de pacienți vă va suna înapoi în 24 de ore — fără obligații.',
+		nameLabel: 'Nume complet',
+		namePlaceholder: 'Numele dumneavoastră',
+		treatmentLabel: 'Ce tratament vă interesează?',
+		treatmentPlaceholder: 'Selectați un tratament (opțional)',
+		otherLabel: 'Altul',
+		countryLabel: 'Țara',
+		countryPlaceholder: 'Selectați țara dvs. (opțional)',
+		phoneCodeLabel: 'Prefixul țării',
+		phoneLabel: 'WhatsApp / număr de telefon',
+		phonePlaceholder: '+40 712 345 678',
+		submitLabel: 'Solicitați un apel',
+		successMessage: 'Mulțumim! Un coordonator de pacienți vă va contacta în curând.',
+		closeLabel: 'Închide',
+	},
+	es: {
+		title: 'Obtenga una consulta gratuita',
+		description: 'Comparta su número y un coordinador de pacientes le devolverá la llamada en 24 horas — sin compromiso.',
+		nameLabel: 'Nombre completo',
+		namePlaceholder: 'Su nombre',
+		treatmentLabel: '¿Qué tratamiento le interesa?',
+		treatmentPlaceholder: 'Seleccione un tratamiento (opcional)',
+		otherLabel: 'Otro',
+		countryLabel: 'País',
+		countryPlaceholder: 'Seleccione su país (opcional)',
+		phoneCodeLabel: 'Código de país',
+		phoneLabel: 'WhatsApp / número de teléfono',
+		phonePlaceholder: '+34 612 345 678',
+		submitLabel: 'Solicitar llamada',
+		successMessage: '¡Gracias! Un coordinador de pacientes se pondrá en contacto pronto.',
+		closeLabel: 'Cerrar',
+	},
+	pt: {
+		title: 'Obtenha uma consulta gratuita',
+		description: 'Partilhe o seu número e um coordenador de pacientes ligará de volta em 24 horas — sem compromisso.',
+		nameLabel: 'Nome completo',
+		namePlaceholder: 'O seu nome',
+		treatmentLabel: 'Que tratamento lhe interessa?',
+		treatmentPlaceholder: 'Selecione um tratamento (opcional)',
+		otherLabel: 'Outro',
+		countryLabel: 'País',
+		countryPlaceholder: 'Selecione o seu país (opcional)',
+		phoneCodeLabel: 'Código do país',
+		phoneLabel: 'WhatsApp / número de telefone',
+		phonePlaceholder: '+351 912 345 678',
+		submitLabel: 'Pedir retorno de chamada',
+		successMessage: 'Obrigado! Um coordenador de pacientes entrará em contacto em breve.',
+		closeLabel: 'Fechar',
+	},
+	vi: {
+		title: 'Nhận tư vấn miễn phí',
+		description: 'Để lại số điện thoại, điều phối viên bệnh nhân sẽ gọi lại trong 24 giờ — không ràng buộc.',
+		nameLabel: 'Họ và tên',
+		namePlaceholder: 'Tên của bạn',
+		treatmentLabel: 'Bạn quan tâm đến phương pháp điều trị nào?',
+		treatmentPlaceholder: 'Chọn phương pháp điều trị (không bắt buộc)',
+		otherLabel: 'Khác',
+		countryLabel: 'Quốc gia',
+		countryPlaceholder: 'Chọn quốc gia của bạn (không bắt buộc)',
+		phoneCodeLabel: 'Mã quốc gia',
+		phoneLabel: 'WhatsApp / số điện thoại',
+		phonePlaceholder: '+84 912 345 678',
+		submitLabel: 'Yêu cầu gọi lại',
+		successMessage: 'Cảm ơn bạn! Điều phối viên bệnh nhân sẽ liên hệ sớm.',
+		closeLabel: 'Đóng',
+	},
+	ar: {
+		title: 'احصل على استشارة مجانية',
+		description: 'شاركنا رقمك وسيتصل بك منسّق المرضى خلال 24 ساعة — دون أي التزام.',
+		nameLabel: 'الاسم الكامل',
+		namePlaceholder: 'اسمك',
+		treatmentLabel: 'ما هو العلاج الذي يهمك؟',
+		treatmentPlaceholder: 'اختر علاجًا (اختياري)',
+		otherLabel: 'أخرى',
+		countryLabel: 'الدولة',
+		countryPlaceholder: 'اختر دولتك (اختياري)',
+		phoneCodeLabel: 'رمز الدولة',
+		phoneLabel: 'واتساب / رقم الهاتف',
+		phonePlaceholder: '+971 50 123 4567',
+		submitLabel: 'اطلب اتصالاً',
+		successMessage: 'شكرًا لك! سيتواصل معك منسّق المرضى قريبًا.',
+		closeLabel: 'إغلاق',
+	},
+};
+
+const treatmentOptions = treatments.map((treatment) => getTreatmentMenuLabel(locale, treatment));
+
+const t = COPY[locale] ?? COPY.en;
+---
+
+<dialog class="consult-popup" id="consult-popup" aria-labelledby="consult-popup-title" aria-describedby="consult-popup-desc">
+	<div class="consult-popup__panel">
+		<button type="button" class="consult-popup__close" id="consult-popup-close" aria-label={t.closeLabel}>&times;</button>
+
+		<p class="consult-popup__eyebrow">AlisPro MediTours</p>
+		<h2 id="consult-popup-title">{t.title}</h2>
+		<p class="consult-popup__desc" id="consult-popup-desc">{t.description}</p>
+
+		<form id="consult-popup-form" data-enquiry-form>
+			<input type="hidden" name="subject" value="Free Consultation Popup" />
+			<input type="hidden" name="message" data-message-field />
+			<input type="text" name="website" class="consult-popup__honeypot" tabindex="-1" autocomplete="off" aria-hidden="true" />
+
+			<label class="consult-popup__field">
+				<span>{t.nameLabel}</span>
+				<input type="text" name="name" placeholder={t.namePlaceholder} autocomplete="name" required />
+			</label>
+
+			<label class="consult-popup__field">
+				<span>{t.treatmentLabel}</span>
+				<select name="category">
+					<option value="" selected>{t.treatmentPlaceholder}</option>
+					{treatmentOptions.map((name) => (
+						<option value={name}>{name}</option>
+					))}
+					<option value={t.otherLabel}>{t.otherLabel}</option>
+				</select>
+			</label>
+
+			<label class="consult-popup__field">
+				<span>{t.countryLabel}</span>
+				<select name="country" id="consult-popup-country">
+					<option value="" selected>{t.countryPlaceholder}</option>
+					{countries.map((country) => (
+						<option value={country.name} data-dial={country.dial}>{country.name}</option>
+					))}
+				</select>
+			</label>
+
+			<div class="consult-popup__row">
+				<label class="consult-popup__field consult-popup__field--code">
+					<span>{t.phoneCodeLabel}</span>
+					<input type="text" name="phoneCode" id="consult-popup-phone-code" value="+91" placeholder="+91" inputmode="tel" />
+				</label>
+
+				<label class="consult-popup__field">
+					<span>{t.phoneLabel}</span>
+					<input type="tel" name="phone" placeholder={t.phonePlaceholder} autocomplete="tel" required />
+				</label>
+			</div>
+
+			<ConsentCheckbox tone="dark" />
+
+			<button type="submit" class="consult-popup__submit">{t.submitLabel}</button>
+
+			<p class="consult-popup__success" data-enquiry-success hidden>{t.successMessage}</p>
+			<p class="consult-popup__error" data-enquiry-error hidden></p>
+		</form>
+	</div>
+</dialog>
+
+<script>
+	import { bindEnquiryForm } from '../scripts/enquiryForm';
+
+	const COOKIE_NAME = 'consult_popup_submitted';
+	const SHOW_DELAY_MS = 5000;
+
+	function getCookie(name: string): string | null {
+		const match = document.cookie.match(new RegExp('(?:^|; )' + name + '=([^;]*)'));
+		return match ? decodeURIComponent(match[1]) : null;
+	}
+
+	function markSubmittedToday(): void {
+		const expires = new Date();
+		expires.setTime(expires.getTime() + 24 * 60 * 60 * 1000);
+		document.cookie = `${COOKIE_NAME}=1;expires=${expires.toUTCString()};path=/;SameSite=Lax`;
+	}
+
+	const dialog = document.getElementById('consult-popup');
+	const form = document.getElementById('consult-popup-form');
+	const closeBtn = document.getElementById('consult-popup-close');
+	const successEl = document.querySelector('#consult-popup-form [data-enquiry-success]');
+	const errorEl = document.querySelector('#consult-popup-form [data-enquiry-error]');
+	const countrySelect = document.getElementById('consult-popup-country') as HTMLSelectElement | null;
+	const phoneCodeInput = document.getElementById('consult-popup-phone-code') as HTMLInputElement | null;
+
+	countrySelect?.addEventListener('change', () => {
+		const dial = countrySelect.selectedOptions[0]?.dataset.dial ?? '';
+		if (dial && phoneCodeInput) {
+			phoneCodeInput.value = `+${dial}`;
+		}
+	});
+
+	if (dialog instanceof HTMLDialogElement) {
+		const alreadySubmittedToday = !!getCookie(COOKIE_NAME);
+		const languagePromptOpen = (document.getElementById('language-prompt') as HTMLDialogElement | null)?.open;
+
+		if (!alreadySubmittedToday && !languagePromptOpen) {
+			window.setTimeout(() => {
+				// Re-check: the visitor may have opened the language prompt in the meantime.
+				const stillBlockedByLanguagePrompt = (document.getElementById('language-prompt') as HTMLDialogElement | null)?.open;
+				if (!stillBlockedByLanguagePrompt && !dialog.open) dialog.showModal();
+			}, SHOW_DELAY_MS);
+		}
+
+		const close = () => dialog.close();
+		closeBtn?.addEventListener('click', close);
+		dialog.addEventListener('cancel', (event) => {
+			event.preventDefault();
+			close();
+		});
+
+		document.addEventListener('enquiry:success', (event) => {
+			const detail = (event as CustomEvent<{ form?: string }>).detail;
+			if (detail?.form !== 'consult-popup-form') return;
+			markSubmittedToday();
+		});
+	}
+
+	bindEnquiryForm(form as HTMLFormElement | null, {
+		successEl,
+		errorEl,
+		beforeSubmit: (f) => {
+			const name = f.querySelector<HTMLInputElement>('input[name="name"]')?.value ?? '';
+			const country = f.querySelector<HTMLSelectElement>('[name="country"]')?.value ?? '';
+			const phoneCode = f.querySelector<HTMLInputElement>('[name="phoneCode"]')?.value ?? '';
+			const phoneInput = f.querySelector<HTMLInputElement>('input[name="phone"]');
+			const phone = phoneInput?.value ?? '';
+			const messageField = f.querySelector<HTMLInputElement>('[data-message-field]');
+
+			if (phoneInput && phone && !phone.startsWith('+')) {
+				phoneInput.value = `${phoneCode} ${phone}`;
+			}
+
+			if (messageField) {
+				messageField.value = [
+					'Free consultation request from the site-wide popup.',
+					`Name: ${name}`,
+					country ? `Country: ${country}` : '',
+					`Phone: ${phoneInput?.value ?? phone}`,
+				]
+					.filter(Boolean)
+					.join('\n');
+			}
+		},
+	});
+</script>
+
+<style>
+	.consult-popup {
+		width: min(420px, calc(100vw - 32px));
+		max-width: none;
+		margin: auto;
+		padding: 0;
+		border: 0;
+		border-radius: var(--radius-lg);
+		background: transparent;
+		color: var(--color-text-primary);
+		font-family: var(--font-body);
+	}
+
+	.consult-popup::backdrop {
+		background: rgba(15, 23, 42, 0.62);
+		backdrop-filter: blur(3px);
+	}
+
+	.consult-popup__panel {
+		position: relative;
+		padding: 32px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-lg);
+		background: var(--color-bg-white);
+		box-shadow: var(--shadow-card);
+	}
+
+	.consult-popup__close {
+		position: absolute;
+		top: 14px;
+		inset-inline-end: 14px;
+		width: 30px;
+		height: 30px;
+		border-radius: 50%;
+		border: 1px solid var(--color-border-light);
+		background: var(--color-bg-white);
+		color: var(--color-text-secondary);
+		font-size: 18px;
+		line-height: 1;
+		cursor: pointer;
+	}
+
+	.consult-popup__eyebrow {
+		margin: 0 0 8px;
+		color: var(--color-primary);
+		font-size: 12px;
+		font-weight: 700;
+		letter-spacing: 0.08em;
+		text-transform: uppercase;
+	}
+
+	.consult-popup h2 {
+		margin: 0;
+		padding-inline-end: 30px;
+		font-family: var(--font-heading);
+		font-size: clamp(20px, 5vw, 24px);
+		line-height: 1.25;
+	}
+
+	.consult-popup__desc {
+		margin: 10px 0 20px;
+		color: var(--color-text-secondary);
+		font-size: 14px;
+		line-height: 1.6;
+	}
+
+	.consult-popup__form,
+	#consult-popup-form {
+		display: flex;
+		flex-direction: column;
+		gap: 12px;
+	}
+
+	.consult-popup__field {
+		display: flex;
+		flex-direction: column;
+		gap: 6px;
+		font-size: 13px;
+		font-weight: 700;
+	}
+
+	.consult-popup__row {
+		display: grid;
+		grid-template-columns: 96px minmax(0, 1fr);
+		gap: 10px;
+	}
+
+	.consult-popup__field--code input {
+		text-align: center;
+	}
+
+	.consult-popup__field input,
+	.consult-popup__field select {
+		min-height: 46px;
+		padding: 0 14px;
+		border: 1px solid var(--color-border-card);
+		border-radius: var(--radius-md);
+		background: var(--color-bg-white);
+		color: var(--color-text-primary);
+		font: inherit;
+		font-weight: 400;
+		font-size: 15px;
+	}
+
+	.consult-popup__field select {
+		appearance: none;
+		background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' fill='%2364748b' viewBox='0 0 16 16'%3E%3Cpath d='M1.646 4.646a.5.5 0 0 1 .708 0L8 10.293l5.646-5.647a.5.5 0 0 1 .708.708l-6 6a.5.5 0 0 1-.708 0l-6-6a.5.5 0 0 1 0-.708z'/%3E%3C/svg%3E");
+		background-repeat: no-repeat;
+		background-position: center right 12px;
+		padding-inline-end: 36px;
+	}
+
+	:global([dir='rtl']) .consult-popup__field select {
+		background-position: center left 12px;
+	}
+
+	.consult-popup__field input:focus-visible,
+	.consult-popup__field select:focus-visible {
+		outline: 2px solid var(--color-primary);
+		outline-offset: 2px;
+	}
+
+	.consult-popup__honeypot {
+		position: absolute;
+		width: 1px;
+		height: 1px;
+		overflow: hidden;
+		opacity: 0;
+		pointer-events: none;
+	}
+
+	.consult-popup__submit {
+		min-height: 48px;
+		margin-top: 6px;
+		border: 0;
+		border-radius: 999px;
+		background: var(--gradient-cta);
+		color: #ffffff;
+		font: inherit;
+		font-weight: 700;
+		font-size: 15px;
+		cursor: pointer;
+		transition: transform 0.15s ease;
+	}
+
+	.consult-popup__submit:hover {
+		transform: translateY(-1px);
+	}
+
+	.consult-popup__submit:disabled {
+		opacity: 0.7;
+		cursor: not-allowed;
+		transform: none;
+	}
+
+	.consult-popup__success {
+		margin: 4px 0 0;
+		padding: 10px 12px;
+		border-radius: 10px;
+		background: rgba(34, 197, 94, 0.12);
+		color: #15803d;
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	.consult-popup__error {
+		margin: 4px 0 0;
+		padding: 10px 12px;
+		border-radius: 10px;
+		background: rgba(239, 68, 68, 0.1);
+		color: var(--color-danger);
+		font-size: 13px;
+		font-weight: 600;
+		text-align: center;
+	}
+
+	@media (max-width: 480px) {
+		.consult-popup__panel {
+			padding: 26px 22px;
+		}
+	}
+
+	@media (prefers-reduced-motion: reduce) {
+		.consult-popup::backdrop {
+			backdrop-filter: none;
+		}
+	}
+</style>
