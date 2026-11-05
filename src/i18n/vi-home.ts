@@ -159,3 +159,54 @@ export const viCostComparison = {
 		'Cắt tử cung',
 	],
 };
+
+export const viWhyChooseUs = {
+	badge: 'Vì sao chọn chúng tôi',
+	title: 'Lựa chọn đáng tin cậy cho',
+	highlight: 'bệnh nhân toàn cầu',
+	subtitle: 'Hàng nghìn bệnh nhân đồng hành cùng chúng tôi mỗi năm — đây là điều tạo nên sự khác biệt.',
+	reasons: [
+		{
+			icon: 'shield' as const,
+			title: 'Bệnh viện đạt chuẩn JCI & NABH',
+			description:
+				'Mỗi bệnh viện đối tác đều đáp ứng cùng tiêu chuẩn kiểm định được bệnh nhân toàn thế giới tin tưởng.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'piggyBank' as const,
+			title: 'Tiết kiệm đến 80% chi phí điều trị',
+			description:
+				'Dịch vụ chăm sóc đẳng cấp thế giới với chi phí chỉ bằng một phần nhỏ so với phương Tây, không thỏa hiệp về chất lượng hay an toàn.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'mortarboard' as const,
+			title: 'Chuyên gia được đào tạo quốc tế',
+			description:
+				'Hội đồng y khoa của chúng tôi tuyển chọn các phẫu thuật viên được đào tạo và cấp chứng chỉ tại Mỹ, Anh và châu Âu.',
+			theme: 'green' as const,
+		},
+		{
+			icon: 'compass' as const,
+			title: 'Hỗ trợ trọn gói kiểu concierge',
+			description:
+				'Visa, chuyến bay, chỗ ở và phiên dịch viên — một điều phối viên duy nhất quản lý toàn bộ hành trình của bạn.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'headset' as const,
+			title: 'Hỗ trợ đa ngôn ngữ 24/7',
+			description:
+				'Liên hệ đội ngũ chăm sóc của bạn bất cứ lúc nào, bằng ngôn ngữ của bạn, trước, trong và sau điều trị.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'cash' as const,
+			title: 'Chi phí minh bạch, không phụ phí ẩn',
+			description:
+				'Một báo giá trọn gói duy nhất bao gồm toàn bộ điều trị của bạn — không hóa đơn bất ngờ khi bạn đến nơi.',
+			theme: 'green' as const,
+		},
+	],
+};

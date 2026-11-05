@@ -159,3 +159,54 @@ export const esCostComparison = {
 		'Histerectomía',
 	],
 };
+
+export const esWhyChooseUs = {
+	badge: 'Por qué elegirnos',
+	title: 'La opción de confianza para',
+	highlight: 'pacientes de todo el mundo',
+	subtitle: 'Miles de pacientes viajan con nosotros cada año — esto es lo que hace diferente la experiencia.',
+	reasons: [
+		{
+			icon: 'shield' as const,
+			title: 'Hospitales acreditados por JCI y NABH',
+			description:
+				'Cada hospital asociado cumple los mismos estándares de acreditación en los que confían pacientes de todo el mundo.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'piggyBank' as const,
+			title: 'Ahorre hasta un 80% en su tratamiento',
+			description:
+				'Atención de clase mundial a una fracción de los precios occidentales, sin comprometer la calidad ni la seguridad.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'mortarboard' as const,
+			title: 'Especialistas con formación internacional',
+			description:
+				'Nuestro consejo médico selecciona cirujanos formados y certificados en Estados Unidos, el Reino Unido y Europa.',
+			theme: 'green' as const,
+		},
+		{
+			icon: 'compass' as const,
+			title: 'Asistencia integral tipo concierge',
+			description:
+				'Visados, vuelos, alojamiento e intérpretes — un único coordinador gestiona todo su viaje.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'headset' as const,
+			title: 'Soporte multilingüe 24/7',
+			description:
+				'Comuníquese con su equipo médico en cualquier momento, en su idioma, antes, durante y después del tratamiento.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'cash' as const,
+			title: 'Costos transparentes, sin cargos ocultos',
+			description:
+				'Un único presupuesto cubre su tratamiento por adelantado — sin facturas sorpresa al llegar.',
+			theme: 'green' as const,
+		},
+	],
+};

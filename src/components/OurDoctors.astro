@@ -13,11 +13,16 @@ import { hospitals } from '../data/hospitals';
 // Best-effort match from a doctor's free-text `hospital` field to a hospital
 // card's image — a doctor's `hospital` field is not a foreign key, so this
 // matches on name + city substring, same heuristic used on the hospital
-// detail page's "Doctors at this hospital" section.
-function findHospitalImage(doctorHospital: string) {
+// detail page's "Doctors at this hospital" section. Always matches against the
+// English `hospital`/`city` text (looked up by slug), since those fields are
+// translated per locale and would otherwise fail to match the English
+// hospital names in data/hospitals.ts.
+function findHospitalImage(slug: string) {
+	const englishDoctor = defaultDoctors.find((d) => d.slug === slug);
+	if (!englishDoctor) return undefined;
 	const match = hospitals.find((h) => {
 		const cityToken = h.city.split(/[,/]/)[0].trim();
-		return doctorHospital.includes(h.name) && doctorHospital.includes(cityToken);
+		return englishDoctor.hospital.includes(h.name) && englishDoctor.hospital.includes(cityToken);
 	});
 	return match?.image;
 }
@@ -82,7 +87,7 @@ const Heading = headingLevel === 1 ? 'h1' : 'h2';
 						<div class="doctor-card__banner">
 							<div class={`doctor-card__banner-media doctor-card__banner-media--${doctor.theme ?? 'blue'}`}>
 								{(() => {
-									const hospitalImage = findHospitalImage(doctor.hospital);
+									const hospitalImage = findHospitalImage(doctor.slug);
 									return hospitalImage ? (
 										<>
 											<Image src={hospitalImage} alt={doctor.hospital} width={400} height={110} class="doctor-card__banner-img" />

@@ -3,7 +3,7 @@ import { doctorVideoUrls } from '../../data/doctors';
 import HeroSection from '../../components/HeroSection.astro';
 import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
-import OurDoctors from '../../components/OurDoctors.astro';
+import WhyChooseUs from '../../components/WhyChooseUs.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
 import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
 import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { ru } from '../../i18n/ru';
 import { ruAbout } from '../../i18n/ru-pages';
-import { ruDoctors, ruPartnerHospitalsHome, ruSupportServices, ruTravelProcess, ruCostComparison } from '../../i18n/ru-home';
+import { ruPartnerHospitalsHome, ruSupportServices, ruTravelProcess, ruCostComparison, ruWhyChooseUs } from '../../i18n/ru-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { ruDoctorsTr } from '../../i18n/ru-doctors';
@@ -20,8 +20,6 @@ import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/ru-hospitals';
 
 const russianHospitals = translateHospitals(hospitals.slice(0, 4));
-
-const russianDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...ruDoctors.doctors[i] }));
 
 const videoEntries = translateDoctors(defaultDoctors, ruDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
@@ -59,17 +57,12 @@ const videoEntries = translateDoctors(defaultDoctors, ruDoctorsTr)
 			accreditedHospitals: 'Аккредитованных больниц',
 		}}
 	/>
-	<OurDoctors
-		basePath="/ru"
-		badge={ruDoctors.badge}
-		title={ruDoctors.title}
-		highlight={ruDoctors.highlight}
-		subtitle={ruDoctors.subtitle}
-		doctors={translateDoctors(russianDoctors, ruDoctorsTr)}
-		yearsExpLabel={ruDoctors.yearsExpLabel}
-		reviewsLabel={ruDoctors.reviewsLabel}
-		contactLabel={ruDoctors.contactLabel}
-		verifiedLabel={ruDoctors.verifiedLabel}
+	<WhyChooseUs
+		badge={ruWhyChooseUs.badge}
+		title={ruWhyChooseUs.title}
+		highlight={ruWhyChooseUs.highlight}
+		subtitle={ruWhyChooseUs.subtitle}
+		reasons={ruWhyChooseUs.reasons}
 	/>
 	<DoctorsVideoCarousel
 		badge="Познакомьтесь с нашими специалистами"

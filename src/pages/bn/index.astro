@@ -3,7 +3,7 @@ import { doctorVideoUrls } from '../../data/doctors';
 import HeroSection from '../../components/HeroSection.astro';
 import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
-import OurDoctors from '../../components/OurDoctors.astro';
+import WhyChooseUs from '../../components/WhyChooseUs.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
 import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
 import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { bn } from '../../i18n/bn';
 import { bnAbout } from '../../i18n/bn-pages';
-import { bnDoctors, bnPartnerHospitalsHome, bnSupportServices, bnTravelProcess, bnCostComparison } from '../../i18n/bn-home';
+import { bnPartnerHospitalsHome, bnSupportServices, bnTravelProcess, bnCostComparison, bnWhyChooseUs } from '../../i18n/bn-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { bnDoctorsTr } from '../../i18n/bn-doctors';
@@ -20,8 +20,6 @@ import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/bn-hospitals';
 
 const bengaliHospitals = translateHospitals(hospitals.slice(0, 4));
-
-const bengaliDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...bnDoctors.doctors[i] }));
 
 const videoEntries = translateDoctors(defaultDoctors, bnDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
@@ -59,17 +57,12 @@ const videoEntries = translateDoctors(defaultDoctors, bnDoctorsTr)
 			accreditedHospitals: 'স্বীকৃত হাসপাতাল',
 		}}
 	/>
-	<OurDoctors
-		basePath="/bn"
-		badge={bnDoctors.badge}
-		title={bnDoctors.title}
-		highlight={bnDoctors.highlight}
-		subtitle={bnDoctors.subtitle}
-		doctors={translateDoctors(bengaliDoctors, bnDoctorsTr)}
-		yearsExpLabel={bnDoctors.yearsExpLabel}
-		reviewsLabel={bnDoctors.reviewsLabel}
-		contactLabel={bnDoctors.contactLabel}
-		verifiedLabel={bnDoctors.verifiedLabel}
+	<WhyChooseUs
+		badge={bnWhyChooseUs.badge}
+		title={bnWhyChooseUs.title}
+		highlight={bnWhyChooseUs.highlight}
+		subtitle={bnWhyChooseUs.subtitle}
+		reasons={bnWhyChooseUs.reasons}
 	/>
 	<DoctorsVideoCarousel
 		badge="আমাদের বিশেষজ্ঞদের সাথে পরিচিত হন"

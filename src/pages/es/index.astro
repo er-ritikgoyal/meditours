@@ -3,7 +3,7 @@ import { doctorVideoUrls } from '../../data/doctors';
 import HeroSection from '../../components/HeroSection.astro';
 import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
-import OurDoctors from '../../components/OurDoctors.astro';
+import WhyChooseUs from '../../components/WhyChooseUs.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
 import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
 import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { es } from '../../i18n/es';
 import { esAbout } from '../../i18n/es-pages';
-import { esDoctors, esPartnerHospitalsHome, esSupportServices, esTravelProcess, esCostComparison } from '../../i18n/es-home';
+import { esPartnerHospitalsHome, esSupportServices, esTravelProcess, esCostComparison, esWhyChooseUs } from '../../i18n/es-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { esDoctorsTr } from '../../i18n/es-doctors';
@@ -20,8 +20,6 @@ import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/es-hospitals';
 
 const spanishHospitals = translateHospitals(hospitals.slice(0, 4));
-
-const spanishDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...esDoctors.doctors[i] }));
 
 const videoEntries = translateDoctors(defaultDoctors, esDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
@@ -59,17 +57,12 @@ const videoEntries = translateDoctors(defaultDoctors, esDoctorsTr)
 			accreditedHospitals: 'Hospitales acreditados',
 		}}
 	/>
-	<OurDoctors
-		basePath="/es"
-		badge={esDoctors.badge}
-		title={esDoctors.title}
-		highlight={esDoctors.highlight}
-		subtitle={esDoctors.subtitle}
-		doctors={translateDoctors(spanishDoctors, esDoctorsTr)}
-		yearsExpLabel={esDoctors.yearsExpLabel}
-		reviewsLabel={esDoctors.reviewsLabel}
-		contactLabel={esDoctors.contactLabel}
-		verifiedLabel={esDoctors.verifiedLabel}
+	<WhyChooseUs
+		badge={esWhyChooseUs.badge}
+		title={esWhyChooseUs.title}
+		highlight={esWhyChooseUs.highlight}
+		subtitle={esWhyChooseUs.subtitle}
+		reasons={esWhyChooseUs.reasons}
 	/>
 	<DoctorsVideoCarousel
 		badge="Conozca a nuestros especialistas"

@@ -159,3 +159,54 @@ export const roCostComparison = {
 		'Histerectomie',
 	],
 };
+
+export const roWhyChooseUs = {
+	badge: 'De ce să ne alegeți',
+	title: 'Alegerea de încredere pentru',
+	highlight: 'pacienții din întreaga lume',
+	subtitle: 'Mii de pacienți călătoresc cu noi în fiecare an — iată ce face experiența diferită.',
+	reasons: [
+		{
+			icon: 'shield' as const,
+			title: 'Spitale acreditate JCI și NABH',
+			description:
+				'Fiecare spital partener respectă aceleași standarde de acreditare în care au încredere pacienții din întreaga lume.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'piggyBank' as const,
+			title: 'Economisiți până la 80% la tratament',
+			description:
+				'Îngrijire de clasă mondială la o fracțiune din prețurile occidentale, fără compromisuri privind calitatea sau siguranța.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'mortarboard' as const,
+			title: 'Specialiști instruiți la nivel internațional',
+			description:
+				'Consiliul nostru medical selectează chirurgi instruiți și certificați în SUA, Marea Britanie și Europa.',
+			theme: 'green' as const,
+		},
+		{
+			icon: 'compass' as const,
+			title: 'Asistență completă de tip concierge',
+			description:
+				'Vize, zboruri, cazare și traducători — un singur coordonator gestionează întreaga călătorie.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'headset' as const,
+			title: 'Asistență multilingvă 24/7',
+			description:
+				'Contactați echipa dumneavoastră medicală oricând, în limba dumneavoastră, înainte, în timpul și după tratament.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'cash' as const,
+			title: 'Costuri transparente, fără taxe ascunse',
+			description:
+				'O singură ofertă inițială acoperă tratamentul dumneavoastră — fără facturi surpriză la sosire.',
+			theme: 'green' as const,
+		},
+	],
+};

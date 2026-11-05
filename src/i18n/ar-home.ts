@@ -159,3 +159,48 @@ export const arCostComparison = {
 		'استئصال الرحم',
 	],
 };
+
+export const arWhyChooseUs = {
+	badge: 'لماذا تختارنا',
+	title: 'الخيار الموثوق',
+	highlight: 'للمرضى حول العالم',
+	subtitle: 'يسافر معنا آلاف المرضى كل عام — إليك ما يجعل التجربة مختلفة.',
+	reasons: [
+		{
+			icon: 'shield' as const,
+			title: 'مستشفيات معتمدة من JCI وNABH',
+			description: 'يلتزم كل مستشفى شريك بمعايير الاعتماد نفسها التي يثق بها المرضى حول العالم.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'piggyBank' as const,
+			title: 'وفّر حتى 80% من تكلفة العلاج',
+			description: 'رعاية عالمية المستوى بجزء بسيط من الأسعار الغربية، دون أي تنازل عن الجودة أو السلامة.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'mortarboard' as const,
+			title: 'أخصائيون مدرَّبون عالميًا',
+			description: 'يختار مجلسنا الطبي الجراحين المدرَّبين والمعتمدين في الولايات المتحدة والمملكة المتحدة وأوروبا.',
+			theme: 'green' as const,
+		},
+		{
+			icon: 'compass' as const,
+			title: 'دعم متكامل على طراز الكونسيرج',
+			description: 'التأشيرات والرحلات والإقامة والمترجمون — ينسق منسق واحد رحلتك بأكملها.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'headset' as const,
+			title: 'دعم متعدد اللغات على مدار الساعة',
+			description: 'تواصل مع فريق رعايتك في أي وقت، بلغتك، قبل العلاج وأثناءه وبعده.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'cash' as const,
+			title: 'تكاليف شفافة بلا رسوم خفية',
+			description: 'عرض سعر واحد مسبق يغطي علاجك بالكامل — بلا فواتير مفاجئة عند وصولك.',
+			theme: 'green' as const,
+		},
+	],
+};

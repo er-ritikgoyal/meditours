@@ -1839,6 +1839,626 @@
 			"updatedAt": 1793275615
 		}
 	},
+	"neurology": {
+		"slug": "neurology",
+		"name": "Neurology & Neurosurgery",
+		"icon": "brain",
+		"imageKey": "neurology",
+		"theme": "blue",
+		"shortDescription": "Brain, spine, and nerve specialists treating tumors, stroke, and complex neurological disorders.",
+		"overview": "India's neurosurgery centers combine microsurgical and image-guided techniques with dedicated neuro-ICUs, giving international patients access to advanced brain tumor and stroke care without the long specialist waitlists common abroad.",
+		"startingPrice": 9000,
+		"avgSavings": 88,
+		"hospitalsCount": 65,
+		"procedures": [
+			"Brain Tumor Surgery",
+			"Epilepsy Surgery",
+			"Stroke Care"
+		],
+		"allProcedures": [
+			"Brain Tumor Surgery",
+			"Brain Cancer Treatment",
+			"Pituitary Tumor Surgery",
+			"Endoscopic Brain Surgery",
+			"Brain Aneurysm Treatment",
+			"Brain Stroke Management",
+			"Epilepsy Treatment",
+			"Gamma Knife Surgery",
+			"CyberKnife Radiation Treatment",
+			"Stereotactic Radiosurgery",
+			"Deep Brain Stimulation",
+			"Cortical Stimulation Surgery",
+			"Parkinson's Disease Treatment",
+			"Vagus Nerve Stimulation (VNS)",
+			"Peripheral Nerve Surgery",
+			"Neuritis Treatment",
+			"Schizophrenia Treatment",
+			"Baclofen Pump Implant",
+			"Morphine Pump Implant",
+			"High Cervical Stimulation"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Brain Tumor Surgery",
+				"image": "/media/treatments/4d7f0b96ffcebe257fef.png",
+				"description": "Brain tumor surgery involves the surgical removal of an abnormal growth of tissue within the skull, which may be benign or malignant, and is performed when a tumor is causing symptoms such as headaches, seizures, vision changes, weakness, or personality changes, or when it threatens to compress critical brain structures. The standard approach is a craniotomy, in which a section of skull is temporarily removed to give the surgeon direct access to the tumor; modern procedures rely on intraoperative neuronavigation, MRI or CT-based mapping, and sometimes awake craniotomy with real-time brain mapping to remove as much tumor as possible while protecting areas responsible for speech, movement, or sensation. Neurophysiological monitoring during the operation helps reduce the risk of new neurological deficits. Depending on the tumor type and location, surgery may be followed by radiation therapy or chemotherapy, and tissue removed during the operation is sent for pathological analysis to guide further treatment. India has a large network of neurosurgical centres offering this level of intraoperative technology, making it a practical option for international patients seeking timely, technically advanced tumor surgery. Recovery typically involves a hospital stay of several days followed by gradual rehabilitation."
+			},
+			{
+				"name": "Brain Cancer Treatment",
+				"image": "/media/treatments/06e7c3d93025e19c0e44.png",
+				"description": "Brain cancer treatment refers to the coordinated management of malignant tumors arising in the brain, either primary tumors originating in brain tissue or secondary tumors that have spread from cancer elsewhere in the body. Treatment planning typically begins with detailed imaging and often a biopsy to confirm the tumor type and grade, after which a multidisciplinary team of neurosurgeons, oncologists, and radiation specialists decides on the most appropriate combination of surgery, radiation therapy, and chemotherapy or targeted drug therapy. Surgery aims to remove as much tumor tissue as safely possible without damaging surrounding healthy brain, while radiation, delivered either conventionally or through focused techniques such as stereotactic radiosurgery, targets remaining or inaccessible cells. Chemotherapy and newer targeted or immunotherapy drugs may be used depending on the tumor's molecular profile. Because brain cancer care requires close coordination between several specialists and repeated imaging, patients travelling to India for treatment benefit from centres that bring these teams together under one roof. Ongoing monitoring with follow-up scans and neurological assessments continues well after initial treatment to track response and detect any recurrence early."
+			},
+			{
+				"name": "Pituitary Tumor Surgery",
+				"image": "/media/treatments/7fc895d4fe7f25e7963f.png",
+				"description": "Pituitary tumor surgery removes abnormal growths on the pituitary gland, a small hormone-producing structure located at the base of the brain behind the nose, which can cause problems either by producing excess hormones or by pressing on nearby structures such as the optic nerves, leading to vision loss or hormonal imbalance. The most common technique is the endoscopic transsphenoidal approach, in which the surgeon reaches the tumor through the nasal passages and sphenoid sinus using a thin endoscope with a camera, avoiding any external incision or need to open the skull. This route allows precise visualization of the tumor while sparing the surrounding gland tissue as much as possible. Some larger or more complex tumors may require a combined approach involving both endoscopic and open techniques. After surgery, patients are monitored for hormone levels and may need short-term or long-term hormone replacement therapy depending on how much normal gland tissue remains. Recovery from the endoscopic approach is generally quicker than traditional open surgery, and India's neurosurgical centres are well equipped with the endoscopic and endocrine monitoring facilities this procedure requires."
+			},
+			{
+				"name": "Endoscopic Brain Surgery",
+				"image": "/media/treatments/9f922656f50974607e78.png",
+				"description": "Endoscopic brain surgery is a minimally invasive neurosurgical technique that uses a thin, rigid or flexible endoscope fitted with a camera and light source to access and treat conditions deep within the brain through small openings rather than a large craniotomy. Common uses include removing certain tumors, treating hydrocephalus by creating a new pathway for cerebrospinal fluid drainage, draining cysts, and accessing the pituitary gland through the nose. The surgeon guides the endoscope through narrow natural corridors or a small bone opening while viewing magnified, high-resolution images on a monitor, allowing precise instrument manipulation with minimal disturbance to surrounding brain tissue. Because the incisions and bone removal involved are much smaller than in conventional open surgery, patients generally experience less postoperative pain, reduced blood loss, and a shorter hospital stay. Not every brain condition is suitable for an endoscopic approach, and the decision depends on the size, location, and nature of the lesion. India's larger neurosurgical centres offer this technology alongside the imaging and neuro-anesthesia support it requires, making it accessible to patients travelling from abroad for advanced, less invasive care."
+			},
+			{
+				"name": "Brain Aneurysm Treatment",
+				"image": "/media/treatments/653e35b7f6fe19e7d3c2.png",
+				"description": "A brain aneurysm is a weakened, bulging area in the wall of a blood vessel within the brain that carries a risk of rupture and life-threatening bleeding, and treatment aims to seal off the aneurysm from normal blood circulation before this happens or after it has occurred. Two main approaches are used: microsurgical clipping, in which the surgeon opens the skull and places a small metal clip across the base of the aneurysm to stop blood flow into it, and endovascular coiling, a catheter-based technique in which soft platinum coils or a stent-assisted device are threaded through the blood vessels from the groin or wrist up to the aneurysm to pack it and promote clotting. The choice between the two depends on the aneurysm's size, shape, and location, as well as the patient's overall health. Endovascular treatment is less invasive and often allows a faster recovery, while clipping may be preferred for certain complex aneurysms. Both approaches require advanced imaging such as CT or catheter angiography for planning, and India's specialist neurovascular centres provide both surgical and endovascular options along with the intensive monitoring needed afterward."
+			},
+			{
+				"name": "Brain Stroke Management",
+				"image": "/media/treatments/770622217d942eb48977.png",
+				"description": "Brain stroke management covers the urgent diagnosis and treatment of a stroke, which occurs either when a blood clot blocks an artery supplying the brain, known as an ischemic stroke, or when a blood vessel in the brain ruptures and bleeds, known as a hemorrhagic stroke. Because brain tissue is highly time-sensitive to loss of blood supply, initial management focuses on rapid imaging, usually CT or MRI, to identify the stroke type and extent, followed by treatment such as clot-dissolving medication or mechanical thrombectomy, a catheter-based procedure to physically remove the clot, for ischemic strokes, or surgical or endovascular intervention to control bleeding and reduce pressure in hemorrhagic strokes. Patients are typically cared for in a dedicated stroke unit or neuro-intensive care setting where blood pressure, oxygen levels, and neurological status are closely monitored. Once the patient is stable, rehabilitation involving physiotherapy, occupational therapy, and speech therapy becomes central to recovering lost function. India's larger hospitals maintain round-the-clock stroke response teams and neuro-critical care units, which matters for both resident and travelling patients who need this care delivered within a narrow treatment window."
+			},
+			{
+				"name": "Epilepsy Treatment",
+				"image": "/media/treatments/000100e7c6c903a3dd9c.png",
+				"description": "Epilepsy treatment addresses a neurological condition characterized by recurrent, unprovoked seizures caused by abnormal electrical activity in the brain, and management begins with identifying seizure type and frequency through clinical history, EEG recordings, and imaging such as MRI to look for an underlying structural cause. Most patients are first treated with one or more anti-seizure medications, adjusted over time to achieve seizure control with minimal side effects. When seizures continue despite adequate trials of medication, patients may be evaluated for surgical options, which can include removing a small area of the brain identified as the seizure focus, or implanting a device such as a vagus nerve stimulator to reduce seizure frequency. Evaluation for surgery typically involves prolonged video-EEG monitoring to pinpoint where seizures originate, along with detailed imaging and neuropsychological assessment. A ketogenic diet is sometimes used as an additional option, particularly in children with drug-resistant epilepsy. India offers comprehensive epilepsy monitoring units with video-EEG telemetry and surgical programs, allowing patients with difficult-to-control seizures to undergo thorough evaluation and treatment planning in one location."
+			},
+			{
+				"name": "Gamma Knife Surgery",
+				"image": "/media/treatments/31fd603547204687b14c.png",
+				"description": "Gamma Knife surgery is a form of stereotactic radiosurgery that treats brain tumors, vascular abnormalities, and certain functional brain disorders without any incision, using around two hundred precisely focused beams of gamma radiation that converge on the target from multiple angles while sparing surrounding healthy tissue. Before treatment, a lightweight stereotactic frame or mask is fitted to the patient's head to keep it perfectly still and to provide exact coordinates, after which MRI or CT imaging is used to map the target area in detail. The radiation beams are then aimed so that each individual beam carries a low dose through healthy brain tissue, while the point where they all intersect receives a concentrated therapeutic dose. Because it is non-invasive, Gamma Knife treatment is typically completed in a single outpatient session lasting a few hours, with no general anesthesia and a very short recovery time compared with open surgery. It is commonly used for small to medium brain tumors, arteriovenous malformations, and trigeminal neuralgia. India's Gamma Knife centres allow international patients to complete an entire treatment episode, from imaging to therapy, within a short visit."
+			},
+			{
+				"name": "CyberKnife Radiation Treatment",
+				"image": "/media/treatments/2b46037a3453f4734907.png",
+				"description": "CyberKnife is a robotic radiosurgery system used to deliver precisely targeted, high-dose radiation to tumors and other abnormal tissue in the brain and spine without cutting the skin, using a compact linear accelerator mounted on a robotic arm that can aim beams from thousands of different angles. Unlike frame-based systems, CyberKnife tracks the target's position continuously throughout treatment using built-in imaging, automatically correcting for small movements, which means no rigid head frame needs to be screwed into the skull beforehand. This makes it suitable for tumors near sensitive structures such as the brainstem or spinal cord, where a wide margin of healthy tissue cannot be sacrificed. Treatment planning uses fused MRI and CT scans to outline the target precisely, and the radiation is usually delivered over one to five outpatient sessions rather than the many weeks required by conventional radiotherapy. Each session is painless and does not require anesthesia, typically lasting under two hours, after which patients can resume normal activity. This shortened schedule is particularly convenient for patients travelling to India from overseas, since it limits the length of stay needed to complete an entire course of radiation."
+			},
+			{
+				"name": "Stereotactic Radiosurgery",
+				"image": "/media/treatments/8757a4a692c95cc18bed.png",
+				"description": "Stereotactic radiosurgery is a general term for a group of techniques, including Gamma Knife and CyberKnife systems, that deliver a highly focused dose of radiation to a precisely defined target in the brain or spine using three-dimensional coordinates; despite the name, it does not involve any actual cutting or incision. The technique relies on detailed imaging, typically MRI and CT scans fused together, to map the exact size, shape, and location of the target, whether a tumor, vascular malformation, or an area of abnormal nerve activity, and then aims multiple radiation beams from different directions so they overlap only at the target, minimizing the dose reaching surrounding healthy tissue. Because of this precision, treatment can often be completed in a single session or a small number of sessions rather than the several weeks required by conventional radiotherapy. It is commonly used for small to medium brain tumors, certain vascular abnormalities, and cases where a lesion sits close to structures that make open surgery risky. India's major radiosurgery centres offer these technologies with the imaging and physics support required for accurate planning, allowing overseas patients to complete treatment within a compact visit."
+			},
+			{
+				"name": "Deep Brain Stimulation",
+				"image": "/media/treatments/3b6beeb23ed84b3db355.png",
+				"description": "Deep brain stimulation, or DBS, is a surgical treatment in which thin electrodes are implanted into specific, deep regions of the brain that regulate movement, such as the subthalamic nucleus or globus pallidus, and connected by wires under the skin to a small pulse generator placed near the collarbone, similar in concept to a cardiac pacemaker. The device delivers continuous, adjustable electrical impulses that help regulate abnormal brain activity responsible for symptoms such as tremor, rigidity, and slowness of movement. It is most commonly used for Parkinson's disease when medication alone no longer provides adequate symptom control or causes significant side effects, and is also used for essential tremor and certain forms of dystonia. The procedure is typically performed with the aid of imaging-based targeting and, in some cases, intraoperative testing to confirm accurate electrode placement before the leads are secured. Once implanted, the stimulator's settings can be adjusted externally over subsequent visits to optimize symptom control while minimizing side effects. India's movement disorder centres offer DBS with the neurophysiological monitoring and long-term programming support that patients, including those travelling from abroad, need before and after the implant."
+			},
+			{
+				"name": "Cortical Stimulation Surgery",
+				"image": "/media/treatments/91b157474532cded36b3.png",
+				"description": "Cortical stimulation surgery involves placing electrodes directly on or just beneath the surface of the brain's outer layer, the cerebral cortex, to deliver controlled electrical impulses that can either modify abnormal activity or help map brain function during other procedures. In chronic pain management, electrodes are positioned over the motor cortex and connected to an implanted pulse generator to help reduce certain treatment-resistant pain conditions by altering how pain signals are processed. In epilepsy care, temporary cortical electrode grids are sometimes placed during a separate procedure to precisely map areas responsible for movement, sensation, or language before planning tumor or seizure-focus removal, reducing the risk of damaging essential brain function. Candidates for cortical stimulation are usually selected after other treatments have failed to provide adequate relief, and the decision involves careful assessment by a specialist team along with imaging to confirm accurate electrode placement. Recovery depends on the specific indication, with permanent implants requiring a period of adjustment and follow-up programming. India's neurosurgical centres performing this procedure combine intraoperative neuromonitoring with experienced surgical teams, supporting both diagnostic mapping and longer-term stimulation therapy for appropriately selected patients."
+			},
+			{
+				"name": "Parkinson's Disease Treatment",
+				"image": "/media/treatments/50710926e07cb7ef5a25.png",
+				"description": "Parkinson's disease treatment focuses on managing the motor and non-motor symptoms of this progressive neurological condition, which results from the gradual loss of dopamine-producing nerve cells in a part of the brain that controls movement. In the earlier stages, treatment usually centers on medication, most commonly levodopa combined with other drugs that help regulate dopamine levels and manage symptoms such as tremor, stiffness, slowness of movement, and balance difficulties. As the disease progresses, medications may become less effective or produce fluctuations in symptom control, at which point some patients are considered for surgical options such as deep brain stimulation, where electrodes implanted in specific brain regions deliver electrical impulses to help smooth out motor symptoms. Alongside medical and surgical treatment, physiotherapy, occupational therapy, and speech therapy play an important role in maintaining mobility, daily function, and communication over time. Because Parkinson's disease affects each person differently, care is typically individualized and reviewed regularly by a neurologist familiar with movement disorders. India's neurology centres provide this combination of medical management, surgical evaluation, and supportive therapy, with the ongoing follow-up such treatment requires handled sensitively for patients and their families."
+			},
+			{
+				"name": "Vagus Nerve Stimulation (VNS)",
+				"image": "/media/treatments/5a5efe832d4fae6706b3.png",
+				"description": "Vagus nerve stimulation, or VNS, is a treatment in which a small device resembling a pacemaker is implanted under the skin of the upper chest and connected by a thin wire to the vagus nerve in the neck, where it delivers mild, regular electrical pulses to help reduce the frequency and severity of seizures. It is generally considered for patients with epilepsy whose seizures have not responded adequately to anti-seizure medications and who are not good candidates for, or have not benefited from, resective brain surgery. VNS therapy has also been approved for certain cases of treatment-resistant depression. The implant procedure itself is relatively brief and is usually performed under general anesthesia, with the device positioned through two small incisions, one at the chest and one at the neck. Once activated, stimulation settings can be adjusted externally by a specialist using a handheld programmer to balance symptom control against side effects such as voice changes or throat discomfort. Because VNS is not a cure but a way to reduce seizure burden over time, ongoing follow-up is required, and India's epilepsy centres provide both the implantation procedure and the longer-term programming this therapy depends on."
+			},
+			{
+				"name": "Peripheral Nerve Surgery",
+				"image": "/media/treatments/12b73fbc6d6ca8d21bd0.png",
+				"description": "Peripheral nerve surgery treats injuries or disorders affecting the nerves that run outside the brain and spinal cord, carrying signals to and from the limbs, face, and trunk, and covers a range of procedures depending on the underlying problem. Common indications include nerve compression syndromes such as carpal tunnel or cubital tunnel syndrome, where surrounding tissue presses on a nerve and surgery involves releasing that pressure; traumatic nerve injuries from accidents or lacerations, which may require direct repair or grafting using a segment of nerve taken from elsewhere in the body; and nerve tumors, which are carefully removed while preserving as much normal nerve function as possible. Surgeons typically rely on magnification through an operating microscope and, for some cases, intraoperative nerve monitoring to guide precise repair or decompression. Recovery and the degree of functional return depend heavily on the type, location, and duration of the nerve injury, since nerves regenerate slowly and sometimes incompletely. Physical and occupational therapy after surgery supports recovery of strength and sensation. India's hand and peripheral nerve surgery units combine microsurgical expertise with structured rehabilitation programs suited to both local and travelling patients."
+			},
+			{
+				"name": "Neuritis Treatment",
+				"image": "/media/treatments/8121b8f194a1839fb53a.png",
+				"description": "Neuritis refers to inflammation of a nerve or group of nerves, which can cause pain, numbness, tingling, weakness, or loss of function in the area the affected nerve supplies, and treatment depends on identifying and addressing the underlying cause. Common causes include viral infections, autoimmune conditions, diabetes, vitamin deficiencies, prolonged pressure on a nerve, or exposure to certain toxins, and diagnosis typically involves a clinical examination alongside nerve conduction studies or electromyography to assess the extent and pattern of nerve involvement, along with blood tests to look for an underlying metabolic or autoimmune trigger. Treatment often combines medication to reduce inflammation and manage pain, correction of any underlying deficiency or metabolic imbalance, and, in autoimmune cases, therapies aimed at calming the immune response. Physical therapy may be recommended to maintain muscle strength and prevent stiffness while the nerve recovers, since nerve healing can take weeks to months depending on severity. In cases caused by ongoing compression, such as certain forms of facial or optic neuritis, more targeted intervention may be needed. India's neurology departments offer the diagnostic testing and multidisciplinary follow-up needed to manage neuritis from its early stages through recovery."
+			},
+			{
+				"name": "Schizophrenia Treatment",
+				"image": "/media/treatments/74adcda61bd53dc3d2a0.png",
+				"description": "Schizophrenia is a chronic psychiatric condition that affects a person's thinking, perception, and behavior, and can involve symptoms such as hallucinations, delusions, disorganized thinking, and difficulty with motivation or emotional expression; treatment is generally long-term and centered on a combination of medication and structured psychosocial support rather than a single procedure. Antipsychotic medications are typically the foundation of treatment, helping to reduce the intensity of hallucinations and delusions, with the specific medication and dose adjusted over time based on response and side effects. Alongside medication, psychotherapy, family education, and psychosocial rehabilitation programs help individuals manage symptoms, build daily living and social skills, and work toward stable functioning at home, in relationships, and where possible in employment or education. Some patients require a period of inpatient stabilization during acute episodes, particularly when symptoms pose a safety concern, followed by transition to outpatient care and community-based support. Because schizophrenia affects each person differently and often requires adjustment of treatment over time, ongoing review by a psychiatrist familiar with the condition is important. India's mental health centres offer structured psychiatric evaluation, medication management, and rehabilitation programs delivered with the sensitivity this condition requires."
+			},
+			{
+				"name": "Baclofen Pump Implant",
+				"image": "/media/treatments/2441762306dc7681ac95.png",
+				"description": "A baclofen pump implant is a surgically placed device that delivers the muscle relaxant baclofen directly into the fluid surrounding the spinal cord, known as the intrathecal space, to treat severe spasticity, a condition of excessive muscle stiffness and involuntary contractions that can result from cerebral palsy, spinal cord injury, multiple sclerosis, or brain injury. Because the medication is delivered directly at the spinal level rather than through the bloodstream, it can achieve effective symptom control at a much lower dose than oral baclofen, which reduces the drowsiness and other systemic side effects that often limit oral treatment. Before permanent implantation, patients typically undergo a trial dose of baclofen delivered through a temporary spinal injection to confirm that this approach will meaningfully improve their spasticity. The permanent pump, a small refillable reservoir with a programmable delivery mechanism, is implanted under the skin of the abdomen and connected to a thin catheter that threads into the intrathecal space around the spinal cord. The pump requires periodic refilling and dose adjustment at follow-up visits. India's rehabilitation and neurosurgery centres offer both the trial assessment and the implantation procedure for appropriately selected patients."
+			},
+			{
+				"name": "Morphine Pump Implant",
+				"image": "/media/treatments/87719dfa6317a48dfd2c.png",
+				"description": "A morphine pump implant, also known as an intrathecal drug delivery system, is a surgically placed device that delivers small, continuous doses of morphine or another opioid pain medication directly into the fluid around the spinal cord, offering an option for patients with severe chronic pain, particularly from advanced cancer, that has not been adequately controlled by oral or other systemic pain medications. Delivering the medication directly at the spinal level allows effective pain relief with a much smaller dose than would be needed orally, which can reduce systemic side effects such as sedation and constipation that often accompany high-dose oral opioid therapy. Before permanent implantation, patients usually undergo a trial period with a temporary catheter or injection to confirm that this method of delivery provides meaningful pain relief. The implanted pump, a small reservoir with a programmable pump mechanism, sits under the skin of the abdomen and connects to a catheter placed in the intrathecal space. It requires periodic refilling through a simple needle procedure and dose adjustments based on the patient's ongoing pain levels. India's pain management and oncology-linked neurosurgery services offer this therapy as part of broader palliative and chronic pain care."
+			},
+			{
+				"name": "High Cervical Stimulation",
+				"image": "/media/treatments/7bfb34071f26b57df47b.png",
+				"description": "High cervical stimulation refers to the surgical placement of a spinal cord stimulator device at the upper level of the cervical spine, close to the base of the skull, to help manage certain chronic pain conditions affecting the head, neck, and upper limbs that have not responded to more conservative treatment. The procedure involves placing thin electrode leads in the epidural space near the spinal cord at this high cervical level, connected to a small implanted pulse generator that delivers mild electrical impulses to interfere with pain signal transmission before it reaches the brain. It is generally considered for conditions such as occipital neuralgia, certain forms of chronic headache, and complex regional or neuropathic pain syndromes involving the upper body, after other treatments have failed to give adequate relief. Most patients undergo a temporary trial with external leads first, so that both patient and physician can assess how much pain relief the stimulation provides before committing to a permanent implant. If the trial is successful, the permanent system is implanted in a subsequent procedure. India's pain management centres offer both the trial and permanent stimulation stages along with the follow-up programming this therapy requires."
+			}
+		],
+		"benefits": [
+			"Neurosurgeons trained in microsurgical and minimally invasive techniques",
+			"Intraoperative MRI and neuro-navigation available at leading centers",
+			"Dedicated neuro-ICU with round-the-clock critical care monitoring",
+			"Structured neuro-rehabilitation support after surgery"
+		],
+		"flagshipProcedure": "Brain Tumor Resection",
+		"packagePrice": 9000,
+		"totalTripDays": 24,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 4,
+				"roomDays": 8,
+				"totalDays": 12
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 100,000 – 180,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "85–90%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 45,000 – 70,000",
+				"waitTime": "3–9 months (NHS)",
+				"successRate": "85–90%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 40,000 – 60,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "84–89%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 20,000 – 30,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "82–87%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 9,000 – 14,000",
+				"waitTime": "1–2 weeks",
+				"successRate": "85%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-operative neurological evaluation, MRI/CT review, and fitness clearance",
+			"Neurosurgeon's and anesthetist's fees for the primary procedure",
+			"Operation theatre charges including neuro-navigation where applicable",
+			"Neuro-ICU stay (4 days) plus 8 days in a step-down room",
+			"Nursing care and standard neuro-monitoring during hospitalization",
+			"Laboratory and radiology charges tied to the procedure",
+			"Discharge summary with a structured neuro-rehabilitation plan"
+		],
+		"exclusions": [
+			"Pre-admission stay to stabilize a patient before surgery clears for the OT",
+			"Hospital or ICU stay beyond the package duration",
+			"Radiotherapy or chemotherapy for malignant tumors, priced separately",
+			"Outpatient neuro-rehabilitation sessions after discharge",
+			"Treatment for unrelated conditions identified during pre-op screening",
+			"Re-operation for complications unrelated to the original procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of brain tumor surgery in India?",
+				"answer": "Brain tumor resection in India starts from USD 9,000, roughly 90% less than in the US, and includes the pre-op work-up, surgery, neuro-ICU stay, and a structured rehabilitation plan."
+			},
+			{
+				"question": "Are minimally invasive neurosurgery techniques available?",
+				"answer": "Yes, many of our partner hospitals offer image-guided and minimally invasive approaches, including intraoperative MRI and neuro-navigation, which can improve precision and shorten recovery for eligible cases."
+			},
+			{
+				"question": "How long is the hospital stay for neurosurgery?",
+				"answer": "Most patients stay around 12 days in hospital — 4 days in the neuro-ICU and 8 days in a step-down room — with a total recommended stay in India of about 3–4 weeks for follow-up monitoring."
+			},
+			{
+				"question": "Will radiotherapy or chemotherapy be needed after surgery?",
+				"answer": "For malignant tumors, your neuro-oncology team may recommend radiotherapy or chemotherapy after surgery — these are priced separately based on your specific protocol and are discussed as part of your treatment plan."
+			},
+			{
+				"question": "Can I get a second opinion before traveling?",
+				"answer": "Yes, send your MRI/CT scans and reports for a free specialist review — our neurosurgery board will confirm whether surgery is recommended before you commit to travel."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your neurological reports and imaging through our contact form or WhatsApp, and a coordinator will arrange a specialist review and transparent estimate within 48 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793869451,
+			"updatedAt": 1793869451
+		}
+	},
+	"spine-surgery": {
+		"slug": "spine-surgery",
+		"name": "Spine Surgery",
+		"icon": "spine",
+		"imageKey": "spineSurgery",
+		"theme": "teal",
+		"shortDescription": "Spinal fusion, disc replacement, and scoliosis correction with structured rehabilitation programs.",
+		"overview": "India's spine centers pair fellowship-trained spine surgeons with minimally invasive and motion-preserving techniques, helping patients with chronic back pain, disc disease, and spinal deformity avoid long waitlists common in the West.",
+		"startingPrice": 6500,
+		"avgSavings": 85,
+		"hospitalsCount": 50,
+		"procedures": [
+			"Spinal Fusion",
+			"Disc Replacement",
+			"Scoliosis Correction"
+		],
+		"allProcedures": [
+			"Lumbar Spinal Fusion Surgery",
+			"Anterior Lumbar Interbody Fusion (ALIF)",
+			"Cervical Disc Replacement",
+			"Lumbar Discectomy",
+			"Lumbar Microdiscectomy",
+			"Herniated Disc Treatment",
+			"Bulging Disc Treatment",
+			"Cervical Laminectomy",
+			"Cervical Laminoplasty",
+			"Lumbar Laminectomy",
+			"Foraminotomy",
+			"Endoscopic Spinal Decompression",
+			"Lumbar Vertebroplasty",
+			"Kyphoplasty",
+			"Corpectomy",
+			"Scoliosis Treatment",
+			"Kyphosis (Hunchback) Correction",
+			"Spinal Tumor Surgery",
+			"Spinal Cord Injury Treatment"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Lumbar Spinal Fusion Surgery",
+				"image": "/media/treatments/5d490a6f2de345640164.png",
+				"description": "Lumbar spinal fusion surgery permanently joins two or more vertebrae in the lower back into a single, solid piece of bone, eliminating movement between them to relieve pain caused by instability, abnormal motion, or nerve compression. It is typically considered for conditions such as spondylolisthesis, where one vertebra slips forward over another, degenerative disc disease causing chronic instability, or after removal of a disc or bone for decompression when the resulting segment needs additional support. During surgery, the surgeon prepares the vertebrae, places a bone graft, either taken from the patient or from a donor source, or a bone-graft substitute, between them, and secures the segment with screws, rods, or cages to hold everything stable while new bone gradually grows across the gap over several months. The approach used, whether from the back, side, or front of the spine, depends on the specific condition being treated. Recovery involves a hospital stay of several days followed by a period of restricted activity and gradual return to normal movement, with physical therapy supporting long-term strength and stability. India's spine centres perform lumbar fusion using modern instrumentation and image guidance, supporting patients through both surgery and structured postoperative rehabilitation."
+			},
+			{
+				"name": "Anterior Lumbar Interbody Fusion (ALIF)",
+				"image": "/media/treatments/719a255525a5c3ef830d.png",
+				"description": "Anterior lumbar interbody fusion, or ALIF, is a spinal fusion technique in which the surgeon reaches the lumbar spine through an incision in the lower abdomen rather than through the back, allowing direct access to the front of the affected disc space. After removing the damaged disc, the surgeon places a structural spacer, or cage, packed with bone graft material into the empty disc space to restore disc height, relieve pressure on nearby nerves, and provide a scaffold for the vertebrae above and below to gradually fuse into one solid segment. This approach is often used for degenerative disc disease, spondylolisthesis, or as part of correcting spinal deformity, and it allows for a larger implant and greater correction of disc height and alignment than some posterior approaches, without disturbing the back muscles and nerves. The procedure is sometimes combined with posterior screws and rods placed through a separate incision for additional stability. Because the abdominal approach involves working near major blood vessels, it requires careful surgical planning and is generally performed by teams experienced in anterior spine access. India's spine surgery units routinely perform ALIF with the vascular support and imaging needed for this specific approach."
+			},
+			{
+				"name": "Cervical Disc Replacement",
+				"image": "/media/treatments/b40968d2b1193d601adb.png",
+				"description": "Cervical disc replacement is a surgical alternative to spinal fusion for treating a damaged or degenerated disc in the neck that is causing nerve compression, pain, numbness, or weakness in the arms. Rather than removing the disc and fusing the adjacent vertebrae together, the surgeon removes the damaged disc through an incision at the front of the neck and inserts an artificial disc device designed to preserve natural movement at that spinal level. The artificial disc typically consists of two metal endplates with a mobile core between them that allows the segment to continue bending and rotating in a manner similar to a healthy disc. Preserving motion at the treated level is thought to reduce the extra stress placed on neighboring discs that can occur after fusion, potentially lowering the chance of needing further surgery at an adjacent level over time. Candidates are carefully selected based on the condition of the disc, the alignment of the spine, and the absence of significant arthritis at that level. Recovery is generally faster than with fusion, and India's spine centres offer both disc replacement and fusion, allowing the surgical team to recommend whichever option best suits the individual patient's anatomy."
+			},
+			{
+				"name": "Lumbar Discectomy",
+				"image": "/media/treatments/997c4a4a54bfc7f2c575.png",
+				"description": "Lumbar discectomy is a surgical procedure to remove the portion of a herniated or ruptured disc in the lower back that has pushed out of its normal space and is pressing on a nearby spinal nerve root, typically causing pain, numbness, or weakness radiating down the leg, a pattern often referred to as sciatica. The surgeon accesses the spine through an incision in the lower back, carefully moves aside the muscles and, if necessary, a small portion of bone or ligament, to reach the affected disc, and removes only the herniated fragment causing the compression while leaving the healthy remainder of the disc in place. This relieves pressure on the nerve root and typically brings rapid improvement in leg pain, although numbness or weakness may take longer to resolve. Lumbar discectomy is usually recommended after a period of conservative treatment, such as physical therapy, medication, or injections, has failed to adequately relieve symptoms, or sooner if there are signs of significant nerve compromise. Most patients are mobilized within a day of surgery and can return to light activity within a few weeks. India's spine units perform lumbar discectomy with the imaging and neuromonitoring support this precise procedure requires."
+			},
+			{
+				"name": "Lumbar Microdiscectomy",
+				"image": "/media/treatments/8a9a1fbfea06b1b3174d.png",
+				"description": "Lumbar microdiscectomy is a minimally invasive version of standard lumbar discectomy, performed to remove herniated disc material compressing a spinal nerve root in the lower back, using a small incision and an operating microscope or magnifying loupes to give the surgeon a clear, magnified view of the surgical field through a much smaller opening than traditional open surgery requires. Working through this limited access point, the surgeon gently retracts the muscles and nerve tissue to expose the herniated fragment and removes it, relieving pressure on the nerve while minimizing disruption to the surrounding muscle, ligament, and bone. Because the approach is less disruptive to the surrounding tissue, patients generally experience less postoperative pain, reduced blood loss, and a shorter hospital stay compared with open discectomy, often going home within a day or two. It is typically recommended for patients with a clearly identified disc herniation on MRI whose leg pain, numbness, or weakness has not improved with a reasonable course of conservative treatment. Physical therapy following surgery supports a return to normal activity over the following weeks. India's spine centres commonly offer microdiscectomy as a standard minimally invasive option for appropriately selected disc herniation cases."
+			},
+			{
+				"name": "Herniated Disc Treatment",
+				"image": "/media/treatments/f45cac5cfebce6609901.png",
+				"description": "A herniated disc occurs when the soft, gel-like center of a spinal disc pushes through a tear in its tougher outer layer, potentially pressing on nearby nerves and causing pain, numbness, tingling, or weakness that may radiate into the arms or legs depending on where in the spine it occurs. Treatment typically begins with conservative measures, including rest from aggravating activity, physical therapy to strengthen supporting muscles and improve posture, anti-inflammatory or pain medication, and sometimes targeted epidural steroid injections to reduce inflammation around the affected nerve. Most herniated discs improve with this kind of non-surgical management over a period of weeks to a few months, as the body gradually reabsorbs the herniated material and inflammation settles. Surgery, most often a discectomy or microdiscectomy to remove the offending fragment of disc, is generally reserved for cases where symptoms persist despite adequate conservative treatment, where pain is severe and disabling, or where there are signs of significant nerve compression such as progressive weakness. Diagnosis relies on clinical examination together with MRI imaging to confirm the location and severity of the herniation. India's spine specialists offer this full range of conservative and surgical options under one evaluation."
+			},
+			{
+				"name": "Bulging Disc Treatment",
+				"image": "/media/treatments/7aea7b61e2c4db3b77d5.png",
+				"description": "A bulging disc occurs when a spinal disc's outer layer weakens and extends beyond its normal boundary without the inner material actually rupturing through it, which distinguishes it from a true herniated disc, although a bulging disc can still press on nearby nerves or the spinal canal and cause pain, stiffness, or radiating symptoms depending on its size and location. Many bulging discs are found incidentally on imaging and cause no symptoms at all, in which case no treatment is needed beyond general spine health measures. When a bulging disc is symptomatic, treatment is almost always conservative in the first instance, focusing on physical therapy to improve core and back strength, posture correction, anti-inflammatory medication, and activity modification to avoid positions that aggravate the disc. Epidural steroid injections may be used to reduce inflammation and pain around an affected nerve if symptoms are persistent. Surgery is rarely required for a bulging disc alone and is generally considered only if the bulge progresses to a true herniation causing significant nerve compression that does not respond to conservative care. India's spine and pain management specialists typically manage bulging discs with a structured, non-surgical program before considering any further intervention."
+			},
+			{
+				"name": "Cervical Laminectomy",
+				"image": "/media/treatments/0e35b82e53d618fd87ad.png",
+				"description": "Cervical laminectomy is a surgical procedure performed to relieve pressure on the spinal cord or nerve roots in the neck by removing the lamina, the bony arch that forms the back of the vertebra, along with any thickened ligament or bone spurs contributing to the narrowing. It is most commonly performed for cervical spinal stenosis, a condition in which the spinal canal narrows over time due to degenerative changes, or cervical myelopathy, in which spinal cord compression causes symptoms such as difficulty with fine hand movements, an unsteady gait, or weakness. By removing the back portion of the affected vertebrae, the surgeon creates more space for the spinal cord and reduces the compression responsible for these symptoms. Because removing the lamina at multiple levels can sometimes affect spinal stability, laminectomy is occasionally combined with fusion using screws and rods to maintain proper alignment, particularly when several levels are involved or the spine shows signs of instability. Recovery involves a hospital stay of a few days followed by gradual return to activity, with physical therapy supporting strength and mobility. India's spine surgery centres perform cervical laminectomy with the neuromonitoring support needed to protect the spinal cord during decompression."
+			},
+			{
+				"name": "Cervical Laminoplasty",
+				"image": "/media/treatments/57011b0cbef0f0f2918b.png",
+				"description": "Cervical laminoplasty is a motion-preserving alternative to laminectomy for relieving spinal cord compression in the neck, typically performed for multilevel cervical spinal stenosis or myelopathy, in which the spinal canal has narrowed enough to compress the spinal cord and cause symptoms such as hand clumsiness, gait imbalance, or limb weakness. Rather than removing the lamina entirely, the surgeon cuts a hinge on one side of the bony arch and opens it like a door on the other side, propping it in this expanded position with small plates or spacers to permanently enlarge the spinal canal while keeping most of the natural bony architecture intact. This approach avoids the need for fusion at multiple levels, which helps preserve more of the neck's natural range of motion compared with laminectomy combined with fusion. Laminoplasty is generally suited to patients whose neck alignment is otherwise stable, since it works best when the spine is not already prone to abnormal curvature. Recovery involves gradual mobilization and physical therapy to regain neck strength and movement. India's spine centres offer laminoplasty as part of their range of cervical decompression options, guided by imaging that helps determine which technique best suits an individual patient's anatomy."
+			},
+			{
+				"name": "Lumbar Laminectomy",
+				"image": "/media/treatments/042292093fbdb6d3e75d.png",
+				"description": "Lumbar laminectomy is a decompression surgery performed to relieve pressure on the spinal nerves in the lower back caused by spinal stenosis, a narrowing of the spinal canal that commonly develops with age as ligaments thicken, discs bulge, and bone spurs form. During the procedure, the surgeon removes the lamina, the bony arch covering the back of the affected vertebrae, along with any thickened ligament tissue contributing to the narrowing, creating more space for the compressed nerves. This typically relieves the leg pain, numbness, heaviness, and reduced walking tolerance that are characteristic of lumbar spinal stenosis, symptoms that often worsen with standing or walking and ease with sitting or bending forward. The procedure can usually be performed through a single incision, and in cases involving multiple levels or evidence of spinal instability, it may be combined with fusion to maintain proper alignment. Most patients are mobilized within a day of surgery, with physical therapy supporting a gradual return to walking and daily activity over the following weeks. India's spine surgery programs offer lumbar laminectomy using modern minimally invasive techniques where appropriate, aimed at reducing tissue disruption and speeding recovery."
+			},
+			{
+				"name": "Foraminotomy",
+				"image": "/media/treatments/23bc5f47301453247625.png",
+				"description": "Foraminotomy is a surgical procedure that enlarges the neural foramen, the small bony opening on each side of the spine through which a nerve root exits the spinal canal, to relieve pressure on a nerve that has become compressed by bone spurs, a bulging or herniated disc, or general degenerative narrowing. The surgeon removes a small amount of bone and any obstructing soft tissue at the affected level, widening the passage enough to free the trapped nerve, which typically relieves the pain, numbness, or weakness radiating into the arm or leg depending on whether the procedure is performed in the neck or lower back. Because foraminotomy targets a specific, localized area of compression, it can often be performed through a smaller incision than a broader decompression procedure, and in many cases does not require any spinal fusion, since it preserves most of the surrounding bone and joint structure. It is generally considered for patients whose symptoms clearly match a single compressed nerve level on imaging and who have not improved with an adequate trial of conservative treatment. India's spine centres perform foraminotomy using microsurgical or endoscopic techniques to minimize disruption to surrounding tissue during recovery."
+			},
+			{
+				"name": "Endoscopic Spinal Decompression",
+				"image": "/media/treatments/fe7cbc035c0ead083f60.png",
+				"description": "Endoscopic spinal decompression is a minimally invasive technique used to relieve pressure on spinal nerves caused by a herniated disc, bone spurs, or spinal stenosis, performed through a very small incision using a thin endoscope fitted with a camera and light source that transmits a magnified view of the affected area to a monitor. Working through a tube inserted at the target level, the surgeon uses specialized narrow instruments to remove the disc fragment, bone, or ligament tissue responsible for the compression while causing minimal disruption to the surrounding muscle and healthy spinal structures. Because the access point is so small, this approach is typically associated with less postoperative pain, reduced blood loss, and a faster return to daily activity compared with traditional open decompression surgery, and it can often be performed under local or regional anesthesia with sedation rather than general anesthesia. Suitable candidates are identified through careful review of MRI imaging to confirm that the compression is at a level and location accessible to the endoscopic approach. India's spine centres have increasingly adopted endoscopic decompression as an option for well-selected patients seeking a less invasive alternative to conventional surgery, with structured rehabilitation to follow."
+			},
+			{
+				"name": "Lumbar Vertebroplasty",
+				"image": "/media/treatments/6d52d506981f9f95b240.png",
+				"description": "Lumbar vertebroplasty is a minimally invasive procedure used to stabilize and relieve pain from a compression fracture in the lower spine, most commonly caused by osteoporosis, but sometimes by trauma or a tumor weakening the bone. Under imaging guidance, usually fluoroscopy or CT, the physician inserts a thin needle through the skin and directly into the fractured vertebral body, then injects a specialized bone cement that flows into the fracture and hardens within minutes, stabilizing the bone from within and reducing the abnormal movement at the fracture site that causes pain. The procedure is typically performed with local anesthesia and light sedation rather than general anesthesia, and most patients notice significant pain relief within a day or two as the stabilized bone stops flexing painfully with movement. It does not restore any lost vertebral height, which distinguishes it from the related procedure kyphoplasty. Vertebroplasty is generally considered for patients whose fracture-related back pain has not responded adequately to conservative measures such as bracing, pain medication, and activity modification. India's spine and pain management centres offer vertebroplasty as an outpatient or short-stay procedure, particularly useful for older patients seeking a less invasive option than open surgery."
+			},
+			{
+				"name": "Kyphoplasty",
+				"image": "/media/treatments/55776286383138807a70.png",
+				"description": "Kyphoplasty is a minimally invasive procedure closely related to vertebroplasty, used to treat painful vertebral compression fractures, most often caused by osteoporosis, by both stabilizing the fractured bone and attempting to restore some of the height it has lost. Working through a small skin incision under imaging guidance, the physician inserts a narrow tube into the fractured vertebral body and threads in a small balloon, which is then carefully inflated to create a cavity within the bone and, where possible, lift the collapsed vertebra back toward its original height. The balloon is then deflated and removed, and the resulting cavity is filled with bone cement, which hardens to support the vertebra in its improved position. This added step of height restoration may also help reduce the abnormal spinal curvature that can develop after multiple compression fractures. The procedure is typically done under local anesthesia with sedation and usually takes less than an hour per vertebral level treated, with most patients experiencing meaningful pain relief within a short time afterward. India's spine centres offer kyphoplasty as a same-day or short-stay procedure for patients whose fracture pain has not improved with conservative management."
+			},
+			{
+				"name": "Corpectomy",
+				"image": "/media/treatments/08459b367abd1a9e6036.png",
+				"description": "Corpectomy is a spinal surgery in which all or part of a vertebral body, the main load-bearing block of bone in the spine, is surgically removed along with the adjacent discs, typically to relieve severe spinal cord compression caused by a large disc herniation, bone spur formation, a fracture, a tumor, or an infection affecting multiple levels that cannot be adequately addressed by removing disc material alone. After the affected vertebral body is removed, the resulting gap is reconstructed using a bone graft, a metal cage, or a combination of both, which is then secured with plates, screws, or rods to restore stability and support the spine while the graft gradually fuses with the adjacent healthy vertebrae. Corpectomy can be performed in the neck or lower back depending on where the underlying problem is located, and is generally reserved for more extensive cases than a standard discectomy or laminectomy can adequately treat. Because it involves reconstructing a significant portion of the spinal column, recovery is more gradual and involves close monitoring of the healing graft and instrumentation. India's spine surgery centres perform corpectomy with the reconstructive implants and neuromonitoring support this more extensive procedure requires."
+			},
+			{
+				"name": "Scoliosis Treatment",
+				"image": "/media/treatments/640907e97089521a75a6.png",
+				"description": "Scoliosis treatment addresses an abnormal sideways curvature of the spine, which can develop during childhood growth, arise from an underlying neuromuscular condition, or appear later in life due to age-related degeneration of the spine, and the appropriate approach depends heavily on the patient's age, the severity and pattern of the curve, and whether it is likely to progress. Mild curves are often simply monitored with periodic X-rays to track any change over time, while moderate curves in growing children or adolescents are commonly managed with a custom-fitted brace worn for much of the day to help prevent further progression during remaining growth. When a curve is severe, continues to worsen despite bracing, or is causing pain, breathing difficulty, or postural problems, surgical correction may be recommended, typically involving spinal instrumentation with rods, screws, and hooks to straighten and stabilize the spine, combined with fusion to maintain the correction permanently. Surgical planning relies on detailed spinal imaging to map the curve and plan implant placement. India's spine deformity centres provide the full spectrum of scoliosis care, from bracing and monitoring through complex corrective surgery, with the physiotherapy support recovery from surgery requires."
+			},
+			{
+				"name": "Kyphosis (Hunchback) Correction",
+				"image": "/media/treatments/9405bf8873f6e6b065d0.png",
+				"description": "Kyphosis is an excessive forward curvature of the upper spine that produces a rounded or hunched appearance of the back, which can result from poor posture, degenerative changes with age, vertebral compression fractures, certain developmental conditions affecting the growing spine, or, less commonly, congenital abnormalities present from birth. Mild cases, particularly those related to posture, are often managed with targeted physical therapy to strengthen the back extensor muscles and improve posture, along with activity modification, and bracing may be used in adolescents whose spine is still growing to help slow progression of a structural curve. When kyphosis is severe, progressive, or causing significant pain, nerve symptoms, or difficulty with balance and breathing, surgical correction may be recommended, generally involving spinal instrumentation with rods and screws to gradually realign the curved segment, sometimes combined with an osteotomy, a controlled cut through the bone, to allow greater correction, followed by fusion to hold the new alignment permanently. Surgical planning uses detailed imaging of the entire spine to determine the safest correction achievable. India's spine deformity centres manage kyphosis across this full range, from conservative bracing programs to complex corrective surgery for structural curves."
+			},
+			{
+				"name": "Spinal Tumor Surgery",
+				"image": "/media/treatments/079a2c6ce00420c616f1.png",
+				"description": "Spinal tumor surgery removes abnormal growths that develop within or around the spinal column, which may originate in the spine itself, arise from the spinal cord or its surrounding membranes, or represent cancer that has spread to the spine from elsewhere in the body, and surgery is generally considered when a tumor is causing pain, spinal instability, or compression of the spinal cord or nerve roots leading to weakness or sensory changes. The surgical approach depends on the tumor's exact location, whether it sits within the bone of the vertebra, in the space surrounding the spinal cord, or within the cord itself, and ranges from removing the tumor along with a portion of affected bone, sometimes followed by reconstruction with instrumentation to maintain spinal stability, to more delicate microsurgical removal when the tumor is close to or within the spinal cord. Advanced imaging, including MRI, guides surgical planning, and intraoperative neuromonitoring helps protect neurological function during removal of tumors near the cord. Depending on the tumor type, surgery may be followed by radiation therapy. India's spine oncology teams bring together neurosurgery, orthopedic spine surgery, and oncology expertise needed to plan and carry out this technically demanding surgery."
+			},
+			{
+				"name": "Spinal Cord Injury Treatment",
+				"image": "/media/treatments/c1db7b5885109c1f660e.png",
+				"description": "Spinal cord injury treatment covers the urgent and longer-term care of damage to the spinal cord, most often caused by trauma such as a fall, accident, or sports injury, though it can also result from disease processes that compress or damage the cord over time. Immediate management focuses on stabilizing the spine to prevent further injury, often with a rigid collar or bracing, along with careful imaging to assess the extent of damage and identify any fracture or instability. Surgery is frequently required to decompress the spinal cord by removing bone fragments, disc material, or blood clots pressing on it, and to stabilize the spine with instrumentation such as rods and screws where the injury has made it unstable. Timing of surgery and overall management is guided by the severity and level of injury, along with the patient's broader medical condition. Following the acute phase, structured rehabilitation involving physiotherapy, occupational therapy, and management of associated issues such as bladder and bowel function becomes central to maximizing recovery and independence. India's spine trauma centres combine emergency stabilization and surgery with dedicated rehabilitation programs, supporting recovery through both the acute and long-term phases of care."
+			}
+		],
+		"benefits": [
+			"Fellowship-trained spine surgeons using minimally invasive techniques",
+			"Motion-preserving disc replacement options at select centers",
+			"Structured in-hospital physiotherapy from day one",
+			"Typical hospital stay of 5–7 days for major spine surgery"
+		],
+		"flagshipProcedure": "Lumbar Spinal Fusion",
+		"packagePrice": 6500,
+		"totalTripDays": 20,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 1,
+				"roomDays": 5,
+				"totalDays": 6
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 80,000 – 130,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "88–92%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 35,000 – 55,000",
+				"waitTime": "6–12 months (NHS)",
+				"successRate": "88–92%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 30,000 – 45,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "87–91%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 15,000 – 22,000",
+				"waitTime": "2–4 weeks",
+				"successRate": "85–89%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 6,500 – 10,000",
+				"waitTime": "1–2 weeks",
+				"successRate": "90%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-operative spine evaluation including MRI/X-ray review",
+			"Surgeon's and anesthetist's fees for the spine procedure",
+			"Operation theatre charges and standard spinal implant/hardware",
+			"ICU stay (1 day) plus 5 days in a single room",
+			"Structured in-hospital physiotherapy sessions",
+			"Laboratory, radiology, and standard post-op medication during the stay",
+			"Discharge summary with a home exercise and rehabilitation plan"
+		],
+		"exclusions": [
+			"Premium or custom spinal implant upgrades beyond the standard hardware",
+			"Hospital stay beyond the package duration",
+			"Multi-level fusion beyond the levels quoted in the initial assessment",
+			"Outpatient physiotherapy sessions after discharge",
+			"Treatment for unrelated conditions identified during pre-op screening",
+			"Revision surgery for complications unrelated to the original procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of spinal fusion surgery in India?",
+				"answer": "A lumbar spinal fusion package in India starts from USD 6,500, around 90% less than typical US pricing, and includes the surgeon fee, implant, hospital stay, and in-hospital physiotherapy."
+			},
+			{
+				"question": "Is minimally invasive spine surgery available?",
+				"answer": "Yes, several of our partner hospitals offer minimally invasive and motion-preserving techniques such as disc replacement, which can reduce blood loss and shorten recovery for suitable candidates."
+			},
+			{
+				"question": "How long is the hospital stay and recovery?",
+				"answer": "Most patients stay about 6 days in hospital and are advised to remain in India for roughly 2–3 weeks so the spine team can monitor early recovery before you fly home."
+			},
+			{
+				"question": "What implant/hardware is used?",
+				"answer": "Our partner hospitals use internationally certified spinal implant systems as standard, with premium hardware upgrades available on request and quoted separately."
+			},
+			{
+				"question": "Will I need physiotherapy after surgery?",
+				"answer": "Yes, structured in-hospital physiotherapy begins soon after surgery, and your surgeon will provide a home exercise plan to continue rehabilitation after you return home."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Send your spine MRI or X-rays through our contact form, and you will receive a specialist review and a transparent cost estimate within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793870728,
+			"updatedAt": 1793870728
+		}
+	},
+	"bariatric-surgery": {
+		"slug": "bariatric-surgery",
+		"name": "Bariatric Surgery",
+		"icon": "stomach",
+		"imageKey": "bariatric",
+		"theme": "green",
+		"shortDescription": "Gastric sleeve, bypass, and balloon procedures for sustainable, medically supervised weight loss.",
+		"overview": "India's bariatric centers combine laparoscopic surgical expertise with structured pre- and post-operative dietary counseling, helping patients achieve lasting weight loss with shorter hospital stays and faster recovery than open surgery.",
+		"startingPrice": 4500,
+		"avgSavings": 82,
+		"hospitalsCount": 40,
+		"procedures": [
+			"Gastric Sleeve",
+			"Gastric Bypass",
+			"Gastric Balloon"
+		],
+		"allProcedures": [
+			"Laparoscopic Sleeve Gastrectomy",
+			"Gastric Bypass",
+			"Adjustable Gastric Band",
+			"Allurion Gastric Balloon (Non-Surgical)",
+			"Biliopancreatic Diversion"
+		],
+		"detailedProcedures": [
+			{
+				"name": "Laparoscopic Sleeve Gastrectomy",
+				"image": "/media/treatments/cbd17453e46d1cb1ce35.png",
+				"description": "Laparoscopic sleeve gastrectomy is a weight-loss surgery that reduces the size of the stomach by roughly seventy-five to eighty percent, converting it from its normal pouch shape into a narrow, banana-shaped tube. Working through several small keyhole incisions in the abdomen using a camera and long, slender instruments, the surgeon staples along the length of the stomach and removes the larger curved portion, leaving behind a smaller stomach that restricts food intake and reduces levels of ghrelin, a hormone that stimulates hunger. Because no part of the intestine is rerouted, nutrient absorption remains largely normal, though lifelong vitamin and mineral supplementation is generally still recommended. It is typically offered to patients with a body mass index in the obese range, particularly those with obesity-related conditions such as type 2 diabetes, high blood pressure, or sleep apnea, who have not achieved lasting weight loss through diet and lifestyle measures alone. The operation is performed under general anesthesia and usually takes about one to two hours. Indian bariatric centers perform high volumes of sleeve gastrectomy using standardized laparoscopic protocols. Recovery involves a short hospital stay, a staged return to solid food over several weeks, and long-term dietary counseling and follow-up to support sustained weight loss."
+			},
+			{
+				"name": "Gastric Bypass",
+				"image": "/media/treatments/25e6a9eb1939e83bed3b.png",
+				"description": "Gastric bypass, most commonly performed as a Roux-en-Y procedure, is a weight-loss surgery that both reduces stomach capacity and alters how food moves through the digestive tract. Working laparoscopically through small abdominal incisions, the surgeon creates a small pouch from the upper part of the stomach and divides the small intestine, connecting a lower segment directly to this new pouch so that food bypasses most of the stomach and the first portion of the small intestine. This combination restricts the amount of food that can be eaten at one time and reduces the absorption of calories and certain nutrients, while also producing hormonal changes that help control appetite and can improve blood sugar regulation. It is generally recommended for patients with a higher body mass index, significant obesity-related health conditions such as type 2 diabetes or acid reflux, or those who have not achieved adequate results with a sleeve gastrectomy. The surgery is performed under general anesthesia and typically takes around two to three hours. Indian bariatric surgery units offer gastric bypass with established laparoscopic and, in some centers, robotic-assisted techniques. Because nutrient absorption is altered, patients require lifelong vitamin and mineral supplementation along with regular follow-up monitoring after returning home."
+			},
+			{
+				"name": "Adjustable Gastric Band",
+				"image": "/media/treatments/db8d045349b28565582e.png",
+				"description": "Adjustable gastric band surgery, sometimes known by the brand name lap-band, is a restrictive weight-loss procedure in which a silicone band is placed laparoscopically around the upper part of the stomach to create a small pouch above it, limiting the amount of food that can be eaten before a feeling of fullness sets in. The band is connected by thin tubing to a port placed just beneath the skin of the abdomen, allowing the surgeon to adjust its tightness after surgery by injecting or withdrawing saline, fine-tuning the level of restriction over time based on the patient's weight-loss progress and comfort. Unlike sleeve gastrectomy or gastric bypass, no stomach or intestinal tissue is cut, stapled, or rerouted, making the procedure reversible and generally quicker to perform, usually under an hour under general anesthesia. It is typically considered for patients seeking a less invasive, adjustable option, though weight loss tends to be more gradual and dependent on regular follow-up adjustments than with other bariatric procedures. Indian bariatric centers offer gastric banding alongside newer techniques, allowing surgeons to advise on suitability based on individual goals. Long-term success requires consistent dietary habits and periodic band adjustment visits, along with monitoring for band-related complications such as slippage or erosion."
+			},
+			{
+				"name": "Allurion Gastric Balloon (Non-Surgical)",
+				"image": "/media/treatments/de60dc4c5e44dcc7049f.png",
+				"description": "The Allurion gastric balloon is a non-surgical, swallowable weight-loss device consisting of a thin capsule attached to a fine tube, which the patient swallows under physician supervision without the need for endoscopy or anesthesia. Once the capsule reaches the stomach, its position is confirmed by X-ray, and the balloon inside is filled with fluid through the attached tube, which is then gently withdrawn, leaving the balloon to float freely in the stomach where it occupies space and promotes an earlier sense of fullness with smaller meals. The balloon is designed to remain in place for a set period, typically around four months, after which its valve degrades naturally and it empties and passes out of the body on its own, without requiring a removal procedure. It is generally suited to patients with a lower degree of excess weight who prefer a temporary, non-invasive option or who are not candidates for surgery, and it is usually combined with a structured nutrition and lifestyle coaching program to support results. Indian weight-management clinics offering this device typically provide the placement procedure along with dietary guidance over the balloon's duration. Because no anesthesia or incision is involved, patients can generally resume normal activity within a day of placement."
+			},
+			{
+				"name": "Biliopancreatic Diversion",
+				"image": "/media/treatments/552eb05d2c11d0f1d2eb.png",
+				"description": "Biliopancreatic diversion, often performed with a duodenal switch, is one of the more complex and powerful bariatric procedures, combining a sleeve gastrectomy with a significant rerouting of the small intestine to substantially limit calorie and nutrient absorption. The surgeon first creates a sleeve-shaped stomach similar to a standard sleeve gastrectomy, then divides the small intestine so that food travels through only a short common channel where it mixes with bile and pancreatic digestive juices, meaning most of the small intestine's absorptive length is bypassed for calories and fat in particular. This produces greater and more durable weight loss than sleeve gastrectomy or gastric bypass alone and can markedly improve type 2 diabetes, but it also carries a higher risk of nutrient and vitamin deficiencies, requiring strict lifelong supplementation and monitoring. It is generally reserved for patients with very high body mass index or severe obesity-related metabolic disease who have not responded adequately to other approaches. Performed laparoscopically under general anesthesia, the operation typically takes three to four hours given its technical complexity. Indian bariatric centers offering this procedure usually reserve it for carefully selected patients after thorough metabolic and nutritional evaluation, with close long-term follow-up to manage its more demanding nutritional requirements."
+			}
+		],
+		"benefits": [
+			"Laparoscopic (minimally invasive) bariatric surgery as standard",
+			"Structured pre-op and post-op dietary and lifestyle counseling",
+			"Typical hospital stay of just 2–3 days for sleeve gastrectomy",
+			"Long-term follow-up support to track weight loss progress"
+		],
+		"flagshipProcedure": "Laparoscopic Sleeve Gastrectomy",
+		"packagePrice": 4500,
+		"totalTripDays": 14,
+		"stayDuration": {
+			"patient": {
+				"icuDays": 0,
+				"roomDays": 3,
+				"totalDays": 3
+			}
+		},
+		"costComparison": [
+			{
+				"country": "USA",
+				"cost": "USD 20,000 – 30,000",
+				"waitTime": "3–6 weeks",
+				"successRate": "90–95%"
+			},
+			{
+				"country": "UK",
+				"cost": "USD 12,000 – 18,000",
+				"waitTime": "6–12 months (NHS)",
+				"successRate": "90–95%"
+			},
+			{
+				"country": "Germany",
+				"cost": "USD 10,000 – 15,000",
+				"waitTime": "4–8 weeks",
+				"successRate": "89–94%"
+			},
+			{
+				"country": "Thailand",
+				"cost": "USD 7,000 – 10,000",
+				"waitTime": "1–3 weeks",
+				"successRate": "88–93%"
+			},
+			{
+				"country": "India",
+				"cost": "USD 4,500 – 6,500",
+				"waitTime": "1–2 weeks",
+				"successRate": "92%+",
+				"highlight": true
+			}
+		],
+		"inclusions": [
+			"Pre-operative evaluation including endoscopy and fitness clearance",
+			"Dietician consultation and pre-op diet planning",
+			"Surgeon's and anesthetist's fees for the laparoscopic procedure",
+			"Operation theatre charges and standard surgical staplers/consumables",
+			"3 days of hospital stay including post-op monitoring",
+			"Discharge summary with a structured post-op diet progression plan"
+		],
+		"exclusions": [
+			"Hospital stay beyond the package duration",
+			"Revision surgery for a prior bariatric procedure done elsewhere",
+			"Plastic surgery for excess skin removal after major weight loss",
+			"Long-term nutritional supplements beyond the initial discharge kit",
+			"Treatment for unrelated conditions identified during pre-op screening",
+			"Re-operation for complications unrelated to the original procedure"
+		],
+		"faqs": [
+			{
+				"question": "What is the cost of gastric sleeve surgery in India?",
+				"answer": "A laparoscopic sleeve gastrectomy package in India starts from USD 4,500, around 80% less than in the US, and includes the pre-op work-up, surgery, hospital stay, and post-op diet plan."
+			},
+			{
+				"question": "Am I eligible for bariatric surgery?",
+				"answer": "Eligibility is generally based on BMI and related health conditions — share your height, weight, and any existing conditions through our contact form for a free eligibility review by our bariatric team."
+			},
+			{
+				"question": "How much weight can I expect to lose?",
+				"answer": "Most patients lose 60–70% of excess weight within 12–18 months after sleeve gastrectomy or bypass, though results vary based on the procedure chosen and adherence to the post-op diet and lifestyle plan."
+			},
+			{
+				"question": "How long is the hospital stay and recovery?",
+				"answer": "Most patients stay about 3 days in hospital and are advised to remain in India for roughly 10–14 days so the surgical team can confirm early recovery before you fly home."
+			},
+			{
+				"question": "Is the procedure done laparoscopically?",
+				"answer": "Yes, sleeve gastrectomy, gastric bypass, and balloon placement are all performed laparoscopically as standard, which typically means less pain and faster recovery than open surgery."
+			},
+			{
+				"question": "How do I get started?",
+				"answer": "Share your height, weight, and medical history through our contact form, and our bariatric coordinator will arrange a specialist eligibility review within 24 hours."
+			}
+		],
+		"_cmsVersion": 0,
+		"_cms": {
+			"source": "site",
+			"createdAt": 1793864997,
+			"updatedAt": 1793864997
+		}
+	},
 	"nephrology-urology": {
 		"slug": "nephrology-urology",
 		"name": "Nephrology & Urology",

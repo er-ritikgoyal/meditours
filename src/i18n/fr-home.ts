@@ -161,3 +161,55 @@ export const frCostComparison = {
 		'Hystérectomie',
 	],
 };
+
+export const frWhyChooseUs = {
+	badge: 'Pourquoi nous choisir',
+	title: 'Le choix de confiance pour',
+	highlight: 'les patients du monde entier',
+	subtitle:
+		"Des milliers de patients voyagent avec nous chaque année — voici ce qui rend l'expérience différente.",
+	reasons: [
+		{
+			icon: 'shield' as const,
+			title: 'Hôpitaux accrédités JCI et NABH',
+			description:
+				"Chaque hôpital partenaire répond aux mêmes normes d'accréditation reconnues par les patients du monde entier.",
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'piggyBank' as const,
+			title: 'Économisez jusqu\'à 80 % sur votre traitement',
+			description:
+				'Des soins de classe mondiale à une fraction des prix occidentaux, sans compromis sur la qualité ou la sécurité.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'mortarboard' as const,
+			title: 'Spécialistes formés à l\'international',
+			description:
+				'Notre comité médical sélectionne des chirurgiens formés et certifiés aux États-Unis, au Royaume-Uni et en Europe.',
+			theme: 'green' as const,
+		},
+		{
+			icon: 'compass' as const,
+			title: 'Accompagnement conciergerie de bout en bout',
+			description:
+				'Visas, vols, hébergement et traducteurs — un coordinateur unique gère tout votre parcours.',
+			theme: 'blue' as const,
+		},
+		{
+			icon: 'headset' as const,
+			title: 'Assistance multilingue 24h/24 et 7j/7',
+			description:
+				'Contactez votre équipe soignante à tout moment, dans votre langue, avant, pendant et après le traitement.',
+			theme: 'teal' as const,
+		},
+		{
+			icon: 'cash' as const,
+			title: 'Coûts transparents, sans frais cachés',
+			description:
+				'Un devis unique couvre votre traitement — aucune facture surprise à votre arrivée.',
+			theme: 'green' as const,
+		},
+	],
+};

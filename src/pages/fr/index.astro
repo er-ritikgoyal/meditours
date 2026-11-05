@@ -3,7 +3,7 @@ import { doctorVideoUrls } from '../../data/doctors';
 import HeroSection from '../../components/HeroSection.astro';
 import Achievements from '../../components/Achievements.astro';
 import TravelProcess from '../../components/TravelProcess.astro';
-import OurDoctors from '../../components/OurDoctors.astro';
+import WhyChooseUs from '../../components/WhyChooseUs.astro';
 import DoctorsVideoCarousel from '../../components/DoctorsVideoCarousel.astro';
 import OurPartnerHospitals from '../../components/OurPartnerHospitals.astro';
 import TreatmentCostComparison from '../../components/TreatmentCostComparison.astro';
@@ -12,7 +12,7 @@ import SupportServices from '../../components/SupportServices.astro';
 import Layout from '../../layouts/Layout.astro';
 import { fr } from '../../i18n/fr';
 import { frAbout } from '../../i18n/fr-pages';
-import { frDoctors, frPartnerHospitalsHome, frSupportServices, frTravelProcess, frCostComparison } from '../../i18n/fr-home';
+import { frPartnerHospitalsHome, frSupportServices, frTravelProcess, frCostComparison, frWhyChooseUs } from '../../i18n/fr-home';
 import { doctors as defaultDoctors } from '../../data/doctors';
 import { translateDoctors } from '../../i18n/doctorsTranslate';
 import { frDoctorsTr } from '../../i18n/fr-doctors';
@@ -20,8 +20,6 @@ import { hospitals } from '../../data/hospitals';
 import { translateHospitals } from '../../i18n/fr-hospitals';
 
 const frenchHospitals = translateHospitals(hospitals.slice(0, 4));
-
-const frenchDoctors = defaultDoctors.map((doctor, i) => ({ ...doctor, ...frDoctors.doctors[i] }));
 
 const videoEntries = translateDoctors(defaultDoctors, frDoctorsTr)
 	.flatMap((doctor) => doctorVideoUrls(doctor).map((videoUrl) => ({ doctor, videoUrl })));
@@ -59,17 +57,12 @@ const videoEntries = translateDoctors(defaultDoctors, frDoctorsTr)
 			accreditedHospitals: 'Hôpitaux accrédités',
 		}}
 	/>
-	<OurDoctors
-		basePath="/fr"
-		badge={frDoctors.badge}
-		title={frDoctors.title}
-		highlight={frDoctors.highlight}
-		subtitle={frDoctors.subtitle}
-		doctors={translateDoctors(frenchDoctors, frDoctorsTr)}
-		yearsExpLabel={frDoctors.yearsExpLabel}
-		reviewsLabel={frDoctors.reviewsLabel}
-		contactLabel={frDoctors.contactLabel}
-		verifiedLabel={frDoctors.verifiedLabel}
+	<WhyChooseUs
+		badge={frWhyChooseUs.badge}
+		title={frWhyChooseUs.title}
+		highlight={frWhyChooseUs.highlight}
+		subtitle={frWhyChooseUs.subtitle}
+		reasons={frWhyChooseUs.reasons}
 	/>
 	<DoctorsVideoCarousel
 		badge="Rencontrez nos spécialistes"
